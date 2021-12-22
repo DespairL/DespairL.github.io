@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":"auto","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -99,6 +99,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -113,9 +114,19 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -123,20 +134,48 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main class="main">
@@ -175,7 +214,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-22 21:09:48 / Modified: 22:08:15" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
+              <time title="Created: 2021-12-22 21:09:48 / Modified: 23:10:43" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
             </span>
 
           
@@ -208,7 +247,9 @@
 </ul></li>
 <li><p>由于<span class="math inline">\(D\)</span>是分布<span class="math inline">\(\mathcal{D}\)</span>的独立同分布采样，因此，<span class="math inline">\(\mathbb{E}[\hat{E}(h;D)] = E(h;\mathcal{D})\)</span>,对于<span class="math inline">\(E(h;\mathcal{D})\)</span>有一个上限<span class="math inline">\(\epsilon\)</span> ,称其为误差参数。</p></li>
 </ul>
-
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -252,7 +293,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-22 15:58:41 / Modified: 19:41:39" itemprop="dateCreated datePublished" datetime="2021-12-22T15:58:41+08:00">2021-12-22</time>
+              <time title="Created: 2021-12-22 15:58:41 / Modified: 23:09:04" itemprop="dateCreated datePublished" datetime="2021-12-22T15:58:41+08:00">2021-12-22</time>
             </span>
 
           
@@ -285,135 +326,9 @@
 </ul></li>
 </ul></li>
 </ul>
-<h5 id="k-摇臂赌博机">K-摇臂赌博机</h5>
-<ul>
-<li>强化学习任务需要在多步动作之后，才能看到最终奖赏，考虑简单情况，就是最大化单步奖赏。要最大化单步奖赏，我们不仅要知道每个动作带来的奖赏，还要执行奖赏最大的动作。但是动作的奖赏通常都是取自一个概率分布，无法通过单次尝试获得平均奖赏值。</li>
-<li>K-摇臂赌博机描述了单步强化学习任务的过程：K-摇臂赌博机有k个摇臂，投入一个硬币可以按下一个摇臂，每个摇臂以一定概率（不可知）吐出硬币。</li>
-<li>对于这种情况，一般有两种策略：
-<ul>
-<li>探索——估计摇臂的优劣：即平均给每个摇臂投硬币，得到概率的近似解</li>
-<li>利用——选择当前最优的摇臂。</li>
-<li>由于总尝试次数有限，因此，侧重于任何一方都会削弱另外一方。这也就是强化学习面临的“探索-利用窘境”。想要达到最大的累计奖赏，就必须在探索与利用之间达成较好的折中。</li>
-</ul></li>
-</ul>
-<h5 id="epsilon贪心策略"><span class="math inline">\(\epsilon\)</span>贪心策略</h5>
-<ul>
-<li><p><span class="math inline">\(\epsilon\)</span>贪心法基于一个概率来对探索以及利用过程进行折中：</p>
-<ul>
-<li><p>每次尝试时，以<span class="math inline">\(\epsilon\)</span>概率进行探索，选择一个摇臂；以<span class="math inline">\(1-\epsilon\)</span> 的概率选择当前平均奖赏最高的摇臂（多个采取随机选择）。</p></li>
-<li><p>则平均奖赏可以记录为 <span class="math display">\[
-  Q(k) = \frac{1}{n} \sum_{i=1}^n v_i
-  \]</span> <span class="math inline">\(v_i\)</span>为每次返回的奖赏,需要记录n个奖赏值。</p></li>
-<li><p>一种更为高效的办法是对均值进行增量式计算，即每尝试一次就更新<span class="math inline">\(Q\)</span>,设定用下标记录尝试次数,<span class="math inline">\(Q_i\)</span>表示i次尝试之后的平均奖赏，更新公式如下: <span class="math display">\[
-  Q_n(k) = \frac{1}{n} ((n-1)\times Q_{n-1}(k) + v_n)
-  \]</span> 也就只需要记录每个摇臂的尝试次数n，以及平均奖赏<span class="math inline">\(Q_i(k)\)</span></p></li>
-<li><p>其中，通过调整<span class="math inline">\(\epsilon\)</span>的大小，可以调整探索以及利用的比率。当迭代较多次之后，可以考虑增大利用的比率。</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700300.png" alt="image-20211222170052246" style="zoom:50%;" /></p></li>
-</ul></li>
-</ul>
-<h5 id="softmax算法">Softmax算法</h5>
-<ul>
-<li><p>Softmax算法基于已知的摇臂平均奖赏来对探索以及利用进行折中，通过摇臂平均奖赏计算摇臂被选取的概率(基于Boltzmann分布)，且正相关： <span class="math display">\[
-  P(k) = \frac{e^{\frac{Q(k)}{\tau}}}{\sum_{i=1}^K e^{\frac{Q(i)}{\tau}}}
-  \]</span> 其中<span class="math inline">\(\tau\)</span>是可以自设定的参数，越高则平均奖赏越高的摇臂被选取的概率越高，也就是越趋向于“仅利用”。</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700202.png" alt="image-20211222170036149" style="zoom:50%;" /></p></li>
-<li><p>Softmax算法以及<span class="math inline">\(\epsilon\)</span>贪心法孰优孰劣看具体应用。</p></li>
-</ul>
-<h5 id="有模型学习">有模型学习</h5>
-<ul>
-<li>有模型学习描述的是指马尔可夫决策过程总环境<span class="math inline">\(E=&lt;X,A,P,R&gt;\)</span>已知的情况,也就是说一个状态<span class="math inline">\(x\)</span>经过动作<span class="math inline">\(a\)</span>转移到<span class="math inline">\(x^\prime\)</span>的概率<span class="math inline">\(P_a\)</span>,以及reward<span class="math inline">\(R_a\)</span>都是已知的。</li>
-</ul>
-<h6 id="策略评估">策略评估</h6>
-<ul>
-<li><p>在模型已知的情况下，对于任意的策略<span class="math inline">\(\pi\)</span>,都可以估计出该策略带来的期望累计奖赏。</p></li>
-<li><p>定义一些函数如下：</p>
-<ul>
-<li><span class="math inline">\(V^{\pi}(x)\)</span>表示从状态<span class="math inline">\(x\)</span>出发采用策略<span class="math inline">\(\pi\)</span>带来的累计奖赏
-<ul>
-<li><span class="math inline">\(V(\cdot)\)</span>是状态值函数</li>
-</ul></li>
-<li><span class="math inline">\(Q^{\pi}(x,a)\)</span>表示从状态出发，执行动作a之后再使用策略<span class="math inline">\(\pi\)</span>的累计奖赏
-<ul>
-<li><span class="math inline">\(Q(\cdot)\)</span>是一个状态-动作值函数</li>
-</ul></li>
-<li>累计奖赏都用T步累计奖赏、<span class="math inline">\(\gamma\)</span>折扣累计奖赏进行计算。</li>
-</ul></li>
-<li><p>由于MDP具有马尔可夫性质，因此系统下一时刻的状态仅有当前的状态决定，不依赖任何以往的状态，也就是说，我们可以将上述函数写成递归等式的形式（这也被称为Bellman等式）:</p>
-<ul>
-<li>对于T步累计奖赏有</li>
-</ul>
-<p><span class="math display">\[
-  V^{\pi}_T(x) = \sum_{a\in A} \pi(x,a)\sum_{x^\prime\in X}P^a_{x\rightarrow x^\prime} (\frac{1}{T} R^a_{x\rightarrow x^\prime} + \frac{T-1}{T}V^{\pi}_{T-1}(x^\prime)) (16.7)
-  \]</span></p>
-<ul>
-<li>对于<span class="math inline">\(\gamma\)</span>折扣累计奖赏有 <span class="math display">\[
-  V^{\pi}_{\gamma}(x) = \sum_{a\in A} \pi(x,a)\sum_{x^\prime\in X}P^a_{x\rightarrow x^\prime} ( R^a_{x\rightarrow x^\prime} + \gamma V^{\pi}_{\gamma}(x^\prime))   (16.8)
-  \]</span></li>
-</ul></li>
-<li><p>那么对于策略评估算法有</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835924.png" alt="image-20211222183501861" style="zoom:50%;" /></p></li>
-<li><p>对于<span class="math inline">\(\gamma\)</span>折扣累计奖赏,可以作出更改如下:</p>
-<p>需要设定阈值的原因是，基于T步累计奖赏的策略评估算法的动态规划过程是从T-&gt;0,而基于<span class="math inline">\(\gamma\)</span>折扣累计奖赏的策略评估算法的动态规划过程是从<span class="math inline">\(0-&gt;+\infty\)</span></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835754.png" alt="image-20211222183558680" style="zoom:50%;" /></p></li>
-</ul>
-<h5 id="策略改进">策略改进</h5>
-<ul>
-<li><p>评估完某一个策略的累计奖赏之后，我们希望对其进行改进，即求解下列优化问题 <span class="math display">\[
-  \pi^* = \arg\max_{\pi} \sum_{x\in X} V^{\pi} (x)
-  \]</span> 对于最优策略，定义最优值函数<span class="math inline">\(V^*(x) = V^{\pi^*}(x),\forall x\in X\)</span> ,不过对于策略空间含有约束的情况下，还需要考虑在最优值函数尽可能大的情况下，满足约束。</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221843751.png" alt="image-20211222184325665" style="zoom:50%;" /></p></li>
-<li><p>最优bellman等式的含义就是在每一次策略选择的时候，都选择当前最优的动作，其理论保证在于下图推导，不妨假设选择最优动作之后的策略是<span class="math inline">\(\pi^\prime\)</span> ,而改变动作的条件在于<span class="math inline">\(Q^\pi(x,\pi^i(x)) \ge V^\pi (x)\)</span>：</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221848055.png" alt="image-20211222184846009" style="zoom:50%;" /> <span class="math display">\[
-   = V^{\pi^\prime}(x)
-  \]</span> 也就是说，每一步动作的选择都保证了值函数的增大,因此可以已知选取当前的最优动作，直到<span class="math inline">\(\pi^\prime = \pi\)</span>。</p></li>
-</ul>
-<h5 id="策略迭代">策略迭代</h5>
-<ul>
-<li><p>将策略评估以及策略优化结合起来，就可以得到策略迭代过程。</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221857066.png" alt="image-20211222185737994" style="zoom:50%;" /></p>
-<p>上述的策略迭代过程由于每次改进策略之后，都要重新进行策略评估，因此比较耗时。</p>
-<p>注意到策略改进的过程与值改善的过程是一致的，因此可以更改成为以下的值迭代算法。</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221859783.png" alt="image-20211222185928712" style="zoom:50%;" /></p></li>
-</ul>
-<h4 id="免模型学习">免模型学习</h4>
-<h5 id="蒙特卡洛强化学习">蒙特卡洛强化学习</h5>
-<ul>
-<li><p>免模型学习是指环境并不完全知悉，导致无法进行有模型学习时的策略迭代过程。针对这样的环境，我们可以通过多次采样，求取平均累计奖赏来作为期望累积奖赏的近似，这也就是蒙特卡洛强化学习的过程。</p></li>
-<li><p>由于采样有限次，因此适合使用<span class="math inline">\(T\)</span>步累计奖赏的强化学习。</p></li>
-<li><p>另外，蒙特卡洛强化学习的估计对象从值函数<span class="math inline">\(V(\cdot)\)</span>转变为了状态动作函数<span class="math inline">\(Q(\cdot)\)</span></p></li>
-<li><p>为了能够多次采样出不同的轨迹，可以引入<span class="math inline">\(\epsilon\)</span>-贪心策略进行策略选取，将原来确定性的策略<span class="math inline">\(\pi\)</span>转变为了<span class="math inline">\(\pi^{\epsilon}\)</span> 策略。</p></li>
-<li><p>注意到引入<span class="math inline">\(\epsilon\)</span>-贪心策略并不会影响选取当前最优的动作构成的策略优化算法的正确性，因为，从已经最大化了值函数的原始策略<span class="math inline">\(\pi^\prime\)</span>中分出<span class="math inline">\(\epsilon\)</span>的概率给其他动作，仍然是原始策略<span class="math inline">\(\pi^\prime\)</span>中的最优动作可以最大化值函数。</p></li>
-<li><p>如果评估与优化的都是同一个值函数，就可以得到同策略蒙特卡洛强化学习</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221917760.png" alt="image-20211222191729674" style="zoom:50%;" /></p></li>
-<li><p>但是，由于同策略蒙特卡洛强化学习最终产生的是<span class="math inline">\(\epsilon\)</span>-贪心策略,我们更希望在策略评估的过程中引入<span class="math inline">\(\epsilon\)</span>-贪心策略，而在策略改进时只改进原始策略。</p></li>
-<li><p>这里插入一个重要性采样(importance sampling)的概念：</p>
-<p>对于另一个分布<span class="math inline">\(q\)</span>,函数<span class="math inline">\(f\)</span>在概率<span class="math inline">\(p\)</span>下的期望为： <span class="math display">\[
-  \mathbb{E}[f] = \int_x q(x) \frac{p(x)}{q(x)} f(x)dx
-  \]</span> 用采样离散化： <span class="math display">\[
-  \hat{\mathbb{E}}[f] = \frac{1}{m} \sum_{i=1}^m \frac{p(x_i^\prime)}{q(x_i^\prime)} f(x_i^\prime)
-  \]</span> 那么，对于贪心策略<span class="math inline">\(\pi^\prime\)</span>以及原始策略<span class="math inline">\(\pi\)</span>给出的两条轨迹<span class="math inline">\(i\)</span>的概率<span class="math inline">\(P_i^\pi,P_i^{\pi^\prime}\)</span>, <span class="math display">\[
-  P^\pi = \prod_{i=0}^{T-1} \pi(x_i,a_i) P_{x_i \rightarrow x_{i+1}}^{a_i}\\
-  P_i^{\pi^\prime} = \prod_{i=0}^{T-1} \pi^\prime(x_i,a_i) P_{x_i \rightarrow x_{i+1}}^{a_i}\\
-  Q(x,a) = \frac{1}{m} \sum_{i=1}^m \frac{P^\pi}{P_i^{\pi^\prime}} r_i\\
-      = \frac{1}{m} \sum_{i=1}^m \prod_{i=0}^{T-1} \frac{\pi(x_i,a_i)}{\pi^\prime(x_i,a_i)} r_i \\
-      \pi(x_i,a_i) = 1\\
-      \pi^\prime(x_i,a_i) =\frac{\epsilon}{|A|} \ or\ 1-\epsilon + \frac{\epsilon}{|A|}
-  \]</span> <img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221930008.png" alt="image-20211222193032924" style="zoom:50%;" /></p></li>
-</ul>
-<h5 id="时序差分学习">时序差分学习</h5>
-<ul>
-<li><p>蒙特卡洛强化学习在进行完整的采样之后再进行状态-动作对的更新，可以将这个过程化为增量化的更新。</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221940826.png" alt="image-20211222194010746" style="zoom:50%;" /></p></li>
-<li><p>Sarsa算法(同策略算法，评估执行的都是<span class="math inline">\(\epsilon\)</span>贪心策略):</p>
-<ul>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941491.png" alt="image-20211222194118419" style="zoom:50%;" /></li>
-</ul></li>
-<li><p>Q-learning算法(异策略算法,评估<span class="math inline">\(\epsilon\)</span>贪心策略,执行原始策略):</p>
-<ul>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941783.png" alt="image-20211222194130693" style="zoom:50%;" /></li>
-</ul></li>
-</ul>
-
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -457,7 +372,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-22 10:44:57 / Modified: 15:58:38" itemprop="dateCreated datePublished" datetime="2021-12-22T10:44:57+08:00">2021-12-22</time>
+              <time title="Created: 2021-12-22 10:44:57 / Modified: 23:10:35" itemprop="dateCreated datePublished" datetime="2021-12-22T10:44:57+08:00">2021-12-22</time>
             </span>
 
           
@@ -474,163 +389,14 @@
           <h4 id="半监督学习">半监督学习</h4>
 <h5 id="未标记样本">未标记样本</h5>
 <ul>
-<li>显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。</li>
-<li>为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。</li>
-<li>基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据<span class="math inline">\(D_l\)</span>训练出一个学习器，然后让这个学习器对unlabel的数据进行预测，将预测结果人工检查好不好，再加入到有标记样本中进行训练。每次我们都挑选出对改善模型性能有帮助的瓜，那么，就只需要人工检查较少次数就可以构建出性能比较好的模型，从而降低成本。这也符合了它的目的：用尽量少的查询获得尽量好的性能。</li>
-<li>但是主动学习仍然借助了专家的知识，如果能让学习器不依赖外界知识，自动利用<span class="math inline">\(D_u\)</span> 数据，那就是半监督学习(semi-supervised learning)的学习目标了。</li>
-<li>想要做到这一点，一个问题就浮现了：如何揭示未标记样本所包含的数据分布信息并将其与label相联系？
-<ul>
-<li>为了解决这个问题，提出了几个假设：
-<ul>
-<li>聚类假设（cluster assumption）:
-<ul>
-<li>假设数据有簇结构，同一个簇的样本属于同一个类别</li>
-</ul></li>
-<li>流形假设（manifold assumption）:
-<ul>
-<li>假设数据分布在一个流形结构上，邻近的样本拥有相似的输出值</li>
-<li>它与聚类假设的本质都是相似的样本有相似的输出</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li>半监督学习又可以进一步划分为纯半监督学习、直推学习。
-<ul>
-<li>纯半监督学习认为未标记样本并不一定是待预测的数据。（open-world assumption）这个认定也就意味着纯半监督学习可以对测试样本进行预测。</li>
-<li>而直推学习则认为未标记样本就是待预测的数据。（closed-world assumption）</li>
-</ul></li>
-</ul>
-<h5 id="生成式方法">生成式方法</h5>
-<ul>
-<li><p>基于生成式模型，认为所有数据都是同一个潜在模型生成的，未标记样本的label是模型的缺失参数，可以基于EM算法进行极大似然法求解。</p></li>
-<li><p>给定一个样本<span class="math inline">\(x\)</span>,其真实类别标记为<span class="math inline">\(y \in \mathcal{Y}\)</span> ,假设样本由高斯混合模型生成，并且每个类别对应一个高斯混合成分，也就是说： <span class="math display">\[
-  p (x) = \sum_{i=1}^N \alpha_i \cdot p(x|\mu_i,\Sigma_i)
-  \]</span> 其中<span class="math inline">\(\alpha_i \ge 0,\sum_{i=1}^k \alpha_i = 1\)</span>,<span class="math inline">\(p(x|\mu_i,\Sigma_i)\)</span>表示样本<span class="math inline">\(x\)</span>属于第<span class="math inline">\(i\)</span>个高斯混合成分。</p></li>
-<li><p>如果接着假设<span class="math inline">\(f(x)\)</span>是模型<span class="math inline">\(f\)</span>对样本<span class="math inline">\(x\)</span>的预测标记，用<span class="math inline">\(\Theta\in\{1,2,...,N\}\)</span>表示样本隶属的高斯混合成分，按照最大化后验概率的想法，有： <span class="math display">\[
-  f(x) = \arg\max_{j\in\mathcal{Y}} p(y=j|x) \\
-   = \arg\max_{j\in\mathcal{Y}} \sum_{i=1}^N p(y=j,\Theta=i|x) \\
-   = \arg\max_{j\in\mathcal{Y}} \sum_{i=1}^N p(y=j|\Theta=i,x) \cdot p(\Theta=i|x) \\
-   p(\Theta=i|x) = \frac{\alpha_i \cdot p(x|\mu_i,\Sigma_i)}{\sum_{i=1}^N \alpha_i \cdot p(x|\mu_i,\Sigma_i)}
-  \]</span> <span class="math inline">\(p(\Theta=i|x)\)</span>表示的是样本<span class="math inline">\(x\)</span>由第i个高斯混合成分生成的后验概率</p>
-<p><span class="math inline">\(p(y=j|\Theta=i,x)\)</span>表示的是样本<span class="math inline">\(x\)</span>由第i个高斯混合成分生成且属于类别j的概率。</p>
-<p>再假设类别与高斯混合成分相对应的情况下，只有当<span class="math inline">\(i=j\)</span>的时候，<span class="math inline">\(p(y=j|\Theta=i,x)=1\)</span> ,otherwise,为0.</p></li>
-<li><p>对于上面的式子，由于<span class="math inline">\(p(y=j|\Theta=i,x)\)</span>与样本挂钩，<span class="math inline">\(p(\Theta=i|x)\)</span>与样本无关。因此估计<span class="math inline">\(p(\Theta=i|x)\)</span>的时候可以使用未标记样本,也就可以辅助预测<span class="math inline">\(f(x)\)</span>。</p></li>
-<li><p>极大似然法求解过程：</p>
-<ul>
-<li><p><span class="math display">\[
-  LL(D_l \cup D_u) =  \sum_{x} \ln(\sum_{i=1}^N p(y=j|\Theta=i,x) \cdot p(\Theta=i|x)) \\
-  = \sum_{(x_j,y_j)\in D_l} \ln \sum_{i=1}^N \alpha_i  \cdot p(x|\mu_i,\Sigma_i) \cdot p(y=j|\Theta=i,x) + \\
-      \sum_{x_j\in D_u} \ln \sum_{i=1}^N \alpha_i  \cdot p(x|\mu_i,\Sigma_i)
-  \]</span></p>
-<p>拆分为了与数据label有关的一项以及与数据label无关的一项。</p>
-<p>与数据label有关的一项利用<span class="math inline">\(D_l\)</span>进行训练，与数据label无关的一项利用<span class="math inline">\(D_u\)</span>进行训练</p></li>
-<li><p>接下来就需要用EM算法进行求解。</p></li>
-</ul></li>
-<li><p>但是这种方法存在一个缺陷就是只有在假设的数据分布与真实的数据分布吻合的情况下才有效，否则利用未标记数据会降低泛化性能，这也是现实中很难做到的事情。</p></li>
-<li><p>(*)高斯混合分布：</p>
-<ul>
-<li><p><span class="math display">\[
-  p_M(x) = \sum_{i=1}^k \alpha_i \cdot p(x|\mu_i,\Sigma_i)
-  \]</span></p></li>
-<li><p>k个混合成为组成，每个混合成分对应一个高斯分布。<span class="math inline">\(\alpha_i \ge 0,\sum_{i=1}^k \alpha_i = 1\)</span>是混合系数。</p></li>
-<li><p>高斯分布:</p>
-<ul>
-<li><span class="math display">\[
-  p(x) = \frac{1}{(2\pi)^{\frac{n}{2}} |\Sigma|^{\frac{1}{2}}} e^{-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x-\mu)}
-  \]</span></li>
-</ul></li>
-</ul></li>
-<li></li>
-<li><p>(*)EM算法 review:</p>
-<ul>
-<li><p>在西瓜书的推导中，将上述提到的<span class="math inline">\(p(\Theta=i|x)\)</span>记为<span class="math inline">\(\gamma_{i}\)</span> ,显然由最大化后验概率可知，对于样本<span class="math inline">\(x_j\)</span>的簇标记<span class="math inline">\(\lambda_j\)</span>由<span class="math inline">\(\arg\max \gamma_{ji}\)</span>确定。计算<span class="math inline">\(\gamma_{ji}\)</span>的过程,即计算样本<span class="math inline">\(x_j\)</span>属于各个高斯混合概率的概率就是E步。</p>
-<p>下面根据计算的<span class="math inline">\(\gamma_{ji}\)</span>更新参数<span class="math inline">\(\alpha_i,\mu_i,\Sigma_i\)</span>,就是M步。</p></li>
-<li><p>由极大似然可推知: <span class="math display">\[
-  LL(D) = \ln(\prod_{j=1}^m p_M(x_j)) \\ 
-       = \sum_{j=1}^m \ln (\sum_{i=1}^k \alpha_i \cdot p(x|\mu_i,\Sigma_i))
-  \]</span> 我们要学习的是<span class="math inline">\(\alpha_i,\mu_i,\Sigma_i\)</span></p>
-<p>由<span class="math inline">\(\frac{\partial LL(D)}{\partial \mu_i} = 0\)</span>可知 <span class="math display">\[
-  \frac{d (\frac{1}{(2\pi)^{\frac{n}{2}} |\Sigma|^{\frac{1}{2}}} e^{-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x-\mu)})}{d \mu_i} \sum_{j=1}^m \frac{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i)}{\sum_{l=1}^k \alpha_l \cdot p(x|\mu_l,\Sigma_l)} = 0 \ (1)\\ 
-  \sum_{j=1}^m \frac{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i)}{\sum_{l=1}^k \alpha_l \cdot p(x|\mu_l,\Sigma_l)} (x_j - \mu_i) = 0 \ (2)\\
-  \sum_{j=1}^m \gamma_{ji} (x_j - \mu_i) = 0 \\
-  \mu_i = \frac{\sum_{j=1}^m \gamma_{ji} x_j}{\sum_{j=1}^m \gamma_{ji}}
-  \]</span> 注意的是，(1)式的导数在约去所有大于零的部分以及参数部分就可以转换为(2)式。</p>
-<p>同理，按照<span class="math inline">\(\frac{\partial LL(D)}{\partial \Sigma_i} = 0\)</span>可知 <span class="math display">\[
-  \Sigma_i = \frac{\sum_{j=1}^m \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^m \gamma_{ji}}
-  \]</span> 对于混合系数<span class="math inline">\(\alpha_i\)</span>,我们需要用拉格朗日乘子法， <span class="math display">\[
-  LL(D) + \lambda(\sum_{i=1}^k \alpha_i -1)
-  \]</span> 对上式进行对<span class="math inline">\(\alpha_i\)</span>进行求偏导为0 <span class="math display">\[
-  \sum_{j=1}^m \gamma_{ji} + \alpha_i \lambda = 0 \\
-  \sum_{i=1}^m(\sum_{j=1}^m \gamma_{ji} + \alpha_i \lambda) = m + \lambda = 0\\
-  \lambda = -m \\
-  \alpha_i = \frac{\sum_{j=1}^m \gamma_{ji}}{m}
-  \]</span></p></li>
-</ul></li>
-</ul>
-<h5 id="半监督svm">半监督SVM</h5>
-<ul>
-<li>半监督SVM是在SVM的基础上，将两类有标记样本切开并且倾向于穿过数据低密度区域。</li>
-<li>半监督SVM最著名的TSVM,TSVM针对二分类，想法是尝试将每个未标记样本作为正例或者反例，在所有可能的结果中，找到一个在所有样本中间隔最大化的划分超平面。划分超平面确定，则样本的划分标签确定。</li>
-<li></li>
-</ul>
-<h5 id="图半监督学习">图半监督学习</h5>
-<ul>
-<li><p>图半监督学习的想法是给定一个数据集，将其映射为一个图，每个样本对应于图中的一个结点，如果两个样本之间的相似度很高，那么两个节点之间不仅有边，并且边的权重也很高。</p>
-<p>并且，对于有标记样本，我们将其建模为染过色的结点，未标记样本则是未染色的结点。那么，半监督学习的过程就是颜色在图上传播的过程。</p></li>
-<li><p>要让图可训练，我们需要将其构建为一个矩阵，通常根据高斯函数定义affinity matrix(亲和矩阵): <span class="math display">\[
-  (\mathbf{W})_{ij} = \left\{
-  \begin{aligned}
-  &amp; \exp (\frac{-||x_i - x_j||_2^2}{2\sigma^2}) , if\ i\not=j\\
-  &amp; 0, otherwise
-  \end{aligned} 
-  \right.
-  \]</span> 同时基于相似的样本有相似的输出可以定义能量函数： <span class="math display">\[
-  E(f) = \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m (\mathbf{W})_{ij} (f(x_i) - f(x_j))^2 \\
-  = \mathbf{f}^T (\mathbf{D} - \mathbf{W}) \mathbf{f} \\
-  \mathbf{f} = (\mathbf{f}^T_l \mathbf{f}^T_u)^T \\
-  \mathbf{D} = diag(d_1,d_2,...,d_{u+l}),d_i = \sum_{j=1}^{l+u} (\mathbf{W})_{ij}
-  \]</span></p></li>
-<li></li>
-</ul>
-<h5 id="基于分歧的方法">基于分歧的方法</h5>
-<ul>
-<li><p>基于分歧的方法常使用多个学习器，而学习器之间的分歧对于未标记数据的利用有很大的借鉴意义。</p></li>
-<li><p>其重要代表是协同训练，它也是多视图学习的代表。</p>
-<ul>
-<li><p>其假设数据有两个充分且条件独立的视图。</p>
-<ul>
-<li>充分是指每个视图都包含足以产生最优学习器的信息。</li>
-<li>条件独立是指在给定类别条件的情况下，两个视图独立。</li>
-</ul></li>
-<li><p>其想法是在每个视图上基于有标记样本分别训练出一个分类器，然后挑选每个分类器对未标记样本正确概率最大的样本作为另一个分类器的有标记样本加入下一轮训练。但是这种想法需要在每轮学习中都考察分类器在所有未标记样本上的置信度，计算开销大。这个问题可以借助未标记样本缓冲池（一开始选择s个<span class="math inline">\(D_u\)</span>中的样本加入，每轮循环结束后，再选一些加入）进行解决。</p></li>
-<li><p>总过程伪代码：</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221451878.png" alt="image-20211222145112704" style="zoom:50%;" /></p></li>
-<li><p>在数据有两个充分且条件独立的视图的条件下，弱学习器的泛化能力可以提升到任意高。</p></li>
-</ul></li>
-<li><p>在后续研究中发现，数据拥有两个视图的假设并不重要，只需要弱学习器之间有明显差异即可，算法、视图、不同采样方式、不同参数都可以产生差异。</p></li>
-</ul>
-<h5 id="半监督学习-1">半监督学习</h5>
-<ul>
-<li>在现实聚类的过程中，我们常常可以获得一些额外的监督信息，因此，我们可以使用半监督聚类来利用监督信息以获得更好的聚类效果。</li>
-<li>监督信息大致有以下两类：
-<ul>
-<li>必连：样本必定属于同一个簇。</li>
-<li>勿连：样本必定不属于同一个簇。</li>
-<li>少量的有标记样本，即事先已经找到少量样本属于哪一个簇当中。</li>
-</ul></li>
-<li>典型代表是约束k均值算法：
-<ul>
-<li>其是k-mean是算法的拓展，是第一类监督信息的代表（勿连与必连）。需要保证勿连集合<span class="math inline">\(\mathcal{C}\)</span>以及必连集合<span class="math inline">\(\mathcal{M}\)</span>中的约束，即如果有<span class="math inline">\((x_i,x_j)\in\mathcal{M}\)</span>，那么<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>必定是同一类别的。</li>
-<li>其实就是k-mean算法的基础上加上判断每次样本<span class="math inline">\(x\)</span>与哪个均值向量<span class="math inline">\(u_i\)</span>最近，在划入之前，检查是否满足约束，如果不满足，就将样本<span class="math inline">\(x\)</span>加入次近的簇当中，再进行检查。</li>
-<li>如果始终找不到可以容纳样本<span class="math inline">\(x\)</span>的簇，则认为无法完成聚类，输出error。</li>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221527153.png" alt="image-20211222152740069" style="zoom:50%;" /></li>
-</ul></li>
-<li>利用第二类监督信息的代表是约束种子的k-means算法：
-<ul>
-<li>它的利用方式很容易理解，就是直接将已知簇标记的样本作为种子，初始化k-means的k个聚类中心，并且再聚类簇迭代的过程中始终不改变种子的标记。</li>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221537526.png" alt="image-20211222153753446" style="zoom:50%;" /></li>
-</ul></li>
-</ul>
-
+<li><p>显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。</p></li>
+<li><p>为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。</p></li>
+<li><p>基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据<span class="math inline">\(D_l\)</span>训练出一个学习器，然后让这个学习器对unlabel的数据进行预测，将预测结果人工检查好不好，再加入到有标记样本中进行训练。每次我们都挑选出对改善模型性能有帮助的瓜，那么，就只需要人工检查较少次数就可以构建出性能比较好的模型，从而降低成本。这也符合了它的目的：用尽量少的查询获得尽量好的性能。</p></li>
+<li><p>但是主动学习仍然借助了专家的知识，如果能让学习器不依赖外界知识，自动利用<span class="math inline">\(D_u\)</span> 数据，那就是半监督学习(semi-supervised learning)的学习目标了。</p>
+<p>
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -674,7 +440,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-12-22 10:42:39 / Modified: 10:44:13" itemprop="dateCreated datePublished" datetime="2021-12-22T10:42:39+08:00">2021-12-22</time>
+              <time title="Created: 2021-12-22 10:42:39 / Modified: 23:09:53" itemprop="dateCreated datePublished" datetime="2021-12-22T10:42:39+08:00">2021-12-22</time>
             </span>
 
           
@@ -701,125 +467,11 @@
 <li>产生初始特征候选子集 —— 子集搜索</li>
 <li>评价候选子集的好坏 —— 子集评价</li>
 <li>基于评价结果产生下一个候选子集</li>
-</ul></li>
-<li><p>其中的关键就是子集搜索以及子集评价:</p>
-<ul>
-<li><p>对于子集搜索:</p>
-<ul>
-<li>前向搜索：逐渐增加相关特征，如果增加特征后的子集优于上一轮的最优子集，那就继续，否则结束；</li>
-<li>后向搜索：从完整的特征集合开始，逐渐减少特征；</li>
-<li>双向搜索：每一轮逐渐增加相关特征，同时减少无关特征。</li>
-</ul></li>
-<li><p>对于子集评价:</p>
-<ul>
-<li><p>其思想在于如果特征子集划分的数据集与样本标记划分的数据集差异越小，就认为这种特征子集划分方法越好。</p></li>
-<li><p>可以用信息熵以及信息增益进行评价：</p>
-<ul>
-<li><p>定义第i类样本在D数据集中所占比例为<span class="math inline">\(p_i\)</span></p></li>
-<li><p><span class="math display">\[
-  Gain(A) = Ent(D) - \sum_{v=1}^{V} \frac{|D^v|}{|D|}Ent(D^v) \\
-  Ent(D) = - \sum_{i=1}^{|\mathcal{Y}|} p_k \log_2 p_k 
-  \]</span></p></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p>常见的特征选择方法：</p>
-<ul>
-<li><p>过滤式(filter)：</p>
-<ul>
-<li><p>先对数据集进行特征选择，再训练学习器，也就是对数据集中的初始特征进行了一个过滤操作，学习器的性能表现不作为反馈。</p></li>
-<li><p>相关方法——Relief:其想法是设计一个相关统计量向量，向量的一个维度都对应着样本的每一个特征，那么特征子集的重要性就是向量各维度的和。选择我们需要的特征子集的时候，只需要设定一个阈值<span class="math inline">\(t\)</span>,大于<span class="math inline">\(t\)</span>的都选即可。</p></li>
-<li><p>相关统计量如何设定呢？Relief的做法是对于训练集中的每个样本<span class="math inline">\(x_i\)</span>，在其同类样本中找到最近邻<span class="math inline">\(x_{i,nh}\)</span>作为猜中近邻(near-hit)，从异类样本中找到最近邻<span class="math inline">\(x_{i,nm}\)</span>作为猜错近邻(near-miss),那么相关统计量在属性j(第j维)上的表现就是： <span class="math display">\[
-  \delta^j = \sum_i -diff(x_i^j, x_{i,nh}^j)^2 + diff(x_i^j, x_{i,nm}^j)^2
-  \]</span></p></li>
-<li><p>根据属性j是否连续，<span class="math inline">\(diff(x_a^j,x_b^j)\)</span>的计算方式也有差别。连续：<span class="math inline">\(|x_a^j-x_b^j|\)</span>,离散：<span class="math inline">\(x_a^j==x_b^j? 0:1\)</span></p></li>
-<li><p>并且，上述式子表明如果属性j使得样本与其猜中近邻的距离小于样本与其猜错近邻的距离，那么，属性j对于区分样本类别是有益，我们给定的<span class="math inline">\(\delta^j\)</span>的值就是正的</p></li>
-<li><p>Relirf是线性时间的，速度快</p></li>
-<li><p>Relief针对二分类，多分类是Relief-F,其相关统计量的式子为: <span class="math display">\[
-  \delta^j = \sum_i -diff(x_i^j, x_{i,nh}^j)^2 + \sum_{l\not=k} p_l \times diff(x_i^j, x_{i,l,nm}^j)^2
-  \]</span> 可以看出只是一个简单拓展而已，也是通过衡量属性j能否使得样本与其猜中近邻的距离小于样本与其猜错近邻的距离，来判断属性j是否有益。</p></li>
-</ul></li>
-<li><p>包裹式(wrapper)</p>
-<ul>
-<li>将学习器的性能作为特征子集的评价标准，因此，其目的在于给定学习器选择最有利于其性能的特征子集。</li>
-<li>包裹式的性能常好于过滤式，但是由于需要训练多次，需要大量时间开销。</li>
-<li>LVW是一个典型代表：
-<ul>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211632108.png" alt="image-20211221163215946" style="zoom:50%;" /></li>
-<li>其过程可以概括为，每次选出一个随机的特征子集，训练返回loss，记录最小loss的特征子集，如果连续k次最小loss都不变，那么，认为我们选出了对于训练学习器而言最有效的特征子集。</li>
-<li>由于随机性的加入，LVW要么不给解，要么给出一个满足条件的解；而MC方法，一定给出解，但合适不合适不一定。</li>
-</ul></li>
-</ul></li>
-<li><p>嵌入式(embedding)</p>
-<ul>
-<li><p>嵌入式是将特征选择过程嵌入到学习器的训练过程当中，由学习器自动完成。</p></li>
-<li><p>对于一个简单的线性回归模型，以MSE作为loss，如果引入L2范数作为正则项，那么这就是岭回归问题；如果引入L1范数作为正则项，那么就是LASSO问题。他们都可以显著降低过拟合风险。</p></li>
-<li><p>对于引入L1范数作为正则项，其更容易产生稀疏解，求得的权重<span class="math inline">\(w\)</span>含有的非零项更少。观察下图L2范数与L1范数等值线的形状以及可能与平方误差等值线相交的点的位置可知,L1范数等值线与平方误差等值线相交的点更容易出现在坐标轴上。</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211642656.png" alt="image-20211221164227586" style="zoom:33%;" /></p></li>
-<li><p>因此，采用L1正则化进行训练，其实只用到了原始样本的一部分特征。L1正则化问题的求解可以使用近端梯度下降PGD。</p></li>
-<li><p>PGD(近端梯度下降，利用了假设f(x)满足L-lipschitz条件):</p>
-<ul>
-<li><p>对于一个呈形如下的优化问题： <span class="math display">\[
-  \min_x f(x)+\lambda ||x||_1
-  \]</span> 如果<span class="math inline">\(f(x)\)</span>可导，并且<span class="math inline">\(\nabla f\)</span>满足<span class="math inline">\(L-Lipschitz\)</span>条件，即存在常数<span class="math inline">\(L&gt;0\)</span>对于<span class="math inline">\(\forall x,x^\prime\)</span>使得 <span class="math display">\[
-  ||\nabla f(x^\prime) - \nabla f(x)||_2^2 \le L ||x^\prime - x||_2^2
-  \]</span></p></li>
-<li><p>将上式简单等价改写一下: <span class="math display">\[
-  \frac{\partial^2 f(x_k)}{\partial x_k^2} =  \frac{||\nabla f(x^\prime) - \nabla f(x)||_2^2}{||x^\prime - x||_2^2} \le L
-  \]</span></p></li>
-<li><p>对于<span class="math inline">\(f(x)\)</span>,在<span class="math inline">\(x_k\)</span>附近展开二阶泰勒展开： <span class="math display">\[
-  \hat{f}(x) = f(x_k) + &lt;\nabla f(x_k), x-x_k&gt; + \frac{1}{2}(x-x_k)^T \frac{\partial^2 f(x_k)}{\partial x_k^2} (x-x_k)\\ 
-      \approx f(x_k) + &lt;\nabla f(x_k), x-x_k&gt; + \frac{L}{2} ||x-x_k||^2
-  \]</span> 对上式将<span class="math inline">\(x-x_k\)</span>看成一个变量进行配方，我们就可以得到 <span class="math display">\[
-  \hat{f}(x) = \frac{L}{2} [(x-x_k)^2 + \frac{2}{L}\nabla f(x_k)(x-x_k) ] + f(x_k) \\
-      = \frac{L}{2} ||x - (x_k-\frac{1}{L}\nabla f(x_k))||^2 + const
-  \]</span> 它的最小值在<span class="math inline">\(x_{k+1}\)</span>处取得 <span class="math display">\[
-  x_{k+1} = x_k - \frac{1}{L}\nabla f(x_k)
-  \]</span> 代入到原优化问题，我们可以得知原问题就是每一轮梯度下降迭代求解 <span class="math display">\[
-  x_{k+1} = \arg \min_x \frac{L}{2} ||x - (x_k-\frac{1}{L}\nabla f(x_k))||^2 +\lambda ||x||_1
-  \]</span></p></li>
-<li><p>对于上式，我们可以先计算出<span class="math inline">\(z = x_k-\frac{1}{L}\nabla f(x_k)\)</span> ,然后我们就可以求解 <span class="math display">\[
-  x_{k+1} = \arg \min_x \frac{L}{2} ||x - z||^2 +\lambda ||x||_1 (*)
-  \]</span> 将<span class="math inline">\((*)\)</span>式按照分量展开,即按照<span class="math inline">\(x^i\)</span>(表示<span class="math inline">\(x\)</span>的第i个分量)展开，不存在<span class="math inline">\(\alpha_i^u \alpha_i^v(u\not=v)\)</span>这样的交叉项,也就是说<span class="math inline">\(x\)</span>的各分量之间是互不影响的。也就是说，对于每一个<span class="math inline">\(x\)</span>的一个分量而言<span class="math inline">\((*)\)</span>式就是一个二元一次方程，可以轻松求解argmin。那么，对于每个分量单独求解 <span class="math display">\[
-  x_{k+1}^i = \left\{
-  \begin{aligned}
-    &amp; z^i - \frac{\lambda}{L}, \frac{\lambda}{L}  &lt; z^i \\
-    &amp; 0, | z^i| \le \frac{\lambda}{L} \\
-    &amp; z^i + \frac{\lambda}{L},z^i &lt; -\frac{\lambda}{L}
-  \end{aligned}
-  \right.
-  \]</span></p></li>
-</ul></li>
-</ul></li>
-</ul></li>
 </ul>
-<h5 id="稀疏表示">稀疏表示</h5>
-<ul>
-<li><p>一般来说，稀疏表示指的是矩阵中有很多零元素，且并非整行整列地出现，当然整行整列也行。</p></li>
-<li><p>通过稀疏表示，在训练时，我们可以去除不必要的行或列，从而降低学习难度，并且稀疏表示降低了存储开销，文本数据可以线性可分。</p></li>
-<li><p>那么，我们就需要探寻一种方式能够将普通稠密表达的样本变成稀疏表示。</p></li>
-<li><p>而一种典型的方法就是字典学习：</p>
-<ul>
-<li><p>字典学习最普通的形式就是，对于一个k个词汇的字典可以用一个矩阵<span class="math inline">\(\mathbf{B} \in R^{d\times k}\)</span> 表示（这里将字典翻译的过程看成是乘以一个权重矩阵）,假设<span class="math inline">\(\alpha_i \in R^k\)</span>是样本<span class="math inline">\(x_i \in R^d\)</span> 的稀疏表示，那么问题可以转化为: <span class="math display">\[
-  \min_{\mathbf{B},\alpha_i} \sum_{i=1}^m ||x_i - \mathbf{B}\alpha_i||_2^2 + \lambda \sum_{i=1}^m ||\alpha_i||_1 \ \ (*)
-  \]</span> 第一项意为希望<span class="math inline">\(\alpha_i\)</span>可以重构<span class="math inline">\(x_i\)</span> ,第二项表示希望<span class="math inline">\(\alpha_i\)</span>尽量稀疏。</p></li>
-<li><p>这个问题求解比LASSO更麻烦一些，需要学习<span class="math inline">\(\mathbf{B},\alpha_i\)</span>两个参数。</p></li>
-<li><p>借鉴LASSO，可以采用变量交替优化的策略求解:</p>
-<ul>
-<li><p>第一步，固定字典<span class="math inline">\(\mathbf{B}\)</span>,将<span class="math inline">\((*)\)</span>式按照分量展开，不存在<span class="math inline">\(\alpha_i^u \alpha_i^v(u\not=v)\)</span>这样的交叉项，就可以参考LASSO的解法求解下式，为每个样本<span class="math inline">\(x_i\)</span>找到响应的<span class="math inline">\(\alpha_i\)</span> : <span class="math display">\[
-  \min_{\alpha_i}  ||x_i - \mathbf{B}\alpha_i||_2^2 + \lambda  ||\alpha_i||_1
-  \]</span></p></li>
-<li><p>第二步，固定<span class="math inline">\(\alpha_i\)</span> 更新<span class="math inline">\(\mathbf{B}\)</span> ,此时的优化问题是 <span class="math display">\[
-  \min_{\mathbf{B}} ||\mathbf{X} - \mathbf{B}\mathbf{A}||_F^2
-  \]</span> F表示的是矩阵Frobenius范数。一种常用的求解上式的方式是基于逐列更新策略的<span class="math inline">\(KSVD\)</span> 。 <span class="math display">\[
-  \min_{\mathbf{B}} ||\mathbf{X} - \mathbf{B}\mathbf{A}||_F^2 = \min_{\mathbf{b_i}} ||\mathbf{X} - \sum_{j=1}^k b_j \alpha^j||_F^2 \\
-  =\min_{\mathbf{b_i}} ||(\mathbf{X} - \sum_{j\not=i} b_j \alpha^j) - b_i \alpha^i||_F^2 \\
-  =\min_{\mathbf{b_i}} ||\mathbf{E}_i - b_i \alpha^i||_F^2
-  \]</span> 在更新字典的第<span class="math inline">\(i\)</span>列的时候，其他各列都是固定的，因此<span class="math inline">\(\mathbf{E}_i = \sum_{j\not=i} b_j \alpha^j\)</span></p></li>
-</ul></li>
-</ul></li>
-</ul>
-
+<p>
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -885,11 +537,6 @@
       
           <p>由于最近刚刚开始搭建个人blog中遇到了“<strong>明明启用了Mathjax,但是markdown文档在上传之后仍然无法正确显示行间公式或者行内公式</strong>”的问题，因此，折腾了好一会之后，得到了一个个人的修复方案。</p>
           <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/22/2021-11-19-Mathjax-Markdown/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
           <!--/noindex-->
         
       
@@ -963,11 +610,6 @@
 <h3 id="what-is-jekyll">What is Jekyll?</h3>
 <p>Jekyll is a simple, blog-aware, static site generator for personal, project, or organization sites. Basically, Jekyll takes your page content along with template files and produces a complete website. For more information, visit the <a target="_blank" rel="noopener" href="https://jekyllrb.com/docs/home/">official Jekyll site</a> for their documentation. Codecademy also offers a great course on <a target="_blank" rel="noopener" href="https://www.codecademy.com/learn/deploy-a-website">how to deploy a Jekyll site</a> for complete beginners.</p>
           <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/22/2021-11-17-Adam-theme/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
           <!--/noindex-->
         
       
@@ -1044,11 +686,6 @@
 <p>在The word2vec skip-gram prediction model中的contextual window 的一个例子如上，对于一个center word banking,其contextual window 中的词为turing,into,crises,as。</p></li>
 </ul>
           <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/12/22/2021-11-19-Record-CS224n-a2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
           <!--/noindex-->
         
       
@@ -1100,7 +737,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-22 10:40:51" itemprop="dateModified" datetime="2021-12-22T10:40:51+08:00">2021-12-22</time>
+                <time title="Modified: 2021-12-22 23:10:31" itemprop="dateModified" datetime="2021-12-22T23:10:31+08:00">2021-12-22</time>
               </span>
 
           
@@ -1127,114 +764,11 @@
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112202057821.png" alt="image-20211220205713716" style="zoom:50%;" /></li>
 </ul></li>
 </ul></li>
-<li><p>是一种懒惰学习算法。懒惰学习是指在训练阶段只把样本进行保存，训练时间的开销几乎为0，在获得测试样本时，再对训练样本进行处理；而与之对应的，如果在训练阶段就对样本进行处理的算法就是“急切学习”。</p></li>
-<li><p>数学推导：</p>
-<ul>
-<li><p>给定测试样本<span class="math inline">\(x\)</span>,如果其最近邻样本为<span class="math inline">\(z\)</span>,那么分类错的概率就是<span class="math inline">\(x\)</span>,<span class="math inline">\(z\)</span>分了不同的类 <span class="math display">\[
-  P(err) = 1 - \sum_{c\in\mathcal{Y}} P(c|x)P(c|z)\\
-  \mathcal{Y}\ is\ the \ class\ set
-  \]</span></p></li>
-<li><p>对上述式子做一个强假设：样本独立同分布，且<span class="math inline">\(z\)</span>可以在<span class="math inline">\(x\)</span>的任意近的范围内找到。那么，如果令<span class="math inline">\(c^\star = \arg\max_{c\in\mathcal{Y}} P(c|x)\)</span> 即贝叶斯最优分类器的结果，可以推导出： <span class="math display">\[
-  P(err) \approx 1 - \sum_{c\in\mathcal{Y}} P(c|x)^2 \\
-      \le 1 - P^2(c^\star|x) \\
-       = (1 - P(c^\star|x)) (1 + P(c^\star|x)) \\
-       \le 2 \times [1 - P(c^\star|x)]
-  \]</span> 因此，KNN分类器分错样本的概率比贝叶斯最优分类器的误差的两倍小。</p></li>
-</ul></li>
-<li><p>Review(贝叶斯最优分类器):</p>
-<ul>
-<li><p>将loss定义为将<span class="math inline">\(c_i\)</span>样本错分为<span class="math inline">\(c_j\)</span>样本的损失： <span class="math display">\[
-  Loss(c_j|x) = \sum_{i=1}^N \lambda_{ji} P(c_i|x)
-  \]</span></p></li>
-<li><p>为了最小化总体loss，只需要选择能够让条件风险最小的类别<span class="math inline">\(c^\star\)</span>即可，就可以得到一个最优分类器： <span class="math display">\[
-  c^\star = \arg\min_{c\in\mathcal{Y}} Loss(c|x) \\
-          = \arg\max_{c\in\mathcal{Y}} P(c|x) 
-  \]</span> 通俗的解释来说，想要让其他类错分为<span class="math inline">\(c^\star\)</span> 的造成的损失最小，那么就选择在所有类别中样本被划分的后验概率最大的那一个class <span class="math inline">\(c\)</span> 。</p></li>
-</ul></li>
-<li><p>但是，KNN分类器分错样本的概率比贝叶斯最优分类器的误差的两倍小这个结论能够推导出来的条件是<span class="math inline">\(z\)</span>可以在<span class="math inline">\(x\)</span>的任意近的范围内找到,也就是说在任意样本<span class="math inline">\(x\)</span>的任意<span class="math inline">\(\delta\)</span>范围都有另一个训练样本<span class="math inline">\(z\)</span>,则要求我们的采样密度足够大，这也就是“密采样”。</p></li>
-<li><p>如果<span class="math inline">\(delta=0.001\)</span>,对于单个属性，就要求1000个样本分布在归一化属性范围内。如果属性维度为<span class="math inline">\(n\)</span>,那么采样数量就是<span class="math inline">\((1000)^n\)</span> 。在这种高纬度的数据情况下，会出现数据样本稀疏、距离计算困难等诸多障碍，也就是所谓的“维数灾难”。</p></li>
-<li><p>要缓解维数灾难的重要方法就是降维——将原始高维子空间降为低维子空间,而要求就是这个低维子空间正是我们的学习任务密切相关的部分。在实际问题中，与问题密切相关的很多时候，恰恰就是一个低维子空间。</p></li>
-</ul>
-<h5 id="降维方法多维缩放mds">降维方法——多维缩放MDS</h5>
-<ul>
-<li><p>MDS要求原始空间中样本之间的距离在低维空间中得以保持。</p></li>
-<li><p>将该问题建模。假设m个样本在原始空间的距离矩阵为<span class="math inline">\(\mathbf{D} = \{dist_{ij}\} \in R^{m\times m}\)</span>, <span class="math inline">\(dist_{ij}\)</span>为样本<span class="math inline">\(x_i\)</span>到样本<span class="math inline">\(x_j\)</span>的距离。我们的目标是找到低维空间的距离矩阵<span class="math inline">\(\mathbf{Z}\in R^{d^\prime \times m}\)</span> ,并且<span class="math inline">\(||z_j - z_i||_2^2 = dist_{ij} (1)\)</span> 。</p></li>
-<li><p>令$ = ^T  = {b_{ij}} = z_i^T z_j $ ,是降维后样本的内积矩阵，由(1)式，我们可以推导得知， <span class="math display">\[
-  dist_{ij}^2 = ||z_i||^2 + ||z_j||^2 - 2z_i^T z_j (2) \\
-   = b_{ii} + b_{jj} - 2b_{ij}
-  \]</span></p></li>
-<li><p>为了方便，我们可以假设降维之后的样本<span class="math inline">\(\mathbf{Z}\)</span>被中心化，即<span class="math inline">\(\sum_{i=1}^m z_i = 0\)</span> 。</p></li>
-<li><p>那么，<span class="math inline">\(\sum_{i=1}^m b_{ij} = z_j \times \sum_{i=1}^m z_i = 0\)</span>,<span class="math inline">\(\sum_{j=1}^m b_{ij} = z_i \times \sum_{j=1}^m z_j = 0\)</span>。</p></li>
-<li><p>因此，<span class="math inline">\(tr(\mathbf{B})=||z_{i\ or \ j}||^2\)</span>,由(2)式推导得：</p>
-<ul>
-<li><p><span class="math display">\[
-  \sum_{i=1}^m dist_{ij}^2 = \sum_{i=1}^m b_{ii} + m b_{jj} = tr(\mathbf{B}) + mb_{jj} \\
-  \sum_{j=1}^m dist_{ij}^2 = \sum_{j=1}^m b_{jj} + m b_{ii} = tr(\mathbf{B}) + mb_{ii} \\
-  \sum_{i=1}^m \sum_{j=1}^m dist_{ij}^2 = tr(\mathbf{B}) + \sum_{j=1}^m mb_{jj} = 2mtr(\mathbf{B})
-  \]</span></p></li>
-<li><p><span class="math display">\[
-  dist_{i\cdot }^2  = \frac{1}{m} \sum_{j=1}^m dist_{ij}^2 = \frac{tr(\mathbf{B})}{m}  + b_{ii}\\
-  dist_{\cdot j}^2  = \frac{1}{m} \sum_{i=1}^m dist_{ij}^2= \frac{tr(\mathbf{B})}{m}  + b_{jj}\\
-  dist_{\cdot \cdot}^2  = \frac{1}{m^2} \sum_{j=1}^m \sum_{i=1}^m dist_{ij}^2 = 2\frac{tr(\mathbf{B})}{m}
-  \]</span></p></li>
-<li><p><span class="math display">\[
-  b_{ij} = \frac{b_{ii} + b_{jj} - dist_{ij}^2}{2} \\
-      = \frac{dist_{i\cdot }^2 - \frac{tr(\mathbf{B})}{m} + dist_{\cdot j }^2 - \frac{tr(\mathbf{B})}{m} - dist_{ij}^2 }{2} \\
-      = \frac{dist_{i\cdot }^2  + dist_{\cdot j }^2  - dist_{ij}^2 - dist_{\cdot \cdot}^2}{2} 
-  \]</span></p>
-<p>至此，也就求出<span class="math inline">\(\mathbf{B}\)</span>矩阵了。</p></li>
-</ul></li>
-<li><p>而<span class="math inline">\(\mathbf{B}\)</span>是<span class="math inline">\(\mathbf{Z}\)</span>的内积矩阵，为了求得<span class="math inline">\(\mathbf{Z}\)</span>,我们需要找到一个矩阵，其内积为<span class="math inline">\(\mathbf{B}\)</span>。</p></li>
-<li><p>一个想法是对<span class="math inline">\(\mathbf{B}\)</span>进行特征值分解，<span class="math inline">\(\mathbf{B} = \mathbf{V} \wedge \mathbf{V}^T\)</span> ,$<span class="math inline">\(是一个特征值构成的对角矩阵，\)</span><span class="math inline">\(是一个特征向量矩阵。如果假设有\)</span>d^*<span class="math inline">\(个非零特征值，其构成对角阵\)</span>_*$ ,那么<span class="math inline">\(\mathbf{Z}\)</span>就可以表示为<span class="math inline">\(\wedge_*^{1/2} \mathbf{V}_*^T\)</span> 。</p></li>
-<li><p>而一般情况下，不要求降维后的距离严格不变，只要尽可能接近即可。此时，可以任意取<span class="math inline">\(\hat{d}\)</span>个非零特征值，其构成对角阵<span class="math inline">\(\hat{\wedge}_*\)</span> ,那么<span class="math inline">\(\mathbf{Z}\)</span>就可以表示为<span class="math inline">\(\hat{\wedge}_*^{1/2} \hat{\mathbf{V}_*}^T\)</span> 。</p></li>
-</ul>
-<h5 id="最一般的降维线性降维">最一般的降维——线性降维</h5>
-<ul>
-<li><p>一般，我们可以直接采取对<span class="math inline">\(\mathbf{X}\)</span>乘以一个变换矩阵<span class="math inline">\(\mathbf{W}\)</span>的形式得到<span class="math inline">\(\mathbf{Z}\)</span>,即<span class="math inline">\(\mathbf{Z} = \mathbf{W}^T \mathbf{X}\)</span></p>
-<p>其中<span class="math inline">\(\mathbf{Z}\in R^{d^\prime \times m}\)</span>，<span class="math inline">\(\mathbf{X}\in R^{d \times m}\)</span>,<span class="math inline">\(\mathbf{W}\in R^{d \times d^\prime}\)</span> 。</p></li>
-<li><p>其变换的含义在于对于每一个样本<span class="math inline">\(x_i\)</span>，<span class="math inline">\(z_i\)</span>都是<span class="math inline">\(x_i\)</span>与<span class="math inline">\(\mathbf{W}\)</span>中的<span class="math inline">\(d^\prime\)</span>个<span class="math inline">\(d\)</span>维向量内积的结果，即$z_i = ^T x_i $ 。如果基于<span class="math inline">\(z_i\)</span>来重构<span class="math inline">\(x_i\)</span>,那么<span class="math inline">\(x_i = \sum_{j=1}^{d^\prime} z_{ij} w_j\)</span>。原坐标系属性线性组合成了新坐标系中的属性。如果新坐标系是正交的，那么<span class="math inline">\(\mathbf{W}\)</span>就是一个正交变换。</p></li>
-<li><p>PCA就是这种思想的典型代表。</p></li>
-<li><p>PCA希望通过一个超平面对所有的样本点进行分隔。围绕这个目的，有两种等价的推导方式,在假设样本中心化以及<span class="math inline">\(\mathbf{W}\)</span>就是一个标准正交变换：</p>
-<ul>
-<li><p>最近重构性：所有的样本点到这个超平面距离都很近。</p>
-<ul>
-<li><p><span class="math display">\[
-  ||\sum_{j=1}^{d^\prime} z_{ij} w_j - x_i||_2^2 \propto -tr(\mathbf{W}^T \mathbf{X}\mathbf{X}^T \mathbf{W})
-  \]</span></p></li>
-<li><p>优化目标：</p>
-<ul>
-<li><span class="math display">\[
-  \min_{\mathbf{W}} -tr(\mathbf{W}^T \mathbf{X}\mathbf{X}^T \mathbf{W}) \\s.t. \mathbf{W}^T \mathbf{W} = \mathbf{I}
-  \]</span></li>
-</ul></li>
-</ul></li>
-<li><p>最大可分性：所有的样本点在这个超平面上的投影都尽可能分开。</p>
-<ul>
-<li><p>在这个超平面上的投影都尽可能分开-&gt;投影之后的方差最大化</p></li>
-<li><p>投影也是一种线性变换，因此，投影后样本$ x_i<span class="math inline">\(变成\)</span>^T x_i<span class="math inline">\(,方差是\)</span>_i ^T x_i x_i^T  = tr(^T ^T )$ 。</p></li>
-<li><p>优化目标：</p>
-<ul>
-<li><span class="math display">\[
-  \max_{\mathbf{W}} tr(\mathbf{W}^T \mathbf{X}\mathbf{X}^T \mathbf{W}) \\
-  s.t. \mathbf{W}^T \mathbf{W} = \mathbf{I}
-  \]</span></li>
-</ul></li>
-</ul></li>
-<li><p>对两个优化问题使用拉格朗日乘子法可以得到: <span class="math display">\[
-  \mathbf{X}\mathbf{X}^T \mathbf{W} = \lambda \mathbf{W}
-  \]</span></p></li>
-<li><p>对协方差矩阵<span class="math inline">\(\mathbf{X}\mathbf{X}^T\)</span>进行特征值分解，就可以求得<span class="math inline">\(d\)</span>个特征值，按从大到小顺序取前<span class="math inline">\(d^\prime\)</span>个特征值即可得到PCA的解。</p></li>
-<li><p>舍弃这<span class="math inline">\(d-d^\prime\)</span>个特征值，可以在采样相同样本数的情况下提升采样密度，并去除一部分噪声。</p></li>
-<li><p><span class="math inline">\(d^\prime\)</span>一般由用户指定，也可以用其他分类器进行交叉验证，或者设定一个重构阈值<span class="math inline">\(t\)</span>,要求选取最小能够满足重构后的特征值大小<span class="math inline">\(\sum_{i=1}^{d^\prime} \lambda_i\)</span>与重构前的特征值大小<span class="math inline">\(\sum_{i=1}^{d} \lambda_i\)</span>的比值大于阈值$t $</p></li>
-</ul></li>
-</ul>
-<h5 id="非线性降维核化线性降维">非线性降维——核化线性降维</h5>
-<ul>
-<li>PCA是典型的线性降维方法，常用的非线性降维方法有核化线性降维以及流形学习。</li>
-</ul>
-<h5 id="流形学习">流形学习</h5>
-<h5 id="距离度量学习">距离度量学习</h5>
-
+<li><p>是一种懒惰学习算法。懒惰学习是指在训练阶段只把样本进行保存，训练时间的开销几乎为0，在获得测试样本时，再对训练样本进行处理；而与之对应的，如果在训练阶段就对样本进行处理的算法就是“急切学习”。</p>
+<p>
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1586,10 +1120,25 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1063037668@qq.com" title="E-Mail → 1063037668@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
 
 
 
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
 
     </div>
   </aside>
@@ -1610,7 +1159,7 @@
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
 </div>
@@ -1651,6 +1200,10 @@
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
