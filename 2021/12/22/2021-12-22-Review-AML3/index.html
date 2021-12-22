@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="半监督学习 未标记样本  显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。 为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。 基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据\(D_l\)训练出一个学习器，然后让这个学习器对unlabel的数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Review AML chap.13">
+<meta property="og:url" content="https://despairl.github.io/2021/12/22/2021-12-22-Review-AML3/index.html">
+<meta property="og:site_name" content="HaveFun!">
+<meta property="og:description" content="半监督学习 未标记样本  显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。 为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。 基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据\(D_l\)训练出一个学习器，然后让这个学习器对unlabel的数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221451878.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221527153.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221537526.png">
+<meta property="article:published_time" content="2021-12-22T02:44:57.887Z">
+<meta property="article:modified_time" content="2021-12-22T07:58:38.822Z">
+<meta property="article:author" content="Yanquan Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221451878.png">
+
+<link rel="canonical" href="https://despairl.github.io/2021/12/22/2021-12-22-Review-AML3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Review AML chap.13 | HaveFun!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">HaveFun!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-22-Review-AML3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Review AML chap.13
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-22 10:44:57 / Modified: 15:58:38" itemprop="dateCreated datePublished" datetime="2021-12-22T10:44:57+08:00">2021-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="半监督学习">半监督学习</h4>
+<h5 id="未标记样本">未标记样本</h5>
+<ul>
+<li>显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。</li>
+<li>为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。</li>
+<li>基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据<span class="math inline">\(D_l\)</span>训练出一个学习器，然后让这个学习器对unlabel的数据进行预测，将预测结果人工检查好不好，再加入到有标记样本中进行训练。每次我们都挑选出对改善模型性能有帮助的瓜，那么，就只需要人工检查较少次数就可以构建出性能比较好的模型，从而降低成本。这也符合了它的目的：用尽量少的查询获得尽量好的性能。</li>
+<li>但是主动学习仍然借助了专家的知识，如果能让学习器不依赖外界知识，自动利用<span class="math inline">\(D_u\)</span> 数据，那就是半监督学习(semi-supervised learning)的学习目标了。</li>
+<li>想要做到这一点，一个问题就浮现了：如何揭示未标记样本所包含的数据分布信息并将其与label相联系？
+<ul>
+<li>为了解决这个问题，提出了几个假设：
+<ul>
+<li>聚类假设（cluster assumption）:
+<ul>
+<li>假设数据有簇结构，同一个簇的样本属于同一个类别</li>
+</ul></li>
+<li>流形假设（manifold assumption）:
+<ul>
+<li>假设数据分布在一个流形结构上，邻近的样本拥有相似的输出值</li>
+<li>它与聚类假设的本质都是相似的样本有相似的输出</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>半监督学习又可以进一步划分为纯半监督学习、直推学习。
+<ul>
+<li>纯半监督学习认为未标记样本并不一定是待预测的数据。（open-world assumption）这个认定也就意味着纯半监督学习可以对测试样本进行预测。</li>
+<li>而直推学习则认为未标记样本就是待预测的数据。（closed-world assumption）</li>
+</ul></li>
+</ul>
+<h5 id="生成式方法">生成式方法</h5>
+<ul>
+<li><p>基于生成式模型，认为所有数据都是同一个潜在模型生成的，未标记样本的label是模型的缺失参数，可以基于EM算法进行极大似然法求解。</p></li>
+<li><p>给定一个样本<span class="math inline">\(x\)</span>,其真实类别标记为<span class="math inline">\(y \in \mathcal{Y}\)</span> ,假设样本由高斯混合模型生成，并且每个类别对应一个高斯混合成分，也就是说： <span class="math display">\[
+  p (x) = \sum_{i=1}^N \alpha_i \cdot p(x|\mu_i,\Sigma_i)
+  \]</span> 其中<span class="math inline">\(\alpha_i \ge 0,\sum_{i=1}^k \alpha_i = 1\)</span>,<span class="math inline">\(p(x|\mu_i,\Sigma_i)\)</span>表示样本<span class="math inline">\(x\)</span>属于第<span class="math inline">\(i\)</span>个高斯混合成分。</p></li>
+<li><p>如果接着假设<span class="math inline">\(f(x)\)</span>是模型<span class="math inline">\(f\)</span>对样本<span class="math inline">\(x\)</span>的预测标记，用<span class="math inline">\(\Theta\in\{1,2,...,N\}\)</span>表示样本隶属的高斯混合成分，按照最大化后验概率的想法，有： <span class="math display">\[
+  f(x) = \arg\max_{j\in\mathcal{Y}} p(y=j|x) \\
+   = \arg\max_{j\in\mathcal{Y}} \sum_{i=1}^N p(y=j,\Theta=i|x) \\
+   = \arg\max_{j\in\mathcal{Y}} \sum_{i=1}^N p(y=j|\Theta=i,x) \cdot p(\Theta=i|x) \\
+   p(\Theta=i|x) = \frac{\alpha_i \cdot p(x|\mu_i,\Sigma_i)}{\sum_{i=1}^N \alpha_i \cdot p(x|\mu_i,\Sigma_i)}
+  \]</span> <span class="math inline">\(p(\Theta=i|x)\)</span>表示的是样本<span class="math inline">\(x\)</span>由第i个高斯混合成分生成的后验概率</p>
+<p><span class="math inline">\(p(y=j|\Theta=i,x)\)</span>表示的是样本<span class="math inline">\(x\)</span>由第i个高斯混合成分生成且属于类别j的概率。</p>
+<p>再假设类别与高斯混合成分相对应的情况下，只有当<span class="math inline">\(i=j\)</span>的时候，<span class="math inline">\(p(y=j|\Theta=i,x)=1\)</span> ,otherwise,为0.</p></li>
+<li><p>对于上面的式子，由于<span class="math inline">\(p(y=j|\Theta=i,x)\)</span>与样本挂钩，<span class="math inline">\(p(\Theta=i|x)\)</span>与样本无关。因此估计<span class="math inline">\(p(\Theta=i|x)\)</span>的时候可以使用未标记样本,也就可以辅助预测<span class="math inline">\(f(x)\)</span>。</p></li>
+<li><p>极大似然法求解过程：</p>
+<ul>
+<li><p><span class="math display">\[
+  LL(D_l \cup D_u) =  \sum_{x} \ln(\sum_{i=1}^N p(y=j|\Theta=i,x) \cdot p(\Theta=i|x)) \\
+  = \sum_{(x_j,y_j)\in D_l} \ln \sum_{i=1}^N \alpha_i  \cdot p(x|\mu_i,\Sigma_i) \cdot p(y=j|\Theta=i,x) + \\
+      \sum_{x_j\in D_u} \ln \sum_{i=1}^N \alpha_i  \cdot p(x|\mu_i,\Sigma_i)
+  \]</span></p>
+<p>拆分为了与数据label有关的一项以及与数据label无关的一项。</p>
+<p>与数据label有关的一项利用<span class="math inline">\(D_l\)</span>进行训练，与数据label无关的一项利用<span class="math inline">\(D_u\)</span>进行训练</p></li>
+<li><p>接下来就需要用EM算法进行求解。</p></li>
+</ul></li>
+<li><p>但是这种方法存在一个缺陷就是只有在假设的数据分布与真实的数据分布吻合的情况下才有效，否则利用未标记数据会降低泛化性能，这也是现实中很难做到的事情。</p></li>
+<li><p>(*)高斯混合分布：</p>
+<ul>
+<li><p><span class="math display">\[
+  p_M(x) = \sum_{i=1}^k \alpha_i \cdot p(x|\mu_i,\Sigma_i)
+  \]</span></p></li>
+<li><p>k个混合成为组成，每个混合成分对应一个高斯分布。<span class="math inline">\(\alpha_i \ge 0,\sum_{i=1}^k \alpha_i = 1\)</span>是混合系数。</p></li>
+<li><p>高斯分布:</p>
+<ul>
+<li><span class="math display">\[
+  p(x) = \frac{1}{(2\pi)^{\frac{n}{2}} |\Sigma|^{\frac{1}{2}}} e^{-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x-\mu)}
+  \]</span></li>
+</ul></li>
+</ul></li>
+<li></li>
+<li><p>(*)EM算法 review:</p>
+<ul>
+<li><p>在西瓜书的推导中，将上述提到的<span class="math inline">\(p(\Theta=i|x)\)</span>记为<span class="math inline">\(\gamma_{i}\)</span> ,显然由最大化后验概率可知，对于样本<span class="math inline">\(x_j\)</span>的簇标记<span class="math inline">\(\lambda_j\)</span>由<span class="math inline">\(\arg\max \gamma_{ji}\)</span>确定。计算<span class="math inline">\(\gamma_{ji}\)</span>的过程,即计算样本<span class="math inline">\(x_j\)</span>属于各个高斯混合概率的概率就是E步。</p>
+<p>下面根据计算的<span class="math inline">\(\gamma_{ji}\)</span>更新参数<span class="math inline">\(\alpha_i,\mu_i,\Sigma_i\)</span>,就是M步。</p></li>
+<li><p>由极大似然可推知: <span class="math display">\[
+  LL(D) = \ln(\prod_{j=1}^m p_M(x_j)) \\ 
+       = \sum_{j=1}^m \ln (\sum_{i=1}^k \alpha_i \cdot p(x|\mu_i,\Sigma_i))
+  \]</span> 我们要学习的是<span class="math inline">\(\alpha_i,\mu_i,\Sigma_i\)</span></p>
+<p>由<span class="math inline">\(\frac{\partial LL(D)}{\partial \mu_i} = 0\)</span>可知 <span class="math display">\[
+  \frac{d (\frac{1}{(2\pi)^{\frac{n}{2}} |\Sigma|^{\frac{1}{2}}} e^{-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x-\mu)})}{d \mu_i} \sum_{j=1}^m \frac{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i)}{\sum_{l=1}^k \alpha_l \cdot p(x|\mu_l,\Sigma_l)} = 0 \ (1)\\ 
+  \sum_{j=1}^m \frac{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i)}{\sum_{l=1}^k \alpha_l \cdot p(x|\mu_l,\Sigma_l)} (x_j - \mu_i) = 0 \ (2)\\
+  \sum_{j=1}^m \gamma_{ji} (x_j - \mu_i) = 0 \\
+  \mu_i = \frac{\sum_{j=1}^m \gamma_{ji} x_j}{\sum_{j=1}^m \gamma_{ji}}
+  \]</span> 注意的是，(1)式的导数在约去所有大于零的部分以及参数部分就可以转换为(2)式。</p>
+<p>同理，按照<span class="math inline">\(\frac{\partial LL(D)}{\partial \Sigma_i} = 0\)</span>可知 <span class="math display">\[
+  \Sigma_i = \frac{\sum_{j=1}^m \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^m \gamma_{ji}}
+  \]</span> 对于混合系数<span class="math inline">\(\alpha_i\)</span>,我们需要用拉格朗日乘子法， <span class="math display">\[
+  LL(D) + \lambda(\sum_{i=1}^k \alpha_i -1)
+  \]</span> 对上式进行对<span class="math inline">\(\alpha_i\)</span>进行求偏导为0 <span class="math display">\[
+  \sum_{j=1}^m \gamma_{ji} + \alpha_i \lambda = 0 \\
+  \sum_{i=1}^m(\sum_{j=1}^m \gamma_{ji} + \alpha_i \lambda) = m + \lambda = 0\\
+  \lambda = -m \\
+  \alpha_i = \frac{\sum_{j=1}^m \gamma_{ji}}{m}
+  \]</span></p></li>
+</ul></li>
+</ul>
+<h5 id="半监督svm">半监督SVM</h5>
+<ul>
+<li>半监督SVM是在SVM的基础上，将两类有标记样本切开并且倾向于穿过数据低密度区域。</li>
+<li>半监督SVM最著名的TSVM,TSVM针对二分类，想法是尝试将每个未标记样本作为正例或者反例，在所有可能的结果中，找到一个在所有样本中间隔最大化的划分超平面。划分超平面确定，则样本的划分标签确定。</li>
+<li></li>
+</ul>
+<h5 id="图半监督学习">图半监督学习</h5>
+<ul>
+<li><p>图半监督学习的想法是给定一个数据集，将其映射为一个图，每个样本对应于图中的一个结点，如果两个样本之间的相似度很高，那么两个节点之间不仅有边，并且边的权重也很高。</p>
+<p>并且，对于有标记样本，我们将其建模为染过色的结点，未标记样本则是未染色的结点。那么，半监督学习的过程就是颜色在图上传播的过程。</p></li>
+<li><p>要让图可训练，我们需要将其构建为一个矩阵，通常根据高斯函数定义affinity matrix(亲和矩阵): <span class="math display">\[
+  (\mathbf{W})_{ij} = \left\{
+  \begin{aligned}
+  &amp; \exp (\frac{-||x_i - x_j||_2^2}{2\sigma^2}) , if\ i\not=j\\
+  &amp; 0, otherwise
+  \end{aligned} 
+  \right.
+  \]</span> 同时基于相似的样本有相似的输出可以定义能量函数： <span class="math display">\[
+  E(f) = \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m (\mathbf{W})_{ij} (f(x_i) - f(x_j))^2 \\
+  = \mathbf{f}^T (\mathbf{D} - \mathbf{W}) \mathbf{f} \\
+  \mathbf{f} = (\mathbf{f}^T_l \mathbf{f}^T_u)^T \\
+  \mathbf{D} = diag(d_1,d_2,...,d_{u+l}),d_i = \sum_{j=1}^{l+u} (\mathbf{W})_{ij}
+  \]</span></p></li>
+<li></li>
+</ul>
+<h5 id="基于分歧的方法">基于分歧的方法</h5>
+<ul>
+<li><p>基于分歧的方法常使用多个学习器，而学习器之间的分歧对于未标记数据的利用有很大的借鉴意义。</p></li>
+<li><p>其重要代表是协同训练，它也是多视图学习的代表。</p>
+<ul>
+<li><p>其假设数据有两个充分且条件独立的视图。</p>
+<ul>
+<li>充分是指每个视图都包含足以产生最优学习器的信息。</li>
+<li>条件独立是指在给定类别条件的情况下，两个视图独立。</li>
+</ul></li>
+<li><p>其想法是在每个视图上基于有标记样本分别训练出一个分类器，然后挑选每个分类器对未标记样本正确概率最大的样本作为另一个分类器的有标记样本加入下一轮训练。但是这种想法需要在每轮学习中都考察分类器在所有未标记样本上的置信度，计算开销大。这个问题可以借助未标记样本缓冲池（一开始选择s个<span class="math inline">\(D_u\)</span>中的样本加入，每轮循环结束后，再选一些加入）进行解决。</p></li>
+<li><p>总过程伪代码：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221451878.png" alt="image-20211222145112704" style="zoom:50%;" /></p></li>
+<li><p>在数据有两个充分且条件独立的视图的条件下，弱学习器的泛化能力可以提升到任意高。</p></li>
+</ul></li>
+<li><p>在后续研究中发现，数据拥有两个视图的假设并不重要，只需要弱学习器之间有明显差异即可，算法、视图、不同采样方式、不同参数都可以产生差异。</p></li>
+</ul>
+<h5 id="半监督学习-1">半监督学习</h5>
+<ul>
+<li>在现实聚类的过程中，我们常常可以获得一些额外的监督信息，因此，我们可以使用半监督聚类来利用监督信息以获得更好的聚类效果。</li>
+<li>监督信息大致有以下两类：
+<ul>
+<li>必连：样本必定属于同一个簇。</li>
+<li>勿连：样本必定不属于同一个簇。</li>
+<li>少量的有标记样本，即事先已经找到少量样本属于哪一个簇当中。</li>
+</ul></li>
+<li>典型代表是约束k均值算法：
+<ul>
+<li>其是k-mean是算法的拓展，是第一类监督信息的代表（勿连与必连）。需要保证勿连集合<span class="math inline">\(\mathcal{C}\)</span>以及必连集合<span class="math inline">\(\mathcal{M}\)</span>中的约束，即如果有<span class="math inline">\((x_i,x_j)\in\mathcal{M}\)</span>，那么<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>必定是同一类别的。</li>
+<li>其实就是k-mean算法的基础上加上判断每次样本<span class="math inline">\(x\)</span>与哪个均值向量<span class="math inline">\(u_i\)</span>最近，在划入之前，检查是否满足约束，如果不满足，就将样本<span class="math inline">\(x\)</span>加入次近的簇当中，再进行检查。</li>
+<li>如果始终找不到可以容纳样本<span class="math inline">\(x\)</span>的簇，则认为无法完成聚类，输出error。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221527153.png" alt="image-20211222152740069" style="zoom:50%;" /></li>
+</ul></li>
+<li>利用第二类监督信息的代表是约束种子的k-means算法：
+<ul>
+<li>它的利用方式很容易理解，就是直接将已知簇标记的样本作为种子，初始化k-means的k个聚类中心，并且再聚类簇迭代的过程中始终不改变种子的标记。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221537526.png" alt="image-20211222153753446" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-12021-12-21-Review-AML2/" rel="prev" title="Review AML.2">
+      <i class="fa fa-chevron-left"></i> Review AML.2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-12-22-ReviewAML4/" rel="next" title="Review AML chap.16">
+      Review AML chap.16 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">半监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%AA%E6%A0%87%E8%AE%B0%E6%A0%B7%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">未标记样本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%BC%8F%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">生成式方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3svm"><span class="nav-number">1.3.</span> <span class="nav-text">半监督SVM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.4.</span> <span class="nav-text">图半监督学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%88%86%E6%AD%A7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">基于分歧的方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0-1"><span class="nav-number">1.6.</span> <span class="nav-text">半监督学习</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yanquan Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

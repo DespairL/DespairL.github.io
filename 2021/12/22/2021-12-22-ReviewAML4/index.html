@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="强化学习 强化学习  强化学习的过程概括些说就是做一个动作action，环境给予你一个反馈r:  强化学习任务通常用马尔可夫决策过程(MDP)来描述：  对于一个环境\(E\),其由状态空间\(X\),动作空间\(A\),状态转移概率\(P\)以及奖励函数\(R\)组成，通常的P,R函数形式如下：\(P: X\times A\times X -&gt; \mathbb{R}\) 指定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Review AML chap.16">
+<meta property="og:url" content="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML4/index.html">
+<meta property="og:site_name" content="HaveFun!">
+<meta property="og:description" content="强化学习 强化学习  强化学习的过程概括些说就是做一个动作action，环境给予你一个反馈r:  强化学习任务通常用马尔可夫决策过程(MDP)来描述：  对于一个环境\(E\),其由状态空间\(X\),动作空间\(A\),状态转移概率\(P\)以及奖励函数\(R\)组成，通常的P,R函数形式如下：\(P: X\times A\times X -&gt; \mathbb{R}\) 指定">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221600231.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700300.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700202.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835924.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835754.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221843751.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221848055.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221857066.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221859783.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221917760.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221930008.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221940826.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941491.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941783.png">
+<meta property="article:published_time" content="2021-12-22T07:58:41.547Z">
+<meta property="article:modified_time" content="2021-12-22T11:41:39.202Z">
+<meta property="article:author" content="Yanquan Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221600231.png">
+
+<link rel="canonical" href="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Review AML chap.16 | HaveFun!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">HaveFun!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Review AML chap.16
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-22 15:58:41 / Modified: 19:41:39" itemprop="dateCreated datePublished" datetime="2021-12-22T15:58:41+08:00">2021-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="强化学习">强化学习</h4>
+<h4 id="强化学习-1">强化学习</h4>
+<ul>
+<li><p>强化学习的过程概括些说就是做一个动作action，环境给予你一个反馈r:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221600231.png" alt="image-20211222160057193" style="zoom:50%;" /></p></li>
+<li><p>强化学习任务通常用马尔可夫决策过程(MDP)来描述：</p>
+<ul>
+<li><p>对于一个环境<span class="math inline">\(E\)</span>,其由状态空间<span class="math inline">\(X\)</span>,动作空间<span class="math inline">\(A\)</span>,状态转移概率<span class="math inline">\(P\)</span>以及奖励函数<span class="math inline">\(R\)</span>组成，通常的P,R函数形式如下：<span class="math inline">\(P: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个概率,<span class="math inline">\(R: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个奖赏。</p></li>
+<li><p>因此，强化学习的内容就是让机器通过在环境中不断尝试从而学到一个策略<span class="math inline">\(\pi\)</span> ,根据这个策略本<span class="math inline">\(\pi\)</span> ,我们可以确定在状态<span class="math inline">\(x\)</span>下要执行的动作<span class="math inline">\(a = \pi(x)\)</span> ,并且使得长期累积的奖赏可以最大化。</p></li>
+<li><p>常用的长期累计奖赏的计算方式有：</p>
+<ul>
+<li><p>T步累计奖赏 ： <span class="math inline">\(\mathbb{E}[\frac{1}{T} \sum_{t=1}^T r_t]\)</span></p></li>
+<li><p><span class="math inline">\(\gamma\)</span>折扣累计奖赏 ： <span class="math inline">\(\mathbb{E}[ \sum_{t=0}^{+\infty} \gamma^t r_{t}]\)</span></p></li>
+<li><p>马尔可夫回报过程（MRP）计算的就是： <span class="math display">\[
+  V(x) = \sum_{x^\prime\in X} P(x^\prime|x) (R(x^\prime) + V(x^\prime))
+  \]</span> 描述的就是从一个状态<span class="math inline">\(x\)</span>转移到其他所有状态<span class="math inline">\(x^\prime\)</span>之后的累计回报。</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="k-摇臂赌博机">K-摇臂赌博机</h5>
+<ul>
+<li>强化学习任务需要在多步动作之后，才能看到最终奖赏，考虑简单情况，就是最大化单步奖赏。要最大化单步奖赏，我们不仅要知道每个动作带来的奖赏，还要执行奖赏最大的动作。但是动作的奖赏通常都是取自一个概率分布，无法通过单次尝试获得平均奖赏值。</li>
+<li>K-摇臂赌博机描述了单步强化学习任务的过程：K-摇臂赌博机有k个摇臂，投入一个硬币可以按下一个摇臂，每个摇臂以一定概率（不可知）吐出硬币。</li>
+<li>对于这种情况，一般有两种策略：
+<ul>
+<li>探索——估计摇臂的优劣：即平均给每个摇臂投硬币，得到概率的近似解</li>
+<li>利用——选择当前最优的摇臂。</li>
+<li>由于总尝试次数有限，因此，侧重于任何一方都会削弱另外一方。这也就是强化学习面临的“探索-利用窘境”。想要达到最大的累计奖赏，就必须在探索与利用之间达成较好的折中。</li>
+</ul></li>
+</ul>
+<h5 id="epsilon贪心策略"><span class="math inline">\(\epsilon\)</span>贪心策略</h5>
+<ul>
+<li><p><span class="math inline">\(\epsilon\)</span>贪心法基于一个概率来对探索以及利用过程进行折中：</p>
+<ul>
+<li><p>每次尝试时，以<span class="math inline">\(\epsilon\)</span>概率进行探索，选择一个摇臂；以<span class="math inline">\(1-\epsilon\)</span> 的概率选择当前平均奖赏最高的摇臂（多个采取随机选择）。</p></li>
+<li><p>则平均奖赏可以记录为 <span class="math display">\[
+  Q(k) = \frac{1}{n} \sum_{i=1}^n v_i
+  \]</span> <span class="math inline">\(v_i\)</span>为每次返回的奖赏,需要记录n个奖赏值。</p></li>
+<li><p>一种更为高效的办法是对均值进行增量式计算，即每尝试一次就更新<span class="math inline">\(Q\)</span>,设定用下标记录尝试次数,<span class="math inline">\(Q_i\)</span>表示i次尝试之后的平均奖赏，更新公式如下: <span class="math display">\[
+  Q_n(k) = \frac{1}{n} ((n-1)\times Q_{n-1}(k) + v_n)
+  \]</span> 也就只需要记录每个摇臂的尝试次数n，以及平均奖赏<span class="math inline">\(Q_i(k)\)</span></p></li>
+<li><p>其中，通过调整<span class="math inline">\(\epsilon\)</span>的大小，可以调整探索以及利用的比率。当迭代较多次之后，可以考虑增大利用的比率。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700300.png" alt="image-20211222170052246" style="zoom:50%;" /></p></li>
+</ul></li>
+</ul>
+<h5 id="softmax算法">Softmax算法</h5>
+<ul>
+<li><p>Softmax算法基于已知的摇臂平均奖赏来对探索以及利用进行折中，通过摇臂平均奖赏计算摇臂被选取的概率(基于Boltzmann分布)，且正相关： <span class="math display">\[
+  P(k) = \frac{e^{\frac{Q(k)}{\tau}}}{\sum_{i=1}^K e^{\frac{Q(i)}{\tau}}}
+  \]</span> 其中<span class="math inline">\(\tau\)</span>是可以自设定的参数，越高则平均奖赏越高的摇臂被选取的概率越高，也就是越趋向于“仅利用”。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700202.png" alt="image-20211222170036149" style="zoom:50%;" /></p></li>
+<li><p>Softmax算法以及<span class="math inline">\(\epsilon\)</span>贪心法孰优孰劣看具体应用。</p></li>
+</ul>
+<h5 id="有模型学习">有模型学习</h5>
+<ul>
+<li>有模型学习描述的是指马尔可夫决策过程总环境<span class="math inline">\(E=&lt;X,A,P,R&gt;\)</span>已知的情况,也就是说一个状态<span class="math inline">\(x\)</span>经过动作<span class="math inline">\(a\)</span>转移到<span class="math inline">\(x^\prime\)</span>的概率<span class="math inline">\(P_a\)</span>,以及reward<span class="math inline">\(R_a\)</span>都是已知的。</li>
+</ul>
+<h6 id="策略评估">策略评估</h6>
+<ul>
+<li><p>在模型已知的情况下，对于任意的策略<span class="math inline">\(\pi\)</span>,都可以估计出该策略带来的期望累计奖赏。</p></li>
+<li><p>定义一些函数如下：</p>
+<ul>
+<li><span class="math inline">\(V^{\pi}(x)\)</span>表示从状态<span class="math inline">\(x\)</span>出发采用策略<span class="math inline">\(\pi\)</span>带来的累计奖赏
+<ul>
+<li><span class="math inline">\(V(\cdot)\)</span>是状态值函数</li>
+</ul></li>
+<li><span class="math inline">\(Q^{\pi}(x,a)\)</span>表示从状态出发，执行动作a之后再使用策略<span class="math inline">\(\pi\)</span>的累计奖赏
+<ul>
+<li><span class="math inline">\(Q(\cdot)\)</span>是一个状态-动作值函数</li>
+</ul></li>
+<li>累计奖赏都用T步累计奖赏、<span class="math inline">\(\gamma\)</span>折扣累计奖赏进行计算。</li>
+</ul></li>
+<li><p>由于MDP具有马尔可夫性质，因此系统下一时刻的状态仅有当前的状态决定，不依赖任何以往的状态，也就是说，我们可以将上述函数写成递归等式的形式（这也被称为Bellman等式）:</p>
+<ul>
+<li>对于T步累计奖赏有</li>
+</ul>
+<p><span class="math display">\[
+  V^{\pi}_T(x) = \sum_{a\in A} \pi(x,a)\sum_{x^\prime\in X}P^a_{x\rightarrow x^\prime} (\frac{1}{T} R^a_{x\rightarrow x^\prime} + \frac{T-1}{T}V^{\pi}_{T-1}(x^\prime)) (16.7)
+  \]</span></p>
+<ul>
+<li>对于<span class="math inline">\(\gamma\)</span>折扣累计奖赏有 <span class="math display">\[
+  V^{\pi}_{\gamma}(x) = \sum_{a\in A} \pi(x,a)\sum_{x^\prime\in X}P^a_{x\rightarrow x^\prime} ( R^a_{x\rightarrow x^\prime} + \gamma V^{\pi}_{\gamma}(x^\prime))   (16.8)
+  \]</span></li>
+</ul></li>
+<li><p>那么对于策略评估算法有</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835924.png" alt="image-20211222183501861" style="zoom:50%;" /></p></li>
+<li><p>对于<span class="math inline">\(\gamma\)</span>折扣累计奖赏,可以作出更改如下:</p>
+<p>需要设定阈值的原因是，基于T步累计奖赏的策略评估算法的动态规划过程是从T-&gt;0,而基于<span class="math inline">\(\gamma\)</span>折扣累计奖赏的策略评估算法的动态规划过程是从<span class="math inline">\(0-&gt;+\infty\)</span></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835754.png" alt="image-20211222183558680" style="zoom:50%;" /></p></li>
+</ul>
+<h5 id="策略改进">策略改进</h5>
+<ul>
+<li><p>评估完某一个策略的累计奖赏之后，我们希望对其进行改进，即求解下列优化问题 <span class="math display">\[
+  \pi^* = \arg\max_{\pi} \sum_{x\in X} V^{\pi} (x)
+  \]</span> 对于最优策略，定义最优值函数<span class="math inline">\(V^*(x) = V^{\pi^*}(x),\forall x\in X\)</span> ,不过对于策略空间含有约束的情况下，还需要考虑在最优值函数尽可能大的情况下，满足约束。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221843751.png" alt="image-20211222184325665" style="zoom:50%;" /></p></li>
+<li><p>最优bellman等式的含义就是在每一次策略选择的时候，都选择当前最优的动作，其理论保证在于下图推导，不妨假设选择最优动作之后的策略是<span class="math inline">\(\pi^\prime\)</span> ,而改变动作的条件在于<span class="math inline">\(Q^\pi(x,\pi^i(x)) \ge V^\pi (x)\)</span>：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221848055.png" alt="image-20211222184846009" style="zoom:50%;" /> <span class="math display">\[
+   = V^{\pi^\prime}(x)
+  \]</span> 也就是说，每一步动作的选择都保证了值函数的增大,因此可以已知选取当前的最优动作，直到<span class="math inline">\(\pi^\prime = \pi\)</span>。</p></li>
+</ul>
+<h5 id="策略迭代">策略迭代</h5>
+<ul>
+<li><p>将策略评估以及策略优化结合起来，就可以得到策略迭代过程。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221857066.png" alt="image-20211222185737994" style="zoom:50%;" /></p>
+<p>上述的策略迭代过程由于每次改进策略之后，都要重新进行策略评估，因此比较耗时。</p>
+<p>注意到策略改进的过程与值改善的过程是一致的，因此可以更改成为以下的值迭代算法。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221859783.png" alt="image-20211222185928712" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="免模型学习">免模型学习</h4>
+<h5 id="蒙特卡洛强化学习">蒙特卡洛强化学习</h5>
+<ul>
+<li><p>免模型学习是指环境并不完全知悉，导致无法进行有模型学习时的策略迭代过程。针对这样的环境，我们可以通过多次采样，求取平均累计奖赏来作为期望累积奖赏的近似，这也就是蒙特卡洛强化学习的过程。</p></li>
+<li><p>由于采样有限次，因此适合使用<span class="math inline">\(T\)</span>步累计奖赏的强化学习。</p></li>
+<li><p>另外，蒙特卡洛强化学习的估计对象从值函数<span class="math inline">\(V(\cdot)\)</span>转变为了状态动作函数<span class="math inline">\(Q(\cdot)\)</span></p></li>
+<li><p>为了能够多次采样出不同的轨迹，可以引入<span class="math inline">\(\epsilon\)</span>-贪心策略进行策略选取，将原来确定性的策略<span class="math inline">\(\pi\)</span>转变为了<span class="math inline">\(\pi^{\epsilon}\)</span> 策略。</p></li>
+<li><p>注意到引入<span class="math inline">\(\epsilon\)</span>-贪心策略并不会影响选取当前最优的动作构成的策略优化算法的正确性，因为，从已经最大化了值函数的原始策略<span class="math inline">\(\pi^\prime\)</span>中分出<span class="math inline">\(\epsilon\)</span>的概率给其他动作，仍然是原始策略<span class="math inline">\(\pi^\prime\)</span>中的最优动作可以最大化值函数。</p></li>
+<li><p>如果评估与优化的都是同一个值函数，就可以得到同策略蒙特卡洛强化学习</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221917760.png" alt="image-20211222191729674" style="zoom:50%;" /></p></li>
+<li><p>但是，由于同策略蒙特卡洛强化学习最终产生的是<span class="math inline">\(\epsilon\)</span>-贪心策略,我们更希望在策略评估的过程中引入<span class="math inline">\(\epsilon\)</span>-贪心策略，而在策略改进时只改进原始策略。</p></li>
+<li><p>这里插入一个重要性采样(importance sampling)的概念：</p>
+<p>对于另一个分布<span class="math inline">\(q\)</span>,函数<span class="math inline">\(f\)</span>在概率<span class="math inline">\(p\)</span>下的期望为： <span class="math display">\[
+  \mathbb{E}[f] = \int_x q(x) \frac{p(x)}{q(x)} f(x)dx
+  \]</span> 用采样离散化： <span class="math display">\[
+  \hat{\mathbb{E}}[f] = \frac{1}{m} \sum_{i=1}^m \frac{p(x_i^\prime)}{q(x_i^\prime)} f(x_i^\prime)
+  \]</span> 那么，对于贪心策略<span class="math inline">\(\pi^\prime\)</span>以及原始策略<span class="math inline">\(\pi\)</span>给出的两条轨迹<span class="math inline">\(i\)</span>的概率<span class="math inline">\(P_i^\pi,P_i^{\pi^\prime}\)</span>, <span class="math display">\[
+  P^\pi = \prod_{i=0}^{T-1} \pi(x_i,a_i) P_{x_i \rightarrow x_{i+1}}^{a_i}\\
+  P_i^{\pi^\prime} = \prod_{i=0}^{T-1} \pi^\prime(x_i,a_i) P_{x_i \rightarrow x_{i+1}}^{a_i}\\
+  Q(x,a) = \frac{1}{m} \sum_{i=1}^m \frac{P^\pi}{P_i^{\pi^\prime}} r_i\\
+      = \frac{1}{m} \sum_{i=1}^m \prod_{i=0}^{T-1} \frac{\pi(x_i,a_i)}{\pi^\prime(x_i,a_i)} r_i \\
+      \pi(x_i,a_i) = 1\\
+      \pi^\prime(x_i,a_i) =\frac{\epsilon}{|A|} \ or\ 1-\epsilon + \frac{\epsilon}{|A|}
+  \]</span> <img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221930008.png" alt="image-20211222193032924" style="zoom:50%;" /></p></li>
+</ul>
+<h5 id="时序差分学习">时序差分学习</h5>
+<ul>
+<li><p>蒙特卡洛强化学习在进行完整的采样之后再进行状态-动作对的更新，可以将这个过程化为增量化的更新。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221940826.png" alt="image-20211222194010746" style="zoom:50%;" /></p></li>
+<li><p>Sarsa算法(同策略算法，评估执行的都是<span class="math inline">\(\epsilon\)</span>贪心策略):</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941491.png" alt="image-20211222194118419" style="zoom:50%;" /></li>
+</ul></li>
+<li><p>Q-learning算法(异策略算法,评估<span class="math inline">\(\epsilon\)</span>贪心策略,执行原始策略):</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941783.png" alt="image-20211222194130693" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-12-22-Review-AML3/" rel="prev" title="Review AML chap.13">
+      <i class="fa fa-chevron-left"></i> Review AML chap.13
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-12-22-ReviewAML5/" rel="next" title="Review AML chap.12">
+      Review AML chap.12 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">强化学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-1"><span class="nav-number">2.</span> <span class="nav-text">强化学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#k-%E6%91%87%E8%87%82%E8%B5%8C%E5%8D%9A%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">K-摇臂赌博机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#epsilon%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5"><span class="nav-number">2.2.</span> <span class="nav-text">\(\epsilon\)贪心策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#softmax%E7%AE%97%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">Softmax算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.4.</span> <span class="nav-text">有模型学习</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="nav-number">2.4.1.</span> <span class="nav-text">策略评估</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%94%B9%E8%BF%9B"><span class="nav-number">2.5.</span> <span class="nav-text">策略改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">2.6.</span> <span class="nav-text">策略迭代</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">免模型学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.1.</span> <span class="nav-text">蒙特卡洛强化学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.2.</span> <span class="nav-text">时序差分学习</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yanquan Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

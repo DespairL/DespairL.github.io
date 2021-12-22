@@ -145,7 +145,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-21%202021-12-21-Review-AML2%20231056/">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +159,506 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/12/22/2021-12-21%202021-12-21-Review-AML2%20231056/" class="post-title-link" itemprop="url">Review AML.2</a>
+            <a href="/2021/12/22/2021-12-22-ReviewAML5/" class="post-title-link" itemprop="url">Review AML chap.12</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-22 21:09:48 / Modified: 22:08:15" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="计算学习理论">计算学习理论</h4>
+<h5 id="基础知识">基础知识</h5>
+<ul>
+<li><p>对于一个数据集<span class="math inline">\(D = (\mathcal{X},\mathcal{Y})\)</span>,假设<span class="math inline">\(\mathcal{X}\)</span>中的所有样本都是从分布<span class="math inline">\(\mathcal{D}\)</span>当中采样出来的且服从独立同分布采样。</p></li>
+<li><p><span class="math inline">\(h:\mathcal{X}-&gt;\mathcal{Y}\)</span>,定义泛化误差：</p>
+<ul>
+<li><p><span class="math display">\[
+  E(h;\mathcal{D}) = P_{x&lt;-\mathcal{D}}(h(x)\not = y)
+  \]</span></p>
+<p>预测结果与label不一致。</p></li>
+</ul></li>
+<li><p>定义<span class="math inline">\(h\)</span>在<span class="math inline">\(D\)</span>上的经验误差：</p>
+<ul>
+<li><span class="math display">\[
+  \hat{E}(h;D) = \frac{1}{m}\sum_{i=1}^m \mathbb{I}(h(x_i) \not= y_i)
+  \]</span></li>
+</ul></li>
+<li><p>由于<span class="math inline">\(D\)</span>是分布<span class="math inline">\(\mathcal{D}\)</span>的独立同分布采样，因此，<span class="math inline">\(\mathbb{E}[\hat{E}(h;D)] = E(h;\mathcal{D})\)</span>,对于<span class="math inline">\(E(h;\mathcal{D})\)</span>有一个上限<span class="math inline">\(\epsilon\)</span> ,称其为误差参数。</p></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/22/2021-12-22-ReviewAML4/" class="post-title-link" itemprop="url">Review AML chap.16</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-22 15:58:41 / Modified: 19:41:39" itemprop="dateCreated datePublished" datetime="2021-12-22T15:58:41+08:00">2021-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="强化学习">强化学习</h4>
+<h4 id="强化学习-1">强化学习</h4>
+<ul>
+<li><p>强化学习的过程概括些说就是做一个动作action，环境给予你一个反馈r:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221600231.png" alt="image-20211222160057193" style="zoom:50%;" /></p></li>
+<li><p>强化学习任务通常用马尔可夫决策过程(MDP)来描述：</p>
+<ul>
+<li><p>对于一个环境<span class="math inline">\(E\)</span>,其由状态空间<span class="math inline">\(X\)</span>,动作空间<span class="math inline">\(A\)</span>,状态转移概率<span class="math inline">\(P\)</span>以及奖励函数<span class="math inline">\(R\)</span>组成，通常的P,R函数形式如下：<span class="math inline">\(P: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个概率,<span class="math inline">\(R: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个奖赏。</p></li>
+<li><p>因此，强化学习的内容就是让机器通过在环境中不断尝试从而学到一个策略<span class="math inline">\(\pi\)</span> ,根据这个策略本<span class="math inline">\(\pi\)</span> ,我们可以确定在状态<span class="math inline">\(x\)</span>下要执行的动作<span class="math inline">\(a = \pi(x)\)</span> ,并且使得长期累积的奖赏可以最大化。</p></li>
+<li><p>常用的长期累计奖赏的计算方式有：</p>
+<ul>
+<li><p>T步累计奖赏 ： <span class="math inline">\(\mathbb{E}[\frac{1}{T} \sum_{t=1}^T r_t]\)</span></p></li>
+<li><p><span class="math inline">\(\gamma\)</span>折扣累计奖赏 ： <span class="math inline">\(\mathbb{E}[ \sum_{t=0}^{+\infty} \gamma^t r_{t}]\)</span></p></li>
+<li><p>马尔可夫回报过程（MRP）计算的就是： <span class="math display">\[
+  V(x) = \sum_{x^\prime\in X} P(x^\prime|x) (R(x^\prime) + V(x^\prime))
+  \]</span> 描述的就是从一个状态<span class="math inline">\(x\)</span>转移到其他所有状态<span class="math inline">\(x^\prime\)</span>之后的累计回报。</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="k-摇臂赌博机">K-摇臂赌博机</h5>
+<ul>
+<li>强化学习任务需要在多步动作之后，才能看到最终奖赏，考虑简单情况，就是最大化单步奖赏。要最大化单步奖赏，我们不仅要知道每个动作带来的奖赏，还要执行奖赏最大的动作。但是动作的奖赏通常都是取自一个概率分布，无法通过单次尝试获得平均奖赏值。</li>
+<li>K-摇臂赌博机描述了单步强化学习任务的过程：K-摇臂赌博机有k个摇臂，投入一个硬币可以按下一个摇臂，每个摇臂以一定概率（不可知）吐出硬币。</li>
+<li>对于这种情况，一般有两种策略：
+<ul>
+<li>探索——估计摇臂的优劣：即平均给每个摇臂投硬币，得到概率的近似解</li>
+<li>利用——选择当前最优的摇臂。</li>
+<li>由于总尝试次数有限，因此，侧重于任何一方都会削弱另外一方。这也就是强化学习面临的“探索-利用窘境”。想要达到最大的累计奖赏，就必须在探索与利用之间达成较好的折中。</li>
+</ul></li>
+</ul>
+<h5 id="epsilon贪心策略"><span class="math inline">\(\epsilon\)</span>贪心策略</h5>
+<ul>
+<li><p><span class="math inline">\(\epsilon\)</span>贪心法基于一个概率来对探索以及利用过程进行折中：</p>
+<ul>
+<li><p>每次尝试时，以<span class="math inline">\(\epsilon\)</span>概率进行探索，选择一个摇臂；以<span class="math inline">\(1-\epsilon\)</span> 的概率选择当前平均奖赏最高的摇臂（多个采取随机选择）。</p></li>
+<li><p>则平均奖赏可以记录为 <span class="math display">\[
+  Q(k) = \frac{1}{n} \sum_{i=1}^n v_i
+  \]</span> <span class="math inline">\(v_i\)</span>为每次返回的奖赏,需要记录n个奖赏值。</p></li>
+<li><p>一种更为高效的办法是对均值进行增量式计算，即每尝试一次就更新<span class="math inline">\(Q\)</span>,设定用下标记录尝试次数,<span class="math inline">\(Q_i\)</span>表示i次尝试之后的平均奖赏，更新公式如下: <span class="math display">\[
+  Q_n(k) = \frac{1}{n} ((n-1)\times Q_{n-1}(k) + v_n)
+  \]</span> 也就只需要记录每个摇臂的尝试次数n，以及平均奖赏<span class="math inline">\(Q_i(k)\)</span></p></li>
+<li><p>其中，通过调整<span class="math inline">\(\epsilon\)</span>的大小，可以调整探索以及利用的比率。当迭代较多次之后，可以考虑增大利用的比率。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700300.png" alt="image-20211222170052246" style="zoom:50%;" /></p></li>
+</ul></li>
+</ul>
+<h5 id="softmax算法">Softmax算法</h5>
+<ul>
+<li><p>Softmax算法基于已知的摇臂平均奖赏来对探索以及利用进行折中，通过摇臂平均奖赏计算摇臂被选取的概率(基于Boltzmann分布)，且正相关： <span class="math display">\[
+  P(k) = \frac{e^{\frac{Q(k)}{\tau}}}{\sum_{i=1}^K e^{\frac{Q(i)}{\tau}}}
+  \]</span> 其中<span class="math inline">\(\tau\)</span>是可以自设定的参数，越高则平均奖赏越高的摇臂被选取的概率越高，也就是越趋向于“仅利用”。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221700202.png" alt="image-20211222170036149" style="zoom:50%;" /></p></li>
+<li><p>Softmax算法以及<span class="math inline">\(\epsilon\)</span>贪心法孰优孰劣看具体应用。</p></li>
+</ul>
+<h5 id="有模型学习">有模型学习</h5>
+<ul>
+<li>有模型学习描述的是指马尔可夫决策过程总环境<span class="math inline">\(E=&lt;X,A,P,R&gt;\)</span>已知的情况,也就是说一个状态<span class="math inline">\(x\)</span>经过动作<span class="math inline">\(a\)</span>转移到<span class="math inline">\(x^\prime\)</span>的概率<span class="math inline">\(P_a\)</span>,以及reward<span class="math inline">\(R_a\)</span>都是已知的。</li>
+</ul>
+<h6 id="策略评估">策略评估</h6>
+<ul>
+<li><p>在模型已知的情况下，对于任意的策略<span class="math inline">\(\pi\)</span>,都可以估计出该策略带来的期望累计奖赏。</p></li>
+<li><p>定义一些函数如下：</p>
+<ul>
+<li><span class="math inline">\(V^{\pi}(x)\)</span>表示从状态<span class="math inline">\(x\)</span>出发采用策略<span class="math inline">\(\pi\)</span>带来的累计奖赏
+<ul>
+<li><span class="math inline">\(V(\cdot)\)</span>是状态值函数</li>
+</ul></li>
+<li><span class="math inline">\(Q^{\pi}(x,a)\)</span>表示从状态出发，执行动作a之后再使用策略<span class="math inline">\(\pi\)</span>的累计奖赏
+<ul>
+<li><span class="math inline">\(Q(\cdot)\)</span>是一个状态-动作值函数</li>
+</ul></li>
+<li>累计奖赏都用T步累计奖赏、<span class="math inline">\(\gamma\)</span>折扣累计奖赏进行计算。</li>
+</ul></li>
+<li><p>由于MDP具有马尔可夫性质，因此系统下一时刻的状态仅有当前的状态决定，不依赖任何以往的状态，也就是说，我们可以将上述函数写成递归等式的形式（这也被称为Bellman等式）:</p>
+<ul>
+<li>对于T步累计奖赏有</li>
+</ul>
+<p><span class="math display">\[
+  V^{\pi}_T(x) = \sum_{a\in A} \pi(x,a)\sum_{x^\prime\in X}P^a_{x\rightarrow x^\prime} (\frac{1}{T} R^a_{x\rightarrow x^\prime} + \frac{T-1}{T}V^{\pi}_{T-1}(x^\prime)) (16.7)
+  \]</span></p>
+<ul>
+<li>对于<span class="math inline">\(\gamma\)</span>折扣累计奖赏有 <span class="math display">\[
+  V^{\pi}_{\gamma}(x) = \sum_{a\in A} \pi(x,a)\sum_{x^\prime\in X}P^a_{x\rightarrow x^\prime} ( R^a_{x\rightarrow x^\prime} + \gamma V^{\pi}_{\gamma}(x^\prime))   (16.8)
+  \]</span></li>
+</ul></li>
+<li><p>那么对于策略评估算法有</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835924.png" alt="image-20211222183501861" style="zoom:50%;" /></p></li>
+<li><p>对于<span class="math inline">\(\gamma\)</span>折扣累计奖赏,可以作出更改如下:</p>
+<p>需要设定阈值的原因是，基于T步累计奖赏的策略评估算法的动态规划过程是从T-&gt;0,而基于<span class="math inline">\(\gamma\)</span>折扣累计奖赏的策略评估算法的动态规划过程是从<span class="math inline">\(0-&gt;+\infty\)</span></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221835754.png" alt="image-20211222183558680" style="zoom:50%;" /></p></li>
+</ul>
+<h5 id="策略改进">策略改进</h5>
+<ul>
+<li><p>评估完某一个策略的累计奖赏之后，我们希望对其进行改进，即求解下列优化问题 <span class="math display">\[
+  \pi^* = \arg\max_{\pi} \sum_{x\in X} V^{\pi} (x)
+  \]</span> 对于最优策略，定义最优值函数<span class="math inline">\(V^*(x) = V^{\pi^*}(x),\forall x\in X\)</span> ,不过对于策略空间含有约束的情况下，还需要考虑在最优值函数尽可能大的情况下，满足约束。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221843751.png" alt="image-20211222184325665" style="zoom:50%;" /></p></li>
+<li><p>最优bellman等式的含义就是在每一次策略选择的时候，都选择当前最优的动作，其理论保证在于下图推导，不妨假设选择最优动作之后的策略是<span class="math inline">\(\pi^\prime\)</span> ,而改变动作的条件在于<span class="math inline">\(Q^\pi(x,\pi^i(x)) \ge V^\pi (x)\)</span>：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221848055.png" alt="image-20211222184846009" style="zoom:50%;" /> <span class="math display">\[
+   = V^{\pi^\prime}(x)
+  \]</span> 也就是说，每一步动作的选择都保证了值函数的增大,因此可以已知选取当前的最优动作，直到<span class="math inline">\(\pi^\prime = \pi\)</span>。</p></li>
+</ul>
+<h5 id="策略迭代">策略迭代</h5>
+<ul>
+<li><p>将策略评估以及策略优化结合起来，就可以得到策略迭代过程。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221857066.png" alt="image-20211222185737994" style="zoom:50%;" /></p>
+<p>上述的策略迭代过程由于每次改进策略之后，都要重新进行策略评估，因此比较耗时。</p>
+<p>注意到策略改进的过程与值改善的过程是一致的，因此可以更改成为以下的值迭代算法。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221859783.png" alt="image-20211222185928712" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="免模型学习">免模型学习</h4>
+<h5 id="蒙特卡洛强化学习">蒙特卡洛强化学习</h5>
+<ul>
+<li><p>免模型学习是指环境并不完全知悉，导致无法进行有模型学习时的策略迭代过程。针对这样的环境，我们可以通过多次采样，求取平均累计奖赏来作为期望累积奖赏的近似，这也就是蒙特卡洛强化学习的过程。</p></li>
+<li><p>由于采样有限次，因此适合使用<span class="math inline">\(T\)</span>步累计奖赏的强化学习。</p></li>
+<li><p>另外，蒙特卡洛强化学习的估计对象从值函数<span class="math inline">\(V(\cdot)\)</span>转变为了状态动作函数<span class="math inline">\(Q(\cdot)\)</span></p></li>
+<li><p>为了能够多次采样出不同的轨迹，可以引入<span class="math inline">\(\epsilon\)</span>-贪心策略进行策略选取，将原来确定性的策略<span class="math inline">\(\pi\)</span>转变为了<span class="math inline">\(\pi^{\epsilon}\)</span> 策略。</p></li>
+<li><p>注意到引入<span class="math inline">\(\epsilon\)</span>-贪心策略并不会影响选取当前最优的动作构成的策略优化算法的正确性，因为，从已经最大化了值函数的原始策略<span class="math inline">\(\pi^\prime\)</span>中分出<span class="math inline">\(\epsilon\)</span>的概率给其他动作，仍然是原始策略<span class="math inline">\(\pi^\prime\)</span>中的最优动作可以最大化值函数。</p></li>
+<li><p>如果评估与优化的都是同一个值函数，就可以得到同策略蒙特卡洛强化学习</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221917760.png" alt="image-20211222191729674" style="zoom:50%;" /></p></li>
+<li><p>但是，由于同策略蒙特卡洛强化学习最终产生的是<span class="math inline">\(\epsilon\)</span>-贪心策略,我们更希望在策略评估的过程中引入<span class="math inline">\(\epsilon\)</span>-贪心策略，而在策略改进时只改进原始策略。</p></li>
+<li><p>这里插入一个重要性采样(importance sampling)的概念：</p>
+<p>对于另一个分布<span class="math inline">\(q\)</span>,函数<span class="math inline">\(f\)</span>在概率<span class="math inline">\(p\)</span>下的期望为： <span class="math display">\[
+  \mathbb{E}[f] = \int_x q(x) \frac{p(x)}{q(x)} f(x)dx
+  \]</span> 用采样离散化： <span class="math display">\[
+  \hat{\mathbb{E}}[f] = \frac{1}{m} \sum_{i=1}^m \frac{p(x_i^\prime)}{q(x_i^\prime)} f(x_i^\prime)
+  \]</span> 那么，对于贪心策略<span class="math inline">\(\pi^\prime\)</span>以及原始策略<span class="math inline">\(\pi\)</span>给出的两条轨迹<span class="math inline">\(i\)</span>的概率<span class="math inline">\(P_i^\pi,P_i^{\pi^\prime}\)</span>, <span class="math display">\[
+  P^\pi = \prod_{i=0}^{T-1} \pi(x_i,a_i) P_{x_i \rightarrow x_{i+1}}^{a_i}\\
+  P_i^{\pi^\prime} = \prod_{i=0}^{T-1} \pi^\prime(x_i,a_i) P_{x_i \rightarrow x_{i+1}}^{a_i}\\
+  Q(x,a) = \frac{1}{m} \sum_{i=1}^m \frac{P^\pi}{P_i^{\pi^\prime}} r_i\\
+      = \frac{1}{m} \sum_{i=1}^m \prod_{i=0}^{T-1} \frac{\pi(x_i,a_i)}{\pi^\prime(x_i,a_i)} r_i \\
+      \pi(x_i,a_i) = 1\\
+      \pi^\prime(x_i,a_i) =\frac{\epsilon}{|A|} \ or\ 1-\epsilon + \frac{\epsilon}{|A|}
+  \]</span> <img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221930008.png" alt="image-20211222193032924" style="zoom:50%;" /></p></li>
+</ul>
+<h5 id="时序差分学习">时序差分学习</h5>
+<ul>
+<li><p>蒙特卡洛强化学习在进行完整的采样之后再进行状态-动作对的更新，可以将这个过程化为增量化的更新。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221940826.png" alt="image-20211222194010746" style="zoom:50%;" /></p></li>
+<li><p>Sarsa算法(同策略算法，评估执行的都是<span class="math inline">\(\epsilon\)</span>贪心策略):</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941491.png" alt="image-20211222194118419" style="zoom:50%;" /></li>
+</ul></li>
+<li><p>Q-learning算法(异策略算法,评估<span class="math inline">\(\epsilon\)</span>贪心策略,执行原始策略):</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941783.png" alt="image-20211222194130693" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-22-Review-AML3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/22/2021-12-22-Review-AML3/" class="post-title-link" itemprop="url">Review AML chap.13</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-22 10:44:57 / Modified: 15:58:38" itemprop="dateCreated datePublished" datetime="2021-12-22T10:44:57+08:00">2021-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="半监督学习">半监督学习</h4>
+<h5 id="未标记样本">未标记样本</h5>
+<ul>
+<li>显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。</li>
+<li>为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。</li>
+<li>基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据<span class="math inline">\(D_l\)</span>训练出一个学习器，然后让这个学习器对unlabel的数据进行预测，将预测结果人工检查好不好，再加入到有标记样本中进行训练。每次我们都挑选出对改善模型性能有帮助的瓜，那么，就只需要人工检查较少次数就可以构建出性能比较好的模型，从而降低成本。这也符合了它的目的：用尽量少的查询获得尽量好的性能。</li>
+<li>但是主动学习仍然借助了专家的知识，如果能让学习器不依赖外界知识，自动利用<span class="math inline">\(D_u\)</span> 数据，那就是半监督学习(semi-supervised learning)的学习目标了。</li>
+<li>想要做到这一点，一个问题就浮现了：如何揭示未标记样本所包含的数据分布信息并将其与label相联系？
+<ul>
+<li>为了解决这个问题，提出了几个假设：
+<ul>
+<li>聚类假设（cluster assumption）:
+<ul>
+<li>假设数据有簇结构，同一个簇的样本属于同一个类别</li>
+</ul></li>
+<li>流形假设（manifold assumption）:
+<ul>
+<li>假设数据分布在一个流形结构上，邻近的样本拥有相似的输出值</li>
+<li>它与聚类假设的本质都是相似的样本有相似的输出</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>半监督学习又可以进一步划分为纯半监督学习、直推学习。
+<ul>
+<li>纯半监督学习认为未标记样本并不一定是待预测的数据。（open-world assumption）这个认定也就意味着纯半监督学习可以对测试样本进行预测。</li>
+<li>而直推学习则认为未标记样本就是待预测的数据。（closed-world assumption）</li>
+</ul></li>
+</ul>
+<h5 id="生成式方法">生成式方法</h5>
+<ul>
+<li><p>基于生成式模型，认为所有数据都是同一个潜在模型生成的，未标记样本的label是模型的缺失参数，可以基于EM算法进行极大似然法求解。</p></li>
+<li><p>给定一个样本<span class="math inline">\(x\)</span>,其真实类别标记为<span class="math inline">\(y \in \mathcal{Y}\)</span> ,假设样本由高斯混合模型生成，并且每个类别对应一个高斯混合成分，也就是说： <span class="math display">\[
+  p (x) = \sum_{i=1}^N \alpha_i \cdot p(x|\mu_i,\Sigma_i)
+  \]</span> 其中<span class="math inline">\(\alpha_i \ge 0,\sum_{i=1}^k \alpha_i = 1\)</span>,<span class="math inline">\(p(x|\mu_i,\Sigma_i)\)</span>表示样本<span class="math inline">\(x\)</span>属于第<span class="math inline">\(i\)</span>个高斯混合成分。</p></li>
+<li><p>如果接着假设<span class="math inline">\(f(x)\)</span>是模型<span class="math inline">\(f\)</span>对样本<span class="math inline">\(x\)</span>的预测标记，用<span class="math inline">\(\Theta\in\{1,2,...,N\}\)</span>表示样本隶属的高斯混合成分，按照最大化后验概率的想法，有： <span class="math display">\[
+  f(x) = \arg\max_{j\in\mathcal{Y}} p(y=j|x) \\
+   = \arg\max_{j\in\mathcal{Y}} \sum_{i=1}^N p(y=j,\Theta=i|x) \\
+   = \arg\max_{j\in\mathcal{Y}} \sum_{i=1}^N p(y=j|\Theta=i,x) \cdot p(\Theta=i|x) \\
+   p(\Theta=i|x) = \frac{\alpha_i \cdot p(x|\mu_i,\Sigma_i)}{\sum_{i=1}^N \alpha_i \cdot p(x|\mu_i,\Sigma_i)}
+  \]</span> <span class="math inline">\(p(\Theta=i|x)\)</span>表示的是样本<span class="math inline">\(x\)</span>由第i个高斯混合成分生成的后验概率</p>
+<p><span class="math inline">\(p(y=j|\Theta=i,x)\)</span>表示的是样本<span class="math inline">\(x\)</span>由第i个高斯混合成分生成且属于类别j的概率。</p>
+<p>再假设类别与高斯混合成分相对应的情况下，只有当<span class="math inline">\(i=j\)</span>的时候，<span class="math inline">\(p(y=j|\Theta=i,x)=1\)</span> ,otherwise,为0.</p></li>
+<li><p>对于上面的式子，由于<span class="math inline">\(p(y=j|\Theta=i,x)\)</span>与样本挂钩，<span class="math inline">\(p(\Theta=i|x)\)</span>与样本无关。因此估计<span class="math inline">\(p(\Theta=i|x)\)</span>的时候可以使用未标记样本,也就可以辅助预测<span class="math inline">\(f(x)\)</span>。</p></li>
+<li><p>极大似然法求解过程：</p>
+<ul>
+<li><p><span class="math display">\[
+  LL(D_l \cup D_u) =  \sum_{x} \ln(\sum_{i=1}^N p(y=j|\Theta=i,x) \cdot p(\Theta=i|x)) \\
+  = \sum_{(x_j,y_j)\in D_l} \ln \sum_{i=1}^N \alpha_i  \cdot p(x|\mu_i,\Sigma_i) \cdot p(y=j|\Theta=i,x) + \\
+      \sum_{x_j\in D_u} \ln \sum_{i=1}^N \alpha_i  \cdot p(x|\mu_i,\Sigma_i)
+  \]</span></p>
+<p>拆分为了与数据label有关的一项以及与数据label无关的一项。</p>
+<p>与数据label有关的一项利用<span class="math inline">\(D_l\)</span>进行训练，与数据label无关的一项利用<span class="math inline">\(D_u\)</span>进行训练</p></li>
+<li><p>接下来就需要用EM算法进行求解。</p></li>
+</ul></li>
+<li><p>但是这种方法存在一个缺陷就是只有在假设的数据分布与真实的数据分布吻合的情况下才有效，否则利用未标记数据会降低泛化性能，这也是现实中很难做到的事情。</p></li>
+<li><p>(*)高斯混合分布：</p>
+<ul>
+<li><p><span class="math display">\[
+  p_M(x) = \sum_{i=1}^k \alpha_i \cdot p(x|\mu_i,\Sigma_i)
+  \]</span></p></li>
+<li><p>k个混合成为组成，每个混合成分对应一个高斯分布。<span class="math inline">\(\alpha_i \ge 0,\sum_{i=1}^k \alpha_i = 1\)</span>是混合系数。</p></li>
+<li><p>高斯分布:</p>
+<ul>
+<li><span class="math display">\[
+  p(x) = \frac{1}{(2\pi)^{\frac{n}{2}} |\Sigma|^{\frac{1}{2}}} e^{-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x-\mu)}
+  \]</span></li>
+</ul></li>
+</ul></li>
+<li></li>
+<li><p>(*)EM算法 review:</p>
+<ul>
+<li><p>在西瓜书的推导中，将上述提到的<span class="math inline">\(p(\Theta=i|x)\)</span>记为<span class="math inline">\(\gamma_{i}\)</span> ,显然由最大化后验概率可知，对于样本<span class="math inline">\(x_j\)</span>的簇标记<span class="math inline">\(\lambda_j\)</span>由<span class="math inline">\(\arg\max \gamma_{ji}\)</span>确定。计算<span class="math inline">\(\gamma_{ji}\)</span>的过程,即计算样本<span class="math inline">\(x_j\)</span>属于各个高斯混合概率的概率就是E步。</p>
+<p>下面根据计算的<span class="math inline">\(\gamma_{ji}\)</span>更新参数<span class="math inline">\(\alpha_i,\mu_i,\Sigma_i\)</span>,就是M步。</p></li>
+<li><p>由极大似然可推知: <span class="math display">\[
+  LL(D) = \ln(\prod_{j=1}^m p_M(x_j)) \\ 
+       = \sum_{j=1}^m \ln (\sum_{i=1}^k \alpha_i \cdot p(x|\mu_i,\Sigma_i))
+  \]</span> 我们要学习的是<span class="math inline">\(\alpha_i,\mu_i,\Sigma_i\)</span></p>
+<p>由<span class="math inline">\(\frac{\partial LL(D)}{\partial \mu_i} = 0\)</span>可知 <span class="math display">\[
+  \frac{d (\frac{1}{(2\pi)^{\frac{n}{2}} |\Sigma|^{\frac{1}{2}}} e^{-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x-\mu)})}{d \mu_i} \sum_{j=1}^m \frac{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i)}{\sum_{l=1}^k \alpha_l \cdot p(x|\mu_l,\Sigma_l)} = 0 \ (1)\\ 
+  \sum_{j=1}^m \frac{\alpha_i \cdot p(x_j|\mu_i,\Sigma_i)}{\sum_{l=1}^k \alpha_l \cdot p(x|\mu_l,\Sigma_l)} (x_j - \mu_i) = 0 \ (2)\\
+  \sum_{j=1}^m \gamma_{ji} (x_j - \mu_i) = 0 \\
+  \mu_i = \frac{\sum_{j=1}^m \gamma_{ji} x_j}{\sum_{j=1}^m \gamma_{ji}}
+  \]</span> 注意的是，(1)式的导数在约去所有大于零的部分以及参数部分就可以转换为(2)式。</p>
+<p>同理，按照<span class="math inline">\(\frac{\partial LL(D)}{\partial \Sigma_i} = 0\)</span>可知 <span class="math display">\[
+  \Sigma_i = \frac{\sum_{j=1}^m \gamma_{ji} (x_j - \mu_i)(x_j - \mu_i)^T}{\sum_{j=1}^m \gamma_{ji}}
+  \]</span> 对于混合系数<span class="math inline">\(\alpha_i\)</span>,我们需要用拉格朗日乘子法， <span class="math display">\[
+  LL(D) + \lambda(\sum_{i=1}^k \alpha_i -1)
+  \]</span> 对上式进行对<span class="math inline">\(\alpha_i\)</span>进行求偏导为0 <span class="math display">\[
+  \sum_{j=1}^m \gamma_{ji} + \alpha_i \lambda = 0 \\
+  \sum_{i=1}^m(\sum_{j=1}^m \gamma_{ji} + \alpha_i \lambda) = m + \lambda = 0\\
+  \lambda = -m \\
+  \alpha_i = \frac{\sum_{j=1}^m \gamma_{ji}}{m}
+  \]</span></p></li>
+</ul></li>
+</ul>
+<h5 id="半监督svm">半监督SVM</h5>
+<ul>
+<li>半监督SVM是在SVM的基础上，将两类有标记样本切开并且倾向于穿过数据低密度区域。</li>
+<li>半监督SVM最著名的TSVM,TSVM针对二分类，想法是尝试将每个未标记样本作为正例或者反例，在所有可能的结果中，找到一个在所有样本中间隔最大化的划分超平面。划分超平面确定，则样本的划分标签确定。</li>
+<li></li>
+</ul>
+<h5 id="图半监督学习">图半监督学习</h5>
+<ul>
+<li><p>图半监督学习的想法是给定一个数据集，将其映射为一个图，每个样本对应于图中的一个结点，如果两个样本之间的相似度很高，那么两个节点之间不仅有边，并且边的权重也很高。</p>
+<p>并且，对于有标记样本，我们将其建模为染过色的结点，未标记样本则是未染色的结点。那么，半监督学习的过程就是颜色在图上传播的过程。</p></li>
+<li><p>要让图可训练，我们需要将其构建为一个矩阵，通常根据高斯函数定义affinity matrix(亲和矩阵): <span class="math display">\[
+  (\mathbf{W})_{ij} = \left\{
+  \begin{aligned}
+  &amp; \exp (\frac{-||x_i - x_j||_2^2}{2\sigma^2}) , if\ i\not=j\\
+  &amp; 0, otherwise
+  \end{aligned} 
+  \right.
+  \]</span> 同时基于相似的样本有相似的输出可以定义能量函数： <span class="math display">\[
+  E(f) = \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m (\mathbf{W})_{ij} (f(x_i) - f(x_j))^2 \\
+  = \mathbf{f}^T (\mathbf{D} - \mathbf{W}) \mathbf{f} \\
+  \mathbf{f} = (\mathbf{f}^T_l \mathbf{f}^T_u)^T \\
+  \mathbf{D} = diag(d_1,d_2,...,d_{u+l}),d_i = \sum_{j=1}^{l+u} (\mathbf{W})_{ij}
+  \]</span></p></li>
+<li></li>
+</ul>
+<h5 id="基于分歧的方法">基于分歧的方法</h5>
+<ul>
+<li><p>基于分歧的方法常使用多个学习器，而学习器之间的分歧对于未标记数据的利用有很大的借鉴意义。</p></li>
+<li><p>其重要代表是协同训练，它也是多视图学习的代表。</p>
+<ul>
+<li><p>其假设数据有两个充分且条件独立的视图。</p>
+<ul>
+<li>充分是指每个视图都包含足以产生最优学习器的信息。</li>
+<li>条件独立是指在给定类别条件的情况下，两个视图独立。</li>
+</ul></li>
+<li><p>其想法是在每个视图上基于有标记样本分别训练出一个分类器，然后挑选每个分类器对未标记样本正确概率最大的样本作为另一个分类器的有标记样本加入下一轮训练。但是这种想法需要在每轮学习中都考察分类器在所有未标记样本上的置信度，计算开销大。这个问题可以借助未标记样本缓冲池（一开始选择s个<span class="math inline">\(D_u\)</span>中的样本加入，每轮循环结束后，再选一些加入）进行解决。</p></li>
+<li><p>总过程伪代码：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221451878.png" alt="image-20211222145112704" style="zoom:50%;" /></p></li>
+<li><p>在数据有两个充分且条件独立的视图的条件下，弱学习器的泛化能力可以提升到任意高。</p></li>
+</ul></li>
+<li><p>在后续研究中发现，数据拥有两个视图的假设并不重要，只需要弱学习器之间有明显差异即可，算法、视图、不同采样方式、不同参数都可以产生差异。</p></li>
+</ul>
+<h5 id="半监督学习-1">半监督学习</h5>
+<ul>
+<li>在现实聚类的过程中，我们常常可以获得一些额外的监督信息，因此，我们可以使用半监督聚类来利用监督信息以获得更好的聚类效果。</li>
+<li>监督信息大致有以下两类：
+<ul>
+<li>必连：样本必定属于同一个簇。</li>
+<li>勿连：样本必定不属于同一个簇。</li>
+<li>少量的有标记样本，即事先已经找到少量样本属于哪一个簇当中。</li>
+</ul></li>
+<li>典型代表是约束k均值算法：
+<ul>
+<li>其是k-mean是算法的拓展，是第一类监督信息的代表（勿连与必连）。需要保证勿连集合<span class="math inline">\(\mathcal{C}\)</span>以及必连集合<span class="math inline">\(\mathcal{M}\)</span>中的约束，即如果有<span class="math inline">\((x_i,x_j)\in\mathcal{M}\)</span>，那么<span class="math inline">\(x_i\)</span>和<span class="math inline">\(x_j\)</span>必定是同一类别的。</li>
+<li>其实就是k-mean算法的基础上加上判断每次样本<span class="math inline">\(x\)</span>与哪个均值向量<span class="math inline">\(u_i\)</span>最近，在划入之前，检查是否满足约束，如果不满足，就将样本<span class="math inline">\(x\)</span>加入次近的簇当中，再进行检查。</li>
+<li>如果始终找不到可以容纳样本<span class="math inline">\(x\)</span>的簇，则认为无法完成聚类，输出error。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221527153.png" alt="image-20211222152740069" style="zoom:50%;" /></li>
+</ul></li>
+<li>利用第二类监督信息的代表是约束种子的k-means算法：
+<ul>
+<li>它的利用方式很容易理解，就是直接将已知簇标记的样本作为种子，初始化k-means的k个聚类中心，并且再聚类簇迭代的过程中始终不改变种子的标记。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221537526.png" alt="image-20211222153753446" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12021-12-21-Review-AML2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/22/2021-12021-12-21-Review-AML2/" class="post-title-link" itemprop="url">Review AML.2</a>
         </h2>
 
         <div class="post-meta">
@@ -1001,211 +1500,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/11/13/2021-11-13-%E8%BE%89-%E5%A4%9C-%E5%A4%A7-%E5%B0%8F-%E5%A7%90-%E6%83%B3-%E8%AE%A9-%E6%88%91-%E5%91%8A-%E7%99%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/13/2021-11-13-%E8%BE%89-%E5%A4%9C-%E5%A4%A7-%E5%B0%8F-%E5%A7%90-%E6%83%B3-%E8%AE%A9-%E6%88%91-%E5%91%8A-%E7%99%BD/" class="post-title-link" itemprop="url">辉夜大小姐想让我告白~</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00+08:00">2021-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-17 16:26:32" itemprop="dateModified" datetime="2021-11-17T16:26:32+08:00">2021-11-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>About 辉夜大小姐想让我告白~</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/13/2021-11-13-%E8%BE%89-%E5%A4%9C-%E5%A4%A7-%E5%B0%8F-%E5%A7%90-%E6%83%B3-%E8%AE%A9-%E6%88%91-%E5%91%8A-%E7%99%BD/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/11/13/2021-11-13-By-talk/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/13/2021-11-13-By-talk/" class="post-title-link" itemprop="url">Rambling Digression</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00+08:00">2021-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-17 11:09:50" itemprop="dateModified" datetime="2021-11-17T11:09:50+08:00">2021-11-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="section">!!!!</h5>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/11/13/2021-11-17-test-math/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/13/2021-11-17-test-math/" class="post-title-link" itemprop="url">Math Test</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-13 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-13T00:00:00+08:00">2021-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-17 14:54:26" itemprop="dateModified" datetime="2021-11-17T14:54:26+08:00">2021-11-17</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><span class="math inline">\(\frac{3}{4}\)</span></p>
-<p><span class="math inline">\(\mathcal{F}\)</span></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1270,7 +1569,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
