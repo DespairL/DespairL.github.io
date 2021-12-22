@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第十章.降维与度量学习 k近邻学习(k-Nearest Neighbor)  是一种监督学习方法。 idea ： 给定样本，基于一种距离度量方案找出与其最接近的k个训练样本，然后基于这k个样本的信息进行预测。  在分类问题中，对这k个样本采取投票法决定类别。 对于回归问题，用平均法作为预测结果。 一个示例图:     是一种懒惰学习算法。懒惰学习是指在训练阶段只把样本进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Review AML chap.10">
+<meta property="og:url" content="https://despairl.github.io/2021/12/21/2021-12-20-Review-AML1/index.html">
+<meta property="og:site_name" content="HaveFun!">
+<meta property="og:description" content="第十章.降维与度量学习 k近邻学习(k-Nearest Neighbor)  是一种监督学习方法。 idea ： 给定样本，基于一种距离度量方案找出与其最接近的k个训练样本，然后基于这k个样本的信息进行预测。  在分类问题中，对这k个样本采取投票法决定类别。 对于回归问题，用平均法作为预测结果。 一个示例图:     是一种懒惰学习算法。懒惰学习是指在训练阶段只把样本进行">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112202057821.png">
+<meta property="article:published_time" content="2021-12-21T15:48:40.435Z">
+<meta property="article:modified_time" content="2021-12-22T02:13:44.040Z">
+<meta property="article:author" content="Yanquan Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112202057821.png">
+
+<link rel="canonical" href="https://despairl.github.io/2021/12/21/2021-12-20-Review-AML1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Review AML chap.10 | HaveFun!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">HaveFun!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/21/2021-12-20-Review-AML1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Review AML chap.10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-21 23:48:40" itemprop="dateCreated datePublished" datetime="2021-12-21T23:48:40+08:00">2021-12-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-22 10:13:44" itemprop="dateModified" datetime="2021-12-22T10:13:44+08:00">2021-12-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="第十章.降维与度量学习">第十章.降维与度量学习</h4>
+<h5 id="k近邻学习k-nearest-neighbor">k近邻学习(k-Nearest Neighbor)</h5>
+<ul>
+<li><p>是一种监督学习方法。</p></li>
+<li><p>idea ： 给定样本，基于一种距离度量方案找出与其最接近的k个训练样本，然后基于这k个样本的信息进行预测。</p>
+<ul>
+<li><p>在分类问题中，对这k个样本采取投票法决定类别。</p></li>
+<li><p>对于回归问题，用平均法作为预测结果。</p></li>
+<li><p>一个示例图:</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112202057821.png" alt="image-20211220205713716" style="zoom:50%;" /></li>
+</ul></li>
+</ul></li>
+<li><p>是一种懒惰学习算法。懒惰学习是指在训练阶段只把样本进行保存，训练时间的开销几乎为0，在获得测试样本时，再对训练样本进行处理；而与之对应的，如果在训练阶段就对样本进行处理的算法就是“急切学习”。</p></li>
+<li><p>数学推导：</p>
+<ul>
+<li><p>给定测试样本<span class="math inline">\(x\)</span>,如果其最近邻样本为<span class="math inline">\(z\)</span>,那么分类错的概率就是<span class="math inline">\(x\)</span>,<span class="math inline">\(z\)</span>分了不同的类 <span class="math display">\[
+  P(err) = 1 - \sum_{c\in\mathcal{Y}} P(c|x)P(c|z)\\
+  \mathcal{Y}\ is\ the \ class\ set
+  \]</span></p></li>
+<li><p>对上述式子做一个强假设：样本独立同分布，且<span class="math inline">\(z\)</span>可以在<span class="math inline">\(x\)</span>的任意近的范围内找到。那么，如果令<span class="math inline">\(c^\star = \arg\max_{c\in\mathcal{Y}} P(c|x)\)</span> 即贝叶斯最优分类器的结果，可以推导出： <span class="math display">\[
+  P(err) \approx 1 - \sum_{c\in\mathcal{Y}} P(c|x)^2 \\
+      \le 1 - P^2(c^\star|x) \\
+       = (1 - P(c^\star|x)) (1 + P(c^\star|x)) \\
+       \le 2 \times [1 - P(c^\star|x)]
+  \]</span> 因此，KNN分类器分错样本的概率比贝叶斯最优分类器的误差的两倍小。</p></li>
+</ul></li>
+<li><p>Review(贝叶斯最优分类器):</p>
+<ul>
+<li><p>将loss定义为将<span class="math inline">\(c_i\)</span>样本错分为<span class="math inline">\(c_j\)</span>样本的损失： <span class="math display">\[
+  Loss(c_j|x) = \sum_{i=1}^N \lambda_{ji} P(c_i|x)
+  \]</span></p></li>
+<li><p>为了最小化总体loss，只需要选择能够让条件风险最小的类别<span class="math inline">\(c^\star\)</span>即可，就可以得到一个最优分类器： <span class="math display">\[
+  c^\star = \arg\min_{c\in\mathcal{Y}} Loss(c|x) \\
+          = \arg\max_{c\in\mathcal{Y}} P(c|x) 
+  \]</span> 通俗的解释来说，想要让其他类错分为<span class="math inline">\(c^\star\)</span> 的造成的损失最小，那么就选择在所有类别中样本被划分的后验概率最大的那一个class <span class="math inline">\(c\)</span> 。</p></li>
+</ul></li>
+<li><p>但是，KNN分类器分错样本的概率比贝叶斯最优分类器的误差的两倍小这个结论能够推导出来的条件是<span class="math inline">\(z\)</span>可以在<span class="math inline">\(x\)</span>的任意近的范围内找到,也就是说在任意样本<span class="math inline">\(x\)</span>的任意<span class="math inline">\(\delta\)</span>范围都有另一个训练样本<span class="math inline">\(z\)</span>,则要求我们的采样密度足够大，这也就是“密采样”。</p></li>
+<li><p>如果<span class="math inline">\(delta=0.001\)</span>,对于单个属性，就要求1000个样本分布在归一化属性范围内。如果属性维度为<span class="math inline">\(n\)</span>,那么采样数量就是<span class="math inline">\((1000)^n\)</span> 。在这种高纬度的数据情况下，会出现数据样本稀疏、距离计算困难等诸多障碍，也就是所谓的“维数灾难”。</p></li>
+<li><p>要缓解维数灾难的重要方法就是降维——将原始高维子空间降为低维子空间,而要求就是这个低维子空间正是我们的学习任务密切相关的部分。在实际问题中，与问题密切相关的很多时候，恰恰就是一个低维子空间。</p></li>
+</ul>
+<h5 id="降维方法多维缩放mds">降维方法——多维缩放MDS</h5>
+<ul>
+<li><p>MDS要求原始空间中样本之间的距离在低维空间中得以保持。</p></li>
+<li><p>将该问题建模。假设m个样本在原始空间的距离矩阵为<span class="math inline">\(\mathbf{D} = \{dist_{ij}\} \in R^{m\times m}\)</span>, <span class="math inline">\(dist_{ij}\)</span>为样本<span class="math inline">\(x_i\)</span>到样本<span class="math inline">\(x_j\)</span>的距离。我们的目标是找到低维空间的距离矩阵<span class="math inline">\(\mathbf{Z}\in R^{d^\prime \times m}\)</span> ,并且<span class="math inline">\(||z_j - z_i||_2^2 = dist_{ij} (1)\)</span> 。</p></li>
+<li><p>令$ = ^T  = {b_{ij}} = z_i^T z_j $ ,是降维后样本的内积矩阵，由(1)式，我们可以推导得知， <span class="math display">\[
+  dist_{ij}^2 = ||z_i||^2 + ||z_j||^2 - 2z_i^T z_j (2) \\
+   = b_{ii} + b_{jj} - 2b_{ij}
+  \]</span></p></li>
+<li><p>为了方便，我们可以假设降维之后的样本<span class="math inline">\(\mathbf{Z}\)</span>被中心化，即<span class="math inline">\(\sum_{i=1}^m z_i = 0\)</span> 。</p></li>
+<li><p>那么，<span class="math inline">\(\sum_{i=1}^m b_{ij} = z_j \times \sum_{i=1}^m z_i = 0\)</span>,<span class="math inline">\(\sum_{j=1}^m b_{ij} = z_i \times \sum_{j=1}^m z_j = 0\)</span>。</p></li>
+<li><p>因此，<span class="math inline">\(tr(\mathbf{B})=||z_{i\ or \ j}||^2\)</span>,由(2)式推导得：</p>
+<ul>
+<li><p><span class="math display">\[
+  \sum_{i=1}^m dist_{ij}^2 = \sum_{i=1}^m b_{ii} + m b_{jj} = tr(\mathbf{B}) + mb_{jj} \\
+  \sum_{j=1}^m dist_{ij}^2 = \sum_{j=1}^m b_{jj} + m b_{ii} = tr(\mathbf{B}) + mb_{ii} \\
+  \sum_{i=1}^m \sum_{j=1}^m dist_{ij}^2 = tr(\mathbf{B}) + \sum_{j=1}^m mb_{jj} = 2mtr(\mathbf{B})
+  \]</span></p></li>
+<li><p><span class="math display">\[
+  dist_{i\cdot }^2  = \frac{1}{m} \sum_{j=1}^m dist_{ij}^2 = \frac{tr(\mathbf{B})}{m}  + b_{ii}\\
+  dist_{\cdot j}^2  = \frac{1}{m} \sum_{i=1}^m dist_{ij}^2= \frac{tr(\mathbf{B})}{m}  + b_{jj}\\
+  dist_{\cdot \cdot}^2  = \frac{1}{m^2} \sum_{j=1}^m \sum_{i=1}^m dist_{ij}^2 = 2\frac{tr(\mathbf{B})}{m}
+  \]</span></p></li>
+<li><p><span class="math display">\[
+  b_{ij} = \frac{b_{ii} + b_{jj} - dist_{ij}^2}{2} \\
+      = \frac{dist_{i\cdot }^2 - \frac{tr(\mathbf{B})}{m} + dist_{\cdot j }^2 - \frac{tr(\mathbf{B})}{m} - dist_{ij}^2 }{2} \\
+      = \frac{dist_{i\cdot }^2  + dist_{\cdot j }^2  - dist_{ij}^2 - dist_{\cdot \cdot}^2}{2} 
+  \]</span></p>
+<p>至此，也就求出<span class="math inline">\(\mathbf{B}\)</span>矩阵了。</p></li>
+</ul></li>
+<li><p>而<span class="math inline">\(\mathbf{B}\)</span>是<span class="math inline">\(\mathbf{Z}\)</span>的内积矩阵，为了求得<span class="math inline">\(\mathbf{Z}\)</span>,我们需要找到一个矩阵，其内积为<span class="math inline">\(\mathbf{B}\)</span>。</p></li>
+<li><p>一个想法是对<span class="math inline">\(\mathbf{B}\)</span>进行特征值分解，<span class="math inline">\(\mathbf{B} = \mathbf{V} \wedge \mathbf{V}^T\)</span> ,$<span class="math inline">\(是一个特征值构成的对角矩阵，\)</span><span class="math inline">\(是一个特征向量矩阵。如果假设有\)</span>d^*<span class="math inline">\(个非零特征值，其构成对角阵\)</span>_*$ ,那么<span class="math inline">\(\mathbf{Z}\)</span>就可以表示为<span class="math inline">\(\wedge_*^{1/2} \mathbf{V}_*^T\)</span> 。</p></li>
+<li><p>而一般情况下，不要求降维后的距离严格不变，只要尽可能接近即可。此时，可以任意取<span class="math inline">\(\hat{d}\)</span>个非零特征值，其构成对角阵<span class="math inline">\(\hat{\wedge}_*\)</span> ,那么<span class="math inline">\(\mathbf{Z}\)</span>就可以表示为<span class="math inline">\(\hat{\wedge}_*^{1/2} \hat{\mathbf{V}_*}^T\)</span> 。</p></li>
+</ul>
+<h5 id="最一般的降维线性降维">最一般的降维——线性降维</h5>
+<ul>
+<li><p>一般，我们可以直接采取对<span class="math inline">\(\mathbf{X}\)</span>乘以一个变换矩阵<span class="math inline">\(\mathbf{W}\)</span>的形式得到<span class="math inline">\(\mathbf{Z}\)</span>,即<span class="math inline">\(\mathbf{Z} = \mathbf{W}^T \mathbf{X}\)</span></p>
+<p>其中<span class="math inline">\(\mathbf{Z}\in R^{d^\prime \times m}\)</span>，<span class="math inline">\(\mathbf{X}\in R^{d \times m}\)</span>,<span class="math inline">\(\mathbf{W}\in R^{d \times d^\prime}\)</span> 。</p></li>
+<li><p>其变换的含义在于对于每一个样本<span class="math inline">\(x_i\)</span>，<span class="math inline">\(z_i\)</span>都是<span class="math inline">\(x_i\)</span>与<span class="math inline">\(\mathbf{W}\)</span>中的<span class="math inline">\(d^\prime\)</span>个<span class="math inline">\(d\)</span>维向量内积的结果，即$z_i = ^T x_i $ 。如果基于<span class="math inline">\(z_i\)</span>来重构<span class="math inline">\(x_i\)</span>,那么<span class="math inline">\(x_i = \sum_{j=1}^{d^\prime} z_{ij} w_j\)</span>。原坐标系属性线性组合成了新坐标系中的属性。如果新坐标系是正交的，那么<span class="math inline">\(\mathbf{W}\)</span>就是一个正交变换。</p></li>
+<li><p>PCA就是这种思想的典型代表。</p></li>
+<li><p>PCA希望通过一个超平面对所有的样本点进行分隔。围绕这个目的，有两种等价的推导方式,在假设样本中心化以及<span class="math inline">\(\mathbf{W}\)</span>就是一个标准正交变换：</p>
+<ul>
+<li><p>最近重构性：所有的样本点到这个超平面距离都很近。</p>
+<ul>
+<li><p><span class="math display">\[
+  ||\sum_{j=1}^{d^\prime} z_{ij} w_j - x_i||_2^2 \propto -tr(\mathbf{W}^T \mathbf{X}\mathbf{X}^T \mathbf{W})
+  \]</span></p></li>
+<li><p>优化目标：</p>
+<ul>
+<li><span class="math display">\[
+  \min_{\mathbf{W}} -tr(\mathbf{W}^T \mathbf{X}\mathbf{X}^T \mathbf{W}) \\s.t. \mathbf{W}^T \mathbf{W} = \mathbf{I}
+  \]</span></li>
+</ul></li>
+</ul></li>
+<li><p>最大可分性：所有的样本点在这个超平面上的投影都尽可能分开。</p>
+<ul>
+<li><p>在这个超平面上的投影都尽可能分开-&gt;投影之后的方差最大化</p></li>
+<li><p>投影也是一种线性变换，因此，投影后样本$ x_i<span class="math inline">\(变成\)</span>^T x_i<span class="math inline">\(,方差是\)</span>_i ^T x_i x_i^T  = tr(^T ^T )$ 。</p></li>
+<li><p>优化目标：</p>
+<ul>
+<li><span class="math display">\[
+  \max_{\mathbf{W}} tr(\mathbf{W}^T \mathbf{X}\mathbf{X}^T \mathbf{W}) \\
+  s.t. \mathbf{W}^T \mathbf{W} = \mathbf{I}
+  \]</span></li>
+</ul></li>
+</ul></li>
+<li><p>对两个优化问题使用拉格朗日乘子法可以得到: <span class="math display">\[
+  \mathbf{X}\mathbf{X}^T \mathbf{W} = \lambda \mathbf{W}
+  \]</span></p></li>
+<li><p>对协方差矩阵<span class="math inline">\(\mathbf{X}\mathbf{X}^T\)</span>进行特征值分解，就可以求得<span class="math inline">\(d\)</span>个特征值，按从大到小顺序取前<span class="math inline">\(d^\prime\)</span>个特征值即可得到PCA的解。</p></li>
+<li><p>舍弃这<span class="math inline">\(d-d^\prime\)</span>个特征值，可以在采样相同样本数的情况下提升采样密度，并去除一部分噪声。</p></li>
+<li><p><span class="math inline">\(d^\prime\)</span>一般由用户指定，也可以用其他分类器进行交叉验证，或者设定一个重构阈值<span class="math inline">\(t\)</span>,要求选取最小能够满足重构后的特征值大小<span class="math inline">\(\sum_{i=1}^{d^\prime} \lambda_i\)</span>与重构前的特征值大小<span class="math inline">\(\sum_{i=1}^{d} \lambda_i\)</span>的比值大于阈值$t $</p></li>
+</ul></li>
+</ul>
+<h5 id="非线性降维核化线性降维">非线性降维——核化线性降维</h5>
+<h5 id="流形学习">流形学习</h5>
+<h5 id="距离度量学习">距离度量学习</h5>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/21/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-11-19-Record-CS224n-a2/" rel="next" title="CS224n Assignment2">
+      CS224n Assignment2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0.%E9%99%8D%E7%BB%B4%E4%B8%8E%E5%BA%A6%E9%87%8F%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">第十章.降维与度量学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#k%E8%BF%91%E9%82%BB%E5%AD%A6%E4%B9%A0k-nearest-neighbor"><span class="nav-number">1.1.</span> <span class="nav-text">k近邻学习(k-Nearest Neighbor)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%99%8D%E7%BB%B4%E6%96%B9%E6%B3%95%E5%A4%9A%E7%BB%B4%E7%BC%A9%E6%94%BEmds"><span class="nav-number">1.2.</span> <span class="nav-text">降维方法——多维缩放MDS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E4%B8%80%E8%88%AC%E7%9A%84%E9%99%8D%E7%BB%B4%E7%BA%BF%E6%80%A7%E9%99%8D%E7%BB%B4"><span class="nav-number">1.3.</span> <span class="nav-text">最一般的降维——线性降维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E9%99%8D%E7%BB%B4%E6%A0%B8%E5%8C%96%E7%BA%BF%E6%80%A7%E9%99%8D%E7%BB%B4"><span class="nav-number">1.4.</span> <span class="nav-text">非线性降维——核化线性降维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%81%E5%BD%A2%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.5.</span> <span class="nav-text">流形学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B7%9D%E7%A6%BB%E5%BA%A6%E9%87%8F%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.6.</span> <span class="nav-text">距离度量学习</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yanquan Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

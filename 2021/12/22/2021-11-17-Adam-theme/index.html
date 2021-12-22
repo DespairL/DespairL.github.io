@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文的所有内容均搬运自the-mvm&#x2F;the-mvm.github.io: The Minimum Viable Model website and Jekyll theme. demo site now mirrored in IPFS! Jekyll theme: Adam Blog 2.0 by Armando Maynez based on V1.0 by Artem Sheludk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jekyll theme Adam Blog 2.0">
+<meta property="og:url" content="https://despairl.github.io/2021/12/22/2021-11-17-Adam-theme/index.html">
+<meta property="og:site_name" content="HaveFun!">
+<meta property="og:description" content="本文的所有内容均搬运自the-mvm&#x2F;the-mvm.github.io: The Minimum Viable Model website and Jekyll theme. demo site now mirrored in IPFS! Jekyll theme: Adam Blog 2.0 by Armando Maynez based on V1.0 by Artem Sheludk">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/homepage-responsive.jpg?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/light-toggle.png?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post.jpg?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post_bottom.jpg?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/404-responsive.jpg?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/homepage-dark.png?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post-dark.png?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post_bottom-dark.png?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/ctt-markdown.png?raw=true">
+<meta property="og:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/ctt-render.png?raw=true">
+<meta property="og:image" content="https://despairl.github.io/2021/assets/img/template_screenshots/MathjaxRendered.jpg">
+<meta property="article:published_time" content="2021-12-22T02:14:04.673Z">
+<meta property="article:modified_time" content="2021-11-21T12:16:08.930Z">
+<meta property="article:author" content="Yanquan Chen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/homepage-responsive.jpg?raw=true">
+
+<link rel="canonical" href="https://despairl.github.io/2021/12/22/2021-11-17-Adam-theme/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Jekyll theme Adam Blog 2.0 | HaveFun!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">HaveFun!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-11-17-Adam-theme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jekyll theme Adam Blog 2.0
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-22 10:14:04" itemprop="dateCreated datePublished" datetime="2021-12-22T10:14:04+08:00">2021-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-21 20:16:08" itemprop="dateModified" datetime="2021-11-21T20:16:08+08:00">2021-11-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>本文的所有内容均搬运自<a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io">the-mvm/the-mvm.github.io: The Minimum Viable Model website and Jekyll theme.</a></strong></p>
+<p>demo site now <a target="_blank" rel="noopener" href="https://weathered-bread-8229.on.fleek.co/">mirrored</a> in <a target="_blank" rel="noopener" href="https://github.com/ipfs/ipfs#quick-summary">IPFS</a>!</p>
+<h1 id="jekyll-theme-adam-blog-2.0">Jekyll theme: Adam Blog 2.0</h1>
+<p>by <a target="_blank" rel="noopener" href="https://github.com/amaynez">Armando Maynez</a> based on <a target="_blank" rel="noopener" href="https://github.com/artemsheludko/adam-blog">V1.0</a> by <a target="_blank" rel="noopener" href="https://github.com/artemsheludko">Artem Sheludko</a>.</p>
+<p>Adam Blog 2.0 is a Jekyll theme that was built to be 100% compatible with <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a>. If you are unfamiliar with GitHub Pages, you can check out <a target="_blank" rel="noopener" href="https://help.github.com/categories/github-pages-basics/">their documentation</a> for more information. <a target="_blank" rel="noopener" href="http://jmcglone.com/guides/github-pages/">Jonathan McGlone's guide</a> on creating and hosting a personal site on GitHub is also a good resource.</p>
+<h3 id="what-is-jekyll">What is Jekyll?</h3>
+<p>Jekyll is a simple, blog-aware, static site generator for personal, project, or organization sites. Basically, Jekyll takes your page content along with template files and produces a complete website. For more information, visit the <a target="_blank" rel="noopener" href="https://jekyllrb.com/docs/home/">official Jekyll site</a> for their documentation. Codecademy also offers a great course on <a target="_blank" rel="noopener" href="https://www.codecademy.com/learn/deploy-a-website">how to deploy a Jekyll site</a> for complete beginners.</p>
+<span id="more"></span>
+<h3 id="never-used-jekyll-before">Never Used Jekyll Before?</h3>
+<p>The beauty of hosting your website on GitHub is that you don't have to actually have Jekyll installed on your computer. Everything can be done through the GitHub code editor, with minimal knowledge of how to use Jekyll or the command line. All you have to do is add your posts to the <code>_posts</code> directory and edit the <code>_config.yml</code> file to change the site settings. With some rudimentary knowledge of HTML and CSS, you can even modify the site to your liking. This can all be done through the GitHub code editor, which acts like a content management system (CMS).</p>
+<h2 id="features-of-v2.0">Features of v2.0:</h2>
+<ul>
+<li>SEO meta tags</li>
+<li>Dark mode ([configurable in _config.yml file](https://github.com/the-mvm/the-mvm.github.io/blob/a8d4f781bfbc4107b4842433701d28f5bbf1c520/_config.yml#L10))</li>
+<li>automatic <a target="_blank" rel="noopener" href="http://the-mvm.github.io/sitemap.xml">sitemap.xml</a></li>
+<li>automatic <a target="_blank" rel="noopener" href="http://the-mvm.github.io/archive/">archive page</a> with infinite scrolling capability</li>
+<li><a target="_blank" rel="noopener" href="https://the-mvm.github.io/tag/?tag=Coding">new page</a> of posts filtered by a single tag (without needing autopages from paginator V2), also with infinite scrolling</li>
+<li>click to tweet functionality (just add a <code>&lt;tweet&gt; &lt;/tweet&gt;</code> tag in your markdown.</li>
+<li>custom and responsive <a target="_blank" rel="noopener" href="https://the-mvm.github.io/404.html">404 page</a></li>
+<li>responsive and automatic Table of Contents (optional per post)</li>
+<li>read time per post automatically calculated</li>
+<li>responsive post tags and social share icons (sticky or inline)</li>
+<li>included linkedin, reddit and bandcamp icons</li>
+<li><em>copy link to clipboard</em> sharing option (and icon)</li>
+<li>view on github link button (optional per post)</li>
+<li>MathJax support (optional per post)</li>
+<li>tag cloud in the home page</li>
+<li>'back to top' button</li>
+<li>comments 'courtain' to mask the disqus interface until the user clicks on it ([configurable in _config.yml](https://github.com/the-mvm/the-mvm.github.io/blob/d4a67258912e411b639bf5acd470441c4c219544/_config.yml#L13))</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/blob/d4a67258912e411b639bf5acd470441c4c219544/assets/css/main.css#L8">CSS variables</a> to make it easy to customize all colors and fonts</li>
+<li>added several themes for code syntax highlight [configurable from the _config.yml file](https://github.com/the-mvm/the-mvm.github.io/blob/e146070e9348c2e8f46cb90e3f0c6eb7b59c041a/_config.yml#L44).</li>
+<li>responsive footer menu and footer logo (<a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/blob/d4a67258912e411b639bf5acd470441c4c219544/_config.yml#L7">if setup in the config file</a>)</li>
+<li>search shows results based on full post content, not just the description</li>
+<li>smoother menu animations</li>
+</ul>
+<h2 id="features-preserved-from-v1.0">Features preserved from v1.0</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://fonts.google.com/">Google Fonts</a></li>
+<li><a target="_blank" rel="noopener" href="http://fontawesome.io/">Font Awesome icons</a></li>
+<li><a target="_blank" rel="noopener" href="https://disqus.com/">Disqus</a></li>
+<li><a target="_blank" rel="noopener" href="https://mailchimp.com/">MailChimp</a></li>
+<li><a target="_blank" rel="noopener" href="https://analytics.google.com/analytics/web/">Analytics</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/christian-fei/Simple-Jekyll-Search">Search</a></li>
+</ul>
+<h2 id="demo">Demo</h2>
+<p><a target="_blank" rel="noopener" href="https://the-mvm.github.io/">Check the theme in action</a></p>
+<p>The main page looks like this:</p>
+<p><img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/homepage-responsive.jpg?raw=true"></p>
+<p>Dark mode selector in main menu:</p>
+<p><img width="560px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/light-toggle.png?raw=true"></p>
+<p>The post page looks like:</p>
+<p><img width="540px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post.jpg?raw=true"> <img width="540px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post_bottom.jpg?raw=true"></p>
+<p>Custom responsive 404:</p>
+<p><img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/404-responsive.jpg?raw=true"></p>
+<p>Dark mode looks like this:</p>
+<p><img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/homepage-dark.png?raw=true"></p>
+<p><img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post-dark.png?raw=true"> <img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/post_bottom-dark.png?raw=true"></p>
+<h1 id="installation">Installation</h1>
+<h2 id="local-installation">Local Installation</h2>
+<p>For a full local installation of Adam Blog 2.0, <a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/archive/refs/heads/main.zip">download your own copy of Adam Blog 2.0</a> and unzip it into it's own directory. From there, open up your favorite command line tool, enter <code>bundle install</code>, and then enter <code>jekyll serve</code>. Your site should be up and running locally at <a target="_blank" rel="noopener" href="http://localhost:4000">http://localhost:4000</a>.</p>
+<p>If you're completely new to Jekyll, I recommend checking out the documentation at <a target="_blank" rel="noopener" href="https://jekyllrb.com/" class="uri">https://jekyllrb.com/</a> or there's a tutorial by <a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/">Smashing Magazine</a>.</p>
+<p>If you are hosting your site on GitHub Pages, then committing a change to the <code>_config.yml</code> file (or any other file) will force a rebuild of your site with Jekyll. Any changes made should be viewable soon after. If you are hosting your site locally, then you must run <code>jekyll serve</code> again for the changes to take place.</p>
+<p>Head over to the <code>_posts</code> directory to view all the posts that are currently on the website, and to see examples of what post files generally look like. You can simply just duplicate the template post and start adding your own content.</p>
+<h2 id="github-pages-installation">GitHub Pages Installation</h2>
+<h3 id="step-1."><strong>STEP 1.</strong></h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/fork/">Fork this repository</a> into your own account.</p>
+<h4 id="using-github-pages">Using Github Pages</h4>
+<p>You can host your Jekyll site for free with Github Pages. <a target="_blank" rel="noopener" href="https://pages.github.com/">Click here</a> for more information.</p>
+<p>When forking, if you use as destination a repository named <code>USERNAME.github.io</code> then your url will be <code>https://USERNAME.github.io/</code>, else <code>https://USERNAME.github.io/REPONAME/</code>) and your site will be published to the gh-pages branch. Note: if you are hosting several sites under the same GitHub username, then you will have to use <a target="_blank" rel="noopener" href="https://help.github.com/articles/user-organization-and-project-pages/">Project Pages instead of User Pages</a> - just change the repository name to something other than 'http://USERNAME.github.io'.</p>
+<h5 id="a-configuration-tweak-if-youre-using-a-gh-pages-branch">A configuration tweak if you're using a gh-pages branch</h5>
+<p>In addition to your github-username.github.io repo that maps to the root url, you can serve up sites by using a gh-pages branch for other repos so they're available at github-username.github.io/repo-name.</p>
+<p>This will require you to modify the <code>_config.yml</code> like so:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site settings</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Repo</span> <span class="string">Name</span></span><br><span class="line"><span class="attr">email:</span> <span class="string">your_email@example.com</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Your</span> <span class="string">Name</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&quot;Repo description&quot;</span></span><br><span class="line"><span class="attr">baseurl:</span> <span class="string">&quot;/repo-name&quot;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">&quot;https://github-username.github.io&quot;</span></span><br></pre></td></tr></table></figure>
+<p>This will ensure that the the correct relative path is constructed for your assets and posts.</p>
+<h3 id="step-2."><strong>STEP 2.</strong></h3>
+<p>Modify <code>_config.yml</code> file, located in the root directory, with your data.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site settings</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">The</span> <span class="string">Title</span> <span class="string">for</span> <span class="string">Your</span> <span class="string">Website</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;A description of your blog&#x27;</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">&#x27;:title:output_ext&#x27;</span> <span class="comment"># how the permalinks will behave</span></span><br><span class="line"><span class="attr">baseurl:</span> <span class="string">&quot;/&quot;</span> <span class="comment"># the subpath of your site, e.g. /blog</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">&quot;&quot;</span> <span class="comment"># the base hostname &amp; protocol for your site, e.g. http://example.com</span></span><br><span class="line"><span class="attr">logo:</span> <span class="string">&quot;&quot;</span> <span class="comment"># the logo for your site</span></span><br><span class="line"><span class="attr">logo-icon:</span> <span class="string">&quot;&quot;</span> <span class="comment"># a smaller logo, typically squared</span></span><br><span class="line"><span class="attr">logo-icon-SEO:</span> <span class="string">&quot;&quot;</span> <span class="comment"># must be a non SVG file, could be the same as the logo-icon</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Night/Dark mode default mode is &quot;auto&quot;, &quot;auto&quot; is for auto nightshift (19:00 - 07:00), &quot;manual&quot; is for manual toggle, and &quot;on/off&quot; is for default on/off. Whatever the user&#x27;s choice is, it will supersede the default setting of the site and be kept during the visit (session). Only the dark mode setting is &quot;manual&quot;, it will be always kept on every visit (i.e. no matter the browser is closed or not)</span></span><br><span class="line"><span class="attr">night_mode:</span> <span class="string">&quot;auto&quot;</span></span><br><span class="line"><span class="attr">logo-dark:</span> <span class="string">&quot;/assets/img/branding/MVM-logo-full-dark.svg&quot;</span> <span class="comment">#if you want to display a different logo when in dark mode</span></span><br><span class="line"><span class="attr">highlight_theme:</span> <span class="string">syntax-base16.monokai.dark</span> <span class="comment"># select a dark theme for the code highlighter if needed</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Author settings</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Your</span> <span class="string">Name</span> <span class="comment"># add your name</span></span><br><span class="line"><span class="attr">author-pic:</span> <span class="string">&#x27;&#x27;</span> <span class="comment"># a picture of you</span></span><br><span class="line"><span class="attr">about-author:</span> <span class="string">&#x27;&#x27;</span> <span class="comment"># a brief description of you</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Contact links</span></span><br><span class="line"><span class="attr">email:</span> <span class="string">your@email.com</span> <span class="comment"># Add your Email address</span></span><br><span class="line"><span class="attr">phone:</span> <span class="comment"># Add your Phone number</span></span><br><span class="line"><span class="attr">website:</span>  <span class="comment"># Add your website</span></span><br><span class="line"><span class="attr">linkedin:</span>  <span class="comment"># Add your Linkedin handle</span></span><br><span class="line"><span class="attr">github:</span>  <span class="comment"># Add your Github handle</span></span><br><span class="line"><span class="attr">twitter:</span>  <span class="comment"># Add your Twitter handle</span></span><br><span class="line"><span class="attr">bandcamp:</span>  <span class="comment"># Add your Bandcamp username</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Tracker</span></span><br><span class="line"><span class="attr">analytics:</span> <span class="comment"># Google Analytics tag ID</span></span><br><span class="line"><span class="attr">fbadmin:</span> <span class="comment"># Facebook ID admin</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Paginate</span></span><br><span class="line"><span class="attr">paginate:</span> <span class="number">6</span> <span class="comment"># number of items to show in the main page</span></span><br><span class="line"><span class="attr">paginate_path:</span> <span class="string">&#x27;page:num&#x27;</span></span><br><span class="line"><span class="attr">words_per_minute:</span> <span class="number">200</span> <span class="comment"># default words per minute to be considered when calculating the read time of the blog posts</span></span><br></pre></td></tr></table></figure>
+<h3 id="step-3."><strong>STEP 3.</strong></h3>
+<p>To configure the newsletter, please create an account in https://mailchimp.com, set up a web signup form and paste the link from the embed signup form in the <code>config.yml</code> file:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Newsletter</span></span><br><span class="line"><span class="attr">mailchimp:</span> <span class="string">&quot;https://github.us1.list-manage.com/subscribe/post?u=8ece198b3eb260e6838461a60&amp;amp;id=397d90b5f4&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="step-4."><strong>STEP 4.</strong></h3>
+<p>To configure Disqus, set up a <a target="_blank" rel="noopener" href="https://disqus.com/admin/create/">Disqus site</a> with the same name as your site. Then, in <code>_config.yml</code>, edit the <code>disqus_identifier</code> value to enable.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Disqus</span></span><br><span class="line"><span class="attr">discus_identifier:</span>  <span class="comment"># Add your discus identifier</span></span><br><span class="line"><span class="attr">comments_curtain:</span> <span class="literal">yes</span> <span class="comment"># leave empty to show the disqus embed directly</span></span><br></pre></td></tr></table></figure>
+<p>More information on <a target="_blank" rel="noopener" href="http://www.perfectlyrandom.org/2014/06/29/adding-disqus-to-your-jekyll-powered-github-pages/">how to set up Disqus</a>.</p>
+<h3 id="step-5."><strong>STEP 5.</strong></h3>
+<p>Customize the site colors. Modify <code>/assets/css/main.css</code> as follows:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  --shadow:       <span class="built_in">rgba</span>(<span class="number">32</span>,<span class="number">30</span>,<span class="number">30</span>,.<span class="number">3</span>);</span><br><span class="line">  --accent:       <span class="number">#DB504A</span>;    <span class="comment">/* accent */</span></span><br><span class="line">  --accent-dark:  <span class="number">#4e3e51</span>;    <span class="comment">/* accent 2 (dark) */</span></span><br><span class="line">  --<span class="selector-tag">main</span>:         <span class="number">#326273</span>;    <span class="comment">/* main color */</span></span><br><span class="line">  --<span class="selector-tag">main</span>-dim:     <span class="number">#879dab</span>;    <span class="comment">/* dimmed version of main color */</span></span><br><span class="line">  --text:         <span class="number">#201E1E</span>;</span><br><span class="line">  --grey1:        <span class="number">#5F5E58</span>;</span><br><span class="line">  --grey2:        <span class="number">#8D897C</span>;</span><br><span class="line">  --grey3:        <span class="number">#B4B3A7</span>;</span><br><span class="line">  --grey4:        <span class="number">#DAD7D2</span>;</span><br><span class="line">  --grey5:        <span class="number">#F0EFED</span>;</span><br><span class="line">  --<span class="attribute">background</span>:   <span class="number">#ffffff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">html</span><span class="selector-attr">[data-theme=<span class="string">&quot;dark&quot;</span>]</span>  &#123;</span><br><span class="line">  --accent:       <span class="number">#d14c47</span>;    <span class="comment">/* accent */</span></span><br><span class="line">  --accent-dark:  <span class="number">#CD8A7A</span>;    <span class="comment">/* accent 2 (dark) */</span></span><br><span class="line">  --<span class="selector-tag">main</span>:         <span class="number">#4C6567</span>;    <span class="comment">/* main color */</span></span><br><span class="line">  --<span class="selector-tag">main</span>-dim:     <span class="number">#273335</span>;    <span class="comment">/* dimmed version of main color */</span></span><br><span class="line">  --text:         <span class="number">#B4B3A7</span>;</span><br><span class="line">  --grey1:        <span class="number">#8D897C</span>;</span><br><span class="line">  --grey2:        <span class="number">#827F73</span>;</span><br><span class="line">  --grey3:        <span class="number">#76746A</span>;</span><br><span class="line">  --grey4:        <span class="number">#66645D</span>;</span><br><span class="line">  --grey5:        <span class="number">#4A4945</span>;</span><br><span class="line">  --<span class="attribute">background</span>:   <span class="number">#201E1E</span>;</span><br><span class="line">  --shadow:       <span class="built_in">rgba</span>(<span class="number">180</span>,<span class="number">179</span>,<span class="number">167</span>,.<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="step-6."><strong>STEP 6.</strong></h3>
+<p>Customize the site fonts. Modify <code>/assets/css/main.css</code> as follows:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  --font1: <span class="string">&#x27;Lora&#x27;</span>, charter, Georgia, Cambria, <span class="string">&#x27;Times New Roman&#x27;</span>, Times, serif;<span class="comment">/* body text */</span></span><br><span class="line">  --font2: <span class="string">&#x27;Source Sans Pro&#x27;</span>, <span class="string">&#x27;Helvetica Neue&#x27;</span>, Helvetica, Arial, sans-serif; <span class="comment">/* headers and titles   */</span></span><br><span class="line">  --font1-light:      <span class="number">400</span>;</span><br><span class="line">  --font1-regular:    <span class="number">400</span>;</span><br><span class="line">  --font1-bold:       <span class="number">600</span>;</span><br><span class="line">  --font2-light:      <span class="number">200</span>;</span><br><span class="line">  --font2-regular:    <span class="number">400</span>;</span><br><span class="line">  --font2-bold:       <span class="number">700</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>If you change the fonts, you need to also modify <code>/_includes/head.html</code> as follows: Uncomment and change the following line with your new fonts and font weights:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;https://fonts.googleapis.com/css?family=Lora:400,600|Source+Sans+Pro:200,400,700&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Delete everything within <code>&lt;style&gt;&lt;/style&gt;</code> just before the line above:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="comment">/* latin */</span></span></span><br><span class="line"><span class="css"><span class="keyword">@font-face</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Lora&#x27;</span>;</span></span><br><span class="line"><span class="css">  ...</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="step-7."><strong>STEP 7.</strong></h3>
+<p>You will find example posts in your <code>/_posts/</code> directory. Go ahead and edit any post and re-build the site to see your changes, for github pages, this happens automatically with every commit. You can rebuild the site in many different ways, but the most common way is to run <code>jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<p>To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention of <code>YYYY-MM-DD-name-of-post.md</code> and includes the necessary front matter. Take a look at any sample post to get an idea about how it works. If you already have a website built with Jekyll, simply copy over your posts to migrate to Adam Blog 2.0.</p>
+<p>The front matter options for each post are:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">post</span> <span class="comment">#ensure this one stays like this</span></span><br><span class="line"><span class="attr">read_time:</span> <span class="literal">true</span> <span class="comment"># calculate and show read time based on number of words</span></span><br><span class="line"><span class="attr">show_date:</span> <span class="literal">true</span> <span class="comment"># show the date of the post</span></span><br><span class="line"><span class="attr">title:</span>  <span class="string">Your</span> <span class="string">Blog</span> <span class="string">Post</span> <span class="string">Title</span></span><br><span class="line"><span class="attr">date:</span>   <span class="string">XXXX-XX-XX</span> <span class="string">XX:XX:XX</span> <span class="string">XXXX</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&quot;The description of your blog post&quot;</span></span><br><span class="line"><span class="attr">img:</span> <span class="comment"># the path for the hero image, from the image folder (if the image is directly on the image folder, just the filename is needed)</span></span><br><span class="line"><span class="attr">tags:</span> [<span class="string">tags</span>, <span class="string">of</span>, <span class="string">your</span>, <span class="string">post</span>]</span><br><span class="line"><span class="attr">author:</span> <span class="string">Your</span> <span class="string">Name</span></span><br><span class="line"><span class="attr">github:</span> <span class="string">username/reponame/</span> <span class="comment"># set this to show a github button on the post</span></span><br><span class="line"><span class="attr">toc:</span> <span class="literal">yes</span> <span class="comment"># leave empty or erase for no table of contents</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>Edit your blogpost using markdown. <a target="_blank" rel="noopener" href="https://www.markdownguide.org/">Here is a good guide about how to use it.</a></p>
+<h3 id="step-7.-1"><strong>STEP 7.</strong></h3>
+<p>Delete images inside of <code>/assets/img/posts/</code> and upload your own images for your posts.</p>
+<h3 id="step-8."><strong>STEP 8.</strong></h3>
+<p>Make sure Github Pages are turned on in the repository settings, and pointing to the main or master branch (where you cloned this repo).</p>
+<h2 id="additional-documentation">Additional documentation</h2>
+<h3 id="directory-structure">Directory Structure</h3>
+<p>If you are familiar with Jekyll, then the Adam Blog 2.0 directory structure shouldn't be too difficult to navigate. The following some highlights of the differences you might notice between the default directory structure. More information on what these folders and files do can be found in the <a target="_blank" rel="noopener" href="https://jekyllrb.com/docs/structure/">Jekyll documentation site</a>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Adam Blog 2.0/</span><br><span class="line">├── _includes                  <span class="comment"># Theme includes</span></span><br><span class="line">├── _layouts                   <span class="comment"># Theme layouts (see below for details)</span></span><br><span class="line">├── _posts                     <span class="comment"># Where all your posts will go</span></span><br><span class="line">├── assets                     <span class="comment"># Style sheets and images are found here</span></span><br><span class="line">|  ├── css                     <span class="comment"># Style sheets go here</span></span><br><span class="line">|  |  └── _sass                <span class="comment"># Folder containing SCSS files</span></span><br><span class="line">|  |  └── main.css             <span class="comment"># Main SCSS file</span></span><br><span class="line">|  |  └── highlighter          <span class="comment"># Style sheet for code syntax highlighting</span></span><br><span class="line">|  └── img                     <span class="comment"># </span></span><br><span class="line">|     └── posts                <span class="comment"># Images go here</span></span><br><span class="line">├── _pages                     <span class="comment"># Website pages (that are not posts)</span></span><br><span class="line">├── _config.yml                <span class="comment"># Site settings</span></span><br><span class="line">├── Gemfile                    <span class="comment"># Ruby Gemfile for managing Jekyll plugins</span></span><br><span class="line">├── index.html                 <span class="comment"># Home page</span></span><br><span class="line">├── LICENSE.md                 <span class="comment"># License for this theme</span></span><br><span class="line">├── README.md                  <span class="comment"># Includes all of the documentation for this theme</span></span><br><span class="line">├── feed.xml                   <span class="comment"># Generates atom file which Jekyll points to</span></span><br><span class="line">├── 404.html                   <span class="comment"># custom and responsive 404 page</span></span><br><span class="line">├── all-posts.json             <span class="comment"># database of all posts used for infinite scroll</span></span><br><span class="line">├── ipfs-404.html              <span class="comment"># 404 page for IPFS</span></span><br><span class="line">├── posts-by-tag.json          <span class="comment"># database of posts by tag</span></span><br><span class="line">├── robots.txt                 <span class="comment"># SEO crawlers exclusion file</span></span><br><span class="line">├── search.json                <span class="comment"># database of posts used for search</span></span><br><span class="line">└── sitemap.xml                <span class="comment"># automatically generated sitemap for search engines</span></span><br></pre></td></tr></table></figure>
+<h3 id="starting-from-scratch">Starting From Scratch</h3>
+<p>To completely start from scratch, simply delete all the files in the <code>_posts</code>, <code>assets/img/posts</code> folders, and add your own content. Everything in the <code>_config.yml</code> file can be edited to suit your needs. Also change the <code>favicon.ico</code> file to your own favicon.</p>
+<h3 id="click-to-tweet">Click to tweet</h3>
+<p>If you have a tweetable quote in your blog post and wish to feature it as a click to tweet block, you just have to use the <code>&lt;tweet&gt;&lt;/tweet&gt;</code> tags, everything between them will be converted in a click to tweet box.</p>
+<p><img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/ctt-markdown.png?raw=true"></p>
+<p><img width="640px" src="https://github.com/the-mvm/the-mvm.github.io/blob/main/assets/img/template_screenshots/ctt-render.png?raw=true"></p>
+<h3 id="google-analytics">Google Analytics</h3>
+<p>It is possible to track your site statistics through <a target="_blank" rel="noopener" href="https://www.google.com/analytics/">Google Analytics</a>. Similar to Disqus, you will have to create an account for Google Analytics, and enter the correct Google ID for your site under <code>google-ID</code> in the <code>_config.yml</code> file. More information on <a target="_blank" rel="noopener" href="https://michaelsoolee.com/google-analytics-jekyll/">how to set up Google Analytics</a>.</p>
+<h3 id="atom-feed">Atom Feed</h3>
+<p>Atom is supported by default through <a target="_blank" rel="noopener" href="https://github.com/jekyll/jekyll-feed">jekyll-feed</a>. With jekyll-feed, you can set configuration variables such as 'title', 'description', and 'author', in the <code>_config.yml</code> file.</p>
+<p>Your atom feed file will be live at <code>https://your.site/feed.xml</code> <a target="_blank" rel="noopener" href="https://the-mvm.github.io/feed.xml">example</a>.</p>
+<h3 id="social-media-icons">Social Media Icons</h3>
+<p>All social media icons are courtesy of <a target="_blank" rel="noopener" href="http://fontawesome.io/">Font Awesome</a>. You can change which icons appear, as well as the account that they link to, in the <code>_config.yml</code> file.</p>
+<h3 id="mathjax">MathJax</h3>
+<p>Adam Blog 2.0 comes out of the box with <a target="_blank" rel="noopener" href="https://www.mathjax.org/">MathJax</a>, which allows you to display mathematical equations in your posts through the use of <a target="_blank" rel="noopener" href="http://www.andy-roberts.net/writing/latex/mathematics_1">LaTeX</a>. Just add <code>Mathjax: yes</code> in the frontmatter of your post.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;text-align:center&quot;</span>&gt;</span></span></span><br><span class="line">\(\theta<span class="emphasis">_&#123;t+1&#125; = \theta_</span>&#123;t&#125; - \dfrac&#123;\eta&#125;&#123;\sqrt&#123;\hat&#123;v&#125;<span class="emphasis">_t&#125; + \epsilon&#125; \hat&#123;m&#125;_</span>t\).</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure>
+<img src="../../../assets/img/template_screenshots/MathjaxRendered.jpg" alt="rendered mathjax" /><figcaption aria-hidden="true">rendered mathjax</figcaption>
+</figure>
+<h3 id="syntax-highlighting">Syntax Highlighting</h3>
+<p>Adam Blog 2.0 provides syntax highlighting through <a target="_blank" rel="noopener" href="https://help.github.com/articles/creating-and-highlighting-code-blocks/">fenced code blocks</a>. Syntax highlighting allows you to display source code in different colors and fonts depending on what programming language is being displayed. You can find the full list of supported programming languages <a target="_blank" rel="noopener" href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers">here</a>. Another option is to embed your code through <a target="_blank" rel="noopener" href="https://en.support.wordpress.com/gist/">Gist</a>.</p>
+<p>You can choose the color theme for the syntax highlight in the <code>_config.yml</code> file:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight_theme:</span> <span class="string">syntax-base16.monokai.dark</span> <span class="comment"># select a theme for the code highlighter</span></span><br></pre></td></tr></table></figure>
+<p>See the <a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/tree/main/assets/css/highlighter">highlighter directory</a> for reference on the options.</p>
+<h3 id="markdown">Markdown</h3>
+<p>Jekyll offers support for GitHub Flavored Markdown, which allows you to format your posts using the <a target="_blank" rel="noopener" href="https://guides.github.com/features/mastering-markdown/">Markdown syntax</a>.</p>
+<h2 id="everything-else">Everything Else</h2>
+<p>Check out the <a target="_blank" rel="noopener" href="http://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a target="_blank" rel="noopener" href="https://github.com/jekyll/jekyll">Jekyll's GitHub repo</a>. If you have questions, you can ask them on <a target="_blank" rel="noopener" href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+<h2 id="contributing">Contributing</h2>
+<p>If you would like to make a feature request, or report a bug or typo in the documentation, then please <a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/issues/new">submit a GitHub issue</a>. If you would like to make a contribution, then feel free to <a target="_blank" rel="noopener" href="https://help.github.com/articles/about-pull-requests/">submit a pull request</a> - as a bonus, I will credit all contributors below! If this is your first pull request, it may be helpful to read up on the <a target="_blank" rel="noopener" href="https://guides.github.com/introduction/flow/">GitHub Flow</a> first.</p>
+<p>Adam Blog 2.0 has been designed as a base for users to customize and fit to their own unique needs. Please keep this in mind when requesting features and/or submitting pull requests. Some examples of changes that I would love to see are things that would make the site easier to use, or better ways of doing things. Please avoid changes that do not benefit the majority of users.</p>
+<h2 id="questions">Questions?</h2>
+<p>This theme is completely free and open source software. You may use it however you want, as it is distributed under the <a target="_blank" rel="noopener" href="http://choosealicense.com/licenses/mit/">MIT License</a>. If you are having any problems, any questions or suggestions, feel free to <a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io/issues/new">file a GitHub issue</a>.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-11-19-Record-CS224n-a2/" rel="prev" title="CS224n Assignment2">
+      <i class="fa fa-chevron-left"></i> CS224n Assignment2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/22/2021-11-19-Mathjax-Markdown/" rel="next" title="解决Mathjax与Markdown之间的冲突问题">
+      解决Mathjax与Markdown之间的冲突问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jekyll-theme-adam-blog-2.0"><span class="nav-number">1.</span> <span class="nav-text">Jekyll theme: Adam Blog 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-is-jekyll"><span class="nav-number">1.0.1.</span> <span class="nav-text">What is Jekyll?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#never-used-jekyll-before"><span class="nav-number">1.0.2.</span> <span class="nav-text">Never Used Jekyll Before?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#features-of-v2.0"><span class="nav-number">1.1.</span> <span class="nav-text">Features of v2.0:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#features-preserved-from-v1.0"><span class="nav-number">1.2.</span> <span class="nav-text">Features preserved from v1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demo"><span class="nav-number">1.3.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#installation"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#local-installation"><span class="nav-number">2.1.</span> <span class="nav-text">Local Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github-pages-installation"><span class="nav-number">2.2.</span> <span class="nav-text">GitHub Pages Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#step-1."><span class="nav-number">2.2.1.</span> <span class="nav-text">STEP 1.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#using-github-pages"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">Using Github Pages</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-configuration-tweak-if-youre-using-a-gh-pages-branch"><span class="nav-number">2.2.1.1.1.</span> <span class="nav-text">A configuration tweak if you&#39;re using a gh-pages branch</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-2."><span class="nav-number">2.2.2.</span> <span class="nav-text">STEP 2.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-3."><span class="nav-number">2.2.3.</span> <span class="nav-text">STEP 3.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-4."><span class="nav-number">2.2.4.</span> <span class="nav-text">STEP 4.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-5."><span class="nav-number">2.2.5.</span> <span class="nav-text">STEP 5.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-6."><span class="nav-number">2.2.6.</span> <span class="nav-text">STEP 6.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-7."><span class="nav-number">2.2.7.</span> <span class="nav-text">STEP 7.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-7.-1"><span class="nav-number">2.2.8.</span> <span class="nav-text">STEP 7.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-8."><span class="nav-number">2.2.9.</span> <span class="nav-text">STEP 8.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#additional-documentation"><span class="nav-number">2.3.</span> <span class="nav-text">Additional documentation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#directory-structure"><span class="nav-number">2.3.1.</span> <span class="nav-text">Directory Structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#starting-from-scratch"><span class="nav-number">2.3.2.</span> <span class="nav-text">Starting From Scratch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#click-to-tweet"><span class="nav-number">2.3.3.</span> <span class="nav-text">Click to tweet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#google-analytics"><span class="nav-number">2.3.4.</span> <span class="nav-text">Google Analytics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#atom-feed"><span class="nav-number">2.3.5.</span> <span class="nav-text">Atom Feed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#social-media-icons"><span class="nav-number">2.3.6.</span> <span class="nav-text">Social Media Icons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mathjax"><span class="nav-number">2.3.7.</span> <span class="nav-text">MathJax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#syntax-highlighting"><span class="nav-number">2.3.8.</span> <span class="nav-text">Syntax Highlighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markdown"><span class="nav-number">2.3.9.</span> <span class="nav-text">Markdown</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#everything-else"><span class="nav-number">2.4.</span> <span class="nav-text">Everything Else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#contributing"><span class="nav-number">2.5.</span> <span class="nav-text">Contributing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#questions"><span class="nav-number">2.6.</span> <span class="nav-text">Questions?</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yanquan Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
