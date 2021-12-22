@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -113,34 +113,9 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
   </li>
   </ul>
@@ -166,6 +141,195 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-21%202021-12-21-Review-AML2%20231056/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/22/2021-12-21%202021-12-21-Review-AML2%20231056/" class="post-title-link" itemprop="url">Review AML.2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-22 10:42:39 / Modified: 10:44:13" itemprop="dateCreated datePublished" datetime="2021-12-22T10:42:39+08:00">2021-12-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="第十一章特征选择与稀疏学习">第十一章：特征选择与稀疏学习</h4>
+<h5 id="特征">特征</h5>
+<ul>
+<li><p>相关特征:与当前学习任务相关</p></li>
+<li><p>无关特征:与当前学习任务无关</p></li>
+<li><p>冗杂特征:可以从其他特征中提取出来</p></li>
+<li><p>从特征集合选出相关特征的过程就是特征提取。</p></li>
+<li><p>特征提取的过程可以大为减轻维度灾难的问题，同时提取出重要的特征也可以降低学习的难度。</p></li>
+<li><p>特征提取的一般过程：</p>
+<ul>
+<li>产生初始特征候选子集 —— 子集搜索</li>
+<li>评价候选子集的好坏 —— 子集评价</li>
+<li>基于评价结果产生下一个候选子集</li>
+</ul></li>
+<li><p>其中的关键就是子集搜索以及子集评价:</p>
+<ul>
+<li><p>对于子集搜索:</p>
+<ul>
+<li>前向搜索：逐渐增加相关特征，如果增加特征后的子集优于上一轮的最优子集，那就继续，否则结束；</li>
+<li>后向搜索：从完整的特征集合开始，逐渐减少特征；</li>
+<li>双向搜索：每一轮逐渐增加相关特征，同时减少无关特征。</li>
+</ul></li>
+<li><p>对于子集评价:</p>
+<ul>
+<li><p>其思想在于如果特征子集划分的数据集与样本标记划分的数据集差异越小，就认为这种特征子集划分方法越好。</p></li>
+<li><p>可以用信息熵以及信息增益进行评价：</p>
+<ul>
+<li><p>定义第i类样本在D数据集中所占比例为<span class="math inline">\(p_i\)</span></p></li>
+<li><p><span class="math display">\[
+  Gain(A) = Ent(D) - \sum_{v=1}^{V} \frac{|D^v|}{|D|}Ent(D^v) \\
+  Ent(D) = - \sum_{i=1}^{|\mathcal{Y}|} p_k \log_2 p_k 
+  \]</span></p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>常见的特征选择方法：</p>
+<ul>
+<li><p>过滤式(filter)：</p>
+<ul>
+<li><p>先对数据集进行特征选择，再训练学习器，也就是对数据集中的初始特征进行了一个过滤操作，学习器的性能表现不作为反馈。</p></li>
+<li><p>相关方法——Relief:其想法是设计一个相关统计量向量，向量的一个维度都对应着样本的每一个特征，那么特征子集的重要性就是向量各维度的和。选择我们需要的特征子集的时候，只需要设定一个阈值<span class="math inline">\(t\)</span>,大于<span class="math inline">\(t\)</span>的都选即可。</p></li>
+<li><p>相关统计量如何设定呢？Relief的做法是对于训练集中的每个样本<span class="math inline">\(x_i\)</span>，在其同类样本中找到最近邻<span class="math inline">\(x_{i,nh}\)</span>作为猜中近邻(near-hit)，从异类样本中找到最近邻<span class="math inline">\(x_{i,nm}\)</span>作为猜错近邻(near-miss),那么相关统计量在属性j(第j维)上的表现就是： <span class="math display">\[
+  \delta^j = \sum_i -diff(x_i^j, x_{i,nh}^j)^2 + diff(x_i^j, x_{i,nm}^j)^2
+  \]</span></p></li>
+<li><p>根据属性j是否连续，<span class="math inline">\(diff(x_a^j,x_b^j)\)</span>的计算方式也有差别。连续：<span class="math inline">\(|x_a^j-x_b^j|\)</span>,离散：<span class="math inline">\(x_a^j==x_b^j? 0:1\)</span></p></li>
+<li><p>并且，上述式子表明如果属性j使得样本与其猜中近邻的距离小于样本与其猜错近邻的距离，那么，属性j对于区分样本类别是有益，我们给定的<span class="math inline">\(\delta^j\)</span>的值就是正的</p></li>
+<li><p>Relirf是线性时间的，速度快</p></li>
+<li><p>Relief针对二分类，多分类是Relief-F,其相关统计量的式子为: <span class="math display">\[
+  \delta^j = \sum_i -diff(x_i^j, x_{i,nh}^j)^2 + \sum_{l\not=k} p_l \times diff(x_i^j, x_{i,l,nm}^j)^2
+  \]</span> 可以看出只是一个简单拓展而已，也是通过衡量属性j能否使得样本与其猜中近邻的距离小于样本与其猜错近邻的距离，来判断属性j是否有益。</p></li>
+</ul></li>
+<li><p>包裹式(wrapper)</p>
+<ul>
+<li>将学习器的性能作为特征子集的评价标准，因此，其目的在于给定学习器选择最有利于其性能的特征子集。</li>
+<li>包裹式的性能常好于过滤式，但是由于需要训练多次，需要大量时间开销。</li>
+<li>LVW是一个典型代表：
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211632108.png" alt="image-20211221163215946" style="zoom:50%;" /></li>
+<li>其过程可以概括为，每次选出一个随机的特征子集，训练返回loss，记录最小loss的特征子集，如果连续k次最小loss都不变，那么，认为我们选出了对于训练学习器而言最有效的特征子集。</li>
+<li>由于随机性的加入，LVW要么不给解，要么给出一个满足条件的解；而MC方法，一定给出解，但合适不合适不一定。</li>
+</ul></li>
+</ul></li>
+<li><p>嵌入式(embedding)</p>
+<ul>
+<li><p>嵌入式是将特征选择过程嵌入到学习器的训练过程当中，由学习器自动完成。</p></li>
+<li><p>对于一个简单的线性回归模型，以MSE作为loss，如果引入L2范数作为正则项，那么这就是岭回归问题；如果引入L1范数作为正则项，那么就是LASSO问题。他们都可以显著降低过拟合风险。</p></li>
+<li><p>对于引入L1范数作为正则项，其更容易产生稀疏解，求得的权重<span class="math inline">\(w\)</span>含有的非零项更少。观察下图L2范数与L1范数等值线的形状以及可能与平方误差等值线相交的点的位置可知,L1范数等值线与平方误差等值线相交的点更容易出现在坐标轴上。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211642656.png" alt="image-20211221164227586" style="zoom:33%;" /></p></li>
+<li><p>因此，采用L1正则化进行训练，其实只用到了原始样本的一部分特征。L1正则化问题的求解可以使用近端梯度下降PGD。</p></li>
+<li><p>PGD(近端梯度下降，利用了假设f(x)满足L-lipschitz条件):</p>
+<ul>
+<li><p>对于一个呈形如下的优化问题： <span class="math display">\[
+  \min_x f(x)+\lambda ||x||_1
+  \]</span> 如果<span class="math inline">\(f(x)\)</span>可导，并且<span class="math inline">\(\nabla f\)</span>满足<span class="math inline">\(L-Lipschitz\)</span>条件，即存在常数<span class="math inline">\(L&gt;0\)</span>对于<span class="math inline">\(\forall x,x^\prime\)</span>使得 <span class="math display">\[
+  ||\nabla f(x^\prime) - \nabla f(x)||_2^2 \le L ||x^\prime - x||_2^2
+  \]</span></p></li>
+<li><p>将上式简单等价改写一下: <span class="math display">\[
+  \frac{\partial^2 f(x_k)}{\partial x_k^2} =  \frac{||\nabla f(x^\prime) - \nabla f(x)||_2^2}{||x^\prime - x||_2^2} \le L
+  \]</span></p></li>
+<li><p>对于<span class="math inline">\(f(x)\)</span>,在<span class="math inline">\(x_k\)</span>附近展开二阶泰勒展开： <span class="math display">\[
+  \hat{f}(x) = f(x_k) + &lt;\nabla f(x_k), x-x_k&gt; + \frac{1}{2}(x-x_k)^T \frac{\partial^2 f(x_k)}{\partial x_k^2} (x-x_k)\\ 
+      \approx f(x_k) + &lt;\nabla f(x_k), x-x_k&gt; + \frac{L}{2} ||x-x_k||^2
+  \]</span> 对上式将<span class="math inline">\(x-x_k\)</span>看成一个变量进行配方，我们就可以得到 <span class="math display">\[
+  \hat{f}(x) = \frac{L}{2} [(x-x_k)^2 + \frac{2}{L}\nabla f(x_k)(x-x_k) ] + f(x_k) \\
+      = \frac{L}{2} ||x - (x_k-\frac{1}{L}\nabla f(x_k))||^2 + const
+  \]</span> 它的最小值在<span class="math inline">\(x_{k+1}\)</span>处取得 <span class="math display">\[
+  x_{k+1} = x_k - \frac{1}{L}\nabla f(x_k)
+  \]</span> 代入到原优化问题，我们可以得知原问题就是每一轮梯度下降迭代求解 <span class="math display">\[
+  x_{k+1} = \arg \min_x \frac{L}{2} ||x - (x_k-\frac{1}{L}\nabla f(x_k))||^2 +\lambda ||x||_1
+  \]</span></p></li>
+<li><p>对于上式，我们可以先计算出<span class="math inline">\(z = x_k-\frac{1}{L}\nabla f(x_k)\)</span> ,然后我们就可以求解 <span class="math display">\[
+  x_{k+1} = \arg \min_x \frac{L}{2} ||x - z||^2 +\lambda ||x||_1 (*)
+  \]</span> 将<span class="math inline">\((*)\)</span>式按照分量展开,即按照<span class="math inline">\(x^i\)</span>(表示<span class="math inline">\(x\)</span>的第i个分量)展开，不存在<span class="math inline">\(\alpha_i^u \alpha_i^v(u\not=v)\)</span>这样的交叉项,也就是说<span class="math inline">\(x\)</span>的各分量之间是互不影响的。也就是说，对于每一个<span class="math inline">\(x\)</span>的一个分量而言<span class="math inline">\((*)\)</span>式就是一个二元一次方程，可以轻松求解argmin。那么，对于每个分量单独求解 <span class="math display">\[
+  x_{k+1}^i = \left\{
+  \begin{aligned}
+    &amp; z^i - \frac{\lambda}{L}, \frac{\lambda}{L}  &lt; z^i \\
+    &amp; 0, | z^i| \le \frac{\lambda}{L} \\
+    &amp; z^i + \frac{\lambda}{L},z^i &lt; -\frac{\lambda}{L}
+  \end{aligned}
+  \right.
+  \]</span></p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="稀疏表示">稀疏表示</h5>
+<ul>
+<li><p>一般来说，稀疏表示指的是矩阵中有很多零元素，且并非整行整列地出现，当然整行整列也行。</p></li>
+<li><p>通过稀疏表示，在训练时，我们可以去除不必要的行或列，从而降低学习难度，并且稀疏表示降低了存储开销，文本数据可以线性可分。</p></li>
+<li><p>那么，我们就需要探寻一种方式能够将普通稠密表达的样本变成稀疏表示。</p></li>
+<li><p>而一种典型的方法就是字典学习：</p>
+<ul>
+<li><p>字典学习最普通的形式就是，对于一个k个词汇的字典可以用一个矩阵<span class="math inline">\(\mathbf{B} \in R^{d\times k}\)</span> 表示（这里将字典翻译的过程看成是乘以一个权重矩阵）,假设<span class="math inline">\(\alpha_i \in R^k\)</span>是样本<span class="math inline">\(x_i \in R^d\)</span> 的稀疏表示，那么问题可以转化为: <span class="math display">\[
+  \min_{\mathbf{B},\alpha_i} \sum_{i=1}^m ||x_i - \mathbf{B}\alpha_i||_2^2 + \lambda \sum_{i=1}^m ||\alpha_i||_1 \ \ (*)
+  \]</span> 第一项意为希望<span class="math inline">\(\alpha_i\)</span>可以重构<span class="math inline">\(x_i\)</span> ,第二项表示希望<span class="math inline">\(\alpha_i\)</span>尽量稀疏。</p></li>
+<li><p>这个问题求解比LASSO更麻烦一些，需要学习<span class="math inline">\(\mathbf{B},\alpha_i\)</span>两个参数。</p></li>
+<li><p>借鉴LASSO，可以采用变量交替优化的策略求解:</p>
+<ul>
+<li><p>第一步，固定字典<span class="math inline">\(\mathbf{B}\)</span>,将<span class="math inline">\((*)\)</span>式按照分量展开，不存在<span class="math inline">\(\alpha_i^u \alpha_i^v(u\not=v)\)</span>这样的交叉项，就可以参考LASSO的解法求解下式，为每个样本<span class="math inline">\(x_i\)</span>找到响应的<span class="math inline">\(\alpha_i\)</span> : <span class="math display">\[
+  \min_{\alpha_i}  ||x_i - \mathbf{B}\alpha_i||_2^2 + \lambda  ||\alpha_i||_1
+  \]</span></p></li>
+<li><p>第二步，固定<span class="math inline">\(\alpha_i\)</span> 更新<span class="math inline">\(\mathbf{B}\)</span> ,此时的优化问题是 <span class="math display">\[
+  \min_{\mathbf{B}} ||\mathbf{X} - \mathbf{B}\mathbf{A}||_F^2
+  \]</span> F表示的是矩阵Frobenius范数。一种常用的求解上式的方式是基于逐列更新策略的<span class="math inline">\(KSVD\)</span> 。 <span class="math display">\[
+  \min_{\mathbf{B}} ||\mathbf{X} - \mathbf{B}\mathbf{A}||_F^2 = \min_{\mathbf{b_i}} ||\mathbf{X} - \sum_{j=1}^k b_j \alpha^j||_F^2 \\
+  =\min_{\mathbf{b_i}} ||(\mathbf{X} - \sum_{j\not=i} b_j \alpha^j) - b_i \alpha^i||_F^2 \\
+  =\min_{\mathbf{b_i}} ||\mathbf{E}_i - b_i \alpha^i||_F^2
+  \]</span> 在更新字典的第<span class="math inline">\(i\)</span>列的时候，其他各列都是固定的，因此<span class="math inline">\(\mathbf{E}_i = \sum_{j\not=i} b_j \alpha^j\)</span></p></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -432,7 +596,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-22 10:13:44" itemprop="dateModified" datetime="2021-12-22T10:13:44+08:00">2021-12-22</time>
+                <time title="Modified: 2021-12-22 10:40:51" itemprop="dateModified" datetime="2021-12-22T10:40:51+08:00">2021-12-22</time>
               </span>
 
           
@@ -561,6 +725,9 @@
 </ul></li>
 </ul>
 <h5 id="非线性降维核化线性降维">非线性降维——核化线性降维</h5>
+<ul>
+<li>PCA是典型的线性降维方法，常用的非线性降维方法有核化线性降维以及流形学习。</li>
+</ul>
 <h5 id="流形学习">流形学习</h5>
 <h5 id="距离度量学习">距离度量学习</h5>
 
@@ -1103,7 +1270,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1141,7 +1308,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
