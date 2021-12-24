@@ -22,17 +22,19 @@
 
   <meta name="description" content="计算学习理论 基础知识  对于一个数据集\(D &#x3D; (\mathcal{X},\mathcal{Y})\),假设\(\mathcal{X}\)中的所有样本都是从分布\(\mathcal{D}\)当中采样出来的且服从独立同分布采样。 \(h:\mathcal{X}-&gt;\mathcal{Y}\),定义泛化误差：  \[   E(h;\mathcal{D}) &#x3D; P_{x&lt;-\">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Review AML chap.12">
-<meta property="og:url" content="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML5/index.html">
+<meta property="og:title" content="Chap.12 计算学习理论">
+<meta property="og:url" content="https://despairl.github.io/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/index.html">
 <meta property="og:site_name" content="YQBlog | HaveFun!">
 <meta property="og:description" content="计算学习理论 基础知识  对于一个数据集\(D &#x3D; (\mathcal{X},\mathcal{Y})\),假设\(\mathcal{X}\)中的所有样本都是从分布\(\mathcal{D}\)当中采样出来的且服从独立同分布采样。 \(h:\mathcal{X}-&gt;\mathcal{Y}\),定义泛化误差：  \[   E(h;\mathcal{D}) &#x3D; P_{x&lt;-\">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-22T13:09:48.408Z">
-<meta property="article:modified_time" content="2021-12-22T15:10:43.565Z">
+<meta property="article:modified_time" content="2021-12-24T03:33:26.868Z">
 <meta property="article:author" content="Yanquan Chen">
+<meta property="article:tag" content="AML">
+<meta property="article:tag" content="Note">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML5/">
+<link rel="canonical" href="https://despairl.github.io/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/">
 
 
 <script id="page-configurations">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>Review AML chap.12 | YQBlog | HaveFun!</title>
+  <title>Chap.12 计算学习理论 | YQBlog | HaveFun!</title>
   
 
 
@@ -194,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-12-22-ReviewAML5/">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -207,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Review AML chap.12
+          Chap.12 计算学习理论
         </h1>
 
         <div class="post-meta">
@@ -216,10 +218,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-12-22 21:09:48 / Modified: 23:10:43" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
+              <time title="Created: 2021-12-22 21:09:48" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-24 11:33:26" itemprop="dateModified" datetime="2021-12-24T11:33:26+08:00">2021-12-24</time>
+              </span>
 
           
 
@@ -250,8 +258,115 @@
   \]</span></li>
 </ul></li>
 <li><p>由于<span class="math inline">\(D\)</span>是分布<span class="math inline">\(\mathcal{D}\)</span>的独立同分布采样，因此，<span class="math inline">\(\mathbb{E}[\hat{E}(h;D)] = E(h;\mathcal{D})\)</span>,对于<span class="math inline">\(E(h;\mathcal{D})\)</span>有一个上限<span class="math inline">\(\epsilon\)</span> ,称其为误差参数。</p></li>
+<li><p>如果经验误差为0，那么就认为<span class="math inline">\(h\)</span>与<span class="math inline">\(D\)</span>一致，否则不一致</p></li>
 </ul>
 <span id="more"></span>
+<ul>
+<li><p>常用不等式：</p>
+<ul>
+<li><p>Jensen不等式：</p>
+<ul>
+<li>对任意的凸函数<span class="math inline">\(f(x)\)</span>,有 <span class="math display">\[
+  f(\mathbb{E(x)}) \le \mathbb{E}(f(x))
+  \]</span></li>
+</ul></li>
+<li><p>Hoeffding不等式：</p>
+<ul>
+<li>若<span class="math inline">\(x_1,x_2,...,x_m\)</span>为m个独立随机变量，并且满足<span class="math inline">\(x_i \sub [0,1]\)</span>,则对任意的<span class="math inline">\(\epsilon &gt; 0\)</span>,有 <span class="math display">\[
+  P(\frac{1}{m} \sum_{i=1}^m x_i - \frac{1}{m} \sum_{i=1}^m\mathbb{E}(x_i) \ge \epsilon) \le\exp(-2m\epsilon^2) \\
+  P(|\frac{1}{m} \sum_{i=1}^m x_i - \frac{1}{m} \sum_{i=1}^m\mathbb{E}(x_i)| \ge \epsilon) \le 2 \exp(-2m\epsilon^2)
+  \]</span></li>
+</ul></li>
+<li><p>McDiarmid不等式：</p>
+<ul>
+<li>若<span class="math inline">\(x_1,x_2,...,x_m\)</span>为m个独立随机变量，且对任意的<span class="math inline">\(i\sub[1,m]\)</span>,函数f满足 <span class="math display">\[
+  \sup_{x_1,..,x_m,x_i^\prime} |f(x_1,..,x_m) - f(x_1,..,x_{i-1},x_i^\prime,x_{i+1},...,x_m)| \le c_i
+  \]</span> 那么对于任意的<span class="math inline">\(\epsilon &gt; 0\)</span>,有 <span class="math display">\[
+  P(f(x_1,..,x_m)-\mathbb{E}(f(x_1,..,x_m)) \ge \epsilon) \le \exp(\frac{-2\epsilon^2}{\sum_i c_i^2}) \\
+  P(|f(x_1,..,x_m)-\mathbb{E}(f(x_1,..,x_m))| \ge \epsilon) \le 2\exp(\frac{-2\epsilon^2}{\sum_i c_i^2}) 
+  \]</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="pac可学习">PAC可学习</h5>
+<ul>
+<li><p>概率近似正确学习理论（PCA）是计算学习理论中最基本的。</p></li>
+<li><p>令<span class="math inline">\(c\)</span>表示一个概念，如果对于任意的<span class="math inline">\((x,y)\)</span>都有<span class="math inline">\(c(x) = y\)</span>成立，那么<span class="math inline">\(c\)</span>就是目标概念，所有目标概念所构成的集合就是概念类<span class="math inline">\(\mathcal{C}\)</span>。</p></li>
+<li><p>给定任意一个学习算法<span class="math inline">\(\mathcal{L}\)</span>,它所考虑的所有可能概念的集合为假设空间<span class="math inline">\(\mathcal{H}\)</span>。如果目标概念<span class="math inline">\(c \in \mathcal{H}\)</span>,那么在当前假设空间中存在能把所有示例按照与真实label一致的方式分开，那么，我们称该问题对于学习算法<span class="math inline">\(\mathcal{L}\)</span>是可分的/一致的，反之，如果<span class="math inline">\(c\not\in \mathcal{H}\)</span>,那就不可分/不一致了。</p></li>
+<li><p>而一般学习任务的目标就是近似这个目标概念<span class="math inline">\(c\)</span>,由于机器学习过程诸多因素的制约，我们无法希望<span class="math inline">\(h\)</span>可以精确地学到目标概念<span class="math inline">\(c\)</span>。</p></li>
+<li><p>如果对于<span class="math inline">\(\epsilon &gt; 0, \delta &lt; 1\)</span>,存在一个学习算法<span class="math inline">\(\mathcal{L}\)</span>,其输出假设<span class="math inline">\(h\in\mathcal{H}\)</span>满足 <span class="math display">\[
+  P(E(h)\le \epsilon) \ge 1 - \delta
+  \]</span> 那么称该学习算法能够在假设空间中PAC辨识概念类<span class="math inline">\(\mathcal{C}\)</span>,他以<span class="math inline">\(1 - \delta\)</span>的概率学到了目标概念的一个近似（差一个<span class="math inline">\(\epsilon\)</span>）。</p></li>
+<li><p>如果从分布<span class="math inline">\(\mathcal{D}\)</span>中采样得到m个样例，<span class="math inline">\(\epsilon &gt; 0, \delta &lt; 1\)</span>,对所有的分布<span class="math inline">\(\mathcal{D}\)</span>,如果存在学习算法<span class="math inline">\(\mathcal{L}\)</span>和多项式表示<span class="math inline">\(poly\)</span>,能够使得任意的<span class="math inline">\(m \ge poly(1/\epsilon, 1/\delta,size(x),size(c))\)</span>,学习算法能够在假设空间中PAC辨识概念类<span class="math inline">\(\mathcal{C}\)</span>,那么称概念类<span class="math inline">\(\mathcal{C}\)</span>对于假设空间<span class="math inline">\(\mathcal{H}\)</span>是PAC可学习的。</p>
+<ul>
+<li>如果满足上述条件的学习算法是多项式时间的，那么称概念类<span class="math inline">\(\mathcal{C}\)</span>是高效PAC可学习的，并且称学习算法<span class="math inline">\(\mathcal{L}\)</span>为概念类<span class="math inline">\(\mathcal{C}\)</span>的PAC学习算法。</li>
+<li>满足上述条件的最小的<span class="math inline">\(m\)</span>称为学习算法<span class="math inline">\(\mathcal{L}\)</span>的样本复杂度。</li>
+<li>PAC学习将复杂算法的时间复杂度的分析转换为了对于样本复杂度的分析，并且对于机器学习给出了一个抽象的理论框架。</li>
+</ul></li>
+<li><p>按照<span class="math inline">\(|\mathcal{H}|\)</span>是否有限，也可以将假设空间分为有限假设空间以及无限假设空间。</p>
+<ul>
+<li><p>有限假设空间都是PAC可学习的，输出<span class="math inline">\(h\)</span>的泛化误差随着样例数目的增多而逐渐收敛到0，证明如下：</p>
+<ul>
+<li><p><span class="math display">\[
+  P(h(x)=y) = 1 - P(h(x)\not=y)\\
+            = 1 - E(h) \\
+            &lt; 1 - \epsilon
+  \]</span></p></li>
+<li><p>假设D中包含了从<span class="math inline">\(\mathcal{D}\)</span>分布中采样得到的<span class="math inline">\(m\)</span>个样例，因此，<span class="math inline">\(h\)</span>与D表现一致的概率为： <span class="math display">\[
+  P(h(x_i)=y_i,\forall i\in [m]) &lt;(1-\epsilon)^m
+  \]</span></p></li>
+<li><p><span class="math inline">\(P(h\in \mathcal{H}:E(h)&gt;\epsilon\ and\ \hat{E}(h) =0) &lt; |\mathcal{H}|(1-\epsilon)^m &lt; |\mathcal{H}| e^{-m\epsilon}\)</span> <span class="math inline">\(|\mathcal{H}| e^{-m\epsilon}\le \delta\)</span></p>
+<p><span class="math inline">\(m\ge \frac{1}{\epsilon}(\ln|\mathcal{H}| +\ln\frac{1}{\delta})\)</span></p></li>
+</ul></li>
+</ul></li>
+<li><p>经验风险最小化（ERM）原则：</p>
+<ul>
+<li>对于学习算法的一个输出<span class="math inline">\(h\)</span>,如果满足： <span class="math display">\[
+  \hat{E}(h) = \min_{h^\prime\in\mathcal{H}}\hat{E}(h^\prime)
+  \]</span> 学习算法<span class="math inline">\(\mathcal{L}\)</span>为满足经验风险最小化（ERM）原则的算法。</li>
+</ul></li>
+<li><p>如果从分布<span class="math inline">\(\mathcal{D}\)</span>中采样得到m个样例，<span class="math inline">\(\epsilon &gt; 0, \delta &lt; 1\)</span>,对所有的分布<span class="math inline">\(\mathcal{D}\)</span>,如果存在学习算法<span class="math inline">\(\mathcal{L}\)</span>和多项式表示<span class="math inline">\(poly\)</span>,能够使得任意的<span class="math inline">\(m \ge poly(1/\epsilon, 1/\delta,size(x),size(c))\)</span>,且<span class="math inline">\(\mathcal{L}\)</span>的输出满足： <span class="math display">\[
+  P(E(h)-\min_{h^\prime\in\mathcal{H}}E(h^\prime) \le \epsilon) \ge 1-\delta
+  \]</span> 则称假设空间<span class="math inline">\(\mathcal{H}\)</span>是不可知PAC可学习的。</p></li>
+</ul>
+<h5 id="vc维">VC维</h5>
+<ul>
+<li><p>增长函数<span class="math inline">\(\Pi_{\mathcal{H}}(m)\)</span>是假设空间中对m个样例所能赋予label的最大可能结果数。</p></li>
+<li><p>对于假设空间中对<span class="math inline">\(D\)</span>中<span class="math inline">\(m\)</span>个样例赋予的没中可能结果，我们都将其称为是对数据集<span class="math inline">\(D\)</span>的一个对分。</p></li>
+<li><p>如果假设空间<span class="math inline">\(\mathcal{H}\)</span>能够实现<span class="math inline">\(D\)</span>中的所有对分,即<span class="math inline">\(\Pi_{\mathcal{H}}(m) = 2^m\)</span>,那么就称D能被假设空间<span class="math inline">\(\mathcal{H}\)</span>打散。</p></li>
+<li><p>将能够将假设空间<span class="math inline">\(\mathcal{H}\)</span>打散的最大示例集的大小称为<span class="math inline">\(VC\)</span>维</p>
+<ul>
+<li><p>计算方式，存在大小为d的示例集能够被假设空间<span class="math inline">\(\mathcal{H}\)</span>打散,但是任意的大小为d+1的示例集都不能够被假设空间<span class="math inline">\(\mathcal{H}\)</span>打散,则<span class="math inline">\(VC\)</span>维为d。</p></li>
+<li><p><span class="math inline">\(VC\)</span>维为d那么对任意的<span class="math inline">\(m\in\mathbb{N}\)</span>: <span class="math display">\[
+  \Pi_{\mathcal{H}}(m) \le \sum_{i=1}^d C_m^i
+  \]</span></p></li>
+</ul></li>
+<li></li>
+<li><p>任何<span class="math inline">\(VC\)</span>维有限的假设空间<span class="math inline">\(\mathcal{H}\)</span>都是PAC可学习的。</p></li>
+</ul>
+<h5 id="rademacher复杂度">Rademacher复杂度</h5>
+<h5 id="稳定性">稳定性</h5>
+<ul>
+<li><p>Rademacher复杂度与VC维都与具体的学习算法无关，对所有的学习算法都是适用的，则可以让我们脱离具体学习算法的本身来学习问题本身。而如果想要分析算法，稳定性是值得关注的。</p></li>
+<li><p>稳定性指的是算法在输入发生变化的情况下，输出是否随之发生较大的变化。</p></li>
+<li><p>两种示例集变化：</p>
+<ul>
+<li><span class="math inline">\(D^{i}\)</span></li>
+</ul></li>
+<li><p>泛化误差与经验误差：</p>
+<ul>
+<li>泛化误差:<span class="math inline">\(l(\mathcal{L},\mathcal{D})\)</span></li>
+<li>经验误差：<span class="math inline">\(\hat{l}(\mathcal{L},\mathcal{D})\)</span></li>
+</ul></li>
+<li><p>均匀稳定性：</p>
+<ul>
+<li><p><span class="math display">\[
+  |l(\mathcal{L}_D,z) - l(\mathcal{L}_D,z)| \le \beta
+  \]</span></p>
+<p>则称<span class="math inline">\(\mathcal{L}\)</span>关于损失函数<span class="math inline">\(l\)</span>满足<span class="math inline">\(\beta\)</span>-均匀稳定性。</p></li>
+</ul></li>
+<li><p>如果算法是ERM并且稳定的，那么假设空间可学习。</p></li>
+</ul>
 
     </div>
 
@@ -260,6 +375,11 @@
     
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AML/" rel="tag"><i class="fa fa-tag"></i> AML</a>
+              <a href="/tags/Note/" rel="tag"><i class="fa fa-tag"></i> Note</a>
+          </div>
 
         
 
@@ -267,10 +387,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/12/22/2021-12-22-ReviewAML4/" rel="prev" title="Review AML chap.16">
-      <i class="fa fa-chevron-left"></i> Review AML chap.16
+    <a href="/2021/12/22/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="prev" title="chap.16 强化学习">
+      <i class="fa fa-chevron-left"></i> chap.16 强化学习
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" rel="next" title="chap.14 概率图模型">
+      chap.14 概率图模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -329,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">计算学习理论</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">计算学习理论</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pac%E5%8F%AF%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.2.</span> <span class="nav-text">PAC可学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vc%E7%BB%B4"><span class="nav-number">1.3.</span> <span class="nav-text">VC维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rademacher%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">Rademacher复杂度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">稳定性</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
