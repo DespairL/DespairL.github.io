@@ -853,9 +853,23 @@
 </ul>
 <h5 id="半监督svm">半监督SVM</h5>
 <ul>
-<li>半监督SVM是在SVM的基础上，将两类有标记样本切开并且倾向于穿过数据低密度区域。</li>
-<li>半监督SVM最著名的TSVM,TSVM针对二分类，想法是尝试将每个未标记样本作为正例或者反例，在所有可能的结果中，找到一个在所有样本中间隔最大化的划分超平面。划分超平面确定，则样本的划分标签确定。</li>
-<li></li>
+<li><p>半监督SVM是在SVM的基础上，将两类有标记样本切开并且倾向于穿过数据低密度区域。</p></li>
+<li><p>半监督SVM最著名的TSVM,TSVM针对二分类，想法是尝试将每个未标记样本作为正例或者反例，在所有可能的结果中，找到一个在所有样本中间隔最大化的划分超平面。划分超平面确定，则样本的划分标签确定。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241422176.png" alt="image-20211224142255110" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241424262.png" alt="image-20211224142452187" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241425218.png" alt="image-20211224142549165" style="zoom:50%;" /></p>
+<ul>
+<li><p>对于类别不平衡问题：</p>
+<ul>
+<li>可以将优化目标中的<span class="math inline">\(C_u\)</span>拆分为<span class="math inline">\(C_u^+,C_u^-\)</span>分别表示基于伪标签的 当作正反例使用的未标记样本，在初始化时: <span class="math display">\[
+  C_u^+ = \frac{u_-}{u_+} C_u^-
+  \]</span></li>
+</ul></li>
+<li><p>对于如何判别伪标签最可能错的两个示例:</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241430760.png" alt="image-20211224143010715" style="zoom:50%;" /></li>
+</ul></li>
+</ul></li>
 </ul>
 <h5 id="图半监督学习">图半监督学习</h5>
 <ul>
@@ -873,8 +887,11 @@
   = \mathbf{f}^T (\mathbf{D} - \mathbf{W}) \mathbf{f} \\
   \mathbf{f} = (\mathbf{f}^T_l \mathbf{f}^T_u)^T \\
   \mathbf{D} = diag(d_1,d_2,...,d_{u+l}),d_i = \sum_{j=1}^{l+u} (\mathbf{W})_{ij}
-  \]</span></p></li>
-<li></li>
+  \]</span></p>
+<ul>
+<li>能量函数最小时获得最优结果。</li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241451674.png" alt="image-20211224145142617" style="zoom:50%;" /></p></li>
 </ul>
 <h5 id="基于分歧的方法">基于分歧的方法</h5>
 <ul>
@@ -1207,9 +1224,44 @@
 <li><p>规则通常是指语义明确、能描述数据分布隐含的客观规律或领域概念。规则学习就是从训练数据中学习出一组能够对未见实例进行判别的规则。</p></li>
 <li><p>规则都形如: <span class="math display">\[
   rule\ head \leftarrow f_1 \land f_2\land ... \land f_L (rule \ body)
-  \]</span></p></li>
+  \]</span></p>
+<ul>
+<li>并且可以细分为命题规则以及一阶规则。
+<ul>
+<li>命题规则：原子命题+逻辑与、或、非、蕴含构成</li>
+<li>一阶规则：原子公式，有量词<span class="math inline">\(\forall,\exist\)</span>,能表达复杂的关系，因此亦称关系型规则。</li>
+</ul></li>
+</ul></li>
 <li><p>如果一个示例被判别结果不同的多条规则覆盖了，那么我们认为发生了冲突，解决冲突的办法是冲突消解——采用投票、排序（优先级）、元规则（关于规则的规则——ex:冲突时，用长度最小的规则）。</p></li>
 </ul>
+<h5 id="序贯覆盖">序贯覆盖</h5>
+<ul>
+<li><p>规则学习的目标是产生一个能覆盖尽可能多的样例的规则集，最直接的就是“序贯覆盖”(sequential covering)——逐条归纳，也被称为分治(separate-and-conquer)策略。</p></li>
+<li><p>最简单的做法是从空规则<span class="math inline">\(\oplus\leftarrow\)</span>开始，遍历训练集中的每个属性以及取值，如果其只包含正例就加入到规则体当中。</p></li>
+<li><p>但是，上述穷举的做法并不能很好地完成组合爆炸的任务。一般有top-down，bottom-up两种策略进行优化:</p>
+<ul>
+<li><p>top-down产生的规则泛化性能更好，对于噪声的鲁棒性更好，常用于命题逻辑；而bottom-up更适合训练样本少的情况，常用于一阶规则学习。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241401834.png" alt="image-20211224140128750" style="zoom:50%;" /></p>
+<p>先考虑规则准确率，准确率相同的时候考虑覆盖样例的数目，再相同的时候考虑属性优先顺序。</p></li>
+<li><p>如果想要避免局部最优，可以利用集束搜索，每轮保留最优的<span class="math inline">\(b\)</span>个属性，并将它们全部加入下一轮的候选集当中</p></li>
+</ul></li>
+<li><p>另外，规则生成总归还是一个贪心搜索的过程，因此需要一定措施来缓解过拟合风险：</p>
+<ul>
+<li><p>预剪枝，规则生成过程中剪枝</p>
+<ul>
+<li><p>CN2算法用LRS似然率统计量作为指标：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241410428.png" alt="image-20211224141026351" style="zoom:50%;" /></p></li>
+</ul></li>
+<li><p>后剪枝，规则生成后剪枝:</p>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241411376.png" alt="image-20211224141149301" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241415427.png" alt="image-20211224141552359" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241416409.png" alt="image-20211224141657335" style="zoom:50%;" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="一阶规则学习">一阶规则学习</h5>
+<h5 id="归纳逻辑程序设计">归纳逻辑程序设计</h5>
 ]]></content>
       <tags>
         <tag>AML</tag>
@@ -1344,6 +1396,1504 @@
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数字信号处理Review</title>
+    <url>/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/</url>
+    <content><![CDATA[<h3 id="chap.0">Chap.0</h3>
+<h4 id="信号基本概念">信号基本概念</h4>
+<ul>
+<li><p>信号的分类</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241504910.png" alt="image-20211224150458847" style="zoom:67%;" /></p></li>
+<li><p>信号之间的关系</p>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241508522.png" alt="image-20211224150838463" style="zoom:50%;" /></p></li>
+<li><p>离散信号的表示:</p>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241514194.png" alt="image-20211224151421137" style="zoom: 33%;" /></p></li>
+<li><p>可以将离散信号看成连续信号以及周期脉冲信号的乘积。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241534080.png" alt="image-20211224153450031" style="zoom: 50%;" /></p>
+<p>因此，离散信号的周期与连续信号以及周期脉冲信号的周期有关。正弦序列不一定是周期序列，因为还要有周期脉冲信号的信息才能确定。</p></li>
+</ul></li>
+</ul></li>
+<li><p>基本概念:</p>
+<ul>
+<li>频率：信号每单位时间变化的次数(Hz)
+<ul>
+<li>传输的信号距离远的话，要用高频信号，因为信号会衰减。</li>
+</ul></li>
+<li>时域：以时间为自变量，也可以称为变换域（不以频率为自变量）</li>
+<li>频域：以频率为自变量</li>
+<li>频谱： 信号的频域表示，用来表示信号的幅度与相位。</li>
+<li>滤波器：按照一定目的对信号进行变换</li>
+<li>复数：
+<ul>
+<li><span class="math inline">\(j = i = \sqrt{-1}\)</span></li>
+<li>直角坐标表示: <span class="math inline">\(z = x + j y, x = Re[z],y = Im[z]\)</span></li>
+<li>复数的模<span class="math inline">\(|z| = \sqrt{x^2 + y^2}\)</span></li>
+<li>复数的相位<span class="math inline">\(arc(z) = \arctan(\frac{y}{x})\)</span></li>
+</ul></li>
+<li>欧拉公式:
+<ul>
+<li><span class="math inline">\(e^{jwt} = \cos wt + j \sin wt\)</span></li>
+<li><span class="math inline">\(e^{-jwt} = \cos wt - j \sin wt\)</span></li>
+<li>$ wt = $</li>
+<li><span class="math inline">\(\sin wt = \frac{e^{jwt} - e^{-jwt}}{2}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap.1">Chap.1</h3>
+<h4 id="周期信号">周期信号</h4>
+<ul>
+<li>对于连续信号，存在正数<span class="math inline">\(T\)</span>,使得<span class="math inline">\(x(t+T) = x(t),\forall t \in \mathbb{R}\)</span></li>
+<li>对于离散信号，存在正整数<span class="math inline">\(N\)</span>,使得<span class="math inline">\(x[n+N] = x[n],\forall n \in \mathbb{N}\)</span></li>
+<li>满足上述条件的最小的<span class="math inline">\(T,N\)</span>就是基波周期。</li>
+<li>对于两个周期信号<span class="math inline">\(x(t),y(t)\)</span>,其周期分别是<span class="math inline">\(T_1,T_2\)</span>,如果周期之比<span class="math inline">\(\frac{T_1}{T_2}\)</span>是有理数，那么其和信号<span class="math inline">\(x(t)+y(t)\)</span>仍然是周期信号，且周期为<span class="math inline">\(T_1,T_2\)</span>的最小公倍数。
+<ul>
+<li>任意两个离散周期序列的和仍然是周期序列。</li>
+</ul></li>
+<li>周期信号以及非周期信号都可以分解成周期信号。</li>
+</ul>
+<h4 id="能量信号与功率信号">能量信号与功率信号</h4>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241540355.png" alt="image-20211224154000273" style="zoom:50%;" />
+<ul>
+<li>信号不可能同时既是功率信号，又是能量信号</li>
+</ul></li>
+</ul>
+<h4 id="因果信号">因果信号</h4>
+<ul>
+<li>定义为：
+<ul>
+<li>当<span class="math inline">\(t&lt;0\)</span>的时候，<span class="math inline">\(x(t)=0\)</span>;当<span class="math inline">\(t&gt;0\)</span>的时候，<span class="math inline">\(x(t)\not=0\)</span></li>
+</ul></li>
+</ul>
+<h4 id="信号的基本变换">信号的基本变换</h4>
+<ul>
+<li><span class="math inline">\(x(t)\rightarrow x(at)\)</span>:
+<ul>
+<li>如果<span class="math inline">\(0&lt;a&lt;1\)</span>,<span class="math inline">\(x(at)\)</span>是<span class="math inline">\(x(t)\)</span>的拓展。</li>
+<li>如果<span class="math inline">\(a&gt;1\)</span>,<span class="math inline">\(x(at)\)</span>是<span class="math inline">\(x(t)\)</span>的压缩。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241547490.png" alt="image-20211224154705443" style="zoom: 50%;" /></li>
+</ul></li>
+<li><span class="math inline">\(x(t)\rightarrow x(-t)\)</span>:
+<ul>
+<li>对图像按照<span class="math inline">\(x(t)\)</span>进行翻转</li>
+</ul></li>
+<li><span class="math inline">\(x(t)\rightarrow x(t+t_0)\)</span>:
+<ul>
+<li>向左移动<span class="math inline">\(t_0\)</span></li>
+<li>注意<span class="math inline">\(x(t)\rightarrow x(t+t_0)\)</span>指的是将原先信号表达式中的<span class="math inline">\(t\)</span>用<span class="math inline">\(t+t_0\)</span>代替。</li>
+</ul></li>
+<li><span class="math inline">\(x(t)\rightarrow x(t-t_0)\)</span>:
+<ul>
+<li>向右移动<span class="math inline">\(t_0\)</span></li>
+<li>注意<span class="math inline">\(x(t)\rightarrow x(t-t_0)\)</span>指的是将原先信号表达式中的<span class="math inline">\(t\)</span>用<span class="math inline">\(t-t_0\)</span>代替。</li>
+</ul></li>
+</ul>
+<h4 id="典型信号">典型信号</h4>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241559701.png" alt="image-20211224155911615" style="zoom:50%;" /></p>
+<ul>
+<li><p>(*)抽样信号： <span class="math display">\[
+  Sa(t) = \frac{\sin t}{t}
+  \]</span></p>
+<ul>
+<li>其图像如下：</li>
+</ul>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241604350.png" alt="image-20211224160412298" style="zoom:50%;" /></p>
+<ul>
+<li><p>零点位置位于<span class="math inline">\(t = \pm n\pi\)</span>的时候</p></li>
+<li><p>性质：</p>
+<ul>
+<li><span class="math inline">\(\int_{-\infty}^{+\infty} Sa(t) dt = \pi\)</span></li>
+<li><span class="math inline">\(\int_{0}^{+\infty} Sa(t) dt = \frac{\pi}{2}\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>单位脉冲序列：</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241610394.png" alt="image-20211224161049355" style="zoom:50%;" /></li>
+<li>因此，离散信号可以使用<span class="math inline">\(\delta[n]\)</span>进行移位合成。</li>
+<li>且其他信号与<span class="math inline">\(\delta[n]\)</span>相乘时会进行抽样:<span class="math inline">\(x[n]\delta[n-n_0]=x[n_0]\delta[n-n_0]\)</span></li>
+</ul></li>
+<li><p>单位阶跃序列/单位阶跃信号:</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241616633.png" alt="image-20211224161610576" style="zoom:50%;" /></li>
+<li><span class="math inline">\(u[n]\)</span>可以用<span class="math inline">\(\delta[n]\)</span>累加而得，<span class="math inline">\(\delta[n] = u[n] - u[n-1]\)</span></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241824584.png" alt="image-20211224182453506" style="zoom: 50%;" /></li>
+</ul></li>
+<li><p>矩形序列:</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241719697.png" alt="image-20211224171955639" style="zoom:50%;" /></p></li>
+<li><p>斜变序列/斜边信号</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241720998.png" alt="image-20211224172036948" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241824523.png" alt="image-20211224182406474" style="zoom:50%;" /></li>
+</ul></li>
+<li><p>差分：</p>
+<ul>
+<li>前向差分：<span class="math inline">\(\Delta x[n] = x[n+1] - x[n]\)</span></li>
+<li>后向差分：<span class="math inline">\(\nabla x[n] = x[n] - x[n-1]\)</span></li>
+</ul></li>
+<li><p>奇异信号：</p>
+<ul>
+<li>如果原信号或者信号的导数有不连续点，那么它就是奇异信号。</li>
+</ul></li>
+<li><p>冲激信号：</p>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241833279.png" alt="image-20211224183311233" style="zoom:50%;" /></p></li>
+<li><p>冲激信号可用于表示其他任意信号或表示信号间断点的导数,表示间断点处的导数值的变化趋势等。</p></li>
+<li><p>展缩性质：<span class="math inline">\(\delta(\alpha t) = \frac{1}{|\alpha|} \delta(t),\alpha \not=1\)</span></p></li>
+<li><p>对于<span class="math inline">\(\delta(\alpha t+\beta)\)</span>要先转化成<span class="math inline">\(\delta(t + \frac{\beta}{\alpha})\)</span></p></li>
+<li><p>任意的离散序列都可以转分解成单位脉冲信号以及序列的和： <span class="math display">\[
+  x[n] = \sum_{-\infty}^{+\infty} x[k] \delta(n-k)
+  \]</span> 该式子亦被称为序列的脉冲分解。</p></li>
+</ul></li>
+</ul>
+<h4 id="信号的向量表示">信号的向量表示</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241850595.png" alt="image-20211224185005502" style="zoom:50%;" /></p></li>
+<li><p>若<span class="math inline">\(&lt;x_1(t),x_2(t)&gt;=0\)</span>则两函数正交</p></li>
+<li><p>当我们需要重构<span class="math inline">\(x_1\)</span>时，根据内积的性质：</p></li>
+<li><p><span class="math inline">\(x_1(t) = \frac{&lt;x_1(t),x_2(t)&gt;}{&lt;x_2(t),x_2(t)&gt;}x_2(t)\)</span></p></li>
+<li><p>正交函数集:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241853943.png" alt="image-20211224185326880" style="zoom:50%;" /></p></li>
+<li><p>完备函数集：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241853299.png" alt="image-20211224185352245" style="zoom:50%;" /></p></li>
+</ul>
+<h5 id="信号的分解">信号的分解</h5>
+<ul>
+<li>一个信号可以拆分成奇分量以及偶分量：
+<ul>
+<li><span class="math inline">\(x(t) = x_e(t) + x_o(t)\)</span></li>
+<li><span class="math inline">\(x_e(t) = \frac{x(t) + x(-t)}{2}\)</span>,显然这是偶函数</li>
+<li><span class="math inline">\(x_e(t) = \frac{x(t) - x(-t)}{2}\)</span> ,显然这是奇函数</li>
+</ul></li>
+</ul>
+<h3 id="chap.2">Chap.2</h3>
+<h4 id="系统基本性质以及分类">系统基本性质以及分类</h4>
+<ul>
+<li><p>系统按照输入信号和输出信号的连续以及离散性质可以分成连续时间系统和离散时间系统。</p></li>
+<li><p>两种系统的方框图图标:</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241906132.png" alt="image-20211224190602071" style="zoom:50%;" /></li>
+</ul></li>
+<li><p>系统的性质</p>
+<ul>
+<li>记忆性：
+<ul>
+<li>无记忆系统：<strong>系统的输出只取决于系统该时刻的输入</strong>,y(t)只跟x(t)有关</li>
+</ul></li>
+<li>可逆性：
+<ul>
+<li>系统在不同的输入下，导致不同的输出，则系统可逆</li>
+<li>如果一个系统可逆，则<strong>存在一个逆系统，系统与逆系统级联，作用等效于恒等系统</strong>，即<span class="math inline">\(y^{-1}y(x) = x\)</span></li>
+</ul></li>
+<li>因果性：
+<ul>
+<li>当且仅当输入信号激励系统时才产生系统输出响应的系统</li>
+<li>如果<strong>响应𝑦(𝑡)并不依赖于将来的激励</strong>，如𝑥(𝑡+1)，那么系统就是因果的</li>
+<li>y(n+1),y(-n),y(2n)都不是因果的。</li>
+</ul></li>
+<li>稳定性：
+<ul>
+<li>有界输入造成有界输出。</li>
+<li>不稳定系统的例子：<span class="math inline">\(y = tx(t)\)</span>,<span class="math inline">\(x(t)\)</span>是有界的，但是<span class="math inline">\(t\)</span>是可以趋向无穷的。</li>
+</ul></li>
+<li>线性：
+<ul>
+<li>如果<span class="math inline">\(x_1(t)\rightarrow y_1(t),x_2(t)\rightarrow y_2(t)\)</span>,那么系统如果满足<span class="math inline">\(\alpha x_1(t) + \beta x_2(t) = \alpha y_1(t) + \beta y_2(t)\)</span> ,则该系统是线性的。</li>
+</ul></li>
+<li>时不变系统:
+<ul>
+<li>系统的输出响应与输入激励的关系不随输入激励作用于系统的时间起点而改变，就称为时不变系统。否则，就称为时变系统。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241917079.png" alt="image-20211224191722026" style="zoom:50%;" /></li>
+<li>是不是时不变系统只需要观察，原信号<span class="math inline">\(y(t)\)</span>除了含有<span class="math inline">\(x(t)\)</span>成分外，还有没有其他只含有<span class="math inline">\(t\)</span>元素</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241921305.png" alt="image-20211224192135247" style="zoom: 50%;" /></li>
+</ul></li>
+<li>Linear Time Invariant (LTI)线性时不变系统。</li>
+</ul></li>
+</ul>
+<h4 id="卷积和">卷积和</h4>
+<ul>
+<li><p>单位脉冲响应<span class="math inline">\(h_k[n]\)</span>是 <span class="math inline">\(\delta[n-k]\)</span> 的系统输出系统,可以借助单位脉冲响应来判断时不变性质，系统的响应表示为 <span class="math display">\[
+  y[n] = \sum_{k=-\infty}^{+\infty} x[k] h[n-k]
+  \]</span> 这也是卷积和的定义方式，记为<span class="math inline">\(y[n] = x[n] * h[n]\)</span></p>
+<ul>
+<li>卷积和主要是离散化连续信号的时候，逼近连续信号的卷积。</li>
+</ul></li>
+</ul>
+<h4 id="卷积积分">卷积积分</h4>
+<ul>
+<li>信号的卷积积分<span class="math inline">\(y(t) = x(t) * h(t)\)</span>: <span class="math display">\[
+  y(t) = x(t) * h(t) = \int_{-\infty}^{+\infty}x(\tau)h(t-\tau)d\tau
+  \]</span></li>
+</ul>
+<h4 id="卷积积分的性质">卷积积分的性质</h4>
+<ul>
+<li><p>交换</p></li>
+<li><p>分配</p></li>
+<li><p>结合</p></li>
+<li><p>平移特性：</p>
+<ul>
+<li>如果<span class="math inline">\(x_1(t) * x_2(t) = y(t)\)</span>，<span class="math inline">\(x_1(t-t_1) * x_2(t-t_2) = y(t-t_1-t_2)\)</span></li>
+</ul></li>
+<li><p>展缩特性：</p>
+<ul>
+<li>如果<span class="math inline">\(x_1(t) * x_2(t) = y(t)\)</span>，<span class="math inline">\(x_1(at) * x_2(at) = \frac{1}{|a|}y(at)\)</span></li>
+</ul></li>
+<li><p>微分性质:</p>
+<ul>
+<li><span class="math inline">\(\frac{d}{dt}[x_1(t) * x_2(t)] = \frac{d}{dt}[x_1(t)] * x_2(t) = x_1(t) * \frac{d}{dt}[x_2(t)]\)</span></li>
+</ul></li>
+<li><p>积分性质：</p>
+<ul>
+<li><p>与微分性质类似，只需要卷积的积分等于一个函数积分之后再卷积：</p>
+<ul>
+<li>$<em>{-}^t [x_1() * x_2()]d = </em>{-}^t x_1() d x_2(t) = x_1(t) *_{-}^t x_2() d $</li>
+</ul></li>
+<li><p>可以将积分与微分性质概括为:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242023409.png" alt="image-20211224202305355" style="zoom:50%;" /></p></li>
+</ul></li>
+</ul>
+<h4 id="卷积和的性质">卷积和的性质</h4>
+<ul>
+<li>交换</li>
+<li>结合</li>
+<li>分配</li>
+<li>位移特性:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242049261.png" alt="image-20211224204932201" style="zoom:50%;" /></li>
+</ul></li>
+<li>差分与求和特性:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242051624.png" alt="image-20211224205103553" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+<h4 id="奇异信号的卷积">奇异信号的卷积</h4>
+<ul>
+<li><span class="math inline">\(\delta(t)*\delta(t) = \delta(t)\)</span></li>
+<li><span class="math inline">\(x(t)*\delta(t-T) = x(t-T)\)</span></li>
+<li><span class="math inline">\(x(t) * u(t) = x^{(-1)}(t)\)</span>,也就是给<span class="math inline">\(x(t)\)</span>进行了一次积分</li>
+<li><span class="math inline">\(x(t)*\delta^\prime(t) = x^\prime(t)\)</span></li>
+<li><span class="math inline">\(u(t) * u(t) = r(t) = tu(t)\)</span></li>
+<li>因此，我们可以通过使用<span class="math inline">\(u(t),\delta(t),\delta(t-t_0)\)</span>来分别进行积分、直通、延时操作</li>
+</ul>
+<h4 id="系统的冲激响应">系统的冲激响应</h4>
+<ul>
+<li>对于级联系统，交换两个级联系统不影响结果，对子系统先进行卷积也不影响结果,即下面的三个系统等价:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242056416.png" alt="image-20211224205637357" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242057108.png" alt="image-20211224205702053" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242057839.png" alt="image-20211224205712781" style="zoom:50%;" /></li>
+</ul></li>
+<li>典型的并联系统如下：
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242058459.png" alt="image-20211224205808390" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+<h4 id="因果系统">因果系统</h4>
+<ul>
+<li>因果系统是指系统𝑡0时刻的输出只和𝑡0时刻及以前的输入信号有关</li>
+<li>对于一个LTI系统,它是因果系统的充要条件是单位脉冲响应为0，在负半轴的情况下：
+<ul>
+<li>连续：<span class="math inline">\(h(t)=0,t&lt;0\)</span></li>
+<li>离散：<span class="math inline">\(h[n]=0,n&lt;0\)</span></li>
+<li>单位脉冲响应： 输入信号<span class="math inline">\(x(t) = \delta(t)\)</span></li>
+</ul></li>
+</ul>
+<h4 id="稳定系统">稳定系统</h4>
+<ul>
+<li>若系统对任意的有界输入其输出也有界，则称该系统是稳定系统。</li>
+<li>对于一个LTI系统,它是稳定系统的充要条件是对单位脉冲响应积分或者求和的结果有界:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242117359.png" alt="image-20211224211708302" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+<h4 id="lti系统与单位脉冲响应">LTI系统与单位脉冲响应</h4>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242120314.png" alt="image-20211224212043241" style="zoom:50%;" /></p>
+<h4 id="相关运算">相关运算</h4>
+<p><span class="math display">\[
+x(t) \star h(t) = \int_{-\infty}^{+\infty} x(\tau)  h(\tau+t)d\tau
+\]</span></p>
+<ul>
+<li>不满足交换律</li>
+<li><span class="math inline">\(x(t) \star h(t) = x(-t) * h(t)\)</span></li>
+<li>可以通过内积衡量两个信号的相似性。</li>
+</ul>
+<h3 id="chap.3">Chap.3</h3>
+<h4 id="微分方程及其求解">微分方程及其求解</h4>
+<ul>
+<li><p>如果一个线性系统，起始没有储能，那么他就构成了一个线性时不变系统。</p></li>
+<li><p>微分方程的一般形式：</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242142347.png" alt="image-20211224214210273" style="zoom:50%;" /></p></li>
+<li><p>微分方程的完全解由齐次解以及特解构成。</p>
+<ul>
+<li>齐次解:输入各项为0时的解。</li>
+<li>特解：微分方程的任意一个解。</li>
+<li>还需要根据初始条件求解待定系数。</li>
+</ul></li>
+<li><p>求齐次解：</p>
+<ul>
+<li><p>齐次解的形式为<span class="math inline">\(Ae^{\alpha t}\)</span></p></li>
+<li><p>因此，根据 <span class="math display">\[
+  y^{(N)}(t)+a_{N-1}y^{(N-1)}(t)+...+a_1y^\prime(t)+a_0y(t)=0
+  \]</span> 可以得出特征方程 <span class="math display">\[
+  \alpha^N +a_{N-1}\alpha^{N-1}+...+a_0=0
+  \]</span> 其有<span class="math inline">\(N\)</span>个特征根，<span class="math inline">\(\alpha_1,...,\alpha_N\)</span></p>
+<p>有重根的情况下，</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242209005.png" alt="image-20211224220921925" style="zoom:50%;" /></p></li>
+</ul></li>
+<li><p>求特解:</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242221120.png" alt="image-20211224222123031" style="zoom:50%;" /></li>
+<li><span class="math inline">\(y_h(t)\)</span>特解是将<span class="math inline">\(x(t)\)</span>的实际表达式代入之后，在判断特解的形式。</li>
+<li>之后，再代入左边<span class="math inline">\(y(t)\)</span>的表达式中，求待定系数。</li>
+</ul></li>
+<li><p>求完特解就要根据初始条件(或者说叫边界条件)求待定系数。</p>
+<ul>
+<li>要把初始条件代入完全解当中求解。</li>
+</ul></li>
+</ul>
+<h4 id="差分方程及其求解">差分方程及其求解</h4>
+<ul>
+<li><p>差分方程的一般形式：</p>
+<ul>
+<li><span class="math display">\[
+  \sum_{i=0}^N a_i y[n-i] = \sum_{j=0}^M b_j x[n-j]
+  \]</span></li>
+</ul></li>
+<li><p>与微分方程类似地，当差分方程的输入激励项均为0时，方程的解是齐次解：</p>
+<ul>
+<li><p>差分方程的齐次解的形式为<span class="math inline">\(Ca^n\)</span>的线性组合</p>
+<ul>
+<li><p>代入差分方程之后： <span class="math display">\[
+  \sum_{k=0}^N a^k \alpha^{N-k} = 0
+  \]</span></p></li>
+<li><p><span class="math inline">\(y_h[n] = \sum_{i=1}^N C_i \alpha_i^n\)</span></p></li>
+<li><p>这里需要注意的是差分方程中的 次项是<span class="math inline">\(N-k\)</span>,而微分方程中 此项是跟<span class="math inline">\(y(t)\)</span>次项一致的,以例子来说：</p>
+<ul>
+<li>微分方程<span class="math inline">\(y^i \rightarrow a_i \alpha^i\)</span></li>
+<li>差分方程<span class="math inline">\(y[n-k] \rightarrow a_k \alpha^{N-k-1}\)</span> ,<span class="math inline">\(N\)</span>与<span class="math inline">\(y[n-i]\)</span>的求和数相等。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>特解的形式:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251049928.png" alt="image-20211225104926821" style="zoom:50%;" /></p>
+<ul>
+<li><span class="math inline">\(u(t)\)</span>的特解为常数<span class="math inline">\(1\)</span></li>
+</ul></li>
+<li><p>把初始条件代入完全解求待定系数</p></li>
+</ul>
+<h4 id="初始松弛条件">初始松弛条件</h4>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251111073.png" alt="image-20211225111140001" style="zoom:50%;" /></p>
+<h4 id="自由响应与强迫响应">自由响应与强迫响应</h4>
+<ul>
+<li>齐次解对应着自由响应</li>
+<li>特解对应着强迫响应</li>
+</ul>
+<h4 id="零输入响应与零状态响应">零输入响应与零状态响应</h4>
+<ul>
+<li><p>零输入响应:</p>
+<ul>
+<li><p>无输入激励信号，仅由系统的起始状态单独作用而产生的响应。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251119327.png" alt="image-20211225111900275" style="zoom:50%;" /></p></li>
+<li><p>零输入响应与齐次解的系数不同，且零输入响应仅由起始储能状态决定，但是齐次解既跟起始状态相关，也跟激励信号有关（齐次解的待定系数与激励信号有关）。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251134937.png" alt="image-20211225113438880" style="zoom:50%;" /></p>
+<p>得到齐次解之后，可以直接将初始条件代入。</p>
+<ul>
+<li>说到底，零输入响应的初始条件是<span class="math inline">\(y(0_-)\)</span>,而齐次解的起始条件诸如<span class="math inline">\(y(0)\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>零状态响应：</p>
+<ul>
+<li>起始状态为0的条件下，外加激励信号产生的响应。
+<ul>
+<li>也就是说，零状态响应假定了<span class="math inline">\(y(0_+)\)</span>为0</li>
+<li>并可以将此代入完全解当中，求完全解的待定系数</li>
+</ul></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251119253.png" alt="image-20211225111913203" style="zoom:50%;" /></li>
+<li>如果<span class="math inline">\(y(0_-)\rightarrow y(0_+)\)</span>有跳变，就会出现在零状态响应当中。</li>
+<li>如果没有跳变，<span class="math inline">\(y(0_-)=y(0_+)\)</span></li>
+<li>零状态响应也是<span class="math inline">\(x(t)*h(t)\)</span></li>
+</ul></li>
+<li><p>完全响应</p>
+<ul>
+<li>完全响应既是齐次解与特解的和，又是零输入响应与零状态响应的和</li>
+</ul></li>
+</ul>
+<h3 id="chap.4">Chap.4</h3>
+<ul>
+<li>三角函数与复指函数都可以构成完备正交函数集。
+<ul>
+<li><span class="math inline">\(w = \frac{2\pi}{T}\)</span>是可以利用的</li>
+</ul></li>
+</ul>
+<h4 id="信号基于函数集的分解">信号基于函数集的分解</h4>
+<ul>
+<li><p>三角函数族的分解：</p>
+<ul>
+<li><p><span class="math display">\[
+  a_0 = \frac{1}{T} \int_{t_0}^{t_0+T} x(t) dt \\
+  a_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\cos(nwt) dt = a_{-n}\\
+  b_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\sin(nwt) dt = - b_{-n}\\
+  x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(nwt)
+  \]</span></p></li>
+<li><p><span class="math inline">\(a_0\)</span>为直流分量，<span class="math inline">\(a_n\)</span>为余弦分量，<span class="math inline">\(b_n\)</span>为正弦分量</p></li>
+</ul></li>
+<li><p>指数函数族的分解：</p>
+<ul>
+<li><p><span class="math display">\[
+  X_n = \frac{1}{T}\int_{t_0}^{t_0+T} x(t)\cdot e^{-jnwt} dt \\
+  x(t) = \sum_{-\infty}^{+\infty} X_n e^{jnwt} \\
+   = \sum_{-\infty}^{+\infty} X_n (\cos(nwt) + j\sin(nwt) )
+  \]</span></p></li>
+<li><p>因此，指数函数族的分解与三角函数族的分解之间有所联系: <span class="math display">\[
+  X_n= \frac{1}{2} a_n - \frac{j}{2} b_n \\
+  X_n^*= \frac{1}{2} a_n + \frac{j}{2} b_n %共轭
+  \]</span> <span class="math inline">\(X_n^*\)</span>表示共轭</p></li>
+</ul></li>
+</ul>
+<h4 id="傅里叶变换思路">傅里叶变换思路</h4>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251300911.png" alt="image-20211225130030832" style="zoom:50%;" /></p>
+<h4 id="傅里叶级数">傅里叶级数</h4>
+<ul>
+<li><p>周期信号的傅里叶级数三角形式表示也正是信号基于三角函数族分解的形式。</p>
+<ul>
+<li><p><span class="math display">\[
+  x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(nwt) \\
+   = c_0 + \sum_{n=1}^{+\infty} c_n \cos(nwt+\phi_n) \\
+   c_n = \sqrt{a_n^2 + b_n^2} \\
+   b_n = -c_n \sin(\phi_n) \\
+   a_n = c_n \cos(\phi_n)
+  \]</span></p></li>
+<li><p><span class="math inline">\(c_0\)</span>也是直流分量，<span class="math inline">\(c_n\)</span>被称为n次谐波分量。</p></li>
+</ul></li>
+<li><p>同样的也有周期信号的傅里叶级数的指数形式：</p>
+<ul>
+<li><p><span class="math display">\[
+  合成公式：x(t) = \sum_{-\infty}^{+\infty} X_n e^{jnwt} \\
+  分析公式：X_n = \frac{1}{T}\int_{t_0}^{t_0+T} x(t)\cdot e^{-jnwt} dt
+  \]</span></p></li>
+<li><p>当n为<span class="math inline">\(\pm1\)</span>时，两项和为基波分量</p></li>
+<li><p>当n为<span class="math inline">\(\pm N\)</span>时，两项和为<span class="math inline">\(N\)</span>次谐波分量</p></li>
+<li><p><span class="math inline">\(X_n\)</span>也被称为频谱函数</p></li>
+<li><p>当相位仅为0,±𝜋时，幅度和相位可以合成为一张频谱</p></li>
+</ul></li>
+<li><p>傅里叶级数收敛条件：</p>
+<ul>
+<li><p>能量条件：</p>
+<ul>
+<li><p><span class="math display">\[
+  \int_{-\frac{T}{2}}^{\frac{T}{2}} |x(t)|^2dt &lt; \infty
+  \]</span></p>
+<p><span class="math inline">\(x(t)\)</span>在一个周期内能量有限。</p></li>
+</ul></li>
+<li><p>波形条件：</p>
+<ul>
+<li>有限个不连续点</li>
+<li>有限个极大极小值</li>
+<li>能量有限</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="帕塞瓦尔定理">帕塞瓦尔定理</h4>
+<ul>
+<li><span class="math inline">\(P = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} |x(t)|^2dt = \sum_{-\infty}^{+\infty} |X_n|^2\)</span></li>
+<li><span class="math inline">\(|X_n|^2\)</span>称为功率谱。</li>
+</ul>
+<h4 id="傅里叶级数的性质">傅里叶级数的性质</h4>
+<ul>
+<li>偶信号：傅里叶级数中只含有直流项以及余弦项
+<ul>
+<li>偶谐信号：无直流分量，只含有正弦项以及余弦项的偶次谐波分量</li>
+</ul></li>
+<li>奇信号：傅里叶级数中只含有直流项以及正弦项
+<ul>
+<li>奇谐信号：无直流分量，只含有正弦项以及余弦项的奇次谐波分量</li>
+</ul></li>
+</ul>
+<h4 id="吉布斯现象">吉布斯现象</h4>
+<ul>
+<li>用有限次谐波分量近似原信号，在不连续点会出现过冲，大约等于总跳变值的<span class="math inline">\(9\%\)</span>。</li>
+</ul>
+<h4 id="周期矩阵的有效频带宽度">周期矩阵的有效频带宽度</h4>
+<ul>
+<li><span class="math inline">\(0-\frac{2 \pi}{\tau}\)</span>是周期矩形信号的有效带宽</li>
+<li>信号的频谱分量主要集中在零频到第一个过零点之间，我们一般将此宽度作为有效带宽</li>
+</ul>
+<h4 id="幅度衰减">幅度衰减</h4>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251353929.png" alt="image-20211225135357862" style="zoom:50%;" /></li>
+</ul>
+<h3 id="chap.5">Chap.5</h3>
+<h4 id="傅里叶变换">傅里叶变换</h4>
+<ul>
+<li><p>将周期信号的周期无限延长，信号就会接近非周期信号，并且谱线间隔<span class="math inline">\(\omega \rightarrow 0\)</span>。</p></li>
+<li><p>定义频谱密度函数: <span class="math display">\[
+  X(j\omega) = \lim_{T\rightarrow\infty} X(nj\omega)T \\
+      = \lim_{T\rightarrow\infty} X_n T\\
+      = \lim_{\omega\rightarrow0} \frac{2\pi X(nj\omega)}{\omega}
+  \]</span></p>
+<ul>
+<li><p>由频谱函数可以得到傅里叶变换：</p>
+<ul>
+<li><span class="math display">\[
+  X(jw) = \lim_{T \rightarrow\infty} \int_{\frac{T}{2}}^{-\frac{T}{2}}x(t) e^{-jnwt}dt\\
+      = \int_{\infty}^{-\infty}x(t) e^{-jnwt}dt
+  \]</span></li>
+</ul></li>
+<li><p>其中<span class="math inline">\(\frac{ X(nj\omega)}{\omega}\)</span>就是频谱密度</p></li>
+<li><p>对于信号<span class="math inline">\(x(t)\)</span>可以定义谱线间隔<span class="math inline">\(\Delta(n\omega)=\omega\)</span>,那么 <span class="math display">\[
+  x(t) = \sum_{-\infty}^{+\infty} \frac{ X(nj\omega)}{\omega} e^{jn\omega t} \cdot \Delta(n\omega)
+  \]</span> 就可以得到傅里叶逆变换: <span class="math display">\[
+  x(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(jw)e^{jwt} dw
+  \]</span></p></li>
+</ul></li>
+<li><p>傅里叶变换:</p>
+<ul>
+<li><span class="math display">\[
+  X(jw) = \int_{-\infty}^{+\infty} x(t)e^{-jwt} dt \\
+  = \int_{-\infty}^{+\infty} x(t)\cos(wt) dt - j \int_{-\infty}^{+\infty} x(t)\sin(wt) dt
+  \]</span></li>
+</ul></li>
+<li><p>傅里叶逆变换:</p>
+<ul>
+<li><span class="math display">\[
+  x(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(jw)e^{jwt} dw
+  \]</span></li>
+</ul></li>
+<li><p><span class="math inline">\(X(jw)\)</span>也被称为频谱:</p>
+<ul>
+<li><span class="math inline">\(X(jw) = |X(jw)| e^{j\phi(w)}\)</span></li>
+<li><span class="math inline">\(|X(jw)|\)</span>为幅度频谱</li>
+<li><span class="math inline">\(e^{j\phi(w)}\)</span>为相位频谱
+<ul>
+<li><span class="math inline">\(e^{-j\pi} = e^{j\pi} = -1\)</span></li>
+</ul></li>
+<li>对于非周期信号，其频谱是连续谱；对于非周期信号的离散频谱可以通过对周期信号的连续频谱等间隔采样获得。</li>
+<li>在时域上越宽的信号，在频域上越窄</li>
+</ul></li>
+</ul>
+<h4 id="常见信号的频谱ft">常见信号的频谱(FT)</h4>
+<ul>
+<li><p>单边指数信号<span class="math inline">\(x(t) =e^{-at} u(t)\)</span> :</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251523856.png" alt="image-20211225152336749" style="zoom:50%;" /></li>
+</ul></li>
+<li><p>双边指数信号<span class="math inline">\(x(t) =e^{-a|t|}\)</span>:</p>
+<ul>
+<li><p><span class="math display">\[
+  X(jw) = \int_{-\infty}^{+\infty} e^{-a|t|} e^{-jwt} dt \\
+      =\int_{0}^{+\infty} e^{-at} e^{-jwt} dt + \int_{-\infty}^{0} e^{at} e^{-jwt} dt \\
+      = \frac{1}{a+jw} + \frac{1}{a-jw} \\
+      = \frac{2a}{a^2 + w^2}
+  \]</span></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251528705.png" alt="image-20211225152824626" style="zoom: 50%;" /> 因为只有实部</p></li>
+</ul></li>
+<li><p>单位冲激信号<span class="math inline">\(\delta\)</span></p>
+<ul>
+<li>单位冲激信号的傅里叶变换为1
+<ul>
+<li>计算的关键在于<span class="math inline">\(e^{-jwt}dt,e^{jwt}dw\)</span>的无穷积分都为1</li>
+</ul></li>
+<li>时域变化异常剧烈的冲激函数包含幅度相等的所有频率分量，这种频谱也称为“均匀谱”或“白色谱”</li>
+</ul></li>
+<li><p>直流信号</p>
+<ul>
+<li><p>其傅里叶变换为<span class="math inline">\(2\pi\delta(w)\)</span></p></li>
+<li><p>直流信号的傅里叶变换计算是通过对于<span class="math inline">\(e^{-\sigma|t|}\)</span>进行傅里叶变换之后取极限算出来的：</p>
+<ul>
+<li><span class="math display">\[
+  \mathcal{F}[e^{-\sigma|t|}] = \int_{-\infty}^{+\infty} e^{-\sigma|t|} e^{-jwt} dt \\
+  = \frac{2\sigma}{\sigma^2 + w^2} \\
+  \mathcal{F}[1] = \lim_{\sigma \rightarrow 0} \mathcal{F}[e^{-\sigma|t|}] = 2\pi \delta(w)
+  \]</span></li>
+</ul></li>
+</ul></li>
+<li><p>符号函数</p>
+<ul>
+<li><p>其傅里叶变换也借助了与直流信号一样的思路：</p>
+<ul>
+<li><span class="math display">\[
+  \mathcal{F}[sgn(t)] = \lim_{\sigma \rightarrow 0} \mathcal{F}[sgn(t)e^{-\sigma|t|}] = \frac{2}{jw}
+  \]</span></li>
+</ul></li>
+</ul></li>
+<li><p>单位阶跃信号</p>
+<ul>
+<li><p><span class="math inline">\(u(t) = \frac{1}{2}+ \frac{1}{2} sgn(t)\)</span></p></li>
+<li><p><span class="math display">\[
+  \mathcal{F}[u(t)] = \frac{1}{jw} + \pi \delta(w)
+  \]</span></p></li>
+</ul></li>
+<li></li>
+</ul>
+<h4 id="傅里叶变换的性质">傅里叶变换的性质</h4>
+<ul>
+<li>线性：
+<ul>
+<li><span class="math inline">\(x_1(t)\rightarrow_{\mathcal{F}} X_1(jw),x_2(t)\rightarrow_{\mathcal{F}} X_2(jw)\)</span>,<span class="math inline">\(ax_1(t)+bx_2(t)\rightarrow_{\mathcal{F}} aX_1(jw)+bX_2(jw)\)</span></li>
+</ul></li>
+<li>对称性：
+<ul>
+<li>$x(t)<em>{} X(jw),X(t)</em>{}2x(-jw) $</li>
+</ul></li>
+<li>奇偶虚实性：
+<ul>
+<li>将傅里叶变换中用欧拉公式展开即可</li>
+</ul></li>
+<li>尺度变换：
+<ul>
+<li>$x(t)<em>{} X(jw),x(at)</em>{} X() $</li>
+<li>时域压缩，频域拉伸；时域拉伸，频域压缩</li>
+<li>时域翻转，频域也翻转</li>
+<li>频域零点的y轴坐标值意为时域面积，时域零点的y轴坐标值意为频域面积</li>
+</ul></li>
+<li>时移特性：
+<ul>
+<li>$x(t)<em>{} X(jw),x(t-t_0)</em>{} X(jw)e^{-jwt_0} $
+<ul>
+<li>符号对应</li>
+</ul></li>
+</ul></li>
+<li>频移特性:
+<ul>
+<li>$x(t)<em>{} X(jw),x(t)e^{jwt_0}</em>{} X(j(w-w_0)) $
+<ul>
+<li>符号相反</li>
+</ul></li>
+<li><span class="math inline">\(x(t)\rightarrow_{\mathcal{F}} X(jw),x(t)\cos(w_0t)\rightarrow_{\mathcal{F}} \frac{1}{2}X(j(w-w_0)) + \frac{1}{2}X(j(w+w_0))\)</span></li>
+<li><span class="math inline">\(x(t)\rightarrow_{\mathcal{F}} X(jw),x(t)\sin(w_0t)\rightarrow_{\mathcal{F}} -\frac{j}{2}X(j(w-w_0)) + \frac{1}{2}X(j(w+w_0))\)</span></li>
+</ul></li>
+<li>积分特性：
+<ul>
+<li>$x(t)<em>{}X(jw) <span class="math inline">\(,那么\)</span></em>{-}^t x() d_{} +X(0)(w)$<br />
+</li>
+</ul></li>
+<li>微分特性
+<ul>
+<li>$x(t)<em>{}X(jw) <span class="math inline">\(,那么\)</span></em>{}(jw)^n X(jw)$<br />
+</li>
+<li>$x(t)<em>{}X(jw) <span class="math inline">\(,那么\)</span>t^nx(t)</em>{}$</li>
+</ul></li>
+<li>卷积性质：
+<ul>
+<li>时域卷积等于频域乘积</li>
+<li>因此，对于LTI系统来说，因为<span class="math inline">\(y(t) = x(t)*h(t)\)</span>，所以<span class="math inline">\(Y(jw)=H(jw)\cdot X(jw)\)</span>。</li>
+<li>频域卷积等于时域乘积再乘以<span class="math inline">\({2\pi}\)</span></li>
+</ul></li>
+<li>一图流:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251628895.png" alt="image-20211225162801801" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+<h4 id="帕塞瓦尔能量守恒">帕塞瓦尔能量守恒</h4>
+<ul>
+<li><span class="math inline">\(\int_{-\infty}^{+\infty} |x(t)|^2 dt = \frac{1}{2\pi} \int_{-\infty}^{+\infty} |X(jw)|^2 dw\)</span></li>
+</ul>
+<h4 id="周期信号的傅里叶变换">周期信号的傅里叶变换</h4>
+<h5 id="典型周期信号的傅里叶变换">典型周期信号的傅里叶变换</h5>
+<p>由于<span class="math inline">\(\mathcal{F}[1] = 2\pi \delta(w)\)</span>结合频移性质可得： <span class="math display">\[
+\mathcal{F}[1 \cdot e^{jw_0t}] = 2\pi \delta(w - w_0) \\
+\mathcal{F}[1 \cdot e^{-jw_0t}] = 2\pi \delta(w+w_0)
+\]</span></p>
+<ul>
+<li><p>正弦</p>
+<ul>
+<li><span class="math display">\[
+  \mathcal{F}[\cos w_0 t] = \pi (\delta(w-w_0) +  \delta(w+w_0))
+  \]</span></li>
+</ul></li>
+<li><p>余弦</p>
+<ul>
+<li><span class="math display">\[
+  \mathcal{F}[\sin w_0 t] = -j\pi (\delta (w-w_0) - \delta(w+w_0))
+  \]</span></li>
+</ul></li>
+</ul>
+<h4 id="一般周期信号">一般周期信号</h4>
+<ul>
+<li><p>一般周期信号<span class="math inline">\(x(t)\)</span>，假设周期为<span class="math inline">\(T_0\)</span>,<span class="math inline">\(x(t)\)</span>的傅里叶级数为 <span class="math display">\[
+  x(t) = \sum_{-\infty}^{+\infty} X_n e^{jnw_0t}
+  \]</span> 对两边同时取傅里叶变换，可知 <span class="math display">\[
+  \mathcal{F}[x(t)] = \sum_{-\infty}^{+\infty} X_n \mathcal{F}[e^{jnw_0t}] \\
+  = 2\pi \sum_{-\infty}^{+\infty} X_n \delta(w-nw_0)
+  \]</span></p></li>
+<li><p>对于周期信号来说，频谱是离散的，对于非周期信号，其频谱是连续的。</p></li>
+<li><p>傅里叶级数与傅里叶变换的关系：</p>
+<ul>
+<li><span class="math inline">\(X_n = \frac{1}{T} X_{T}(jw) |_{w = nw_0}\)</span></li>
+</ul></li>
+</ul>
+<h4 id="random-fourier">Random Fourier</h4>
+<ul>
+<li><p>核函数指的是如下形式：</p>
+<ul>
+<li><p><span class="math inline">\(k(x,y ) = &lt;\phi(x),\phi(y)&gt;\)</span></p></li>
+<li><p>其中，<span class="math inline">\(x,y\)</span>是原始的数据点，通过<span class="math inline">\(\phi(x),\phi(y)\)</span>对<span class="math inline">\(x,y\)</span>映射到更高维的空间，并且通常我们并不在意<span class="math inline">\(\phi(x),\phi(y)\)</span>的具体形式，只在意<span class="math inline">\(k(x,y)\)</span>的结果。</p></li>
+<li><p>但是当遇到数据集较大，需要实现非线性分类的时候，对每一个点都要计算<span class="math inline">\(k(x,y)\)</span>.</p></li>
+<li><p>RFF的想法是把原始数据<span class="math inline">\(x,y\)</span>通过显式的映射函数<span class="math inline">\(Z\)</span>映射到一个更低维的空间<span class="math inline">\(R^D\)</span>,也就是说实现<span class="math inline">\(Z:R^d \rightarrow R^D\)</span>,并且映射之后的两点的内积就是核函数<span class="math inline">\(k(x,y)\)</span>的近似值: <span class="math display">\[
+  k(x,y) = &lt;\phi(x),\phi(y)&gt; = Z(x)^T Z(y)
+  \]</span> 这与一般的核函数将其映射到更高维相反。</p>
+<p>并且在映射之后，我们可以使用线性的学习方法来近似非线性的学习方法。</p></li>
+<li><p>具体过程如下：</p>
+<ul>
+<li>记<span class="math inline">\(x-y = \delta\)</span>,并假设<span class="math inline">\(\delta\)</span>的傅里叶变换是<span class="math inline">\(p(w)\)</span>,因此我们由傅里叶逆变换： <span class="math display">\[
+  k(x - y) = \int_{R^d} p(w) e^{jw^T\delta} dw
+  \]</span> 并且可以认为<span class="math inline">\(p(w)\)</span>是<span class="math inline">\(w\)</span>的一个分布，如果记<span class="math inline">\(\eta_w(x)=e^{jw^Tx}\)</span>,那么上面的式子就是 <span class="math display">\[
+  k(x - y) = E_w[\eta_w(x)^T\eta_w(y)^*]
+  \]</span> 因此<span class="math inline">\(\eta_w(x)^T\eta_w(y)^*\)</span>是<span class="math inline">\(k(x-y)\)</span>的一个无偏估计。由于核函数以及<span class="math inline">\(p(w)\)</span>都是势函数，因此复指数可以替换成cos函数 <span class="math display">\[
+  Z_w(x) = \sqrt{2} \cos(w^Tx + b)= \eta_w(x)
+  \]</span> 其中<span class="math inline">\(w\)</span>从<span class="math inline">\(p(w)\)</span>中采样，<span class="math inline">\(b\)</span>从均匀分布中采样，用经验估计操作代替求期望的操作。 <span class="math display">\[
+  E_w[Z_w(x)^T Z_w(y)] = \frac{1}{D} \sum_{j=1}^D Z_{w_j}(x)^T Z_{w_j}(y) \\
+  = \frac{2}{D} \sum_{j=1}^D  \cos(w_j^Tx + b_j)\cos(w_j^Ty + b_j)
+  \]</span> 因此我们所需要的映射函数<span class="math inline">\(Z(x)\)</span> <span class="math display">\[
+  Z(x) =\sqrt{\frac{2}{D}} [\cos(w_1^Tx + b_1),\cos(w_2^Tx + b_2),...,\cos(w_D^Tx + b_D)]
+  \]</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap.6">Chap.6</h3>
+<h4 id="信号的采样">信号的采样</h4>
+<ul>
+<li><p>一般可以通过脉冲序列进行采样,即 <span class="math display">\[
+  \delta_{T_s}(t) = \sum_{n=-\infty}^{\infty} \delta(t-nT_s)
+  \]</span> 那么对于任意一个信号<span class="math inline">\(x(t)\)</span>,可以借助冲激信号的抽样性质得到: <span class="math display">\[
+  x(t) \cdot \delta_{T_s}(t) = \sum_{n=-\infty}^{\infty} x(nT_s) \delta(t-nT_s)
+  \]</span></p></li>
+<li><p>要求该采样序列的傅里叶变换，因为它是周期信号，因此要先计算傅里叶级数才行： <span class="math display">\[
+  X_n = \frac{1}{T_s} \int_{-\frac{T_s}{2}}^{\frac{T_s}{2}} \delta_{T_s}(t) e^{-jnw_s t} dt \\
+  = \frac{1}{T_s} \int_{-\frac{T_s}{2}}^{\frac{T_s}{2}} \delta(t) e^{-jnw_s t} dt \\
+  = \frac{1}{T_s} \delta(t) e^{-jnw_s t} |_{t=0} \\
+  = \frac{1}{T_s}
+  \]</span> 所以它的傅里叶变换为: <span class="math display">\[
+  \mathcal{F}[\delta_{T_s}(t) ] = 2\pi  \frac{1}{T_s} \sum_{n=-\infty}^{\infty} \delta(w-nw_s) \\
+  = w_s \sum_{n=-\infty}^{\infty} \delta(w-nw_s)
+  \]</span></p></li>
+<li><p>求上述傅里叶变换的原因在于，对时域上的信号做采样，是一个乘积操作，可以转换为频域上的卷积操作： <span class="math display">\[
+  \mathcal{x_s(t)} = \frac{1}{2\pi} [X(jw) * \mathcal{F}[\delta_{T_s}(t) ]] \\
+  = \frac{1}{2\pi} [X(jw) * w_s \sum_{n=-\infty}^{\infty} \delta(w-nw_s)] \\
+  =\frac{w_s}{2\pi} \sum_{n=-\infty}^{\infty} X(j(w-nw_s))
+  \]</span> 由此可见，时域上的离散化操作导致了频域上的周期延拓。</p>
+<ul>
+<li>离散化与周期性相对应，连续化与非周期性相对应</li>
+</ul></li>
+<li><p>用冲激信号作为采样信号进行采样又称为理想采样。</p></li>
+<li><p>用矩形信号作为采样信号进行采样:</p>
+<ul>
+<li><span class="math display">\[
+  \mathcal{F}[\mathcal{x_s(t)}] = \sum_{n=-\infty}^{\infty } p_n X(j(w-nw_s))
+  \]</span></li>
+</ul></li>
+</ul>
+<h4 id="时域采样定理">时域采样定理</h4>
+<ul>
+<li><p>若连续信号<span class="math inline">\(x(t)\)</span>是一个频带受限的信号，即如果 <span class="math display">\[
+  if|w|&gt;w_m,thenX(jw)=0,w_m= 2\pi f_m
+  \]</span> 对<span class="math inline">\(x(t)\)</span>进行等间隔采样生成<span class="math inline">\(\mathcal{x_s(t)}\)</span> ,用<span class="math inline">\(\mathcal{x_s(t)}\)</span>可以恢复<span class="math inline">\(x(t)\)</span>的条件为 <span class="math display">\[
+  w_s &gt; 2w_m,i.e.T_s &lt; \frac{1}{2f_m}
+  \]</span> 其中<span class="math inline">\(f_s = 2f_m,i.e.,w_s = 2w_m\)</span> 是最小采样频率，称为奈奎斯特频率。</p></li>
+<li><p>如果小于最小采样频率，信号就会发生混叠。</p></li>
+</ul>
+<h3 id="chap.7">Chap.7</h3>
+<ul>
+<li>波长 = 波速 / 频率</li>
+<li>任何频率的波在真空中传播的速度都是光速</li>
+</ul>
+<h4 id="信号传输过程">信号传输过程</h4>
+<ul>
+<li><p>短距离用短波长的传输，远距离用长波长的进行传输</p></li>
+<li><p>如果要传输低频信号，就需要将其进行调制，即将低频信号加载到一个高频振荡信号上，由接受方进行解调。</p></li>
+<li><p>一般将待发送的信号称为调制信号，用于载送的信号称为载波信号。</p></li>
+<li><p>调制之后会让载波信号<span class="math inline">\(c(t)\)</span>的某个信号随着<span class="math inline">\(x(t)\)</span>进行有规律的变化。 <span class="math display">\[
+  c(t) = A\cos(w_c t + \phi) = A\cos(\theta(t))
+  \]</span></p>
+<ul>
+<li>幅度调制:
+<ul>
+<li>让<span class="math inline">\(A\)</span>随着<span class="math inline">\(x(t)\)</span>进行变化，其余参数不变</li>
+</ul></li>
+<li>角度调制
+<ul>
+<li>让<span class="math inline">\(w_c\)</span>或者<span class="math inline">\(\phi\)</span>随着<span class="math inline">\(x(t)\)</span>进行变化，其余参数不变</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="正弦载波调幅">正弦载波调幅</h4>
+<ul>
+<li><p>令载波信号<span class="math inline">\(c(t)=\cos(w_ct)\)</span>, <span class="math display">\[
+  y(t) = x(t) \cdot c(t) = x(t) \cdot \cos(w_ct)
+  \]</span> 对两边进行傅里叶变换，由调制定理可知: <span class="math display">\[
+  Y(jw) = \frac{1}{2} [X(j(w+w_c)) + X(j(w-w_c))]
+  \]</span> <img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252237755.png" alt="image-20211225223749628" style="zoom:50%;" /></p>
+<ul>
+<li>注意绝对值大的部分为上边带。</li>
+<li>并且可以看出当<span class="math inline">\(w_c &lt; w_m\)</span>的时候，两个图像会发生混叠。</li>
+</ul></li>
+</ul>
+<h4 id="复指数载波调制">复指数载波调制</h4>
+<ul>
+<li><p>设置载波信号<span class="math inline">\(c(t) = e^{j(w_c t + \varphi)} = \cos(w_c t + \varphi) + j \sin(w_c t + \varphi)\)</span> 进行调制。</p></li>
+<li><p>同样，我们可以借助傅里叶变换计算得信号经过调制后在频域上的表现:</p></li>
+</ul>
+<p><span class="math display">\[
+Y(jw) = \frac{1}{2\pi} [X(jw)*2\pi [\delta(w-w_c)]] \\
+      = X(j(w-w_c))
+\]</span></p>
+<ul>
+<li><p>发现，复指数载波调制只会使得原始信号向右移动，而不发生振幅的改变。</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/image-20211130150546916.png" alt="image-20211130150546916" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="单边带调幅">单边带调幅</h4>
+<ul>
+<li>单边带调幅要求只发送上边带或者下边带信号，节省能量和带宽。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252248876.png" alt="image-20211130151011303" style="zoom:50%;" /></li>
+<li>求得频域表示<span class="math inline">\(Y(jw)\)</span>之后，注意频域卷积定理常常能获得一个更简单的求解输出的方式：
+<ul>
+<li><strong>频域卷积定理</strong>：<span class="math inline">\(\mathcal{F}[f_1(x) \cdot f_2(x)] = \frac{1}{2\pi} \mathcal{F} [f_1(x)] * \mathcal{F} [f_2(x)]\)</span></li>
+<li>另外，常见函数的傅里叶变换形式:
+<ul>
+<li><span class="math inline">\(Sa(x) {-&gt;}^{\mathcal{F}} \pi g_2(w)\)</span></li>
+<li><span class="math inline">\(\cos(w_cx) -&gt;^{\mathcal{F}} \pi[\delta(w+w_c)+\delta(w-w_c)]\)</span></li>
+<li><span class="math inline">\(\sin(w_cx)-&gt;^{\mathcal{F}} j\pi [\delta(w+w_c)-\delta(w-w_c)]\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="同步解调">同步解调</h4>
+<ul>
+<li>同步解调的过程就是从调制输出<span class="math inline">\(y(t)\)</span>中恢复出<span class="math inline">\(x(t)\)</span>,即从<span class="math inline">\(Y(jw)\)</span>中恢复出<span class="math inline">\(X(jw)\)</span></li>
+<li>为了做到这一点，我们常将<span class="math inline">\(y(t)\cdot \cos(w_ct)\)</span> :
+<ul>
+<li><span class="math inline">\(r(t) = y(t)\cdot \cos(w_ct) = x(t) \frac{1+\cos(2w_c t)}{2}\)</span><br />
+</li>
+<li><span class="math inline">\(R(jw) = \frac{1}{2} X(jw) + \frac{1}{4}[X(j(w+2w_c)) + X(j(w-2w_c))]\)</span></li>
+</ul></li>
+<li>可以发现解调之后，信号信息只差了一个<span class="math inline">\(\frac{1}{2}\)</span>的系数</li>
+<li>并且我们也可以发现，在恢复的过程中，只有当<span class="math inline">\(2w_c \ge w_m\)</span>的时候,才能不发生混叠。用滤波器取出原信号的时候，滤波器带宽需要满足<span class="math inline">\(w_m\)</span>&lt;𝐵&lt;<span class="math inline">\(2w_c-w_m\)</span> 。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252252133.png" alt="image-20211130204749424" style="zoom:50%;" /></li>
+</ul>
+<h4 id="单边带调幅-1">单边带调幅</h4>
+<ul>
+<li>单边带调幅属于同步解调的一种特殊情况:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/image-20211130205155497.png" alt="image-20211130205155497" style="zoom:50%;" /></li>
+<li>单边带调幅描述的就是只有上边带信息或者下边带信息的情况。</li>
+<li>如上图，只有下边带信息的时候，我们可以利用同步解调的适当组合求解:
+<ul>
+<li><p>其实还是<span class="math inline">\(\cdot \cos(w_c t)\)</span></p></li>
+<li><p><span class="math inline">\(X(jw) = \frac{1}{2} [Y(j(w+w_c)) + Y(j(w-w_c))]\)</span></p></li>
+<li><figure>
+<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/image-20211130205353070.png" alt="image-20211130205353070" /><figcaption aria-hidden="true">image-20211130205353070</figcaption>
+</figure></li>
+<li><p>之后，再利用滤波器就可以进行解调。</p></li>
+</ul></li>
+</ul></li>
+<li>并且当调制端与解调端的载波信号相位不等，解调之后的信号就会失真，当相位差到了<span class="math inline">\(\frac{\pi}{2}\)</span>的时候，就无法恢复原信号了。</li>
+<li>频分复用：
+<ul>
+<li>对于不同的信号，用不同的余弦信号用不同的相位进行载波，在解调的时候用不同的带通滤波器就可以一次性解调出不同的输入信号。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261045341.png" alt="image-20211226104514182" style="zoom:50%;" /></li>
+</ul></li>
+<li>时分复用</li>
+<li>码分复用CDM：发送的时候信号乘以正交随机码，解调的时候再乘正交随机码进行恢复。</li>
+</ul>
+<h4 id="频域分析的应用">频域分析的应用</h4>
+<ul>
+<li>图卷积/图卷积网络</li>
+<li>简化图卷积网络</li>
+<li>F-principle:
+<ul>
+<li>DNNs训练网络的时候，通常都是从低频开始学习再学到高频信息或者说DNNs先学了一个整体再补充学习细节部分。</li>
+</ul></li>
+<li>傅里叶变换纠偏:
+<ul>
+<li>利用频谱分析图像的旋转角度，从而还原。</li>
+</ul></li>
+</ul>
+<h3 id="chap.8">Chap.8</h3>
+<h4 id="离散时间傅里叶变换dtft">离散时间傅里叶变换(DTFT)</h4>
+<ul>
+<li>DTFT:</li>
+</ul>
+<p><span class="math display">\[
+DTFT(x[n]) = X(e^{jw}) = \sum_{n=-\infty}^{\infty}x[n]e^{-jnw}
+\]</span></p>
+<ul>
+<li><p>DTFT逆变换： <span class="math display">\[
+  IDTFT(X(e^{jw})) = x[n] = \frac{1}{2\pi} \int_{-\pi}^{\pi}X(e^{jw})e^{jwn} dw
+  \]</span></p></li>
+<li><p>与傅里叶变换的形式还是比较对应的。</p></li>
+<li><p>其中<span class="math inline">\(X(e^{jw})\)</span> 是以<span class="math inline">\(2\pi\)</span>为周期的周期函数。</p></li>
+<li><p>DTFT针对的是离散非周期信号</p></li>
+<li><p>也有一些类似的性质：</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261117849.png" alt="image-20211226111717696" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+<h4 id="离散傅里叶级数-dfs">离散傅里叶级数 (DFS)</h4>
+<ul>
+<li><p><span class="math display">\[
+  X[k] = DFS(x[n]) = \sum_{n=0}^{N-1} x[n] \cdot e^{-j\frac{2\pi}{N}kn} \\
+  x[n] = IDFS(X[k]) = \frac{1}{N} \sum_{k=0}^{N-1} X[k] e^{j\frac{2\pi}{N}kn} \\
+  W_N = e^{-j\frac{2\pi}{N}}
+  \]</span></p></li>
+<li><p>作用对象主要是离散周期信号，其也是一个离散谱</p></li>
+</ul>
+<h4 id="几类变换之间的关系">几类变换之间的关系</h4>
+<ul>
+<li>FS以及离散FS（DFS）都是针对周期信号的，<span class="math inline">\(FT\)</span>以及<span class="math inline">\(DFT\)</span>都是针对非周期信号的，上述四个变换都是进行频域分析，而后两章节介绍的LT、ZT都是复频域上的分析，ZT是LT的离散版本。</li>
+<li>由DFS，可以实现由DFT以及FFT。</li>
+</ul>
+<h4 id="离散傅里叶变换">离散傅里叶变换</h4>
+<ul>
+<li><p>DFT: <span class="math display">\[
+  W_N = e^{-j\frac{2\pi}{N}} \\
+  W_N^{nk} = e^{-j\frac{2\pi}{N}nk} \\
+  X[k] = \sum_{n=0}^{N-1} x[n]\cdot W_N^{nk}\\
+  \]</span></p></li>
+<li><p>IDFT: <span class="math display">\[
+  x[n] = \frac{1}{N} \sum_{n=0}^{N-1} X[k] W_N^{-nk}
+  \]</span></p></li>
+<li><p>DFT的作用对象是长度为N的非周期序列,可以看成是截取了DFS的主值序列构成的变换对，通俗地说，就是只取了DFS的前N个。</p></li>
+<li><p>关于DFT以及DTFT的关系：</p>
+<ul>
+<li>x[n]的DFT是其DTFT再一个周期<span class="math inline">\([0,2\pi)\)</span>的等间隔抽样,换句话说，取了DTFT的一个周期并采样出了N个点。</li>
+</ul></li>
+<li><p>DFT也含有周期性,位移时需要注意其循环移位的特性。</p>
+<ul>
+<li><p>并且其卷积操作变成了循环卷积操作：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261217520.png" alt="image-20211226121726382" style="zoom:50%;" /></p></li>
+<li><p>在4点卷积的情况下结果不同，但是如果将点数放大到5、6、7之后，可能可以出现相同的卷积序列。</p></li>
+</ul></li>
+</ul>
+<h4 id="快速傅里叶变换fft">快速傅里叶变换(FFT)</h4>
+<ul>
+<li>DFT与IDFT的时间复杂度相同，且都只包含加法以及乘法。
+<ul>
+<li>复数加法的时间复杂度为<span class="math inline">\(N(N-1)\)</span></li>
+<li>复数乘法的时间复杂度为<span class="math inline">\(N^2\)</span></li>
+</ul></li>
+<li>想要降低它们的时间复杂度，可以通过将长序列拆分为短序列的方式进行：
+<ul>
+<li>常用 的拆分方式有基2时间抽取以及基2频率抽取。</li>
+<li>基2时间抽取：
+<ul>
+<li>按照奇数偶数的下标进行分解。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261224600.png" alt="image-20211226122450460" style="zoom:50%;" />
+<ul>
+<li>对于旋转因子<span class="math inline">\(W_N^M\)</span>,N/2相当于M*2</li>
+</ul></li>
+<li>将N长度的长序列的DFT拆分为了对两个<span class="math inline">\(N/2\)</span>长度的序列进行DFT，因此这样对分下去，最终的时间复杂度为<span class="math inline">\(\frac{N}{2}\log_2 N\)</span></li>
+</ul></li>
+</ul></li>
+<li>对于IFFT:
+<ul>
+<li><span class="math inline">\(FFT^*(DFT(X^*[m])) / N\)</span></li>
+</ul></li>
+<li>对于常规的复数乘法也可以用分治算法进行优化：
+<ul>
+<li>将n长度的分成两块，每块n/2长度</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261239388.png" alt="image-20211226123942254" style="zoom:50%;" /></li>
+</ul></li>
+<li>多项式乘法的优化;
+<ul>
+<li>两个d次多项式，我们需要求解2d+1个参数才可以，在已知两个d次多项式参数的情况下，就可以以<span class="math inline">\(O(n^2)\)</span>的时间复杂度求解。</li>
+<li>为了确定d次的多项式，可以采用分治+插值的方法：
+<ul>
+<li>将d次多项式拆分为奇次项与偶次项，奇次项再提取一个x就可以计算一次利用两次，通过把x设置为<span class="math inline">\(z^n = 1\)</span>的n个根，n个根在进行<span class="math inline">\(\pm\)</span>项抵消一次运算之后可以继续产生正负对，从而使分治进行到底。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap.9">Chap.9</h3>
+<h4 id="laplace-transform">Laplace Transform</h4>
+<ul>
+<li>LT:</li>
+</ul>
+<p><span class="math display">\[
+X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
+其中，s = \sigma + j\omega
+\]</span></p>
+<ul>
+<li><p>ILT: <span class="math display">\[
+  x(s) = \mathcal{L}^{-1}[X(s)] = \frac{1}{2\pi j}  \int_{\sigma-j\infty}^{\sigma+j\infty}X(s)e^{st}ds\\
+  其中，s = \sigma + j\omega
+  \]</span></p></li>
+<li><p>是在复频域上分析，但是频谱分析还得用FT，复数域无法构建</p></li>
+<li><p>单边LT： <span class="math display">\[
+  X(s) = \int_{0_{-}}^{+\infty}x(t)e^{-st}dt\\
+  \]</span></p></li>
+<li><p>单边ILT： <span class="math display">\[
+  x(t) =\frac{1}{2\pi j}  \int_{\sigma-j\infty}^{\sigma+j\infty}X(s)e^{st}ds
+  \]</span></p></li>
+<li><p>单边LT存在的条件：</p>
+<ul>
+<li><p><span class="math display">\[
+  X(s) = \int_{0_{-}}^{+\infty}|x(t)|e^{-\sigma t}dt = C &lt; \infty\\
+  \]</span></p></li>
+<li><p>而对于任意的信号<span class="math inline">\(x(t)\)</span>,要满足上式，<span class="math inline">\(x(t)\)</span>应该满足 <span class="math display">\[
+  \lim_{t\rightarrow \infty} x(t) e^{-\sigma t} = 0 (\sigma &gt; \sigma_0)
+  \]</span></p></li>
+<li><p>意为当<span class="math inline">\(\sigma &gt; \sigma_0\)</span>之后的平面区域上，对于这个<span class="math inline">\(x(t)\)</span>,<span class="math inline">\(\lim_{t\rightarrow \infty} x(t) e^{-\sigma t} = 0\)</span> ，用图片表示如下:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112091156156.png" alt="image-20211209115629079" style="zoom:50%;" /></p>
+<p>如果<span class="math inline">\(x(t)\)</span>是有始有终、能量有限的信号，那么收敛区域为整个s平面。</p>
+<ul>
+<li>例如，<span class="math inline">\(u(t) - u(t-a)\)</span>形式的矩形区域，冲激信号等</li>
+</ul>
+<p>如果<span class="math inline">\(x(t) = t^n\)</span> 的多项式形式,那么<span class="math inline">\(\sigma &gt;0\)</span>时，可以有<span class="math inline">\(\lim_{t\rightarrow \infty} x(t) e^{-\sigma t} = 0\)</span> 。</p>
+<ul>
+<li>例如，<span class="math inline">\(u(t),t^nu(t)\)</span> ,可以将<span class="math inline">\(u(t)\)</span>看成是多项式中的单位1</li>
+</ul>
+<p>如果<span class="math inline">\(x(t) = e^{at}\)</span> ,那么当<span class="math inline">\(\sigma &gt; a\)</span>时，极限就会收敛。</p>
+<p>同理，当<span class="math inline">\(x(t)\)</span>的增长速率超过了<span class="math inline">\(e^{-\sigma t}\)</span>的下降速率，那么<span class="math inline">\(x(t)\)</span>就没有办法收敛。</p>
+<ul>
+<li>例如当<span class="math inline">\(x(t) = t^t,e^{t^2}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="常用信号的拉普拉斯变换">常用信号的拉普拉斯变换</h4>
+<p><span class="math display">\[
+\mathcal{L}[e^{\lambda t }u(t)] = \frac{1}{s-\lambda}\\
+收敛条件为\sigma &gt; \lambda
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}[\delta(t-t_0)] = e^{-st_0}\\
+收敛条件为\sigma &gt; -\infty
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}[u(t)] = \frac{1}{s}\\
+收敛条件为\sigma &gt; 0
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}[u(t-t_0)] = \frac{1}{s}(1-e^{-st_0})\\
+收敛条件为\sigma &gt; 0
+\]</span></p>
+<p><span class="math display">\[
+\cos (\omega_0 t) u(t) = \frac{e^{j\omega_0 t} + e^{-j\omega_0 t}}{2} u(t) \rightarrow^{\mathcal{L}} \frac{1}{2}(\frac{1}{s-j\omega} + \frac{1}{s+j\omega}) = \frac{s}{s^2 + \omega^2}
+\]</span></p>
+<p><span class="math display">\[
+\sin (\omega_0 t) u(t) = \frac{e^{j\omega_0 t} - e^{-j\omega_0 t}}{2j} u(t) \rightarrow^{\mathcal{L}} \frac{1}{2j}(\frac{1}{s-j\omega} - \frac{1}{s+j\omega}) = \frac{\omega_0}{s^2 + \omega^2}
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}[\delta_t^\prime] = s
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}[\delta_t] = 1
+\]</span></p>
+<h4 id="单边拉普拉斯变换的性质">单边拉普拉斯变换的性质</h4>
+<ul>
+<li><p>线性性质:</p>
+<ul>
+<li><span class="math inline">\(a_1x_1(t) + a_2x_2(t) \rightarrow^{\mathcal{L}} a_1X_1(s) + a_2X_2(s)\)</span></li>
+<li>收敛条件为<span class="math inline">\(\sigma &gt; \max(\sigma_1,\sigma_2)\)</span>，其中<span class="math inline">\(\sigma_1\)</span>为<span class="math inline">\(x_1(t)\)</span>的收敛条件,<span class="math inline">\(\sigma_2\)</span>为<span class="math inline">\(x_2(t)\)</span>的收敛条件,<span class="math inline">\(x_1(t) \rightarrow^{\mathcal{L}} X_1(s)\)</span> ,<span class="math inline">\(x_2(t) \rightarrow^{\mathcal{L}} X_2(s)\)</span></li>
+<li>利用线性性质可以计算得正弦信号与余弦信号的LT:
+<ul>
+<li><span class="math inline">\(\cos (\omega_0 t) u(t) = \frac{e^{j\omega_0 t} + e^{-j\omega_0 t}}{2} u(t) \rightarrow^{\mathcal{L}} \frac{1}{2}(\frac{1}{s-j\omega} + \frac{1}{s+j\omega}) = \frac{s}{s^2 + \omega^2}\)</span><br />
+</li>
+<li><span class="math inline">\(\sin (\omega_0 t) u(t) = \frac{e^{j\omega_0 t} - e^{-j\omega_0 t}}{2j} u(t) \rightarrow^{\mathcal{L}} \frac{1}{2j}(\frac{1}{s-j\omega} - \frac{1}{s+j\omega}) = \frac{\omega_0}{s^2 + \omega^2}\)</span><br />
+</li>
+</ul></li>
+<li>有没有<span class="math inline">\(u(t)\)</span>不影响结果</li>
+</ul></li>
+<li><p>展缩性质：</p>
+<ul>
+<li><span class="math inline">\(x(at) \rightarrow^{\mathcal{L}} \frac{1}{a} X(\frac{s}{a})\)</span>,收敛条件为<span class="math inline">\(\sigma &gt; a\sigma_0, a&gt;0\)</span></li>
+<li><span class="math inline">\(x(t) \rightarrow^{\mathcal{L}} X(s)\)</span></li>
+<li>展缩性质（尺度变换）是针对整体的，但是下面介绍的时移性质是针对t本身的。
+<ul>
+<li>例子： 对于<span class="math inline">\(x(at-b)u(at-b),x(t)u(t)\)</span>
+<ul>
+<li>先进行展缩:<span class="math inline">\(x(at)u(at)\)</span></li>
+<li>后进行时移:<span class="math inline">\(x(at-b)u(at-b) = x(a(t-\frac{b}{a}))u(a(t-\frac{b}{a}))\)</span></li>
+<li>但是，如果我们先进行时移:<span class="math inline">\(x(t-b)u(t-b)\)</span></li>
+<li>再进行展缩，得到的结果是<span class="math inline">\(x(at-b)u(at-b)\)</span>,没有影响到b</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>时移性质:</p>
+<ul>
+<li><p><span class="math inline">\(x(t-t_0)u(t-t_0) \rightarrow^{\mathcal{L}} e^{-st_0}X(s)\)</span> 收敛条件为<span class="math inline">\(\sigma &gt; \sigma_0, t_0&gt;0\)</span></p></li>
+<li><p><span class="math inline">\(x(t) \rightarrow^{\mathcal{L}} X(s)\)</span></p></li>
+<li><p>利用时移性质以及线性性质可以通过将周期信号转换为第一个周期信号的线性组合进行单边LT求解:</p>
+<ul>
+<li><p><span class="math display">\[
+  x(t) = \sum_{k=0}^{\infty} x_1(t-kT)
+  \]</span></p></li>
+<li><p><span class="math display">\[
+  \mathcal{L}[x(t)] = \sum_{k=0}^{\infty} e^{-skT} X_1(s) = \frac{X_1(s)}{1-e^{-sT}}
+  \]</span></p></li>
+</ul></li>
+</ul></li>
+<li><p>卷积性质:</p>
+<ul>
+<li><span class="math inline">\(x_1(t) * x_2(t) \rightarrow^{\mathcal{L}} X_1(s)X_2(s)\)</span> ,<span class="math inline">\(\sigma &gt; \max(\sigma_1,\sigma_2)\)</span></li>
+<li><span class="math inline">\(x_1(t) \rightarrow^{\mathcal{L}} X_1(s)\)</span> ,<span class="math inline">\(x_2(t) \rightarrow^{\mathcal{L}} X_2(s)\)</span></li>
+</ul></li>
+<li><p>乘积性质:</p>
+<ul>
+<li><span class="math inline">\(x_1(t)x_2(t) \rightarrow^{\mathcal{L}} \frac{1}{2\pi j} X_1(s) * X_2(s)\)</span> <span class="math inline">\(\sigma &gt; \sigma_1 + \sigma_2\)</span></li>
+<li><span class="math inline">\(x_1(t) \rightarrow^{\mathcal{L}} X_1(s)\)</span> ,<span class="math inline">\(x_2(t) \rightarrow^{\mathcal{L}} X_2(s)\)</span><br />
+</li>
+<li>特殊形式:
+<ul>
+<li>指数加权:<span class="math inline">\(e^{-\lambda t}x(t) \rightarrow^{\mathcal{L}} X(s+\lambda)\)</span> ,<span class="math inline">\(\sigma &gt; \sigma_0 - \lambda\)</span></li>
+<li>(Key)线性加权:<span class="math inline">\(-tx(t) \rightarrow^{\mathcal{L}} \frac{dX(s)}{ds}\)</span>,<span class="math inline">\(\sigma &gt; \sigma_0\)</span>
+<ul>
+<li><span class="math inline">\(tx(t) \rightarrow^{\mathcal{L}} -\frac{dX(s)}{ds}\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>微分性质:</p>
+<ul>
+<li><span class="math inline">\(\frac{dX(t)}{dt} \rightarrow^{\mathcal{L}} sX(s) - x(0_{-})\)</span> ,<span class="math inline">\(\sigma &gt; \sigma_0\)</span></li>
+<li>高阶微分:
+<ul>
+<li><span class="math inline">\(\frac{d^n X(t)}{d^n t} \rightarrow^{\mathcal{L}} s^n X(s) - \sum_{r=0}^{n-1} s^{n-r-1} x^{(r)}(0_{-})\)</span> ,<span class="math inline">\(\sigma &gt; \sigma_0\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>积分性质:</p>
+<ul>
+<li><p><span class="math inline">\(\int_{-\infty}^{t} x(\tau) d\tau \rightarrow^{\mathcal{L}} \frac{X(s)}{s} + \frac{x^{-1}(0_{-})}{s}\)</span> ,<span class="math inline">\(\sigma &gt; \max(\sigma_0,0)\)</span></p></li>
+<li><p><span class="math inline">\(x^{-1}(0_{-}) = \int_{-\infty}^{0_{-}} x(\tau) d\tau\)</span></p></li>
+</ul></li>
+<li><p>初值定理与终值定理:</p>
+<ul>
+<li>对于因果序列，如果<span class="math inline">\(x(t) \rightarrow^{\mathcal{L}} X(s),\sigma &gt; \sigma_0\)</span>,并且导数可以进行求导，那么
+<ul>
+<li>如果<span class="math inline">\(x(t)\)</span>在<span class="math inline">\(t=0\)</span>的时候不包含冲激函数及其各阶导数，且对于有理真分式，有<span class="math inline">\(\lim_{t \rightarrow 0} x(t) = x(0_{+}) = \lim_{s \rightarrow \infty}sX(s)\)</span></li>
+<li>如果<span class="math inline">\(sX(s)\)</span>的收敛域包含<span class="math inline">\(j\omega\)</span>轴
+<ul>
+<li><span class="math inline">\(\lim_{t \rightarrow \infty} x(t) = x(\infty) = \lim_{s \rightarrow 0}sX(s)\)</span><br />
+</li>
+<li>且LT与FT都存在，呈<span class="math inline">\(X(j\omega) = X(s)|_{s=j\omega}\)</span></li>
+</ul></li>
+<li>如果<span class="math inline">\(sX(s)\)</span>的收敛域不包含<span class="math inline">\(j\omega\)</span>轴
+<ul>
+<li>LT存在但是FT不存在</li>
+</ul></li>
+<li>如果<span class="math inline">\(sX(s)\)</span>的收敛域在<span class="math inline">\(j\omega\)</span>轴上
+<ul>
+<li>LT与FT都存在</li>
+<li>且<span class="math inline">\(X(j\omega) = X(s)|_{s=j\omega} + \pi \sum_{n} K_n \delta(\omega - \omega_n)\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="单边拉普拉斯变换的反变换">单边拉普拉斯变换的反变换</h4>
+<ul>
+<li><p>通常使用部分分式法进行求解</p>
+<ul>
+<li><p>LT的结果可以表示为</p>
+<ul>
+<li><p><span class="math display">\[
+  X(s) = \frac{N(s)}{D(s)} = \frac{b_m (s-z_1)(s-z_2)...(s-z_m)}{(s-p_1)(s-p_2)...(s-p_n)}
+  \]</span></p></li>
+<li><p>其中<span class="math inline">\(z_m\)</span>为零点，<span class="math inline">\(p_n\)</span>为极点</p></li>
+</ul></li>
+<li><p>求解的时候通常将其化成有理真分式</p>
+<ul>
+<li><p>对于不满足有理真分式条件的，我们需要先进行提取分子，转换为有理真分式</p></li>
+<li><p><span class="math display">\[
+  X(s) = \frac{N(s)}{D(s)} = \frac{k_1}{s-p_1} + \frac{k_2}{s-p_2} + ... +\frac{k_n}{s-p_n}
+  \]</span></p></li>
+<li><p>如果没有重根，那么依次在两边乘以<span class="math inline">\(s-p_i\)</span> ,并且令<span class="math inline">\(s = p_i\)</span>代入求解</p></li>
+<li><p>如果有重根，那么对于除最高次项之外的次项需要借助于求导激励性求解</p></li>
+<li><p>对于分母集体出现<span class="math inline">\(s^2\)</span>的时候，可以将其看成一个整体进行看待</p></li>
+<li><p>在最后得到的结果中，需要借助常用函数的LT进行对应处理:</p>
+<ul>
+<li><span class="math inline">\(\delta^\prime(t) \rightarrow^{\mathcal{L}} s\)</span></li>
+<li><span class="math inline">\(\delta(t) \rightarrow^{\mathcal{L}} 1\)</span></li>
+<li><span class="math inline">\(u(t) \rightarrow^{\mathcal{L}} \frac{1}{s}\)</span></li>
+<li><span class="math inline">\(e^{-t} u(t) \rightarrow^{\mathcal{L}} \frac{1}{s+1}\)</span></li>
+<li><span class="math inline">\(t(u(t)) \rightarrow^{\mathcal{L}} \frac{1}{s^2}\)</span></li>
+<li><span class="math inline">\(\cos (\omega_0 t) u(t) \rightarrow^{\mathcal{L}} \frac{s}{s^2 + \omega^2}\)</span></li>
+<li><span class="math inline">\(\sin (\omega_0 t) u(t) \rightarrow^{\mathcal{L}} \frac{\omega_0}{s^2 + \omega^2}\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="微分方程与系统的复频域分析">微分方程与系统的复频域分析</h4>
+<ul>
+<li>借助频域我们可以更快地进行微分方程的求解
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101052128.png" alt="image-20211210105248859" style="zoom:50%;" /></li>
+<li>通过微分特性对微分方程转换为s域上的代数方程
+<ul>
+<li>然后将代数方程转换为与<span class="math inline">\(X(s)\)</span>有关的项作为零状态响应以及与<span class="math inline">\(X(s)\)</span>无关的项作为零输入响应:
+<ul>
+<li><span class="math inline">\(Y(s) = Y_{zi}(s) + Y_{zs}(s)\)</span> , <span class="math inline">\(y(t) = \mathcal{L}^{-1} [Y(s)]\)</span></li>
+</ul></li>
+</ul></li>
+<li>一个例子:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101104153.png" alt="image-20211210110439014" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101105349.png" alt="image-20211210110505211" style="zoom:50%;" /></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="系统函数">系统函数</h4>
+<ul>
+<li><p>定义为:在零状态响应(起始条件为0，即<span class="math inline">\(y^{(i)}(o_{-})=0\)</span>)的情况下，输出的LT与输入的LT的比值,即是系统函数<span class="math inline">\(H(s)\)</span></p>
+<ul>
+<li><p><span class="math display">\[
+  H(s) = \frac{\mathcal{L}[y_{zs}(t)]}{\mathcal{L}[x(t)]} 
+  \]</span></p></li>
+<li><p>而<span class="math inline">\(y_{zs}(t)\)</span>反映的是<span class="math inline">\(x(t) * h(t)\)</span></p></li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261651231.png" alt="image-20211226165139076" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="零极点与时域特性">零极点与时域特性</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101108845.png" alt="image-20211210110841701" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101109207.png" alt="image-20211210110912088" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101109016.png" alt="image-20211210110933888" style="zoom:50%;" /></p></li>
+<li><p>因果系统在𝑠域有界输入有界输出(BIBO)的充要条件是系统函数𝐻(𝑠)的全部极点位于左半𝒔平面</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261346012.png" alt="image-20211226134647881" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261347836.png" alt="image-20211226134713670" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261347902.png" alt="image-20211226134740773" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261348755.png" alt="image-20211226134832630" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261348282.png" alt="image-20211226134847153" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261349377.png" alt="image-20211226134906224" style="zoom:50%;" /></p></li>
+</ul>
+<h3 id="chap.10">Chap.10</h3>
+<h4 id="z变换">z变换</h4>
+<ul>
+<li>连续信号通过采样获得离散信号:
+<ul>
+<li><span class="math inline">\(x_s(t) = \sum_{n=0}^{\infty} x(nTs) \delta(t-nT_s)\)</span></li>
+<li>对两边取拉普拉斯变换: $X_s(s) = _{n=0}^{} x(nTs) e^{-snT_s} $</li>
+<li>令<span class="math inline">\(z = e^{sT_s},s = \frac{1}{T_s} \ln z\)</span> ,$X(z) = _{n=0}^{} x(nTs) z^{-n} $</li>
+<li>如果<span class="math inline">\(T_s=1\)</span> ,那么<span class="math inline">\(X(z) = \sum_{n=0}^{\infty} x[n] z^{-n}\)</span> ,<span class="math inline">\(z = e^s\)</span></li>
+</ul></li>
+</ul>
+<h4 id="单边z变换">单边z变换</h4>
+<ul>
+<li>对于一个序列<span class="math inline">\(x[n]\)</span>,单边z变换为:
+<ul>
+<li><span class="math inline">\(X(z) = \mathcal{Z}[x[n]] = \sum_{n=0}^{\infty} x[n] z^{-n}\)</span> ,此时<span class="math inline">\(X(z)\)</span>就是<span class="math inline">\(x[n]\)</span>的生成函数</li>
+<li>收敛域:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111206919.png" alt="image-20211211120652814" style="zoom:50%;" /></li>
+<li>有限长序列的收敛域为<span class="math inline">\(|z|&gt;0\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="常用单边序列的z变换">常用单边序列的z变换</h4>
+<ul>
+<li><p>常用技巧就是对<span class="math inline">\(a^n\)</span>进行求导，就可以得到<span class="math inline">\(na^n\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{Z} \{\delta[n]\} = 1, z\ge 0\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{Z} \{u[n]\} = \frac{1}{1-z^{-1}}, |z|\ge 1\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{Z} \{n u[n]\} = \frac{z^{-1}}{(1-z^{-1})^{2}}, |z|\ge 1\)</span></p></li>
+<li><p><span class="math inline">\(\mathcal{Z} \{a^n u[n]\} = \frac{z}{z -e^b} = \frac{1}{1-e^bz^{-1}}, |z|\ge |e^b|\)</span>,<span class="math inline">\(a = e^b\)</span></p>
+<ul>
+<li><span class="math inline">\(\mathcal{Z} \{a^n u[n]\} = \frac{1}{1-az^{-1}}\)</span> ,<span class="math inline">\(|z|\ge |a|\)</span></li>
+<li><span class="math inline">\(\mathcal{Z} \{n a^n u[n]\} = \frac{az}{(z-a)^2}\)</span></li>
+<li><span class="math inline">\(\mathcal{Z} \{e^{j\omega_0 n} u[n]\} = \frac{1}{1-e^{j\omega_0}z^{-1}}\)</span></li>
+<li><span class="math inline">\(\mathcal{Z} \{\cos(\omega_n n)u[n]\} \leftrightarrow \frac{1-\cos\omega_0 z^{-1}}{1 - 2z^{-1}\cos\omega_0 + z^{-2}}\)</span>
+<ul>
+<li>当<span class="math inline">\(\omega_n = \frac{\pi}{2}\)</span>,<span class="math inline">\(\mathcal{Z} \{\cos(\omega_n n)u[n]\} \leftrightarrow \frac{1}{1 + z^{-2}}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\mathcal{Z} \{\sin(\omega_n n)u[n]\} \leftrightarrow \frac{\sin\omega_0 z^{-1}}{1 - 2z^{-1}\cos\omega_0 + z^{-2}}\)</span>
+<ul>
+<li>当<span class="math inline">\(\omega_n = \frac{\pi}{2}\)</span>,<span class="math inline">\(\mathcal{Z} \{\sin(\omega_n n)u[n]\} \leftrightarrow \frac{1}{z(1 + z^{-2})}\)</span><br />
+</li>
+</ul></li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111308431.png" alt="image-20211211130824325" style="zoom:50%;" /></p></li>
+<li><p><span class="math inline">\(a^n\cos(\frac{\pi}{2}n) u[n] = \frac{1}{1+a^2z^{-2}} = \frac{z^2}{z^2+a^2}\)</span></p></li>
+<li><p>$a^n(n) u[n] =  $</p></li>
+</ul>
+<h4 id="双边z变换">双边z变换</h4>
+<ul>
+<li><span class="math inline">\(X(z) = \sum_{n=-\infty}^{\infty} x[n] z^{-n}\)</span></li>
+</ul>
+<h4 id="双边z反变换">双边z反变换</h4>
+<ul>
+<li><span class="math inline">\(x[n] = \mathcal{Z}^{-1}\{X(z)\} = \frac{1}{2\pi j} \oint_c X(z) z^{n-1} dz\)</span></li>
+</ul>
+<h4 id="单边z变换的性质">单边z变换的性质</h4>
+<ul>
+<li>线性:
+<ul>
+<li><span class="math inline">\(ax_1[n]+bx_2[n] \overset{z}\leftrightarrow aX_1(z)+bX_2(z)\)</span> ,<span class="math inline">\(|z| &gt; \max (R_{x_1}, R_{x_2})\)</span></li>
+</ul></li>
+<li>位移:
+<ul>
+<li>因果性:系统 n时刻的输出序列只取决于n时刻及以前的输入序列，而与n时刻以后的输入序列无关。</li>
+<li>因果序列：<span class="math inline">\(x[n-k]u[n-k] \overset{z}\leftrightarrow z^{-k}X(z)\)</span>,<span class="math inline">\(|z| &gt; R_x\)</span></li>
+<li>非因果序列：
+<ul>
+<li><span class="math inline">\(x[n+k]u[n] \overset{z}\leftrightarrow z^{k}[X(z)-\sum_{n=0}^{k-1} x[n]z^{-n}]\)</span> ,<span class="math inline">\(|z| &gt; R_x\)</span></li>
+<li><span class="math inline">\(x[n-k]u[n] \overset{z}\leftrightarrow z^{-k}[X(z)+\sum_{n=-k}^{-1} x[n]z^{-n}]\)</span>,<span class="math inline">\(|z| &gt; R_x\)</span></li>
+</ul></li>
+</ul></li>
+<li>指数加权：
+<ul>
+<li><span class="math inline">\(a^n x[n] \overset{z}\leftrightarrow X(\frac{z}{a})\)</span> ,<span class="math inline">\(ROC = |a|R_x\)</span></li>
+</ul></li>
+<li>z域微分:
+<ul>
+<li><span class="math inline">\(n x[n] \overset{z}\leftrightarrow -z \frac{dX(z)}{dz}\)</span>,<span class="math inline">\(ROC = R_x\)</span></li>
+</ul></li>
+<li>序列卷积：
+<ul>
+<li><span class="math inline">\(x_1[k]*x_2[k] \overset{z}\leftrightarrow X_1(z)X_2(z)\)</span> ,<span class="math inline">\(|z| \in R_{x_1} \cap R_{x_2}\)</span></li>
+</ul></li>
+<li>初值与终值定理:
+<ul>
+<li><span class="math inline">\(x[0] = \lim_{Z\rightarrow \infty} X(z)\)</span></li>
+<li>如果<span class="math inline">\((z-1)X(z)\)</span>的收敛域包含单位圆，那么<span class="math inline">\(x[\infty] = \lim_{Z\rightarrow 1} (z-1)X(z)\)</span></li>
+<li>初值与终值定理例子:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111253647.png" alt="image-20211211125323528" style="zoom:50%;" /></li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="单边z反变换">单边z反变换</h4>
+<ul>
+<li>仍然是用部分分式法进行求解</li>
+</ul>
+<h4 id="使用z变换求解差分方程">使用Z变换求解差分方程</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111317662.png" alt="image-20211211131731580" style="zoom:50%;" /></p></li>
+<li><p>例子：</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111325531.png" alt="image-20211211132552421" style="zoom:50%;" /></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111329106.png" alt="image-20211211132948021" style="zoom:50%;" /></li>
+</ul></li>
+</ul>
+<h4 id="系统函数-1">系统函数</h4>
+<ul>
+<li>系统在零状态条件下，输出的Z变换与输入的Z变换之比
+<ul>
+<li><span class="math inline">\(H(z) = \frac{\mathcal{Z}[y_{zs}[n]]}{\mathcal{Z} [x[n]]}\)</span></li>
+</ul></li>
+</ul>
+<h4 id="零极点分布">零极点分布</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111337420.png" alt="image-20211211133720323" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111338126.png" alt="image-20211211133815017" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111338029.png" alt="image-20211211133831918" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261949628.png" alt="image-20211226194905459" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="离散系统的稳定性">离散系统的稳定性</h4>
+<ul>
+<li><p>离散LTI系统稳定的充要条件为<span class="math inline">\(\sum_{n=-\infty}^{\infty} |h[n]| &lt; \infty\)</span></p></li>
+<li><p><span class="math inline">\(H(z)\)</span>的收敛域包含单位圆，那么系统就稳定</p></li>
+<li><p><strong>因果系统</strong>的<strong>极点都在单位圆内</strong>，那么系统就稳定</p></li>
+</ul>
+<h3 id="ppt习题">PPT习题</h3>
+<h4 id="chap.2-ex">Chap.2 ex</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241949837.png" alt="image-20211224194920774" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241951949.png" alt="image-20211224195108885" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241954058.png" alt="image-20211224195453982" style="zoom:50%;" /></p>
+<ul>
+<li><p>对角斜线上的值(数组行列的乘积)就是我们所求的<span class="math inline">\(y[n]\)</span>的每一个求和项。</p></li>
+<li><p>按照离散信号的表格记法，箭头指的位置就是<span class="math inline">\(x[0]/h[0]\)</span>的位置。</p></li>
+<li><p>另外还有一个矩阵法:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241957843.png" alt="image-20211224195707789" style="zoom:50%;" /></p></li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242010787.png" alt="image-20211224201052718" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242024799.png" alt="image-20211224202422727" style="zoom:50%;" /></p></li>
+<li><p>这里的可利用信息就是<span class="math inline">\(u(t) * u(t) = r(t) = tu(t)\)</span> ,将<span class="math inline">\(x(t),h(t)\)</span>写成<span class="math inline">\(u(t)\)</span>的组合。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242039737.png" alt="image-20211224203947665" style="zoom:50%;" /></p>
+<ul>
+<li>这里第一步的原因为 <span class="math display">\[
+  x(t) = u(t) - u(t-1) \\
+  u(t)^\prime恰好是\delta(t)
+  \]</span></li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242051610.png" alt="image-20211224205142545" style="zoom:50%;" /></p></li>
+<li><p>可利用信息：离散序列可以转变为冲激序列然后利用卷积性质运算。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242100761.png" alt="image-20211224210049697" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242108203.png" alt="image-20211224210808129" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242118353.png" alt="image-20211224211808278" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242118918.png" alt="image-20211224211854843" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="chap.3-ex">Chap.3 ex</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242210329.png" alt="image-20211224221012245" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242224060.png" alt="image-20211224222438995" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242240796.png" alt="image-20211224224042722" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242252402.png" alt="image-20211224225219309" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251050301.png" alt="image-20211225105050229" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251051762.png" alt="image-20211225105104686" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251140678.png" alt="image-20211225114026603" style="zoom: 50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251217222.png" alt="image-20211225121711137" style="zoom:50%;" /></p>
+<ul>
+<li>这里因为我们求的是冲激响应<span class="math inline">\(h[n]\)</span>,因此，可以将<span class="math inline">\(\delta[n]\)</span>作为输入激励<span class="math inline">\(x[n]\)</span>传入,得到的输出<span class="math inline">\(y[n]\)</span>就是<span class="math inline">\(h[n]\)</span>。可以借助这一点求出初始条件，用来代入齐次解求得零输入响应。</li>
+<li>因为是因果系统，因此0之前的单位脉冲响应都为0</li>
+</ul></li>
+</ul>
+<h4 id="chap.4-ex">Chap.4 ex</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251338909.png" alt="image-20211225133857814" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251349224.png" alt="image-20211225134909152" style="zoom:50%;" /></p>
+<ul>
+<li>其实，可以利用<span class="math inline">\(X_n = \frac{a_n}{2} - \frac{j b_n}{2}\)</span>直接求指数分量</li>
+</ul></li>
+</ul>
+<h4 id="chap.5-ex">Chap.5 ex</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251426821.png" alt="image-20211225142654728" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251621993.png" alt="image-20211225162159902" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="chap.6-ex">Chap.6 ex</h4>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252128310.png" alt="image-20211225212801185" style="zoom:50%;" />
+<ul>
+<li>求采样后的信号的频谱，就是求采样信号的频谱与原信号的频谱的卷积。</li>
+<li>由于是周期信号，因此，傅里叶变换需要借助傅里叶级数的展开。</li>
+<li>傅里叶级数与傅里叶变换的转换公式可以带来冲激信号，有利于卷积预算。</li>
+</ul></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252152481.png" alt="image-20211225215208362" style="zoom:50%;" /></li>
+</ul>
+<h4 id="chap.7-ex">Chap.7 ex</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261058528.png" alt="image-20211226105841391" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261059784.png" alt="image-20211226105910682" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261059087.png" alt="image-20211226105937985" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261100042.png" alt="image-20211226110011927" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261101557.png" alt="image-20211226110109444" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="chap.8-ex">Chap.8 ex</h4>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261114413.png" alt="image-20211226111415276" style="zoom:50%;" />
+<ul>
+<li>不要求计算</li>
+</ul></li>
+</ul>
+<h4 id="chap.9-ex">Chap.9 ex</h4>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261306453.png" alt="image-20211226130655342" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261325936.png" alt="image-20211226132545806" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261326747.png" alt="image-20211226132648612" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261330500.png" alt="image-20211226133036355" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261332571.png" alt="image-20211226133252445" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261333730.png" alt="image-20211226133324610" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261334126.png" alt="image-20211226133431988" style="zoom:50%;" /></p>
+<ul>
+<li>对二次求导之后的结果进行拉普拉斯变换，左右对应相等。</li>
+</ul>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261335361.png" alt="image-20211226133522224" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261335789.png" alt="image-20211226133539651" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261339596.png" alt="image-20211226133943465" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261340996.png" alt="image-20211226134021831" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261341255.png" alt="image-20211226134101115" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261341128.png" alt="image-20211226134128999" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261342066.png" alt="image-20211226134201944" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261342243.png" alt="image-20211226134225114" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261342949.png" alt="image-20211226134249812" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261343424.png" alt="image-20211226134311285" style="zoom:50%;" /></p></li>
+</ul>
+<h4 id="chap.10-ex">Chap.10 ex</h4>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261714867.png" alt="image-20211226171411706" style="zoom:50%;" /></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Note</tag>
+        <tag>DSP</tag>
       </tags>
   </entry>
 </search>

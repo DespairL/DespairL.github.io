@@ -20,28 +20,163 @@
     var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="YQBlog | HaveFun!">
-<meta property="og:url" content="https://despairl.github.io/index.html">
+  <meta name="description" content="Chap.0 信号基本概念  信号的分类  信号之间的关系   离散信号的表示:   可以将离散信号看成连续信号以及周期脉冲信号的乘积。  因此，离散信号的周期与连续信号以及周期脉冲信号的周期有关。正弦序列不一定是周期序列，因为还要有周期脉冲信号的信息才能确定。   基本概念:  频率：信号每单位时间变化的次数(Hz)  传输的信号距离远的话，要用高频信号，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字信号处理Review">
+<meta property="og:url" content="https://despairl.github.io/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/index.html">
 <meta property="og:site_name" content="YQBlog | HaveFun!">
+<meta property="og:description" content="Chap.0 信号基本概念  信号的分类  信号之间的关系   离散信号的表示:   可以将离散信号看成连续信号以及周期脉冲信号的乘积。  因此，离散信号的周期与连续信号以及周期脉冲信号的周期有关。正弦序列不一定是周期序列，因为还要有周期脉冲信号的信息才能确定。   基本概念:  频率：信号每单位时间变化的次数(Hz)  传输的信号距离远的话，要用高频信号，">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241504910.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241508522.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241514194.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241534080.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241540355.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241547490.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241559701.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241604350.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241610394.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241616633.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241824584.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241719697.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241720998.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241824523.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241833279.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241850595.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241853943.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241853299.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241906132.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241917079.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241921305.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242023409.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242049261.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242051624.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242056416.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242057108.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242057839.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242058459.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242117359.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242120314.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242142347.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242209005.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242221120.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251049928.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251111073.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251119327.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251134937.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251119253.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251300911.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251353929.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251523856.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251528705.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251628895.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252237755.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/image-20211130150546916.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252248876.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252252133.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/image-20211130205155497.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/image-20211130205353070.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261045341.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261117849.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261217520.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261224600.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261239388.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112091156156.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101052128.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101104153.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101105349.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261651231.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101108845.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101109207.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112101109016.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261346012.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261347836.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261347902.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261348755.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261348282.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261349377.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111206919.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111308431.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111253647.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111317662.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111325531.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111329106.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111337420.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111338126.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112111338029.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261949628.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241949837.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241951949.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241954058.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241957843.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242010787.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242024799.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242039737.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242051610.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242100761.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242108203.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242118353.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242118918.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242210329.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242224060.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242240796.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112242252402.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251050301.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251051762.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251140678.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251217222.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251338909.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251349224.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251426821.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112251621993.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252128310.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112252152481.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261058528.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261059784.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261059087.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261100042.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261101557.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261114413.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261306453.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261325936.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261326747.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261330500.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261332571.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261333730.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261334126.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261335361.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261335789.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261339596.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261340996.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261341255.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261341128.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261342066.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261342243.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261342949.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261343424.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261714867.png">
+<meta property="article:published_time" content="2021-12-24T07:01:55.396Z">
+<meta property="article:modified_time" content="2021-12-26T11:51:09.288Z">
 <meta property="article:author" content="Yanquan Chen">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="DSP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241504910.png">
 
-<link rel="canonical" href="https://despairl.github.io/">
+<link rel="canonical" href="https://despairl.github.io/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>YQBlog | HaveFun!</title>
+  <title>数字信号处理Review | YQBlog | HaveFun!</title>
   
 
 
@@ -183,9 +318,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -201,10 +337,9 @@
       <meta itemprop="name" content="YQBlog | HaveFun!">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/" class="post-title-link" itemprop="url">数字信号处理Review</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          数字信号处理Review
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -234,7 +369,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="chap.0">Chap.0</h3>
+        <h3 id="chap.0">Chap.0</h3>
 <h4 id="信号基本概念">信号基本概念</h4>
 <ul>
 <li><p>信号的分类</p></li>
@@ -1724,741 +1859,36 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261714867.png" alt="image-20211226171411706" style="zoom:50%;" /></li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.15 规则学习</a>
-        </h2>
+          <div class="post-tags">
+              <a href="/tags/Note/" rel="tag"><i class="fa fa-tag"></i> Note</a>
+              <a href="/tags/DSP/" rel="tag"><i class="fa fa-tag"></i> DSP</a>
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-24 11:34:59 / Modified: 14:18:49" itemprop="dateCreated datePublished" datetime="2021-12-24T11:34:59+08:00">2021-12-24</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="规则学习">规则学习</h4>
-<h5 id="基本概念">基本概念</h5>
-<ul>
-<li><p>规则通常是指语义明确、能描述数据分布隐含的客观规律或领域概念。规则学习就是从训练数据中学习出一组能够对未见实例进行判别的规则。</p></li>
-<li><p>规则都形如: <span class="math display">\[
-  rule\ head \leftarrow f_1 \land f_2\land ... \land f_L (rule \ body)
-  \]</span></p>
-<ul>
-<li>并且可以细分为命题规则以及一阶规则。
-<ul>
-<li>命题规则：原子命题+逻辑与、或、非、蕴含构成</li>
-<li>一阶规则：原子公式，有量词<span class="math inline">\(\forall,\exist\)</span>,能表达复杂的关系，因此亦称关系型规则。</li>
-</ul></li>
-</ul></li>
-<li><p>如果一个示例被判别结果不同的多条规则覆盖了，那么我们认为发生了冲突，解决冲突的办法是冲突消解——采用投票、排序（优先级）、元规则（关于规则的规则——ex:冲突时，用长度最小的规则）。</p></li>
-</ul>
-<h5 id="序贯覆盖">序贯覆盖</h5>
-<ul>
-<li><p>规则学习的目标是产生一个能覆盖尽可能多的样例的规则集，最直接的就是“序贯覆盖”(sequential covering)——逐条归纳，也被称为分治(separate-and-conquer)策略。</p></li>
-<li><p>最简单的做法是从空规则<span class="math inline">\(\oplus\leftarrow\)</span>开始，遍历训练集中的每个属性以及取值，如果其只包含正例就加入到规则体当中。</p></li>
-<li><p>但是，上述穷举的做法并不能很好地完成组合爆炸的任务。一般有top-down，bottom-up两种策略进行优化:</p>
-<ul>
-<li><p>top-down产生的规则泛化性能更好，对于噪声的鲁棒性更好，常用于命题逻辑；而bottom-up更适合训练样本少的情况，常用于一阶规则学习。</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241401834.png" alt="image-20211224140128750" style="zoom:50%;" /></p>
-<p>先考虑规则准确率，准确率相同的时候考虑覆盖样例的数目，再相同的时候考虑属性优先顺序。</p></li>
-<li><p>如果想要避免局部最优，可以利用集束搜索，每轮保留最优的<span class="math inline">\(b\)</span>个属性，并将它们全部加入下一轮的候选集当中</p></li>
-</ul></li>
-<li><p>另外，规则生成总归还是一个贪心搜索的过程，因此需要一定措施来缓解过拟合风险：</p>
-<ul>
-<li><p>预剪枝，规则生成过程中剪枝</p>
-<ul>
-<li><p>CN2算法用LRS似然率统计量作为指标：</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241410428.png" alt="image-20211224141026351" style="zoom:50%;" /></p></li>
-</ul></li>
-<li><p>后剪枝，规则生成后剪枝:</p>
-<ul>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241411376.png" alt="image-20211224141149301" style="zoom:50%;" /></p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241415427.png" alt="image-20211224141552359" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241416409.png" alt="image-20211224141657335" style="zoom:50%;" /></p></li>
-</ul></li>
-</ul></li>
-</ul>
-<h5 id="一阶规则学习">一阶规则学习</h5>
-<h5 id="归纳逻辑程序设计">归纳逻辑程序设计</h5>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">chap.14 概率图模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-23 16:09:18" itemprop="dateCreated datePublished" datetime="2021-12-23T16:09:18+08:00">2021-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 11:34:13" itemprop="dateModified" datetime="2021-12-24T11:34:13+08:00">2021-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="概率图模型">概率图模型</h4>
-<h5 id="隐马尔可夫模型">隐马尔可夫模型</h5>
-<ul>
-<li><p>inference 推断指的是利用已知变量推测未知变量的分布。</p></li>
-<li><p>生成式模型建模联合分布<span class="math inline">\(P(Y,R,O)\)</span></p></li>
-<li><p>判别式模型建模条件分布<span class="math inline">\(P(Y,R|O)\)</span></p>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/" class="post-title-link" itemprop="url">Chap.12 计算学习理论</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 21:09:48" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 11:33:26" itemprop="dateModified" datetime="2021-12-24T11:33:26+08:00">2021-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="计算学习理论">计算学习理论</h4>
-<h5 id="基础知识">基础知识</h5>
-<ul>
-<li><p>对于一个数据集<span class="math inline">\(D = (\mathcal{X},\mathcal{Y})\)</span>,假设<span class="math inline">\(\mathcal{X}\)</span>中的所有样本都是从分布<span class="math inline">\(\mathcal{D}\)</span>当中采样出来的且服从独立同分布采样。</p></li>
-<li><p><span class="math inline">\(h:\mathcal{X}-&gt;\mathcal{Y}\)</span>,定义泛化误差：</p>
-<ul>
-<li><p><span class="math display">\[
-  E(h;\mathcal{D}) = P_{x&lt;-\mathcal{D}}(h(x)\not = y)
-  \]</span></p>
-<p>预测结果与label不一致。</p></li>
-</ul></li>
-<li><p>定义<span class="math inline">\(h\)</span>在<span class="math inline">\(D\)</span>上的经验误差：</p>
-<ul>
-<li><span class="math display">\[
-  \hat{E}(h;D) = \frac{1}{m}\sum_{i=1}^m \mathbb{I}(h(x_i) \not= y_i)
-  \]</span></li>
-</ul></li>
-<li><p>由于<span class="math inline">\(D\)</span>是分布<span class="math inline">\(\mathcal{D}\)</span>的独立同分布采样，因此，<span class="math inline">\(\mathbb{E}[\hat{E}(h;D)] = E(h;\mathcal{D})\)</span>,对于<span class="math inline">\(E(h;\mathcal{D})\)</span>有一个上限<span class="math inline">\(\epsilon\)</span> ,称其为误差参数。</p></li>
-<li><p>如果经验误差为0，那么就认为<span class="math inline">\(h\)</span>与<span class="math inline">\(D\)</span>一致，否则不一致</p></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/" rel="prev" title="chap.15 规则学习">
+      <i class="fa fa-chevron-left"></i> chap.15 规则学习
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.16 强化学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 15:58:41" itemprop="dateCreated datePublished" datetime="2021-12-22T15:58:41+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 11:33:18" itemprop="dateModified" datetime="2021-12-24T11:33:18+08:00">2021-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="强化学习">强化学习</h4>
-<ul>
-<li><p>强化学习的过程概括些说就是做一个动作action，环境给予你一个反馈r:</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221600231.png" alt="image-20211222160057193" style="zoom:50%;" /></p></li>
-<li><p>强化学习任务通常用马尔可夫决策过程(MDP)来描述：</p>
-<ul>
-<li><p>对于一个环境<span class="math inline">\(E\)</span>,其由状态空间<span class="math inline">\(X\)</span>,动作空间<span class="math inline">\(A\)</span>,状态转移概率<span class="math inline">\(P\)</span>以及奖励函数<span class="math inline">\(R\)</span>组成，通常的P,R函数形式如下：<span class="math inline">\(P: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个概率,<span class="math inline">\(R: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个奖赏。</p></li>
-<li><p>因此，强化学习的内容就是让机器通过在环境中不断尝试从而学到一个策略<span class="math inline">\(\pi\)</span> ,根据这个策略本<span class="math inline">\(\pi\)</span> ,我们可以确定在状态<span class="math inline">\(x\)</span>下要执行的动作<span class="math inline">\(a = \pi(x)\)</span> ,并且使得长期累积的奖赏可以最大化。</p></li>
-<li><p>常用的长期累计奖赏的计算方式有：</p>
-<ul>
-<li><p>T步累计奖赏 ： <span class="math inline">\(\mathbb{E}[\frac{1}{T} \sum_{t=1}^T r_t]\)</span></p></li>
-<li><p><span class="math inline">\(\gamma\)</span>折扣累计奖赏 ： <span class="math inline">\(\mathbb{E}[ \sum_{t=0}^{+\infty} \gamma^t r_{t}]\)</span></p></li>
-<li><p>马尔可夫回报过程（MRP）计算的就是： <span class="math display">\[
-  V(x) = \sum_{x^\prime\in X} P(x^\prime|x) (R(x^\prime) + V(x^\prime))
-  \]</span> 描述的就是从一个状态<span class="math inline">\(x\)</span>转移到其他所有状态<span class="math inline">\(x^\prime\)</span>之后的累计回报。</p></li>
-</ul></li>
-</ul></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.13 半监督学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 10:44:57" itemprop="dateCreated datePublished" datetime="2021-12-22T10:44:57+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 14:51:50" itemprop="dateModified" datetime="2021-12-24T14:51:50+08:00">2021-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="半监督学习">半监督学习</h4>
-<h5 id="未标记样本">未标记样本</h5>
-<ul>
-<li><p>显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。</p></li>
-<li><p>为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。</p></li>
-<li><p>基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据<span class="math inline">\(D_l\)</span>训练出一个学习器，然后让这个学习器对unlabel的数据进行预测，将预测结果人工检查好不好，再加入到有标记样本中进行训练。每次我们都挑选出对改善模型性能有帮助的瓜，那么，就只需要人工检查较少次数就可以构建出性能比较好的模型，从而降低成本。这也符合了它的目的：用尽量少的查询获得尽量好的性能。</p></li>
-<li><p>但是主动学习仍然借助了专家的知识，如果能让学习器不依赖外界知识，自动利用<span class="math inline">\(D_u\)</span> 数据，那就是半监督学习(semi-supervised learning)的学习目标了。</p>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%A8%80%E7%96%8F%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%A8%80%E7%96%8F%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Chap.11 特征选择与稀疏学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 10:42:39" itemprop="dateCreated datePublished" datetime="2021-12-22T10:42:39+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 11:35:06" itemprop="dateModified" datetime="2021-12-24T11:35:06+08:00">2021-12-24</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="第十一章特征选择与稀疏学习">第十一章：特征选择与稀疏学习</h4>
-<h5 id="特征">特征</h5>
-<ul>
-<li><p>相关特征:与当前学习任务相关</p></li>
-<li><p>无关特征:与当前学习任务无关</p></li>
-<li><p>冗杂特征:可以从其他特征中提取出来</p></li>
-<li><p>从特征集合选出相关特征的过程就是特征提取。</p></li>
-<li><p>特征提取的过程可以大为减轻维度灾难的问题，同时提取出重要的特征也可以降低学习的难度。</p></li>
-<li><p>特征提取的一般过程：</p>
-<ul>
-<li>产生初始特征候选子集 —— 子集搜索</li>
-<li>评价候选子集的好坏 —— 子集评价</li>
-<li>基于评价结果产生下一个候选子集</li>
-</ul>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-11-19-Mathjax-Markdown/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/2021-11-19-Mathjax-Markdown/" class="post-title-link" itemprop="url">解决Mathjax与Markdown之间的冲突问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 10:14:04" itemprop="dateCreated datePublished" datetime="2021-12-22T10:14:04+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-21 20:16:00" itemprop="dateModified" datetime="2021-11-21T20:16:00+08:00">2021-11-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>由于最近刚刚开始搭建个人blog中遇到了“<strong>明明启用了Mathjax,但是markdown文档在上传之后仍然无法正确显示行间公式或者行内公式</strong>”的问题，因此，折腾了好一会之后，得到了一个个人的修复方案。</p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-11-17-Adam-theme/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/2021-11-17-Adam-theme/" class="post-title-link" itemprop="url">Jekyll theme Adam Blog 2.0</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 10:14:04" itemprop="dateCreated datePublished" datetime="2021-12-22T10:14:04+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-21 20:16:08" itemprop="dateModified" datetime="2021-11-21T20:16:08+08:00">2021-11-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>本文的所有内容均搬运自<a target="_blank" rel="noopener" href="https://github.com/the-mvm/the-mvm.github.io">the-mvm/the-mvm.github.io: The Minimum Viable Model website and Jekyll theme.</a></strong></p>
-<p>demo site now <a target="_blank" rel="noopener" href="https://weathered-bread-8229.on.fleek.co/">mirrored</a> in <a target="_blank" rel="noopener" href="https://github.com/ipfs/ipfs#quick-summary">IPFS</a>!</p>
-<h1 id="jekyll-theme-adam-blog-2.0">Jekyll theme: Adam Blog 2.0</h1>
-<p>by <a target="_blank" rel="noopener" href="https://github.com/amaynez">Armando Maynez</a> based on <a target="_blank" rel="noopener" href="https://github.com/artemsheludko/adam-blog">V1.0</a> by <a target="_blank" rel="noopener" href="https://github.com/artemsheludko">Artem Sheludko</a>.</p>
-<p>Adam Blog 2.0 is a Jekyll theme that was built to be 100% compatible with <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a>. If you are unfamiliar with GitHub Pages, you can check out <a target="_blank" rel="noopener" href="https://help.github.com/categories/github-pages-basics/">their documentation</a> for more information. <a target="_blank" rel="noopener" href="http://jmcglone.com/guides/github-pages/">Jonathan McGlone's guide</a> on creating and hosting a personal site on GitHub is also a good resource.</p>
-<h3 id="what-is-jekyll">What is Jekyll?</h3>
-<p>Jekyll is a simple, blog-aware, static site generator for personal, project, or organization sites. Basically, Jekyll takes your page content along with template files and produces a complete website. For more information, visit the <a target="_blank" rel="noopener" href="https://jekyllrb.com/docs/home/">official Jekyll site</a> for their documentation. Codecademy also offers a great course on <a target="_blank" rel="noopener" href="https://www.codecademy.com/learn/deploy-a-website">how to deploy a Jekyll site</a> for complete beginners.</p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/2021-11-19-Record-CS224n-a2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/2021-11-19-Record-CS224n-a2/" class="post-title-link" itemprop="url">CS224n Assignment2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 10:14:04" itemprop="dateCreated datePublished" datetime="2021-12-22T10:14:04+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-21 20:21:58" itemprop="dateModified" datetime="2021-11-21T20:21:58+08:00">2021-11-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前情提要-the-word2vec-skip-gram-prediction-model">前情提要 : The word2vec skip-gram prediction model</h3>
-<p>这里对handout_Assignment2.Understanding word2vec进行一个个人梳理。</p>
-<ul>
-<li><p>word2vec诞生的idea在于，我们有一个“每个word都是通过它周围的words组成一个company，我们才能够理解the meaning”的想法而诞生的。</p></li>
-<li><p>因此，在skip-gram word2vec的想法下，一个能表达词语意思的结构由一个中心词(center word) <span class="math inline">\(c\)</span>, 跟它周围的词语(限定在一个contextual window)组成。对于处在contextual window中的一个特定的词语(specific word)用符号<span class="math inline">\(o\)</span> 记。</p></li>
-<li><figure>
-<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202111191258141.png" alt="image-20211119125840081" /><figcaption aria-hidden="true">image-20211119125840081</figcaption>
-</figure>
-<p>在The word2vec skip-gram prediction model中的contextual window 的一个例子如上，对于一个center word banking,其contextual window 中的词为turing,into,crises,as。</p></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -2510,6 +1940,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.0"><span class="nav-number">1.</span> <span class="nav-text">Chap.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">信号基本概念</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.1"><span class="nav-number">2.</span> <span class="nav-text">Chap.1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7"><span class="nav-number">2.1.</span> <span class="nav-text">周期信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E9%87%8F%E4%BF%A1%E5%8F%B7%E4%B8%8E%E5%8A%9F%E7%8E%87%E4%BF%A1%E5%8F%B7"><span class="nav-number">2.2.</span> <span class="nav-text">能量信号与功率信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%A0%E6%9E%9C%E4%BF%A1%E5%8F%B7"><span class="nav-number">2.3.</span> <span class="nav-text">因果信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8F%98%E6%8D%A2"><span class="nav-number">2.4.</span> <span class="nav-text">信号的基本变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%BF%A1%E5%8F%B7"><span class="nav-number">2.5.</span> <span class="nav-text">典型信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%90%91%E9%87%8F%E8%A1%A8%E7%A4%BA"><span class="nav-number">2.6.</span> <span class="nav-text">信号的向量表示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">2.6.1.</span> <span class="nav-text">信号的分解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.2"><span class="nav-number">3.</span> <span class="nav-text">Chap.2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E6%80%A7%E8%B4%A8%E4%BB%A5%E5%8F%8A%E5%88%86%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">系统基本性质以及分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E5%92%8C"><span class="nav-number">3.2.</span> <span class="nav-text">卷积和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A7%AF%E5%88%86"><span class="nav-number">3.3.</span> <span class="nav-text">卷积积分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A7%AF%E5%88%86%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">3.4.</span> <span class="nav-text">卷积积分的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E5%92%8C%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">3.5.</span> <span class="nav-text">卷积和的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%87%E5%BC%82%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%8D%B7%E7%A7%AF"><span class="nav-number">3.6.</span> <span class="nav-text">奇异信号的卷积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%B2%E6%BF%80%E5%93%8D%E5%BA%94"><span class="nav-number">3.7.</span> <span class="nav-text">系统的冲激响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%A0%E6%9E%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.8.</span> <span class="nav-text">因果系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%B3%E5%AE%9A%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.9.</span> <span class="nav-text">稳定系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lti%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8D%95%E4%BD%8D%E8%84%89%E5%86%B2%E5%93%8D%E5%BA%94"><span class="nav-number">3.10.</span> <span class="nav-text">LTI系统与单位脉冲响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E8%BF%90%E7%AE%97"><span class="nav-number">3.11.</span> <span class="nav-text">相关运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.3"><span class="nav-number">4.</span> <span class="nav-text">Chap.3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%8F%8A%E5%85%B6%E6%B1%82%E8%A7%A3"><span class="nav-number">4.1.</span> <span class="nav-text">微分方程及其求解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%8F%8A%E5%85%B6%E6%B1%82%E8%A7%A3"><span class="nav-number">4.2.</span> <span class="nav-text">差分方程及其求解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%BE%E5%BC%9B%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">初始松弛条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E7%94%B1%E5%93%8D%E5%BA%94%E4%B8%8E%E5%BC%BA%E8%BF%AB%E5%93%8D%E5%BA%94"><span class="nav-number">4.4.</span> <span class="nav-text">自由响应与强迫响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E8%BE%93%E5%85%A5%E5%93%8D%E5%BA%94%E4%B8%8E%E9%9B%B6%E7%8A%B6%E6%80%81%E5%93%8D%E5%BA%94"><span class="nav-number">4.5.</span> <span class="nav-text">零输入响应与零状态响应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.4"><span class="nav-number">5.</span> <span class="nav-text">Chap.4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E5%9F%BA%E4%BA%8E%E5%87%BD%E6%95%B0%E9%9B%86%E7%9A%84%E5%88%86%E8%A7%A3"><span class="nav-number">5.1.</span> <span class="nav-text">信号基于函数集的分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E6%80%9D%E8%B7%AF"><span class="nav-number">5.2.</span> <span class="nav-text">傅里叶变换思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">傅里叶级数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%95%E5%A1%9E%E7%93%A6%E5%B0%94%E5%AE%9A%E7%90%86"><span class="nav-number">5.4.</span> <span class="nav-text">帕塞瓦尔定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">5.5.</span> <span class="nav-text">傅里叶级数的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%89%E5%B8%83%E6%96%AF%E7%8E%B0%E8%B1%A1"><span class="nav-number">5.6.</span> <span class="nav-text">吉布斯现象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%A8%E6%9C%9F%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%89%E6%95%88%E9%A2%91%E5%B8%A6%E5%AE%BD%E5%BA%A6"><span class="nav-number">5.7.</span> <span class="nav-text">周期矩阵的有效频带宽度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%85%E5%BA%A6%E8%A1%B0%E5%87%8F"><span class="nav-number">5.8.</span> <span class="nav-text">幅度衰减</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.5"><span class="nav-number">6.</span> <span class="nav-text">Chap.5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">6.1.</span> <span class="nav-text">傅里叶变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E4%BF%A1%E5%8F%B7%E7%9A%84%E9%A2%91%E8%B0%B1ft"><span class="nav-number">6.2.</span> <span class="nav-text">常见信号的频谱(FT)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">6.3.</span> <span class="nav-text">傅里叶变换的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%95%E5%A1%9E%E7%93%A6%E5%B0%94%E8%83%BD%E9%87%8F%E5%AE%88%E6%81%92"><span class="nav-number">6.4.</span> <span class="nav-text">帕塞瓦尔能量守恒</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">6.5.</span> <span class="nav-text">周期信号的傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">6.5.1.</span> <span class="nav-text">典型周期信号的傅里叶变换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7"><span class="nav-number">6.6.</span> <span class="nav-text">一般周期信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#random-fourier"><span class="nav-number">6.7.</span> <span class="nav-text">Random Fourier</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.6"><span class="nav-number">7.</span> <span class="nav-text">Chap.6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E9%87%87%E6%A0%B7"><span class="nav-number">7.1.</span> <span class="nav-text">信号的采样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E5%9F%9F%E9%87%87%E6%A0%B7%E5%AE%9A%E7%90%86"><span class="nav-number">7.2.</span> <span class="nav-text">时域采样定理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.7"><span class="nav-number">8.</span> <span class="nav-text">Chap.7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="nav-number">8.1.</span> <span class="nav-text">信号传输过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%BC%A6%E8%BD%BD%E6%B3%A2%E8%B0%83%E5%B9%85"><span class="nav-number">8.2.</span> <span class="nav-text">正弦载波调幅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%8C%87%E6%95%B0%E8%BD%BD%E6%B3%A2%E8%B0%83%E5%88%B6"><span class="nav-number">8.3.</span> <span class="nav-text">复指数载波调制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9%E5%B8%A6%E8%B0%83%E5%B9%85"><span class="nav-number">8.4.</span> <span class="nav-text">单边带调幅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E8%A7%A3%E8%B0%83"><span class="nav-number">8.5.</span> <span class="nav-text">同步解调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9%E5%B8%A6%E8%B0%83%E5%B9%85-1"><span class="nav-number">8.6.</span> <span class="nav-text">单边带调幅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%91%E5%9F%9F%E5%88%86%E6%9E%90%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">8.7.</span> <span class="nav-text">频域分析的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.8"><span class="nav-number">9.</span> <span class="nav-text">Chap.8</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2dtft"><span class="nav-number">9.1.</span> <span class="nav-text">离散时间傅里叶变换(DTFT)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0-dfs"><span class="nav-number">9.2.</span> <span class="nav-text">离散傅里叶级数 (DFS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%A0%E7%B1%BB%E5%8F%98%E6%8D%A2%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">9.3.</span> <span class="nav-text">几类变换之间的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">9.4.</span> <span class="nav-text">离散傅里叶变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2fft"><span class="nav-number">9.5.</span> <span class="nav-text">快速傅里叶变换(FFT)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.9"><span class="nav-number">10.</span> <span class="nav-text">Chap.9</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#laplace-transform"><span class="nav-number">10.1.</span> <span class="nav-text">Laplace Transform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2"><span class="nav-number">10.2.</span> <span class="nav-text">常用信号的拉普拉斯变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">10.3.</span> <span class="nav-text">单边拉普拉斯变换的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2%E7%9A%84%E5%8F%8D%E5%8F%98%E6%8D%A2"><span class="nav-number">10.4.</span> <span class="nav-text">单边拉普拉斯变换的反变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%8D%E9%A2%91%E5%9F%9F%E5%88%86%E6%9E%90"><span class="nav-number">10.5.</span> <span class="nav-text">微分方程与系统的复频域分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="nav-number">10.6.</span> <span class="nav-text">系统函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E6%9E%81%E7%82%B9%E4%B8%8E%E6%97%B6%E5%9F%9F%E7%89%B9%E6%80%A7"><span class="nav-number">10.7.</span> <span class="nav-text">零极点与时域特性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chap.10"><span class="nav-number">11.</span> <span class="nav-text">Chap.10</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#z%E5%8F%98%E6%8D%A2"><span class="nav-number">11.1.</span> <span class="nav-text">z变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9z%E5%8F%98%E6%8D%A2"><span class="nav-number">11.2.</span> <span class="nav-text">单边z变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8D%95%E8%BE%B9%E5%BA%8F%E5%88%97%E7%9A%84z%E5%8F%98%E6%8D%A2"><span class="nav-number">11.3.</span> <span class="nav-text">常用单边序列的z变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E8%BE%B9z%E5%8F%98%E6%8D%A2"><span class="nav-number">11.4.</span> <span class="nav-text">双边z变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E8%BE%B9z%E5%8F%8D%E5%8F%98%E6%8D%A2"><span class="nav-number">11.5.</span> <span class="nav-text">双边z反变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9z%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">11.6.</span> <span class="nav-text">单边z变换的性质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%BE%B9z%E5%8F%8D%E5%8F%98%E6%8D%A2"><span class="nav-number">11.7.</span> <span class="nav-text">单边z反变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8z%E5%8F%98%E6%8D%A2%E6%B1%82%E8%A7%A3%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">11.8.</span> <span class="nav-text">使用Z变换求解差分方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0-1"><span class="nav-number">11.9.</span> <span class="nav-text">系统函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E6%9E%81%E7%82%B9%E5%88%86%E5%B8%83"><span class="nav-number">11.10.</span> <span class="nav-text">零极点分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">11.11.</span> <span class="nav-text">离散系统的稳定性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ppt%E4%B9%A0%E9%A2%98"><span class="nav-number">12.</span> <span class="nav-text">PPT习题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.2-ex"><span class="nav-number">12.1.</span> <span class="nav-text">Chap.2 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.3-ex"><span class="nav-number">12.2.</span> <span class="nav-text">Chap.3 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.4-ex"><span class="nav-number">12.3.</span> <span class="nav-text">Chap.4 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.5-ex"><span class="nav-number">12.4.</span> <span class="nav-text">Chap.5 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.6-ex"><span class="nav-number">12.5.</span> <span class="nav-text">Chap.6 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.7-ex"><span class="nav-number">12.6.</span> <span class="nav-text">Chap.7 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.8-ex"><span class="nav-number">12.7.</span> <span class="nav-text">Chap.8 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.9-ex"><span class="nav-number">12.8.</span> <span class="nav-text">Chap.9 ex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chap.10-ex"><span class="nav-number">12.9.</span> <span class="nav-text">Chap.10 ex</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
