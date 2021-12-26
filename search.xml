@@ -378,6 +378,9 @@
 </ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Project Record</category>
+      </categories>
       <tags>
         <tag>CS224n</tag>
         <tag>NLP</tag>
@@ -532,6 +535,9 @@
 </ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -747,6 +753,9 @@
   \]</span> 其中，<span class="math inline">\(p(w_t|\alpha,\eta)\)</span>常常用变分法求解，<span class="math inline">\((*)\)</span>式子常用吉布斯采样或者变分法求解。</p></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -933,6 +942,9 @@
 </ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -1074,6 +1086,9 @@
 </ul></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -1210,6 +1225,9 @@
 <li><p>如果算法是ERM并且稳定的，那么假设空间可学习。</p></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -1263,6 +1281,9 @@
 <h5 id="一阶规则学习">一阶规则学习</h5>
 <h5 id="归纳逻辑程序设计">归纳逻辑程序设计</h5>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -1393,6 +1414,9 @@
 <h5 id="流形学习">流形学习</h5>
 <h5 id="距离度量学习">距离度量学习</h5>
 ]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
       <tags>
         <tag>AML</tag>
         <tag>Note</tag>
@@ -2892,6 +2916,9 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261714867.png" alt="image-20211226171411706" style="zoom:50%;" /></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>DSP Note</category>
+      </categories>
       <tags>
         <tag>Note</tag>
         <tag>DSP</tag>
