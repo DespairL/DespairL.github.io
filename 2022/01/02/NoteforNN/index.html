@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1 What ​ 神经网络是一种模仿生物神经网络的结构、功能的数学模型，是一种自适应系统，具有学习功能，通过数据进行学习。\(\color{red}{(Key)}\) Why ​ 可以通过“学习”解决传统算法解决不了的问题\(\color{red}{(Key)}\)。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。 与">
+  <meta name="description" content="1 What ​ 神经网络是一种模仿生物神经网络的结构、功能的数学模型，是一种自适应系统，具有学习功能，通过数据进行学习。\(\color{red}{(Key)}\) Why ​ 可以通过“学习”解决传统算法解决不了的问题\(\color{red}{(Key)}\)。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络笔记">
 <meta property="og:url" content="https://despairl.github.io/2022/01/02/NoteforNN/index.html">
 <meta property="og:site_name" content="YQBlog | HaveFun!">
-<meta property="og:description" content="1 What ​ 神经网络是一种模仿生物神经网络的结构、功能的数学模型，是一种自适应系统，具有学习功能，通过数据进行学习。\(\color{red}{(Key)}\) Why ​ 可以通过“学习”解决传统算法解决不了的问题\(\color{red}{(Key)}\)。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。 与">
+<meta property="og:description" content="1 What ​ 神经网络是一种模仿生物神经网络的结构、功能的数学模型，是一种自适应系统，具有学习功能，通过数据进行学习。\(\color{red}{(Key)}\) Why ​ 可以通过“学习”解决传统算法解决不了的问题\(\color{red}{(Key)}\)。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011909770.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011910266.png">
@@ -81,7 +81,7 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022217276.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022243911.png">
 <meta property="article:published_time" content="2022-01-02T14:51:31.340Z">
-<meta property="article:modified_time" content="2022-01-02T14:52:15.049Z">
+<meta property="article:modified_time" content="2022-01-02T14:54:33.144Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="Note">
 <meta property="article:tag" content="NN">
@@ -274,7 +274,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-01-02 22:51:31 / Modified: 22:52:15" itemprop="dateCreated datePublished" datetime="2022-01-02T22:51:31+08:00">2022-01-02</time>
+              <time title="Created: 2022-01-02 22:51:31 / Modified: 22:54:33" itemprop="dateCreated datePublished" datetime="2022-01-02T22:51:31+08:00">2022-01-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -302,6 +302,7 @@
 <p>​ 神经网络是一种<strong>模仿生物神经网络的结构、功能的数学模型</strong>，是一种自适应系统，具有学习功能，通过数据进行学习。<span class="math inline">\(\color{red}{(Key)}\)</span></p>
 <p>Why</p>
 <p>​ 可以通过“学习”解决传统算法解决不了的问题<span class="math inline">\(\color{red}{(Key)}\)</span>。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。</p>
+<span id="more"></span>
 <p>与传统机器学习相比，神经网络的优势:<span class="math inline">\(\color{red}{(Key)}\)</span></p>
 <p>​ 1.特征提取的高效性:不需要做大量的特征工程，可以直接利用数据，让它自己训练，自我“修正”</p>
 <p>​ 2.数据格式的简易性:传统机器学习分类问题中，需对数据进行如量纲的归一化，格式的转化等，在神经网络里不一定需要对数据做额外处理</p>
