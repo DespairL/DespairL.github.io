@@ -3790,63 +3790,6 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2021/12/27/DSP_HW/</url>
-    <content><![CDATA[<p>已知f(5 − 2t) 的波形如图1所示，画出f(t) 的波形图</p>
-<ul>
-<li>逆向，先处理系数，在处理移位比较容易理解。</li>
-<li>正向，先移位再处理系数</li>
-</ul>
-<p>对于<span class="math inline">\(\delta(t-t_0)\)</span>的抽样性质，可以直接看成令<span class="math inline">\(t = t_0\)</span></p>
-<p>判断时不变：</p>
-<ul>
-<li>对于一个输入<span class="math inline">\(x(t)\rightarrow x(t-t_0)\)</span>,其意为对原输入做一个移位，如果这个移位导致输出做相应移位，那就是时不变的,即<span class="math inline">\(T[x(t-t_0)] = y(t-t_0)\)</span>。 <span class="math display">\[
-  y(t) = x(f(t))\\
-  y(t-t_0) = x(f(t-t_0))\\
-  y(T[x(t-t_0)]) = x(f(t) - t_0)
-  \]</span></li>
-</ul>
-<p>判断因果：</p>
-<ul>
-<li>如果<strong>响应𝑦(𝑡)并不依赖于将来的激励</strong>，如𝑥(𝑡+1)，那么系统就是因果的</li>
-<li>y(n+1),y(-n),y(2n)都不是因果的。</li>
-</ul>
-<p><span class="math display">\[
-X_n= \frac{1}{2} a_n - \frac{j}{2} b_n
-\]</span></p>
-<p><span class="math display">\[
-a_0 = \frac{1}{T} \int_{t_0}^{t_0+T} x(t) dt \\
-a_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\cos(nwt) dt = a_{-n}\\
-b_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\sin(nwt) dt = - b_{-n}\\
-x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(nwt)
-\]</span></p>
-<ul>
-<li><p>偶信号：傅里叶级数中只含有直流项以及余弦项</p></li>
-<li><p>奇信号：傅里叶级数中只含有直流项以及正弦项</p>
-<ul>
-<li>奇信号直流项也为0</li>
-</ul></li>
-</ul>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271833721.png" alt="image-20211227183333686" style="zoom:50%;" /></p>
-<p>逆变换有一个系数<span class="math inline">\(\frac{1}{2\pi}\)</span></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271853762.png" alt="image-20211227185300694" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271854103.png" alt="image-20211227185421037" style="zoom:50%;" /></p>
-<p>奈奎斯特频率： <span class="math inline">\(x(t)\cdot y(t) -&gt; w_{s_x} + w_{s_y}\)</span></p>
-<p><span class="math inline">\(x(t)* y(t) -&gt; \min(w_{s_x} , w_{s_y})\)</span></p>
-<p>求导 不影响频率</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271923124.png" alt="image-20211227192348069" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271934141.png" alt="image-20211227193442072" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271941194.png" alt="image-20211227194105133" style="zoom: 50%;" /></p>
-<p><span class="math inline">\(t&lt;0,h(t)=0\)</span> 因果系统</p>
-<ul>
-<li>因果系统 + 极点在左边 -&gt; 稳定</li>
-<li>因果系统 + 极点在单位圆内 -&gt; 稳定</li>
-</ul>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112272033571.png" alt="image-20211227203323527" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112272041781.png" alt="image-20211227204102729" style="zoom:50%;" /></p>
-]]></content>
-  </entry>
-  <entry>
     <title>神经网络笔记</title>
     <url>/2022/01/02/NoteforNN/</url>
     <content><![CDATA[<h4 id="section">1</h4>

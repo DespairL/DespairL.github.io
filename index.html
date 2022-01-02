@@ -265,116 +265,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/27/DSP_HW/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/27/DSP_HW/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-27 15:59:40 / Modified: 20:41:08" itemprop="dateCreated datePublished" datetime="2021-12-27T15:59:40+08:00">2021-12-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>已知f(5 − 2t) 的波形如图1所示，画出f(t) 的波形图</p>
-<ul>
-<li>逆向，先处理系数，在处理移位比较容易理解。</li>
-<li>正向，先移位再处理系数</li>
-</ul>
-<p>对于<span class="math inline">\(\delta(t-t_0)\)</span>的抽样性质，可以直接看成令<span class="math inline">\(t = t_0\)</span></p>
-<p>判断时不变：</p>
-<ul>
-<li>对于一个输入<span class="math inline">\(x(t)\rightarrow x(t-t_0)\)</span>,其意为对原输入做一个移位，如果这个移位导致输出做相应移位，那就是时不变的,即<span class="math inline">\(T[x(t-t_0)] = y(t-t_0)\)</span>。 <span class="math display">\[
-  y(t) = x(f(t))\\
-  y(t-t_0) = x(f(t-t_0))\\
-  y(T[x(t-t_0)]) = x(f(t) - t_0)
-  \]</span></li>
-</ul>
-<p>判断因果：</p>
-<ul>
-<li>如果<strong>响应𝑦(𝑡)并不依赖于将来的激励</strong>，如𝑥(𝑡+1)，那么系统就是因果的</li>
-<li>y(n+1),y(-n),y(2n)都不是因果的。</li>
-</ul>
-<p><span class="math display">\[
-X_n= \frac{1}{2} a_n - \frac{j}{2} b_n
-\]</span></p>
-<p><span class="math display">\[
-a_0 = \frac{1}{T} \int_{t_0}^{t_0+T} x(t) dt \\
-a_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\cos(nwt) dt = a_{-n}\\
-b_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\sin(nwt) dt = - b_{-n}\\
-x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(nwt)
-\]</span></p>
-<ul>
-<li><p>偶信号：傅里叶级数中只含有直流项以及余弦项</p></li>
-<li><p>奇信号：傅里叶级数中只含有直流项以及正弦项</p>
-<ul>
-<li>奇信号直流项也为0</li>
-</ul></li>
-</ul>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271833721.png" alt="image-20211227183333686" style="zoom:50%;" /></p>
-<p>逆变换有一个系数<span class="math inline">\(\frac{1}{2\pi}\)</span></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271853762.png" alt="image-20211227185300694" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271854103.png" alt="image-20211227185421037" style="zoom:50%;" /></p>
-<p>奈奎斯特频率： <span class="math inline">\(x(t)\cdot y(t) -&gt; w_{s_x} + w_{s_y}\)</span></p>
-<p><span class="math inline">\(x(t)* y(t) -&gt; \min(w_{s_x} , w_{s_y})\)</span></p>
-<p>求导 不影响频率</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271923124.png" alt="image-20211227192348069" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271934141.png" alt="image-20211227193442072" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271941194.png" alt="image-20211227194105133" style="zoom: 50%;" /></p>
-<p><span class="math inline">\(t&lt;0,h(t)=0\)</span> 因果系统</p>
-<ul>
-<li>因果系统 + 极点在左边 -&gt; 稳定</li>
-<li>因果系统 + 极点在单位圆内 -&gt; 稳定</li>
-</ul>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112272033571.png" alt="image-20211227203323527" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112272041781.png" alt="image-20211227204102729" style="zoom:50%;" /></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1064,6 +954,96 @@ x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(n
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%A8%80%E7%96%8F%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/22/%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%A8%80%E7%96%8F%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Chap.11 特征选择与稀疏学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-22 10:42:39" itemprop="dateCreated datePublished" datetime="2021-12-22T10:42:39+08:00">2021-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-29 20:34:35" itemprop="dateModified" datetime="2021-12-29T20:34:35+08:00">2021-12-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="第十一章特征选择与稀疏学习">第十一章：特征选择与稀疏学习</h4>
+<h5 id="特征">特征</h5>
+<ul>
+<li><p>相关特征:与当前学习任务相关</p></li>
+<li><p>无关特征:与当前学习任务无关</p></li>
+<li><p>冗杂特征:可以从其他特征中提取出来</p></li>
+<li><p>从特征集合选出相关特征的过程就是特征提取。</p></li>
+<li><p>特征提取的过程可以大为减轻维度灾难的问题，同时提取出重要的特征也可以降低学习的难度。</p></li>
+<li><p>特征提取的一般过程：</p>
+<ul>
+<li>产生初始特征候选子集 —— 子集搜索</li>
+<li>评价候选子集的好坏 —— 子集评价</li>
+<li>基于评价结果产生下一个候选子集</li>
+</ul>
+<p>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1135,7 +1115,7 @@ x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(n
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
