@@ -9,6 +9,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -20,12 +22,12 @@
     var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="概率图模型 隐马尔可夫模型  inference 推断指的是利用已知变量推测未知变量的分布。 生成式模型建模联合分布\(P(Y,R,O)\) 判别式模型建模条件分布\(P(Y,R|O)\)">
+  <meta name="description" content="概率图模型 隐马尔可夫模型  inference 推断指的是利用已知变量推测未知变量的分布。 生成式模型建模联合分布$P(Y,R,O) $ 判别式模型建模条件分布\(P(Y,R|O)\)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="chap.14 概率图模型">
 <meta property="og:url" content="https://despairl.github.io/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="YQBlog | HaveFun!">
-<meta property="og:description" content="概率图模型 隐马尔可夫模型  inference 推断指的是利用已知变量推测未知变量的分布。 生成式模型建模联合分布\(P(Y,R,O)\) 判别式模型建模条件分布\(P(Y,R|O)\)">
+<meta property="og:description" content="概率图模型 隐马尔可夫模型  inference 推断指的是利用已知变量推测未知变量的分布。 生成式模型建模联合分布$P(Y,R,O) $ 判别式模型建模条件分布\(P(Y,R|O)\)">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112231702012.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112231703912.png">
@@ -33,6 +35,8 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112232148448.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112232159701.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112232229774.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112292139328.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112292140961.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241032616.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241040128.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241056226.png">
@@ -43,7 +47,7 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241122527.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241124078.png">
 <meta property="article:published_time" content="2021-12-23T08:09:18.590Z">
-<meta property="article:modified_time" content="2021-12-26T12:07:02.332Z">
+<meta property="article:modified_time" content="2021-12-30T01:06:27.365Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="AML">
 <meta property="article:tag" content="Note">
@@ -242,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-26 20:07:02" itemprop="dateModified" datetime="2021-12-26T20:07:02+08:00">2021-12-26</time>
+                <time title="Modified: 2021-12-30 09:06:27" itemprop="dateModified" datetime="2021-12-30T09:06:27+08:00">2021-12-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,7 +273,7 @@
 <h5 id="隐马尔可夫模型">隐马尔可夫模型</h5>
 <ul>
 <li><p>inference 推断指的是利用已知变量推测未知变量的分布。</p></li>
-<li><p>生成式模型建模联合分布<span class="math inline">\(P(Y,R,O)\)</span></p></li>
+<li><p>生成式模型建模联合分布$P(Y,R,O) $</p></li>
 <li><p>判别式模型建模条件分布<span class="math inline">\(P(Y,R|O)\)</span></p>
 <p><span id="more"></span></p></li>
 <li><p>概率图模型是用图来表达变量相关关系的概率模型。</p>
@@ -294,7 +298,7 @@
 <ul>
 <li><p>其有状态变量（又称隐变量）<span class="math inline">\(y\)</span>表示系统第i时刻的状态以及观测变量<span class="math inline">\(x_i\)</span></p></li>
 <li><p>观测变量仅依赖于同时刻的状态变量，并且t时刻的状态变量<span class="math inline">\(y_t\)</span>仅依赖于t-1时刻的状态<span class="math inline">\(y_{t-1}\)</span>,这就是马尔可夫链，即系统的下一时刻的状态仅由当前状态决定，因此，所有变量的联合概率分布为: <span class="math display">\[
-  P(x_1,y_1,..,x_n,y_n) = P(y_1)P(x_1|y_1)\prod_{i=2}^nP(y_i|y_{i+1})P(x_i|y_i)
+  P(x_1,y_1,..,x_n,y_n) = P(y_1)P(x_1|y_1)\prod_{i=2}^nP(y_{i+1}|y_i)P(x_i|y_i)
   \]</span></p></li>
 <li><p>除此之外，HMM还需要知道状态转移概率、输出观测概率、初始状态概率：</p>
 <ul>
@@ -356,7 +360,7 @@
 <ul>
 <li><p>基于概率图模型定义的联合概率分布，我们可以对目标变量的边际分布或者是以某些可观测变量为条件的条件分布进行推断。</p>
 <ul>
-<li>边际分布是指对联合分布中的其他无关变量进行积分或者求和的过程，也称该过程为边际化。</li>
+<li>边际分布是指<strong>对联合分布中的其他无关变量进行积分或者求和的过程，也称该过程为边际化</strong>。</li>
 </ul></li>
 <li><p>并且，对于概率图模型，还需要确定一些具体分布的参数，该参数估计过程也可以被吸收到参数推断问题当中。</p>
 <ul>
@@ -370,27 +374,31 @@
 <ul>
 <li><p>变量消去:</p>
 <ul>
-<li><p>变量消去是通过先计算部分变量的加法来整合部分变量：</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112232229774.png" alt="image-20211223222947706" style="zoom:50%;" /></p></li>
-<li><p>不管是有向图还是无向图，该方法都是适用的。其缺点在于会造成大量冗杂运算。</p></li>
+<li>变量消去是<strong>通过先计算部分变量的加法来整合部分变量</strong>：</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112232229774.png" alt="image-20211223222947706" style="zoom:50%;" /></li>
+</ul></li>
+<li><p>不管是有向图还是无向图，该方法都是适用的。其缺点在于会造成大量冗杂运算。</p>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112292139328.png" alt="image-20211229213951278" style="zoom:80%;"  /></li>
 </ul></li>
 <li><p>信念传播：</p>
 <ul>
 <li>主要用来解决变量消去算法中大量的重复计算过程。</li>
-<li>信念传播基于的现实就是每次消息传播的过程都是在邻接结点之间进行的，因此，我们可以规定一个结点只有在接受完所有结点的信息之后才能发送消息给其他结点。
+<li><strong>信念传播基于的现实就是每次消息传播的过程都是在邻接结点之间进行的</strong>，因此，我们可以规定一个结点只有在接受完所有结点的信息之后才能发送消息给其他结点。
 <ul>
 <li>以上面图片中的例子来说，<span class="math inline">\(x_3\)</span>必须接收到<span class="math inline">\(m_{23}(x_3),m_{43}(x_3)\)</span>两个信息，才能发送信息给<span class="math inline">\(x_5\)</span>。</li>
 </ul></li>
 <li>对于无环的图，信念传播只需要经过两步就可以了:
 <ul>
-<li>指定一个根节点，让所有的叶节点传递信息给根节点，直到根节点的所有邻接结点都已经给根节点传了信息。</li>
-<li>让根节点传递信息给所有的叶节点</li>
+<li><strong>指定</strong>一个根节点，<strong>让所有的叶节点传递信息给根节点，直到根节点的所有邻接结点都已经给根节点传了信息。</strong></li>
+<li><strong>让根节点传递信息给所有的叶节点</strong></li>
 </ul></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112292140961.png" alt="image-20211229214016912" style="zoom: 80%;" /></li>
 </ul></li>
 </ul></li>
 <li><p>近似推断</p>
 <ul>
-<li><p>近似推断有两种方案，一是通过采样(MCMC采样)来进行，使用随机化来完成近似,由大数定律保证近似可行；第二种确定性近似方法——变分推断。</p></li>
+<li><p>近似推断有两种方案，一是通过采样(MCMC采样)来进行，使用<strong>随机化</strong>来完成近似,由大数定律保证近似可行；第二种确定性近似方法——<strong>变分推断</strong>。</p></li>
 <li><p>MCMC采样:</p>
 <ul>
 <li><p>给定连续变量<span class="math inline">\(x\in X\)</span>的概率密度函数<span class="math inline">\(p(x)\)</span>,<span class="math inline">\(x\)</span>在某区间<span class="math inline">\(A\)</span>中的概率可以计算为: <span class="math display">\[
@@ -401,7 +409,7 @@
   \hat{p}(f) = \frac{1}{N} \sum_{i=1}^N f(x_i)
   \]</span> 但是如果概率密度函数<span class="math inline">\(p(x)\)</span>很复杂，那么构造出<span class="math inline">\(p\)</span>分布的独立同分布采样也十分困难。MCMC采样的关键就是构造“平稳分布为p的马尔可夫立链",在假定马尔可夫链的状态转移概率为<span class="math inline">\(T(x^\prime|x)\)</span>,<span class="math inline">\(t\)</span>时刻的分布为<span class="math inline">\(p(x^t)\)</span> ,则马尔可夫链稳定的判定条件如下: <span class="math display">\[
   p(x^t) T(x^{t-1}|x^t) = p(x^{t-1}) T(x^t|x^{t-1})
-  \]</span> 意为在t时刻的分布下状态转移到t-1时刻分布的概率与在t-1时刻的分布下状态转移到t时刻分布的概率相同。</p></li>
+  \]</span> 意为<strong>在t时刻的分布下状态转移到t-1时刻分布的概率与在t-1时刻的分布下状态转移到t时刻分布的概率相同</strong>。</p></li>
 <li><p>MCMC采样的代表算法是Metropolis-Hastings:</p>
 <ul>
 <li><p>算法每次根据上一轮采样结果<span class="math inline">\(x^{t-1}\)</span>来采样获得候选状态样本<span class="math inline">\(x^*\)</span>,但是这个候选状态样本还会有一定概率被拒绝掉，假设状态<span class="math inline">\(x^{t-1}\)</span>到状态<span class="math inline">\(x^*\)</span>的转移概率为<span class="math inline">\(Q(x^*|x^{t-1})A(x^*|x^{t-1})\)</span>,其中<span class="math inline">\(Q(x^*|x^{t-1})\)</span>是用户给定的先验概率，<span class="math inline">\(A(x^*|x^{t-1})\)</span>是被拒绝的概率: <span class="math display">\[
@@ -553,7 +561,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -566,7 +574,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -574,9 +582,6 @@
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
         <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/1063037668@qq.com" title="E-Mail → 1063037668@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
@@ -607,8 +612,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

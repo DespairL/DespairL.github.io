@@ -9,6 +9,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -156,7 +158,7 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261343424.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112261714867.png">
 <meta property="article:published_time" content="2021-12-24T07:01:55.396Z">
-<meta property="article:modified_time" content="2021-12-26T12:08:11.631Z">
+<meta property="article:modified_time" content="2021-12-28T05:22:25.353Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="Note">
 <meta property="article:tag" content="DSP">
@@ -355,7 +357,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-26 20:08:11" itemprop="dateModified" datetime="2021-12-26T20:08:11+08:00">2021-12-26</time>
+                <time title="Modified: 2021-12-28 13:22:25" itemprop="dateModified" datetime="2021-12-28T13:22:25+08:00">2021-12-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -405,6 +407,7 @@
 <li>频域：以频率为自变量</li>
 <li>频谱： 信号的频域表示，用来表示信号的幅度与相位。</li>
 <li>滤波器：按照一定目的对信号进行变换</li>
+<li>基波角频率：信号频率的最小公倍数</li>
 <li>复数：
 <ul>
 <li><span class="math inline">\(j = i = \sqrt{-1}\)</span></li>
@@ -417,7 +420,7 @@
 <li><span class="math inline">\(e^{jwt} = \cos wt + j \sin wt\)</span></li>
 <li><span class="math inline">\(e^{-jwt} = \cos wt - j \sin wt\)</span></li>
 <li>$ wt = $</li>
-<li><span class="math inline">\(\sin wt = \frac{e^{jwt} - e^{-jwt}}{2}\)</span></li>
+<li><span class="math inline">\(\sin wt = \frac{e^{jwt} - e^{-jwt}}{2j}\)</span></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -430,6 +433,7 @@
 <li>对于两个周期信号<span class="math inline">\(x(t),y(t)\)</span>,其周期分别是<span class="math inline">\(T_1,T_2\)</span>,如果周期之比<span class="math inline">\(\frac{T_1}{T_2}\)</span>是有理数，那么其和信号<span class="math inline">\(x(t)+y(t)\)</span>仍然是周期信号，且周期为<span class="math inline">\(T_1,T_2\)</span>的最小公倍数。
 <ul>
 <li>任意两个离散周期序列的和仍然是周期序列。</li>
+<li>离散信号按照连续信号算得周期为有理数则其为周期离散信号</li>
 </ul></li>
 <li>周期信号以及非周期信号都可以分解成周期信号。</li>
 </ul>
@@ -742,7 +746,7 @@ x(t) \star h(t) = \int_{-\infty}^{+\infty} x(\tau)  h(\tau+t)d\tau
 </ul></li>
 <li><p>与微分方程类似地，当差分方程的输入激励项均为0时，方程的解是齐次解：</p>
 <ul>
-<li><p>差分方程的齐次解的形式为<span class="math inline">\(Ca^n\)</span>的线性组合</p>
+<li><p>差分方程的齐次解的形式为<span class="math inline">\(C\alpha^n\)</span>的线性组合</p>
 <ul>
 <li><p>代入差分方程之后： <span class="math display">\[
   \sum_{k=0}^N a^k \alpha^{N-k} = 0
@@ -750,7 +754,7 @@ x(t) \star h(t) = \int_{-\infty}^{+\infty} x(\tau)  h(\tau+t)d\tau
 <li><p><span class="math inline">\(y_h[n] = \sum_{i=1}^N C_i \alpha_i^n\)</span></p></li>
 <li><p>这里需要注意的是差分方程中的 次项是<span class="math inline">\(N-k\)</span>,而微分方程中 此项是跟<span class="math inline">\(y(t)\)</span>次项一致的,以例子来说：</p>
 <ul>
-<li>微分方程<span class="math inline">\(y^i \rightarrow a_i \alpha^i\)</span></li>
+<li>微分方程<span class="math inline">\(y^{(i)} \rightarrow a_i \alpha^i\)</span></li>
 <li>差分方程<span class="math inline">\(y[n-k] \rightarrow a_k \alpha^{N-k-1}\)</span> ,<span class="math inline">\(N\)</span>与<span class="math inline">\(y[n-i]\)</span>的求和数相等。</li>
 </ul></li>
 </ul></li>
@@ -887,6 +891,7 @@ x(t) \star h(t) = \int_{-\infty}^{+\infty} x(\tau)  h(\tau+t)d\tau
 </ul></li>
 <li>奇信号：傅里叶级数中只含有直流项以及正弦项
 <ul>
+<li>如果<span class="math inline">\(x(t)\)</span>是一个奇信号，并且周期可以选择一个对应周期，那么直流分量也是0</li>
 <li>奇谐信号：无直流分量，只含有正弦项以及余弦项的奇次谐波分量</li>
 </ul></li>
 </ul>
@@ -970,10 +975,7 @@ x(t) \star h(t) = \int_{-\infty}^{+\infty} x(\tau)  h(\tau+t)d\tau
 </ul></li>
 <li><p>单位冲激信号<span class="math inline">\(\delta\)</span></p>
 <ul>
-<li>单位冲激信号的傅里叶变换为1
-<ul>
-<li>计算的关键在于<span class="math inline">\(e^{-jwt}dt,e^{jwt}dw\)</span>的无穷积分都为1</li>
-</ul></li>
+<li>单位冲激信号的傅里叶变换为1</li>
 <li>时域变化异常剧烈的冲激函数包含幅度相等的所有频率分量，这种频谱也称为“均匀谱”或“白色谱”</li>
 </ul></li>
 <li><p>直流信号</p>
@@ -1086,6 +1088,12 @@ x(t) \star h(t) = \int_{-\infty}^{+\infty} x(\tau)  h(\tau+t)d\tau
 <ul>
 <li><span class="math display">\[
   \mathcal{F}[\sin w_0 t] = -j\pi (\delta (w-w_0) - \delta(w+w_0))
+  \]</span></li>
+</ul></li>
+<li><p><span class="math inline">\(Sa(w_0t)\)</span>:</p>
+<ul>
+<li><span class="math display">\[
+  \mathcal{F}[Sa(w_0t)] = \frac{\pi}{w_0}[u(w+w_0) - u(w-w_0)]
   \]</span></li>
 </ul></li>
 </ul>
@@ -1442,8 +1450,8 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 收敛条件为\sigma &gt; 0
 \]</span></p>
 <p><span class="math display">\[
-\mathcal{L}[u(t-t_0)] = \frac{1}{s}(1-e^{-st_0})\\
-收敛条件为\sigma &gt; 0
+\mathcal{L}[u(t-t_0)] = \frac{1}{s}(1-e^{-st_0}) ??\\
+收敛条件为\sigma &gt; 0 
 \]</span></p>
 <p><span class="math display">\[
 \cos (\omega_0 t) u(t) = \frac{e^{j\omega_0 t} + e^{-j\omega_0 t}}{2} u(t) \rightarrow^{\mathcal{L}} \frac{1}{2}(\frac{1}{s-j\omega} + \frac{1}{s+j\omega}) = \frac{s}{s^2 + \omega^2}
@@ -1969,7 +1977,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1982,7 +1990,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1990,9 +1998,6 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
         <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/1063037668@qq.com" title="E-Mail → 1063037668@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
@@ -2023,8 +2028,8 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

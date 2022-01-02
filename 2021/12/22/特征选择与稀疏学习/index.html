@@ -9,6 +9,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -30,7 +32,7 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211632108.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211642656.png">
 <meta property="article:published_time" content="2021-12-22T02:42:39.698Z">
-<meta property="article:modified_time" content="2021-12-26T12:07:46.595Z">
+<meta property="article:modified_time" content="2021-12-29T12:34:35.730Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="AML">
 <meta property="article:tag" content="Note">
@@ -229,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-26 20:07:46" itemprop="dateModified" datetime="2021-12-26T20:07:46+08:00">2021-12-26</time>
+                <time title="Modified: 2021-12-29 20:34:35" itemprop="dateModified" datetime="2021-12-29T20:34:35+08:00">2021-12-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -292,7 +294,7 @@
 <ul>
 <li><p>过滤式(filter)：</p>
 <ul>
-<li><p>先对数据集进行特征选择，再训练学习器，也就是对数据集中的初始特征进行了一个过滤操作，学习器的性能表现不作为反馈。</p></li>
+<li><p><strong>先对数据集进行特征选择，再训练学习器，也就是对数据集中的初始特征进行了一个过滤操作，学习器的性能表现不作为反馈。</strong></p></li>
 <li><p>相关方法——Relief:其想法是设计一个相关统计量向量，向量的一个维度都对应着样本的每一个特征，那么特征子集的重要性就是向量各维度的和。选择我们需要的特征子集的时候，只需要设定一个阈值<span class="math inline">\(t\)</span>,大于<span class="math inline">\(t\)</span>的都选即可。</p></li>
 <li><p>相关统计量如何设定呢？Relief的做法是对于训练集中的每个样本<span class="math inline">\(x_i\)</span>，在其同类样本中找到最近邻<span class="math inline">\(x_{i,nh}\)</span>作为猜中近邻(near-hit)，从异类样本中找到最近邻<span class="math inline">\(x_{i,nm}\)</span>作为猜错近邻(near-miss),那么相关统计量在属性j(第j维)上的表现就是： <span class="math display">\[
   \delta^j = \sum_i -diff(x_i^j, x_{i,nh}^j)^2 + diff(x_i^j, x_{i,nm}^j)^2
@@ -306,8 +308,8 @@
 </ul></li>
 <li><p>包裹式(wrapper)</p>
 <ul>
-<li>将学习器的性能作为特征子集的评价标准，因此，其目的在于给定学习器选择最有利于其性能的特征子集。</li>
-<li>包裹式的性能常好于过滤式，但是由于需要训练多次，需要大量时间开销。</li>
+<li><strong>将学习器的性能作为特征子集的评价标准，因此，其目的在于给定学习器选择最有利于其性能的特征子集。</strong></li>
+<li><strong>包裹式的性能常好于过滤式，但是由于需要训练多次，需要大量时间开销。</strong></li>
 <li>LVW是一个典型代表：
 <ul>
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211632108.png" alt="image-20211221163215946" style="zoom:50%;" /></li>
@@ -317,11 +319,11 @@
 </ul></li>
 <li><p>嵌入式(embedding)</p>
 <ul>
-<li><p>嵌入式是将特征选择过程嵌入到学习器的训练过程当中，由学习器自动完成。</p></li>
+<li><p><strong>嵌入式是将特征选择过程嵌入到学习器的训练过程当中，由学习器自动完成。</strong></p></li>
 <li><p>对于一个简单的线性回归模型，以MSE作为loss，如果引入L2范数作为正则项，那么这就是岭回归问题；如果引入L1范数作为正则项，那么就是LASSO问题。他们都可以显著降低过拟合风险。</p></li>
-<li><p>对于引入L1范数作为正则项，其更容易产生稀疏解，求得的权重<span class="math inline">\(w\)</span>含有的非零项更少。观察下图L2范数与L1范数等值线的形状以及可能与平方误差等值线相交的点的位置可知,L1范数等值线与平方误差等值线相交的点更容易出现在坐标轴上。</p>
+<li><p>对于<strong>引入L1范数作为正则项，其更容易产生稀疏解，</strong>求得的权重<span class="math inline">\(w\)</span>含有的非零项更少。观察下图L2范数与L1范数等值线的形状以及可能与平方误差等值线相交的点的位置可知,L1范数等值线与平方误差等值线相交的点更容易出现在坐标轴上。</p>
 <p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112211642656.png" alt="image-20211221164227586" style="zoom:33%;" /></p></li>
-<li><p>因此，采用L1正则化进行训练，其实只用到了原始样本的一部分特征。L1正则化问题的求解可以使用近端梯度下降PGD。</p></li>
+<li><p>因此，<strong>采用L1正则化进行训练，其实只用到了原始样本的一部分特征。</strong>L1正则化问题的求解可以使用近端梯度下降PGD。</p></li>
 <li><p>PGD(近端梯度下降，利用了假设f(x)满足L-lipschitz条件):</p>
 <ul>
 <li><p>对于一个呈形如下的优化问题： <span class="math display">\[
@@ -361,13 +363,13 @@
 <h5 id="稀疏表示">稀疏表示</h5>
 <ul>
 <li><p>一般来说，稀疏表示指的是矩阵中有很多零元素，且并非整行整列地出现，当然整行整列也行。</p></li>
-<li><p>通过稀疏表示，在训练时，我们可以去除不必要的行或列，从而降低学习难度，并且稀疏表示降低了存储开销，文本数据可以线性可分。</p></li>
-<li><p>那么，我们就需要探寻一种方式能够将普通稠密表达的样本变成稀疏表示。</p></li>
-<li><p>而一种典型的方法就是字典学习：</p>
+<li><p><strong>通过稀疏表示，在训练时，我们可以去除不必要的行或列，从而降低学习难度</strong>，并且稀疏表示降低了存储开销，文本数据可以线性可分。</p></li>
+<li><p>那么，我们就需要<strong>探寻一种方式能够将普通稠密表达的样本变成稀疏表示</strong>。</p></li>
+<li><p>而一种典型的方法就是<strong>字典学习</strong>：</p>
 <ul>
 <li><p>字典学习最普通的形式就是，对于一个k个词汇的字典可以用一个矩阵<span class="math inline">\(\mathbf{B} \in R^{d\times k}\)</span> 表示（这里将字典翻译的过程看成是乘以一个权重矩阵）,假设<span class="math inline">\(\alpha_i \in R^k\)</span>是样本<span class="math inline">\(x_i \in R^d\)</span> 的稀疏表示，那么问题可以转化为: <span class="math display">\[
   \min_{\mathbf{B},\alpha_i} \sum_{i=1}^m ||x_i - \mathbf{B}\alpha_i||_2^2 + \lambda \sum_{i=1}^m ||\alpha_i||_1 \ \ (*)
-  \]</span> 第一项意为希望<span class="math inline">\(\alpha_i\)</span>可以重构<span class="math inline">\(x_i\)</span> ,第二项表示希望<span class="math inline">\(\alpha_i\)</span>尽量稀疏。</p></li>
+  \]</span> 第一项意为希望<span class="math inline">\(\alpha_i\)</span>可以重构<span class="math inline">\(x_i\)</span> ,并且重构前后误差最小化，第二项表示希望<span class="math inline">\(\alpha_i\)</span>尽量稀疏。</p></li>
 <li><p>这个问题求解比LASSO更麻烦一些，需要学习<span class="math inline">\(\mathbf{B},\alpha_i\)</span>两个参数。</p></li>
 <li><p>借鉴LASSO，可以采用变量交替优化的策略求解:</p>
 <ul>
@@ -485,7 +487,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -498,7 +500,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -506,9 +508,6 @@
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
         <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/1063037668@qq.com" title="E-Mail → 1063037668@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
@@ -539,8 +538,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

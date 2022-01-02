@@ -9,6 +9,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -42,7 +44,7 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941491.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221941783.png">
 <meta property="article:published_time" content="2021-12-22T07:58:41.547Z">
-<meta property="article:modified_time" content="2021-12-26T12:07:36.140Z">
+<meta property="article:modified_time" content="2021-12-30T01:26:28.719Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="AML">
 <meta property="article:tag" content="Note">
@@ -241,7 +243,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-26 20:07:36" itemprop="dateModified" datetime="2021-12-26T20:07:36+08:00">2021-12-26</time>
+                <time title="Modified: 2021-12-30 09:26:28" itemprop="dateModified" datetime="2021-12-30T09:26:28+08:00">2021-12-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -363,7 +365,7 @@
 <li><p>最优bellman等式的含义就是在每一次策略选择的时候，都选择当前最优的动作，其理论保证在于下图推导，不妨假设选择最优动作之后的策略是<span class="math inline">\(\pi^\prime\)</span> ,而改变动作的条件在于<span class="math inline">\(Q^\pi(x,\pi^i(x)) \ge V^\pi (x)\)</span>：</p>
 <p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221848055.png" alt="image-20211222184846009" style="zoom:50%;" /> <span class="math display">\[
    = V^{\pi^\prime}(x)
-  \]</span> 也就是说，每一步动作的选择都保证了值函数的增大,因此可以已知选取当前的最优动作，直到<span class="math inline">\(\pi^\prime = \pi\)</span>。</p></li>
+  \]</span> 也就是说，<strong>每一步动作的选择都保证了值函数的增大,因此可以已知选取当前的最优动作</strong>，直到<span class="math inline">\(\pi^\prime = \pi\)</span>。</p></li>
 </ul>
 <h5 id="策略迭代">策略迭代</h5>
 <ul>
@@ -373,11 +375,11 @@
 <p>注意到策略改进的过程与值改善的过程是一致的，因此可以更改成为以下的值迭代算法。</p>
 <p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221859783.png" alt="image-20211222185928712" style="zoom:50%;" /></p></li>
 </ul>
-<h4 id="免模型学习">免模型学习</h4>
-<h5 id="蒙特卡洛强化学习">蒙特卡洛强化学习</h5>
+<h5 id="免模型学习">免模型学习</h5>
+<h6 id="蒙特卡洛强化学习"><strong>蒙特卡洛强化学习</strong></h6>
 <ul>
 <li><p>免模型学习是指环境并不完全知悉，导致无法进行有模型学习时的策略迭代过程。针对这样的环境，我们可以通过多次采样，求取平均累计奖赏来作为期望累积奖赏的近似，这也就是蒙特卡洛强化学习的过程。</p></li>
-<li><p>由于采样有限次，因此适合使用<span class="math inline">\(T\)</span>步累计奖赏的强化学习。</p></li>
+<li><p>由于<strong>采样有限次，因此适合使用<span class="math inline">\(T\)</span>步累计奖赏的强化学习</strong>。</p></li>
 <li><p>另外，蒙特卡洛强化学习的估计对象从值函数<span class="math inline">\(V(\cdot)\)</span>转变为了状态动作函数<span class="math inline">\(Q(\cdot)\)</span></p></li>
 <li><p>为了能够多次采样出不同的轨迹，可以引入<span class="math inline">\(\epsilon\)</span>-贪心策略进行策略选取，将原来确定性的策略<span class="math inline">\(\pi\)</span>转变为了<span class="math inline">\(\pi^{\epsilon}\)</span> 策略。</p></li>
 <li><p>注意到引入<span class="math inline">\(\epsilon\)</span>-贪心策略并不会影响选取当前最优的动作构成的策略优化算法的正确性，因为，从已经最大化了值函数的原始策略<span class="math inline">\(\pi^\prime\)</span>中分出<span class="math inline">\(\epsilon\)</span>的概率给其他动作，仍然是原始策略<span class="math inline">\(\pi^\prime\)</span>中的最优动作可以最大化值函数。</p></li>
@@ -398,7 +400,7 @@
       \pi^\prime(x_i,a_i) =\frac{\epsilon}{|A|} \ or\ 1-\epsilon + \frac{\epsilon}{|A|}
   \]</span> <img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221930008.png" alt="image-20211222193032924" style="zoom:50%;" /></p></li>
 </ul>
-<h5 id="时序差分学习">时序差分学习</h5>
+<h6 id="时序差分学习">时序差分学习</h6>
 <ul>
 <li><p>蒙特卡洛强化学习在进行完整的采样之后再进行状态-动作对的更新，可以将这个过程化为增量化的更新。</p>
 <p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221940826.png" alt="image-20211222194010746" style="zoom:50%;" /></p></li>
@@ -494,7 +496,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">强化学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#k-%E6%91%87%E8%87%82%E8%B5%8C%E5%8D%9A%E6%9C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">K-摇臂赌博机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#epsilon%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.</span> <span class="nav-text">\(\epsilon\)贪心策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#softmax%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">Softmax算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.4.</span> <span class="nav-text">有模型学习</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">策略评估</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%94%B9%E8%BF%9B"><span class="nav-number">1.5.</span> <span class="nav-text">策略改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">策略迭代</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">免模型学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.1.</span> <span class="nav-text">蒙特卡洛强化学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.2.</span> <span class="nav-text">时序差分学习</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">强化学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#k-%E6%91%87%E8%87%82%E8%B5%8C%E5%8D%9A%E6%9C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">K-摇臂赌博机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#epsilon%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.</span> <span class="nav-text">\(\epsilon\)贪心策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#softmax%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">Softmax算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.4.</span> <span class="nav-text">有模型学习</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">策略评估</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%94%B9%E8%BF%9B"><span class="nav-number">1.5.</span> <span class="nav-text">策略改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.7.</span> <span class="nav-text">免模型学习</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.7.1.</span> <span class="nav-text">蒙特卡洛强化学习</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.7.2.</span> <span class="nav-text">时序差分学习</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -510,7 +512,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -523,7 +525,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -531,9 +533,6 @@
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
         <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/1063037668@qq.com" title="E-Mail → 1063037668@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
@@ -564,8 +563,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -22,28 +22,86 @@
     var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="YQBlog | HaveFun!">
-<meta property="og:url" content="https://despairl.github.io/index.html">
+  <meta name="description" content="1 What ​ 神经网络是一种模仿生物神经网络的结构、功能的数学模型，是一种自适应系统，具有学习功能，通过数据进行学习。\(\color{red}{(Key)}\) Why ​ 可以通过“学习”解决传统算法解决不了的问题\(\color{red}{(Key)}\)。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。 与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络笔记">
+<meta property="og:url" content="https://despairl.github.io/2022/01/02/NoteforNN/index.html">
 <meta property="og:site_name" content="YQBlog | HaveFun!">
+<meta property="og:description" content="1 What ​ 神经网络是一种模仿生物神经网络的结构、功能的数学模型，是一种自适应系统，具有学习功能，通过数据进行学习。\(\color{red}{(Key)}\) Why ​ 可以通过“学习”解决传统算法解决不了的问题\(\color{red}{(Key)}\)。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。 与">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011909770.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011910266.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011947798.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011948099.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011958091.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012005249.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012008500.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012012644.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012013643.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012046076.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012114226.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012129710.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012143836.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012145123.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021341987.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021412481.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021413098.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021352037.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021401469.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021440261.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021456900.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021457515.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021532502.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021546064.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021545006.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021549366.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021632670.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021911245.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021915884.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021916215.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021950615.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021950963.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022005273.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022044261.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022045049.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022045013.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022049397.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022107089.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022108288.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022109830.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022112437.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022202773.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022203552.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022206884.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022209002.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022213277.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022214555.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022215721.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022216063.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022217276.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201022243911.png">
+<meta property="article:published_time" content="2022-01-02T14:51:31.340Z">
+<meta property="article:modified_time" content="2022-01-02T14:52:15.049Z">
 <meta property="article:author" content="Yanquan Chen">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="NN">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201011909770.png">
 
-<link rel="canonical" href="https://despairl.github.io/">
+<link rel="canonical" href="https://despairl.github.io/2022/01/02/NoteforNN/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>YQBlog | HaveFun!</title>
+  <title>神经网络笔记 | YQBlog | HaveFun!</title>
   
 
 
@@ -185,9 +243,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -203,10 +262,9 @@
       <meta itemprop="name" content="YQBlog | HaveFun!">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/02/NoteforNN/" class="post-title-link" itemprop="url">神经网络笔记</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          神经网络笔记
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -239,7 +297,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="section">1</h4>
+        <h4 id="section">1</h4>
 <p>What</p>
 <p>​ 神经网络是一种<strong>模仿生物神经网络的结构、功能的数学模型</strong>，是一种自适应系统，具有学习功能，通过数据进行学习。<span class="math inline">\(\color{red}{(Key)}\)</span></p>
 <p>Why</p>
@@ -929,828 +987,36 @@
 <li>进行归一化处理</li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/27/DSP_HW/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/12/27/DSP_HW/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
+          <div class="post-tags">
+              <a href="/tags/Note/" rel="tag"><i class="fa fa-tag"></i> Note</a>
+              <a href="/tags/NN/" rel="tag"><i class="fa fa-tag"></i> NN</a>
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-27 15:59:40 / Modified: 20:41:08" itemprop="dateCreated datePublished" datetime="2021-12-27T15:59:40+08:00">2021-12-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>已知f(5 − 2t) 的波形如图1所示，画出f(t) 的波形图</p>
-<ul>
-<li>逆向，先处理系数，在处理移位比较容易理解。</li>
-<li>正向，先移位再处理系数</li>
-</ul>
-<p>对于<span class="math inline">\(\delta(t-t_0)\)</span>的抽样性质，可以直接看成令<span class="math inline">\(t = t_0\)</span></p>
-<p>判断时不变：</p>
-<ul>
-<li>对于一个输入<span class="math inline">\(x(t)\rightarrow x(t-t_0)\)</span>,其意为对原输入做一个移位，如果这个移位导致输出做相应移位，那就是时不变的,即<span class="math inline">\(T[x(t-t_0)] = y(t-t_0)\)</span>。 <span class="math display">\[
-  y(t) = x(f(t))\\
-  y(t-t_0) = x(f(t-t_0))\\
-  y(T[x(t-t_0)]) = x(f(t) - t_0)
-  \]</span></li>
-</ul>
-<p>判断因果：</p>
-<ul>
-<li>如果<strong>响应𝑦(𝑡)并不依赖于将来的激励</strong>，如𝑥(𝑡+1)，那么系统就是因果的</li>
-<li>y(n+1),y(-n),y(2n)都不是因果的。</li>
-</ul>
-<p><span class="math display">\[
-X_n= \frac{1}{2} a_n - \frac{j}{2} b_n
-\]</span></p>
-<p><span class="math display">\[
-a_0 = \frac{1}{T} \int_{t_0}^{t_0+T} x(t) dt \\
-a_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\cos(nwt) dt = a_{-n}\\
-b_n = \frac{2}{T} \int_{t_0}^{t_0+T} x(t)\sin(nwt) dt = - b_{-n}\\
-x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(nwt)
-\]</span></p>
-<ul>
-<li><p>偶信号：傅里叶级数中只含有直流项以及余弦项</p></li>
-<li><p>奇信号：傅里叶级数中只含有直流项以及正弦项</p>
-<ul>
-<li>奇信号直流项也为0</li>
-</ul></li>
-</ul>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271833721.png" alt="image-20211227183333686" style="zoom:50%;" /></p>
-<p>逆变换有一个系数<span class="math inline">\(\frac{1}{2\pi}\)</span></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271853762.png" alt="image-20211227185300694" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271854103.png" alt="image-20211227185421037" style="zoom:50%;" /></p>
-<p>奈奎斯特频率： <span class="math inline">\(x(t)\cdot y(t) -&gt; w_{s_x} + w_{s_y}\)</span></p>
-<p><span class="math inline">\(x(t)* y(t) -&gt; \min(w_{s_x} , w_{s_y})\)</span></p>
-<p>求导 不影响频率</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271923124.png" alt="image-20211227192348069" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271934141.png" alt="image-20211227193442072" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112271941194.png" alt="image-20211227194105133" style="zoom: 50%;" /></p>
-<p><span class="math inline">\(t&lt;0,h(t)=0\)</span> 因果系统</p>
-<ul>
-<li>因果系统 + 极点在左边 -&gt; 稳定</li>
-<li>因果系统 + 极点在单位圆内 -&gt; 稳定</li>
-</ul>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112272033571.png" alt="image-20211227203323527" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112272041781.png" alt="image-20211227204102729" style="zoom:50%;" /></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A02/" class="post-title-link" itemprop="url">近代史猜测的重点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-26 22:27:48" itemprop="dateCreated datePublished" datetime="2021-12-26T22:27:48+08:00">2021-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-27 15:43:39" itemprop="dateModified" datetime="2021-12-27T15:43:39+08:00">2021-12-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="关于毛主席">关于毛主席</h4>
-<p>1840年鸦片战争以后，在西方列强坚船利炮轰击下，中国危机四起、人民苦难深重，陷入半殖民地半封建社会的黑暗深渊。</p>
-<p>实现中华民族伟大复兴始终是近代以来中国人民最伟大的梦想。</p>
-<p>毛泽东同志在青年时期就立下拯救民族于危难的远大志向。</p>
-<p>1919年，毛泽东同志在《〈湘江评论〉创刊宣言》中写道：“时机到了！世界的大潮卷得更急了！洞庭湖的闸门动了，且开了！浩浩荡荡的新思潮业已奔腾澎湃于湘江两岸了！顺他的生，逆他的死。”年轻的毛泽东同志，“书生意气，挥斥方遒。指点江山，激扬文字”，既有“问苍茫大地，谁主沉浮”的仰天长问，又有“到中流击水，浪遏飞舟”的浩然壮气。</p>
-          <!--noindex-->
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">近代史讲话文献</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-26 22:12:08" itemprop="dateCreated datePublished" datetime="2021-12-26T22:12:08+08:00">2021-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-28 20:27:08" itemprop="dateModified" datetime="2021-12-28T20:27:08+08:00">2021-12-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="文献内容">文献内容</h4>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112262213393.png" alt="image-20211226221327238" style="zoom: 25%;" /></p>
-<h4 id="习近平在纪念毛泽东同志诞辰120周年座谈会上的讲话">习近平在纪念毛泽东同志诞辰120周年座谈会上的讲话</h4>
-<p>同志们，朋友们：</p>
-<p>　　今天，我们怀着十分崇敬的心情，在这里隆重集会，纪念中国共产党、中国人民解放军、中华人民共和国的主要缔造者，中国各族人民的伟大领袖毛泽东同志诞辰120周年。</p>
-<p>　　毛泽东同志是伟大的马克思主义者，伟大的无产阶级革命家、战略家、理论家，是马克思主义中国化的伟大开拓者，是近代以来中国伟大的爱国者和民族英雄，是党的第一代中央领导集体的核心，是领导中国人民彻底改变自己命运和国家面貌的一代伟人。</p>
-          <!--noindex-->
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/27/DSP_HW/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/" class="post-title-link" itemprop="url">数字信号处理Review</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-24 15:01:55" itemprop="dateCreated datePublished" datetime="2021-12-24T15:01:55+08:00">2021-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-28 13:22:25" itemprop="dateModified" datetime="2021-12-28T13:22:25+08:00">2021-12-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DSP-Note/" itemprop="url" rel="index"><span itemprop="name">DSP Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="chap.0">Chap.0</h3>
-<h4 id="信号基本概念">信号基本概念</h4>
-<ul>
-<li><p>信号的分类</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241504910.png" alt="image-20211224150458847" style="zoom:67%;" /></p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.15 规则学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-24 11:34:59" itemprop="dateCreated datePublished" datetime="2021-12-24T11:34:59+08:00">2021-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-26 20:07:10" itemprop="dateModified" datetime="2021-12-26T20:07:10+08:00">2021-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="规则学习">规则学习</h4>
-<h5 id="基本概念">基本概念</h5>
-<ul>
-<li><p>规则通常是指语义明确、能描述数据分布隐含的客观规律或领域概念。规则学习就是从训练数据中学习出一组能够对未见实例进行判别的规则。</p></li>
-<li><p>规则都形如: <span class="math display">\[
-  rule\ head \leftarrow f_1 \land f_2\land ... \land f_L (rule \ body)
-  \]</span></p>
-<ul>
-<li>并且可以细分为命题规则以及一阶规则。
-<ul>
-<li>命题规则：原子命题+逻辑与、或、非、蕴含构成</li>
-<li>一阶规则：原子公式，有量词<span class="math inline">\(\forall,\exist\)</span>,能表达复杂的关系，因此亦称关系型规则。</li>
-</ul></li>
-</ul></li>
-<li><p>如果一个示例被判别结果不同的多条规则覆盖了，那么我们认为发生了冲突，解决冲突的办法是冲突消解——采用投票、排序（优先级）、元规则（关于规则的规则——ex:冲突时，用长度最小的规则）。</p></li>
-</ul>
-<h5 id="序贯覆盖">序贯覆盖</h5>
-<ul>
-<li><p>规则学习的目标是产生一个能覆盖尽可能多的样例的规则集，最直接的就是“序贯覆盖”(sequential covering)——逐条归纳，也被称为分治(separate-and-conquer)策略。</p></li>
-<li><p>最简单的做法是从空规则<span class="math inline">\(\oplus\leftarrow\)</span>开始，遍历训练集中的每个属性以及取值，如果其只包含正例就加入到规则体当中。</p></li>
-<li><p>但是，上述穷举的做法并不能很好地完成组合爆炸的任务。一般有top-down，bottom-up两种策略进行优化:</p>
-<ul>
-<li><p>top-down产生的规则泛化性能更好，对于噪声的鲁棒性更好，常用于命题逻辑；而bottom-up更适合训练样本少的情况，常用于一阶规则学习。</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241401834.png" alt="image-20211224140128750" style="zoom:50%;" /></p>
-<p>先考虑规则准确率，准确率相同的时候考虑覆盖样例的数目，再相同的时候考虑属性优先顺序。</p></li>
-<li><p>如果想要避免局部最优，可以利用集束搜索，每轮保留最优的<span class="math inline">\(b\)</span>个属性，并将它们全部加入下一轮的候选集当中</p></li>
-</ul></li>
-<li><p>另外，规则生成总归还是一个贪心搜索的过程，因此需要一定措施来缓解过拟合风险：</p>
-<ul>
-<li><p>预剪枝，规则生成过程中剪枝</p>
-<ul>
-<li><p>CN2算法用LRS似然率统计量作为指标：</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241410428.png" alt="image-20211224141026351" style="zoom:50%;" /></p></li>
-</ul></li>
-<li><p>后剪枝，规则生成后剪枝:</p>
-<ul>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241411376.png" alt="image-20211224141149301" style="zoom:50%;" /></p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241415427.png" alt="image-20211224141552359" style="zoom:50%;" /></p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241416409.png" alt="image-20211224141657335" style="zoom:50%;" /></p></li>
-</ul></li>
-</ul></li>
-</ul>
-<h5 id="一阶规则学习">一阶规则学习</h5>
-<h5 id="归纳逻辑程序设计">归纳逻辑程序设计</h5>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">chap.14 概率图模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-23 16:09:18" itemprop="dateCreated datePublished" datetime="2021-12-23T16:09:18+08:00">2021-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-30 09:06:27" itemprop="dateModified" datetime="2021-12-30T09:06:27+08:00">2021-12-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="概率图模型">概率图模型</h4>
-<h5 id="隐马尔可夫模型">隐马尔可夫模型</h5>
-<ul>
-<li><p>inference 推断指的是利用已知变量推测未知变量的分布。</p></li>
-<li><p>生成式模型建模联合分布$P(Y,R,O) $</p></li>
-<li><p>判别式模型建模条件分布<span class="math inline">\(P(Y,R|O)\)</span></p>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA/" class="post-title-link" itemprop="url">Chap.12 计算学习理论</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 21:09:48" itemprop="dateCreated datePublished" datetime="2021-12-22T21:09:48+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-29 20:54:03" itemprop="dateModified" datetime="2021-12-29T20:54:03+08:00">2021-12-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="计算学习理论">计算学习理论</h4>
-<h5 id="基础知识">基础知识</h5>
-<ul>
-<li><p>对于一个数据集<span class="math inline">\(D = (\mathcal{X},\mathcal{Y})\)</span>,假设<span class="math inline">\(\mathcal{X}\)</span>中的所有样本都是从分布<span class="math inline">\(\mathcal{D}\)</span>当中采样出来的且服从独立同分布采样。</p></li>
-<li><p><span class="math inline">\(h:\mathcal{X}-&gt;\mathcal{Y}\)</span>,定义泛化误差：</p>
-<ul>
-<li><p><span class="math display">\[
-  E(h;\mathcal{D}) = P_{x&lt;-\mathcal{D}}(h(x)\not = y)
-  \]</span></p>
-<p>预测结果与label不一致。</p></li>
-</ul></li>
-<li><p>定义<span class="math inline">\(h\)</span>在<span class="math inline">\(D\)</span>上的经验误差：</p>
-<ul>
-<li><span class="math display">\[
-  \hat{E}(h;D) = \frac{1}{m}\sum_{i=1}^m \mathbb{I}(h(x_i) \not= y_i)
-  \]</span></li>
-</ul></li>
-<li><p>由于<span class="math inline">\(D\)</span>是分布<span class="math inline">\(\mathcal{D}\)</span>的独立同分布采样，因此，<span class="math inline">\(\mathbb{E}[\hat{E}(h;D)] = E(h;\mathcal{D})\)</span>,对于<span class="math inline">\(E(h;\mathcal{D})\)</span>有一个上限<span class="math inline">\(\epsilon\)</span> ,称其为误差参数。</p></li>
-<li><p>如果经验误差为0，那么就认为<span class="math inline">\(h\)</span>与<span class="math inline">\(D\)</span>一致，否则不一致</p></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.16 强化学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 15:58:41" itemprop="dateCreated datePublished" datetime="2021-12-22T15:58:41+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-30 09:26:28" itemprop="dateModified" datetime="2021-12-30T09:26:28+08:00">2021-12-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="强化学习">强化学习</h4>
-<ul>
-<li><p>强化学习的过程概括些说就是做一个动作action，环境给予你一个反馈r:</p>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112221600231.png" alt="image-20211222160057193" style="zoom:50%;" /></p></li>
-<li><p>强化学习任务通常用马尔可夫决策过程(MDP)来描述：</p>
-<ul>
-<li><p>对于一个环境<span class="math inline">\(E\)</span>,其由状态空间<span class="math inline">\(X\)</span>,动作空间<span class="math inline">\(A\)</span>,状态转移概率<span class="math inline">\(P\)</span>以及奖励函数<span class="math inline">\(R\)</span>组成，通常的P,R函数形式如下：<span class="math inline">\(P: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个概率,<span class="math inline">\(R: X\times A\times X -&gt; \mathbb{R}\)</span> 指定一个奖赏。</p></li>
-<li><p>因此，强化学习的内容就是让机器通过在环境中不断尝试从而学到一个策略<span class="math inline">\(\pi\)</span> ,根据这个策略本<span class="math inline">\(\pi\)</span> ,我们可以确定在状态<span class="math inline">\(x\)</span>下要执行的动作<span class="math inline">\(a = \pi(x)\)</span> ,并且使得长期累积的奖赏可以最大化。</p></li>
-<li><p>常用的长期累计奖赏的计算方式有：</p>
-<ul>
-<li><p>T步累计奖赏 ： <span class="math inline">\(\mathbb{E}[\frac{1}{T} \sum_{t=1}^T r_t]\)</span></p></li>
-<li><p><span class="math inline">\(\gamma\)</span>折扣累计奖赏 ： <span class="math inline">\(\mathbb{E}[ \sum_{t=0}^{+\infty} \gamma^t r_{t}]\)</span></p></li>
-<li><p>马尔可夫回报过程（MRP）计算的就是： <span class="math display">\[
-  V(x) = \sum_{x^\prime\in X} P(x^\prime|x) (R(x^\prime) + V(x^\prime))
-  \]</span> 描述的就是从一个状态<span class="math inline">\(x\)</span>转移到其他所有状态<span class="math inline">\(x^\prime\)</span>之后的累计回报。</p></li>
-</ul></li>
-</ul></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/22/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/22/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.13 半监督学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-22 10:44:57" itemprop="dateCreated datePublished" datetime="2021-12-22T10:44:57+08:00">2021-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-26 20:06:51" itemprop="dateModified" datetime="2021-12-26T20:06:51+08:00">2021-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="半监督学习">半监督学习</h4>
-<h5 id="未标记样本">未标记样本</h5>
-<ul>
-<li><p>显然，现实问题有很多没有label的数据，这些数据的数量明显大于有label的数据量。</p></li>
-<li><p>为了将这些没有label的数据利用起来，有个平凡的想法，就是人工对所有的unlabel的数据激进行label，但是这是耗费大量人力物力的。</p></li>
-<li><p>基于此，主动学习就被提出了。主动学习的流程是想使用有label的数据<span class="math inline">\(D_l\)</span>训练出一个学习器，然后让这个学习器对unlabel的数据进行预测，将预测结果人工检查好不好，再加入到有标记样本中进行训练。每次我们都挑选出对改善模型性能有帮助的瓜，那么，就只需要人工检查较少次数就可以构建出性能比较好的模型，从而降低成本。这也符合了它的目的：用尽量少的查询获得尽量好的性能。</p></li>
-<li><p>但是主动学习仍然借助了专家的知识，如果能让学习器不依赖外界知识，自动利用<span class="math inline">\(D_u\)</span> 数据，那就是半监督学习(semi-supervised learning)的学习目标了。</p>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -1802,6 +1068,7 @@ x(t) = a_0 + \sum_{n=1}^{+\infty} a_n \cos(nwt) +\sum_{n=1}^{+\infty} b_n \sin(n
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.</span> <span class="nav-text">2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">神经元模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mp%E7%A5%9E%E7%BB%8F%E5%85%83"><span class="nav-number">2.2.</span> <span class="nav-text">MP神经元</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B0%E7%9A%84%E7%A5%9E%E7%BB%8F%E5%85%83%E7%BB%93%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">新的神经元结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.5.</span> <span class="nav-text">神经元的应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">3.</span> <span class="nav-text">3</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.1.</span> <span class="nav-text">神经元的连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">单层感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-lms"><span class="nav-number">3.3.</span> <span class="nav-text">学习算法-LMS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">3.4.</span> <span class="nav-text">思考题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">4.</span> <span class="nav-text">4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%B1%80%E9%99%90"><span class="nav-number">4.1.</span> <span class="nav-text">单层感知机的局限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">4.2.</span> <span class="nav-text">多层感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%AD%A6%E4%B9%A0"><span class="nav-number">4.3.</span> <span class="nav-text">多层感知机的学习</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95"><span class="nav-number">4.3.1.</span> <span class="nav-text">梯度下降法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95"><span class="nav-number">4.3.2.</span> <span class="nav-text">反向传播算法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E8%BF%9Bbp%E7%AE%97%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">改进BP算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rbf%E7%BD%91%E7%BB%9C"><span class="nav-number">4.5.</span> <span class="nav-text">RBF网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%88%86%E6%9E%90"><span class="nav-number">4.6.</span> <span class="nav-text">多层感知机的分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%9A%84%E7%9B%B8%E5%85%B3%E5%88%86%E6%9E%90"><span class="nav-number">4.6.1.</span> <span class="nav-text">激活函数的相关分析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E8%BF%91%E4%BC%BC%E5%AE%9A%E7%90%86"><span class="nav-number">4.6.2.</span> <span class="nav-text">通用近似定理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E8%B6%85%E5%8F%82%E6%95%B0%E9%80%89%E6%8B%A9"><span class="nav-number">4.7.</span> <span class="nav-text">网络结构超参数选择</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">4.8.</span> <span class="nav-text">多层感知机的应用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98-1"><span class="nav-number">4.9.</span> <span class="nav-text">思考题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">5.</span> <span class="nav-text">5</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E6%95%B4%E7%AD%96%E7%95%A5"><span class="nav-number">5.1.</span> <span class="nav-text">学习率调整策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">5.3.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96"><span class="nav-number">5.4.</span> <span class="nav-text">归一化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">5.5.</span> <span class="nav-text">参数初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-number">5.6.</span> <span class="nav-text">网络预训练</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98colorredkey"><span class="nav-number">5.7.</span> <span class="nav-text">思考题\(\color{red}{(Key)}\)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
