@@ -86,7 +86,7 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201041629046.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201041641943.png">
 <meta property="article:published_time" content="2022-01-04T11:57:31.306Z">
-<meta property="article:modified_time" content="2022-01-04T11:57:23.493Z">
+<meta property="article:modified_time" content="2022-01-04T12:00:01.150Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="Note">
 <meta property="article:tag" content="CS">
@@ -279,7 +279,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-01-04 19:57:31 / Modified: 19:57:23" itemprop="dateCreated datePublished" datetime="2022-01-04T19:57:31+08:00">2022-01-04</time>
+              <time title="Created: 2022-01-04 19:57:31 / Modified: 20:00:01" itemprop="dateCreated datePublished" datetime="2022-01-04T19:57:31+08:00">2022-01-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -316,7 +316,8 @@
 <li>更具体来说，到<strong>中间代码生成为止</strong>，可以划分为<strong>前端</strong>。</li>
 <li>从<strong>代码生成</strong>开始划分为<strong>后端</strong>。</li>
 <li><strong>前端后端分开</strong>的好处：<strong>不同的源语言、不同的机器</strong>可以得到<strong>不同的编译器组合</strong></li>
-</ul></li>
+</ul>
+<p><span id="more"></span></p></li>
 <li><p>编译器执行的确定步骤为:</p>
 <ul>
 <li>由输入的<strong>字符流</strong>通过<strong>词法分析</strong>生成<strong>符号流</strong>，再通过<strong>语法分析、语义分析</strong>生成一棵<strong>语法树</strong>，通过<strong>中间代码生成器</strong>产生<strong>中间代码表示</strong>，用<strong>机器无关代码优化器</strong>进行优化，最终通过<strong>代码生成器</strong>产生<strong>目标机器语言</strong>，并利用<strong>机器相关代码优化器</strong>生成<strong>目标机器语言</strong>。</li>
@@ -1000,10 +1001,8 @@
 <ul>
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201041318730.png" alt="image-20220104131845623" style="zoom:80%;" /></li>
 </ul></li>
-<li><p>数组元素的寻址:</p>
-<ul>
-<li>数组的第一个元素的<strong>相对位置</strong>记为base,之后按照<em>base+i<strong>1</strong></em>w<strong>1</strong>+i<strong>2</strong><em>w<strong>2</strong>+…+<strong>i</strong>k</em><strong>w</strong>k计算地址。上述地址的计算是按行存放的。</li>
-</ul></li>
+<li><p>数组元素的寻址:</p></li>
+<li><p>数组的第一个元素的<strong>相对位置</strong>记为base,之后按照<em>base+i<strong>1</strong></em>w<strong>1</strong>+i<strong>2</strong><em>w<strong>2</strong>+…+<strong>i</strong>k</em><strong>w</strong>k计算地址。上述地址的计算是按行存放的。</p></li>
 <li><p>数组引用生成代码的翻译方案：</p>
 <ul>
 <li><p>非终结符号L的三个综合属性</p>
@@ -1246,10 +1245,8 @@
 <li>寄存器用来<strong>帮助</strong>进行运行时刻<strong>存储管理</strong>。如运行时刻栈的指针。</li>
 </ul></li>
 <li><p><strong>寄存器描述符</strong>：<strong>记录寄存器当前存放</strong>了哪个变量的值。</p></li>
-<li><p><strong>地址描述符</strong>：<strong>记录每个名字的当前值的存放处所</strong>，可以是寄存器，也可以是内存地址，或者它们的集合</p>
-<ul>
-<li>LD，ST指令等会修改这些描述符。</li>
-</ul></li>
+<li><p><strong>地址描述符</strong>：<strong>记录每个名字的当前值的存放处所</strong>，可以是寄存器，也可以是内存地址，或者它们的集合</p></li>
+<li><p>LD，ST指令等会修改这些描述符。</p></li>
 <li><p><strong>代码生成算法</strong>:</p>
 <ul>
 <li>调用<strong>getreg(i)选择寄存器</strong>
