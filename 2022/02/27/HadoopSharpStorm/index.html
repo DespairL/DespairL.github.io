@@ -30,7 +30,7 @@
 <meta property="og:description" content="Storm、Spark、Hadoop区别对比  Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。  Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.  HDFS是由NameNode(主节点)、DataNod">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-27T09:58:23.326Z">
-<meta property="article:modified_time" content="2022-02-27T10:02:17.245Z">
+<meta property="article:modified_time" content="2022-02-27T10:14:40.370Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="Note">
 <meta property="article:tag" content="ForWork">
@@ -222,7 +222,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 17:58:23 / Modified: 18:02:17" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:58:23 / Modified: 18:14:40" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,7 +249,7 @@
 <ul>
 <li>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。
 <ul>
-<li>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.
+<li><p>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.</p>
 <ul>
 <li>HDFS是由NameNode(主节点)、DataNode(副节点)以及Client(客户机)组成的。
 <ul>
@@ -261,6 +261,9 @@
 <li>用户向Client客户机提出请求，然后由Client客户机将数据进行分块，然后将分块的方案传回给NameNode,NameNode查询各个块的地址传给DataNode并按照距离远近进行排序，然后DataNode对数据进行写入或者读取操作，完成后传信号给NameNode，由其进行善后保存。</li>
 <li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode</li>
 </ul></li>
+</ul>
+<p><span id="more"></span></p>
+<ul>
 <li></li>
 </ul></li>
 </ul></li>

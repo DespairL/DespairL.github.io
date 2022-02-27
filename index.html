@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 18:06:01 / Modified: 18:08:11" itemprop="dateCreated datePublished" datetime="2022-02-27T18:06:01+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 18:06:01 / Modified: 18:13:48" itemprop="dateCreated datePublished" datetime="2022-02-27T18:06:01+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +239,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="review">Review</h2>
+          <span id="more"></span>
+<h2 id="review">Review</h2>
 <h5 id="transformer">Transformer</h5>
 <h5 id="attention">Attention</h5>
 <h5 id="cnnrnn">CNN/RNN</h5>
@@ -252,6 +253,7 @@
 <li>Sharp</li>
 <li>C/C++/Python</li>
 <li>Go</li>
+<li>Unity</li>
 </ul>
 <h5 id="play">Play</h5>
 <ul>
@@ -302,7 +304,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 18:04:25 / Modified: 18:05:34" itemprop="dateCreated datePublished" datetime="2022-02-27T18:04:25+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 18:04:25 / Modified: 18:14:02" itemprop="dateCreated datePublished" datetime="2022-02-27T18:04:25+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -344,7 +346,9 @@
 <li>降低“通信风暴”的影响，提高网络访问的稳定性</li>
 </ul></li>
 </ul>
-
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -388,7 +392,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 18:02:29 / Modified: 18:03:30" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 18:02:29 / Modified: 18:14:18" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -435,7 +439,9 @@
 <li>另一种是基于分解的的学习方法。</li>
 </ul></li>
 </ul>
-
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -479,7 +485,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 17:59:00 / Modified: 18:04:08" itemprop="dateCreated datePublished" datetime="2022-02-27T17:59:00+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:59:00 / Modified: 18:14:11" itemprop="dateCreated datePublished" datetime="2022-02-27T17:59:00+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -528,7 +534,9 @@
 </ul></li>
 </ul></li>
 </ul>
-
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -572,7 +580,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 17:58:23 / Modified: 18:02:17" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:58:23 / Modified: 18:14:40" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -599,7 +607,7 @@
 <ul>
 <li>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。
 <ul>
-<li>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.
+<li><p>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.</p>
 <ul>
 <li>HDFS是由NameNode(主节点)、DataNode(副节点)以及Client(客户机)组成的。
 <ul>
@@ -611,14 +619,11 @@
 <li>用户向Client客户机提出请求，然后由Client客户机将数据进行分块，然后将分块的方案传回给NameNode,NameNode查询各个块的地址传给DataNode并按照距离远近进行排序，然后DataNode对数据进行写入或者读取操作，完成后传信号给NameNode，由其进行善后保存。</li>
 <li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode</li>
 </ul></li>
-<li></li>
-</ul></li>
-</ul></li>
-<li>Spark是数据并行的计算框架，在不同的短时间间隔内进行连续的批处理。但是spark没有自己的分布式存储系统。因此，Hadoop与Spark有一种互补的意味。Spark主要是利用内存进行存储。</li>
-<li>Hadoop与Spark都是批处理的，而Storm是流式处理的，数据实时传递给计算单元再实时地传给数据存储单元。Storm一般需要使用Zookeeper来管理其进程。Storm可以读写文件到HDFS,但是不能在Hadoop集群上运行。当应用程序<strong>需要不到一秒的延迟</strong>而又<strong>不会丢失数据</strong>时，Storm是一个不错的选择。</li>
-<li>三者都是基于JVM实现的。</li>
 </ul>
-
+<p>
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -662,7 +667,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-27 17:58:08 / Modified: 18:01:01" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:08+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:58:08 / Modified: 18:13:14" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:08+08:00">2022-02-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -702,96 +707,9 @@
 <li>辅助栈记录了到目前为止的栈中元素的最小值，因此栈顶元素一定是min()的正确返回值。</li>
 </ul></li>
 </ul>
-<h5 id="双栈实现队列">双栈实现队列</h5>
-<ul>
-<li>要求实现队列的头部删除以及尾部插入，O(1)。</li>
-<li>思路：
-<ul>
-<li>一个栈只进行删除，一个栈只进行插入。</li>
-<li>插入栈不必理会删除栈的情况。</li>
-<li>删除栈在非空的情况下不必理会插入栈的情况，如果为空，则需要插入栈中的元素倾倒进来。
-<ul>
-<li>为什么？：保持输入元素的<strong>先后次序</strong>。插入栈中的元素一定是比删除栈后输入的，如果在删除栈非空的情况下也倒入，那么，进行头部删除的结果就是错误的了。</li>
-</ul></li>
-</ul></li>
-</ul>
-<h5 id="数组中的重复数字">数组中的重复数字</h5>
-<ul>
-<li>用 hashmap， c++ -&gt; unordered_map&lt;..,..&gt;使查找时间O(1)</li>
-</ul>
-<h5 id="二维数组递增-旋转转为二叉搜索树">二维数组递增-&gt;旋转转为二叉搜索树</h5>
-<ul>
-<li><figure>
-<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202231700060.png" alt="image-20220223170056962" /><figcaption aria-hidden="true">image-20220223170056962</figcaption>
-</figure></li>
-<li><p>由此一来就可以类似于二叉搜索树，根据大小关系单向遍历。</p></li>
-</ul>
-<h5 id="方向打印链表">方向打印链表</h5>
-<ul>
-<li>用一个栈中转即可。</li>
-</ul>
-<h5 id="二叉树前序中序遍历构建树">二叉树前序中序遍历构建树</h5>
-<ul>
-<li><p>首先在前序遍历序列中确定根节点，再在中序遍历序列中找到根节点的序号，划分其左子树以及右子树。</p></li>
-<li><p>再通过左子树以及右子树返回到前序遍历序列中去寻找根节点。</p></li>
-<li><p>分治思想! 对于划分后的左右子树，仍然可以通过调用该过程进行左右子树的划分。</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202232249708.png" alt="image-20220223224937641" style="zoom:50%;" /></p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202232254040.png" alt="image-20220223225415976" style="zoom: 50%;" /></p></li>
-</ul>
-<h5 id="旋转数组的最小数问题">旋转数组的最小数问题</h5>
-<ul>
-<li>对于一个已经排序的数组的查找问题,应该首先考虑使用 <strong>二分法</strong> 解决，其可将 <strong>遍历法</strong> 的 <strong>线性级别</strong> 时间复杂度降低至 <strong>对数级别</strong> 。</li>
-<li>对于该问题，我们考虑的是比较二分点跟尾部点的大小关系，假设数组在index为i-&gt;j之间有值，那么二分点=(i+j)/2:
-<ul>
-<li>如果array[(i+j)/2] &gt; array[j],那么array[(i+j)/2]一定在左排序块当中,旋转点就在[mid+1,j]之间，此时应该执行i = mid + 1；</li>
-<li>如果array[(i+j)/2] &lt; array[j],那么array[(i+j)/2]一定在右排序块当中,旋转点就在[i,(i+j)/2]之间，此时应该执行j = mid；；</li>
-<li>如果array[(i+j)/2] = array[j],此时应该执行j -= 1；</li>
-</ul></li>
-</ul>
-<h5 id="矩阵中的路径问题">矩阵中的路径问题</h5>
-<ul>
-<li><p>是典型的矩阵搜索问题，考虑用<strong>深度搜索</strong>加<strong>剪枝处理</strong>。</p></li>
-<li><p><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（<em>例如：此矩阵元素和目标字符不同、此元素已被访问）</em>，则应立即返回，称之为 <code>可行性剪枝</code> 。</p></li>
-<li><p>``` class Solution { public: bool exist(vector&lt;vector<char>&gt;&amp; board, string word) { for (int i = 0 ; i &lt; board.size(); ++ i) { for (int j = 0 ; j &lt; board[0].size() ; ++ j) { if(dfs(board, word, i, j, 0)) return true; } } return false; }</p>
-<p>private: bool dfs(vector&lt;vector<char>&gt;&amp; board, string word, int i,int j, int word_index){ if (i &gt;= board.size() || j &gt;= board[0].size() ) return false; if (word[word_index] != board[i][j]) return false; if (word_index == word.size() - 1) return true; board[i][j] = '\0'; // 不让再返回到已经检查过的节点了 bool ret = dfs(board, word, i + 1, j, word_index + 1) || dfs(board, word, i - 1, j, word_index + 1) || dfs(board, word, i , j - 1, word_index + 1) || dfs(board, word, i , j + 1, word_index + 1); // 往四个方向搜索 board[i][j] = word[word_index]; return ret; } }; <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 机器人可移动路径</span><br><span class="line"></span><br><span class="line">+ 是一个搜索加回溯的题目。</span><br><span class="line"></span><br><span class="line">    + 思路与上一题是一样的，利用矩阵dfs然后进行可达性分析并剪枝即可。</span><br><span class="line">    + 注意的一点就是循环有时候用递归会方便而且显然。</span><br><span class="line"></span><br><span class="line">+ 可达解分析：</span><br><span class="line">    根据数位和增量公式得知，数位和每逢 进位 突变一次。根据此特点，矩阵中 满足数位和的解 构成的几何形状形如多个 等腰直角三角形 ，每个三角形的直角顶点位于 0, 10, 20, ...0,10,20,... 等数位和突变的矩阵索引处 。</span><br><span class="line"></span><br><span class="line">    三角形内的解虽然都满足数位和要求，但由于机器人每步只能走一个单元格，而三角形间不一定是连通的，因此机器人不一定能到达，称之为 不可达解 ；同理，可到达的解称为 可达解 （本题求此解） </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">##### 剪绳子</span><br><span class="line"></span><br><span class="line">+ 将一根绳子剪成几段，使绳子长度乘积最大。</span><br><span class="line"></span><br><span class="line">+ 一个想法是通过算术几何均值不等式,使绳子剪成相等长度的若干段。</span><br><span class="line"></span><br><span class="line">    + 基于这种想法，我们可以通过数学证明最优的绳子长度为3。</span><br><span class="line">        + $L(m)=(\frac&#123;n&#125;&#123;m&#125;)^m$ </span><br><span class="line">        + 求导，$m (\frac&#123;n&#125;&#123;m&#125;)^&#123;m-1&#125; (-n) \frac&#123;1&#125;&#123;m^2&#125; = 0$ </span><br><span class="line">            + 取对数, $\ln m + (m-1) (\ln n - \ln m) + \ln(-n) -2 \ln m = 0$ </span><br><span class="line"></span><br><span class="line">+ 另一个想法是最优的绳子长度为3.</span><br><span class="line"></span><br><span class="line">    + 尽可能将绳子以长度 3 等分为多段时，乘积最大</span><br><span class="line">    + 即将x = 3a + b，并对b进行分类讨论。</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    int cuttingRope(int n) &#123;</span><br><span class="line">            int b = n % 3;</span><br><span class="line">            int a = n / 3;</span><br><span class="line">            if (n &lt;= 3) &#123;</span><br><span class="line">                return n - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            if (b == 0) &#123;</span><br><span class="line">                return pow(3,a);</span><br><span class="line">            &#125; else if (b == 1) &#123;</span><br><span class="line">                return (pow(3,a-1)) * 4;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return 2 * pow(3,a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p></li>
-</ul>
-<h5 id="剪绳子2">剪绳子2</h5>
-<ul>
-<li><p>在剪绳子的基础上，要把结果对1e9+7进行取模。</p></li>
-<li><p>就是一个大数取模的问题:</p>
-<ul>
-<li>当 <em>a</em> 增大时，最后返回的 3^a 大小以指数级别增长，可能超出 <code>int32</code> 甚至 <code>int64</code> 的取值范围，导致返回值错误</li>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202242242915.png" title="fig:" alt="image-20220224224245848" /></li>
-</ul></li>
-<li><figure>
-<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202242252908.png" alt="image-20220224225241864" /><figcaption aria-hidden="true">image-20220224225241864</figcaption>
-</figure></li>
-<li><figure>
-<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202271800513.png" alt="image-20220224225258269" /><figcaption aria-hidden="true">image-20220224225258269</figcaption>
-</figure></li>
-<li><p>大数不能当参数</p></li>
-</ul>
-<h5 id="斐波那契数列">斐波那契数列</h5>
-<ul>
-<li>可以考虑动态规划把递推式子演绎出来。</li>
-<li>一般不是明写x^a,就用循环求余</li>
-</ul>
-<h5 id="青蛙跳台阶">青蛙跳台阶</h5>
-<ul>
-<li>求多少种可能性的问题一般都有递推性质.</li>
-<li>青蛙跳台阶问题与斐波那契数列等价。</li>
-</ul>
-<h5 id="汉明重量二进制中1的个数">汉明重量(二进制中1的个数)</h5>
-<ul>
-<li>逐位判断是否为1 / 利用 n &amp; (n-1) 消去最后的1，判断是否为0</li>
-</ul>
-<h5 id="树的子结构">树的子结构</h5>
-<ul>
-<li>先序遍历找根节点，判断以该节点为根的子树术后结构与值完全相同。</li>
-<li>树的问题很容易可以递归到左子树、右子树进行相同的操作，递归到子树为NULL时需要留意判定。</li>
-<li>对于两个输入A、B是否为空的判断可以直接用A and B进行处理。</li>
-</ul>
-
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 

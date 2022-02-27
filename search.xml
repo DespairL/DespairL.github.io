@@ -5745,7 +5745,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <ul>
 <li>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。
 <ul>
-<li>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.
+<li><p>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.</p>
 <ul>
 <li>HDFS是由NameNode(主节点)、DataNode(副节点)以及Client(客户机)组成的。
 <ul>
@@ -5757,6 +5757,9 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li>用户向Client客户机提出请求，然后由Client客户机将数据进行分块，然后将分块的方案传回给NameNode,NameNode查询各个块的地址传给DataNode并按照距离远近进行排序，然后DataNode对数据进行写入或者读取操作，完成后传信号给NameNode，由其进行善后保存。</li>
 <li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode</li>
 </ul></li>
+</ul>
+<p><span id="more"></span></p>
+<ul>
 <li></li>
 </ul></li>
 </ul></li>
@@ -5795,6 +5798,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li>降低“通信风暴”的影响，提高网络访问的稳定性</li>
 </ul></li>
 </ul>
+<span id="more"></span>
 ]]></content>
       <categories>
         <category>Learn ICS and OS</category>
@@ -5824,6 +5828,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li>辅助栈记录了到目前为止的栈中元素的最小值，因此栈顶元素一定是min()的正确返回值。</li>
 </ul></li>
 </ul>
+<span id="more"></span>
 <h5 id="双栈实现队列">双栈实现队列</h5>
 <ul>
 <li>要求实现队列的头部删除以及尾部插入，O(1)。</li>
@@ -5925,7 +5930,8 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
   <entry>
     <title>My To Do List</title>
     <url>/2022/02/27/to-do-list/</url>
-    <content><![CDATA[<h2 id="review">Review</h2>
+    <content><![CDATA[<span id="more"></span>
+<h2 id="review">Review</h2>
 <h5 id="transformer">Transformer</h5>
 <h5 id="attention">Attention</h5>
 <h5 id="cnnrnn">CNN/RNN</h5>
@@ -5938,6 +5944,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li>Sharp</li>
 <li>C/C++/Python</li>
 <li>Go</li>
+<li>Unity</li>
 </ul>
 <h5 id="play">Play</h5>
 <ul>
@@ -5981,6 +5988,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 </ul></li>
 </ul></li>
 </ul>
+<span id="more"></span>
 ]]></content>
       <categories>
         <category>Learn Distributed architecture</category>
@@ -6017,6 +6025,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li>另一种是基于分解的的学习方法。</li>
 </ul></li>
 </ul>
+<span id="more"></span>
 ]]></content>
       <categories>
         <category>Learn Recommand System</category>
