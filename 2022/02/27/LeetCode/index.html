@@ -35,8 +35,10 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202242242915.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202242252908.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202271800513.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203011848322.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203011924469.png">
 <meta property="article:published_time" content="2022-02-27T09:58:08.451Z">
-<meta property="article:modified_time" content="2022-02-27T10:13:14.790Z">
+<meta property="article:modified_time" content="2022-03-01T13:40:39.899Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="Note">
 <meta property="article:tag" content="ForWork">
@@ -227,10 +229,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-27 17:58:08 / Modified: 18:13:14" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:08+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:58:08" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:08+08:00">2022-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-01 21:40:39" itemprop="dateModified" datetime="2022-03-01T21:40:39+08:00">2022-03-01</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -355,9 +363,51 @@
 </ul>
 <h5 id="树的子结构">树的子结构</h5>
 <ul>
-<li>先序遍历找根节点，判断以该节点为根的子树术后结构与值完全相同。</li>
-<li>树的问题很容易可以递归到左子树、右子树进行相同的操作，递归到子树为NULL时需要留意判定。</li>
-<li>对于两个输入A、B是否为空的判断可以直接用A and B进行处理。</li>
+<li><p>递归</p></li>
+<li><p>先序遍历找根节点，判断以该节点为根的子树术后结构与值完全相同。</p></li>
+<li><p>树的问题很容易可以递归到左子树、右子树进行相同的操作，递归到子树为NULL时需要留意判定。</p></li>
+<li><p>对于两个输入A、B是否为空的判断可以直接用A and B进行处理。</p></li>
+<li><p>思路:</p>
+<ul>
+<li>把对A的子结构判定问题转为判定左子树中有无与B相同的子结构、右子树中有无与B相同的子结构、原树是否与B相同。</li>
+<li>而判断两棵树是否相同，我们又可以用递归，将问题转为，当前值相不相等，左子树相不相等，右子树相不相等。</li>
+</ul></li>
+</ul>
+<h5 id="合并两个排序的链表">合并两个排序的链表</h5>
+<ul>
+<li><p>递归</p></li>
+<li><p>递归的核心想法我认为就是把自己正在实现的这一个函数看成是一个功能的封装。</p>
+<ul>
+<li>在函数实现的过程中，直接调用自己，将其视为可以完成已定的任务。</li>
+</ul></li>
+<li><figure>
+<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203011848322.png" alt="image-20220301184810237" /><figcaption aria-hidden="true">image-20220301184810237</figcaption>
+</figure></li>
+<li><p>某链表为空之后，返回另一个，其他并没有难点。</p></li>
+</ul>
+<h5 id="翻转二叉树">翻转二叉树</h5>
+<ul>
+<li>看树易知又是一道递归的料。</li>
+<li>判断终结条件，左子树，右子树即可。</li>
+</ul>
+<h5 id="对称的二叉树">对称的二叉树</h5>
+<ul>
+<li><p>我一看，又是递归二叉树，只是这一次比较相等的是root-&gt;left,root-&gt;right还有left-&gt;left,right-&gt;right</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203011924469.png" alt="image-20220301192412414" style="zoom:80%;" /></p></li>
+</ul>
+<h5 id="顺时针打印矩阵">顺时针打印矩阵</h5>
+<ul>
+<li>每次都打印第一行，然后删除第一行。再将剩下的矩阵进行逆时针旋转90度即可。</li>
+<li>这样就构成了一个可递归或者循环的算法。</li>
+</ul>
+<h5 id="栈的压入弹出序列">栈的压入、弹出序列</h5>
+<ul>
+<li>题意为判断弹出序列是不是压入序列的一种pop方案。</li>
+<li>我们只需要利用一个辅助栈，循环判断栈顶元素与pop序列的元素是否相等即可，相等就pop并增进pop序列，反之，push。</li>
+</ul>
+<h5 id="从上到下打印二叉树-ii">从上到下打印二叉树 II</h5>
+<ul>
+<li>大概就是二叉树的层序遍历，思路是用双端队列实现BFS。</li>
 </ul>
 
     </div>
@@ -444,7 +494,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">最小栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8C%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">双栈实现队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数组中的重复数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E9%80%92%E5%A2%9E-%E6%97%8B%E8%BD%AC%E8%BD%AC%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">4.</span> <span class="nav-text">二维数组递增-&gt;旋转转为二叉搜索树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">方向打印链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E5%BB%BA%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">二叉树前序中序遍历构建树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">旋转数组的最小数问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">矩阵中的路径问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%AA%E7%BB%B3%E5%AD%902"><span class="nav-number">9.</span> <span class="nav-text">剪绳子2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97"><span class="nav-number">10.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6"><span class="nav-number">11.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8F%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">12.</span> <span class="nav-text">汉明重量(二进制中1的个数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84"><span class="nav-number">13.</span> <span class="nav-text">树的子结构</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">最小栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8C%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">双栈实现队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数组中的重复数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E9%80%92%E5%A2%9E-%E6%97%8B%E8%BD%AC%E8%BD%AC%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">4.</span> <span class="nav-text">二维数组递增-&gt;旋转转为二叉搜索树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">方向打印链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E5%BB%BA%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">二叉树前序中序遍历构建树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">旋转数组的最小数问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">矩阵中的路径问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%AA%E7%BB%B3%E5%AD%902"><span class="nav-number">9.</span> <span class="nav-text">剪绳子2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97"><span class="nav-number">10.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6"><span class="nav-number">11.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8F%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">12.</span> <span class="nav-text">汉明重量(二进制中1的个数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84"><span class="nav-number">13.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8"><span class="nav-number">14.</span> <span class="nav-text">合并两个排序的链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">15.</span> <span class="nav-text">翻转二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">16.</span> <span class="nav-text">对称的二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5"><span class="nav-number">17.</span> <span class="nav-text">顺时针打印矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97"><span class="nav-number">18.</span> <span class="nav-text">栈的压入、弹出序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91-ii"><span class="nav-number">19.</span> <span class="nav-text">从上到下打印二叉树 II</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
