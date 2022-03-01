@@ -5741,10 +5741,9 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
   <entry>
     <title>Hadoop Spark and Storm</title>
     <url>/2022/02/27/HadoopSharpStorm/</url>
-    <content><![CDATA[<h5 id="stormsparkhadoop区别对比">Storm、Spark、Hadoop区别对比</h5>
+    <content><![CDATA[<h4 id="关于hadoop">关于Hadoop</h4>
 <ul>
-<li>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。
-<ul>
+<li><p>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。</p></li>
 <li><p>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.</p>
 <ul>
 <li>HDFS是由NameNode(主节点)、DataNode(副节点)以及Client(客户机)组成的。
@@ -5755,18 +5754,190 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li>HDFS的读写流程:
 <ul>
 <li>用户向Client客户机提出请求，然后由Client客户机将数据进行分块，然后将分块的方案传回给NameNode,NameNode查询各个块的地址传给DataNode并按照距离远近进行排序，然后DataNode对数据进行写入或者读取操作，完成后传信号给NameNode，由其进行善后保存。</li>
-<li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode</li>
+<li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode(Client从最近的几个DataNode中下载数据)</li>
 </ul></li>
 </ul>
 <p><span id="more"></span></p>
 <ul>
-<li></li>
+<li><p>MapReduce(面向磁盘)原理:</p>
+<ul>
+<li>主要分为Map以及Reduce两个步骤:
+<ul>
+<li>接收到计算任务的时候，会先对计算任务进行拆分，分配到不同的DataNode当中执行，生成中间文件。</li>
+<li>中间文件作为Reduce的输入，Reduce将多个Map的输出汇总到一起进行输出。</li>
+<li>Map到Reduce之间的步骤称为Shuffling.Shuffling将相同的输入数据进行复制合并，再分别一起传给Reduce专门的一个处理模块.
+<ul>
+<li>具体来说，是利用了key-value键值对中key的哈希值，对Reducetask个数进行取余，按照余数去放置data</li>
 </ul></li>
 </ul></li>
-<li>Spark是数据并行的计算框架，在不同的短时间间隔内进行连续的批处理。但是spark没有自己的分布式存储系统。因此，Hadoop与Spark有一种互补的意味。Spark主要是利用内存进行存储。</li>
-<li>Hadoop与Spark都是批处理的，而Storm是流式处理的，数据实时传递给计算单元再实时地传给数据存储单元。Storm一般需要使用Zookeeper来管理其进程。Storm可以读写文件到HDFS,但是不能在Hadoop集群上运行。当应用程序<strong>需要不到一秒的延迟</strong>而又<strong>不会丢失数据</strong>时，Storm是一个不错的选择。</li>
+</ul></li>
+<li><p>而为了实现任务调度以及管理,会需要一个主Node JobTracker以及几个TaskTracker，TaskTracker必须运行在DataNode上，负责执行任务。</p></li>
+<li><p>Hadoop搭建流程:</p>
+<ul>
+<li>关闭防火墙-&gt;关闭SELINUX-&gt;修改主机名-&gt;ssh无密码拷贝-&gt;设置主机名与ip对应-&gt;jdk1.8-&gt;下载Hadoop .jar包-&gt;配置核心文件-&gt;格式化NameNode-&gt;启动</li>
+</ul></li>
+<li><p>Hadoop是一个能够<strong>对大量数据进行分布式处理</strong>的软件框架。以一种<strong>可靠、高效、可伸缩</strong>的方式进行数据处理,在广义上<strong>指一个生态圈</strong>，泛指<strong>大数据技术相关的开源组件或产品</strong>。</p></li>
+<li><p>Hadoop版本：</p>
+<ul>
+<li>Apache社区版：开源免费，非商业，有兼容性问题</li>
+<li>Cloudera:开源免费，商业and非商业，解决兼容性</li>
+<li>Hortonworks版本:开源免费，商业and非商业,二次开发，功能更强</li>
+</ul></li>
+<li><p>Hadoop 1.0 由分布式存储系统HDFS和分布式计算框架MapReduce组成,容易导致单点故障，拓展性差，性能低，支持编程模型单一。</p></li>
+<li><p>Hadoop 2.0 引入了Yarn、HDFS快照、append操作，解决了NameNode单点故障问题,支持了Windows操作系统</p></li>
+<li><p>Hadoop3.0 是直接基于 JDK1.8 发布的一个新版本,引入了HDFS可擦除编码、多NameNode、MR Native Task优化、Yarn的内存隔离</p></li>
+<li><p>Hadoop常见端口号:</p>
+<ul>
+<li><strong>dfs.namenode.http-address:50070</strong> <strong>dfs.datanode.http-address:50075</strong> <strong>SecondaryNameNode：50090</strong> dfs.datanode.address:50010 fs.defaultFS:8020 或者9000 yarn.resourcemanager.webapp.address:8088 历史服务器web访问端口：19888</li>
+</ul></li>
+<li><p>Hadoop压缩方式:</p>
+<ul>
+<li>Snappy,速度较快但不能切分。</li>
+</ul></li>
+<li><p>Hadoop数据倾斜(也就是大量数据汇集到一个ReduceTaskBlock当中):</p>
+<ul>
+<li>对于一般情况，我们可以对key先加上1-n的随机前缀，进行map-reduce局部聚合,再去掉随机前缀进行全局聚合。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="关于spark">关于Spark</h4>
+<ul>
+<li><p>Spark是数据并行的计算框架，在不同的短时间间隔内进行连续的批处理。但是spark没有自己的分布式存储系统。因此，Hadoop与Spark有一种互补的意味。Spark主要是<strong>利用内存</strong>(<strong>面向内存</strong>)进行存储。</p></li>
+<li><p>Spark利用RDD组成DAG，并把RDD的中间运算结果存放在内存当中，延迟小。</p>
+<ul>
+<li>RDD是弹性分布式数据集,代表一个不可变、可分区、可并行计算 的元素集合。</li>
+</ul></li>
+<li><p>并且Spark中的TASK以<strong>线程</strong>的方式进行维护，启动更快(<strong>Hadoop</strong>是以<strong>进程</strong>的方式)。</p></li>
+<li><p>Spark针对的就是Hadoop计算缓慢的实时计算、迭代计算、交互式数据查询</p></li>
+<li><p>特点:</p>
+<ul>
+<li>快</li>
+<li>易用且通用</li>
+<li>兼容性更好,可以处理hadoop计算的数据</li>
+</ul></li>
+<li><p>Narrow Dependencies :</p>
+<ul>
+<li>父RDD的一个分区只会被子RDD的一个分区依赖</li>
+</ul></li>
+<li><p>Wide Dependencies :</p>
+<ul>
+<li>父RDD的一个分区会被子RDD的多个分区依赖</li>
+</ul></li>
+<li><p>Stage的划分:</p>
+<ul>
+<li>根据RDD之间依赖关系的不同将Job划分为不同的Stage,遇到一个Wide Dependencies 就把它划分为一个Stage。</li>
+<li>Stage是一个TaskSet，根据分区数划分成一个个的Task。</li>
+</ul></li>
+<li><p>常用的算子:</p>
+<ul>
+<li>transformation:
+<ul>
+<li>map,filter,flatMap,...</li>
+</ul></li>
+<li>action:
+<ul>
+<li>reduce,first,take...</li>
+</ul></li>
+<li>会引起Shuffle过程的Spark算子:
+<ul>
+<li>reduceByKey(shuffle之前combine,推荐使用),GroupByKey(直接shuffle),...</li>
+</ul></li>
+</ul></li>
+<li><p>调优:</p>
+<ul>
+<li><p>num-executors,executor-memory,executor-cores,driver-memory</p></li>
+<li><p>避免创建重复的RDD,尽可能复用同一个RDD;尽量避免使用shuffle类算子;</p></li>
+<li><p>使用高性能的算子,example:</p>
+<p>①使用reduceByKey/aggregateByKey替代groupByKey</p>
+<p>②使用mapPartitions替代普通map</p></li>
+</ul></li>
+<li><p>作业提交流程:</p>
+<ul>
+<li><p>YarnClient<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202281130098.png" alt="img" /></p></li>
+<li><p>在YARN Client模式下，Driver在任务提交的本地机器上运行，Driver启动后会和ResourceManager通讯申请启动ApplicationMaster，随后ResourceManager分配container，在合适的NodeManager上启动ApplicationMaster，此时的ApplicationMaster的功能相当于一个ExecutorLaucher，只负责向ResourceManager申请Executor内存。</p>
+<p>​ ResourceManager接到ApplicationMaster的资源申请后会分配container，然后ApplicationMaster在资源分配指定的NodeManager上启动Executor进程，Executor进程启动后会向Driver反向注册，Executor全部注册完成后Driver开始执行main函数，之后执行到Action/transformation<a href="https://so.csdn.net/so/search?q=算子&amp;spm=1001.2101.3001.7020">算子</a>时，触发一个job，并根据宽依赖开始划分stage，每个stage生成对应的taskSet，之后将task分发到各个Executor上执行。</p></li>
+<li><p>YarnCluster</p>
+<figure>
+<img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202282143604.png" alt="img" /><figcaption aria-hidden="true">img</figcaption>
+</figure></li>
+<li><p>YarnCluster与YarnClient主要区别在于Driver一个放在了AM中进行，而另一个放在本地运行。</p></li>
+</ul></li>
+<li><p>Repartition和Coalesce :</p>
+<ul>
+<li>两者都是用来改变RDD的partition数量的，repartition底层调用的就是coalesce方法,repartition<strong>一定会发生shuffle</strong>,coalesce方法<strong>不一定</strong>。</li>
+<li>一般情况下<strong>增大rdd</strong>的partition数量使用<strong>repartition</strong>，<strong>减少partition</strong>数量时使用<strong>coalesce</strong>。</li>
+</ul></li>
+<li><p>Spark中的cache,persist(这两者都是<strong>内存机制</strong>),checkpoint:</p>
+<ul>
+<li>Persist 和 Cache将数据保存在<strong>内存</strong>，Checkpoint将<strong>数据保存在HDFS</strong></li>
+<li>Persist 和 Cache 程序结束后<strong>会被清除或手动调用unpersist方法</strong>,Checkpoint永久存储<strong>不会被删除</strong>。</li>
+<li>Persist 和 Cache,<strong>不会丢掉</strong>RDD间的<strong>依赖链/依赖关系</strong>，<strong>CheckPoint会斩断</strong>依赖链。</li>
+</ul></li>
+<li><p>Spark中共享变量的作用:</p>
+<ul>
+<li>累加器:原理与MapReduce类似，先进行分布式的改变，然后进行聚合。</li>
+<li>广播变量:在每个机器上缓存一份，<strong>不可变，只读的，相同</strong>的变量，<strong>该节点每个任务都能访问</strong>，起到<strong>节省资源和优化</strong>的作用。</li>
+</ul></li>
+<li><p>Spark减少数据库连接数:</p>
+<ul>
+<li>使用foreachPartition代替foreach，在foreachPartition内获取数据库的连接。</li>
+</ul></li>
+</ul>
+<h4 id="关于storm">关于Storm</h4>
+<ul>
+<li><p>storm 不处理静态数据,但它<strong>处理连续的流数据</strong>,特别适合实时数据,而Hadoop主要是离线计算。storm数据也保存在内存当中，且数据通过网络传播，编程方面与Hadoop类似。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202282202276.png" alt="image-20220228220250227" style="zoom:67%;" /></p></li>
+<li><p>Storm的整体结构与Hadoop是类似的,相关调度信息都保存在Zookeeper集群当中。</p>
+<p>如下图所示:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202282205672.png" alt="image-20220228220520536" style="zoom:50%;" /></p></li>
+<li><p>各个结点的工作:</p>
+<ul>
+<li>Nimbus:<strong>分发用户代码</strong>，指派给具体的Supervisor节点上的<strong>Worker节点</strong>，去<strong>运行Topology对应的组件</strong>（Spout/Bolt）的Task</li>
+<li>Supervisor:负责管理运行<strong>在Supervisor节点上</strong>的<strong>每一个Worker进程的启动和终止</strong>。通过端口号进行识别。</li>
+<li>ZooKeeper是<strong>用来协调Nimbus以及Supervisor</strong>,如果Supervisor因故障出现问题而无法运行Topology，Nimbus会第一时间感知到，并重新分配Topology到其它可用的Supervisor上运行。storm<strong>所有的元数据信息</strong>保存在Zookeeper中</li>
+<li>Topology：Storm中运行的一个实时应用程序的名称。<strong>将 Spout、 Bolt整合起来的拓扑图</strong>。定义了 Spout和 Bolt的结合关系、并发数量、配置等等。</li>
+<li>Worker只有两个任务:Spout或者是Bolt</li>
+<li>Worker中每一个spout/bolt的<strong>线程</strong>称为一个Task,executor是1个<strong>被worker进程启动的单独线程</strong>。<strong>每个executor只会运行1个topology的1个component(spout或bolt)的task</strong>（注：<strong>task可以是1个或多个</strong>，storm默认是1个component只生成1个task)。 Worker-&gt;executor-&gt;task。
+<ul>
+<li>通过调整worker、executor、task的数量也可以提高并发度。</li>
+</ul></li>
+</ul></li>
+<li><p>运行机制:</p>
+<ul>
+<li><p>数据源从Spout开始，始终以tuple的形式传递给不同的Bolt,如下图:</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202202282215393.png" alt="image-20220228221551311" style="zoom:80%;" /></p></li>
+<li><p>Spout:在一个topology中获取源数据流的组件。通常情况下spout会从外部数据源中读取数据，然后转换为topology内部的源数据。</p></li>
+<li><p>Bolt：接受数据然后<strong>执行处理的组件</strong>,换句话说，就是做相关运算的组件。</p></li>
+<li><p>Stream:表示<strong>数据传递的走向</strong>。</p></li>
+</ul></li>
+<li><p>在Hadoop中，MapReduce任务<strong>最终会执行完成后结束</strong>；而<strong>在Storm中</strong>，<strong>Topology任务一旦提交后永远不会结束</strong>，除非你<strong>显式地去停止</strong>任务。</p></li>
+<li><p>Storm Streaming Grouping的种类:</p>
+<ul>
+<li><strong>Shuffle Grouping :随机分组</strong>，尽量均匀地分配给Bolt</li>
+<li><strong>Field Grouping:按字段分组</strong>，按数据中field值进行分组；相同field值的Tuple被发送到相同的Task这种grouping机制保证相同field值的tuple会去同一个task，这对于<strong>WordCount</strong>来说非常关键，如果<strong>同一个单词不去同一个task，那么统计出来的单词次数就不对了</strong>。</li>
+<li><strong>All grouping</strong> ：广播，意思是<strong>每一个tuple数据对应于一个bolt</strong></li>
+<li><strong>Global grouping</strong>:Tuple被分配到一个Bolt中的一个Task,Stream中的所有的tuple都会<strong>发送给同一个bolt任务处理</strong></li>
+<li><strong>None grouping ：</strong>不分组，主要 用于不需要关注并行处理或者负载均衡的情况下。</li>
+</ul></li>
+<li><p>Spout的可靠性:</p>
+<ul>
+<li>Spout可以记录它发送的tuple,在发生故障时，可以保证发送相同的tuple。</li>
+<li>这同时也隐含了Bolt的可靠性，也就是每一个Bolt都要在处理消息之后<strong>进行应答或者报错</strong>。</li>
+<li>因此只有当每一个Bolt的回复都确认完毕的时候，spout才算是计算完了一条流</li>
+</ul></li>
+</ul>
+<h5 id="stormsparkhadoop区别对比">Storm、Spark、Hadoop区别对比</h5>
+<ul>
+<li>Hadoop与Spark都是<strong>micro-batch</strong>处理的，数据注定是一批一批传递的。</li>
+<li>不过Spark可以进行交互式计算、流计算、迭代计算.</li>
+<li>而Storm是"<strong>native-stream</strong>"流式处理的，数据实时传递给计算单元再实时地传给数据存储单元。</li>
+<li>Storm可以读写文件到HDFS,但是不能在Hadoop集群上运行。</li>
+<li>当应用程序<strong>需要不到一秒的延迟</strong>而又<strong>不会丢失数据</strong>时，Storm是一个不错的选择。</li>
+<li>Hadoop是一个集成性的平台(本地磁盘存储+离线计算)，而Spark只是一个分布式计算工具(内存+专门计算)，主要用于实时计算,Storm底层采用ZeroMQ，速度最快,主要是流式计算。</li>
 <li>三者都是基于JVM实现的。</li>
 </ul>
+<h6 id="reference">Reference:</h6>
+<p>[1]:<a href="https://jishuin.proginn.com/p/763bfbd2f819">Hadoop高频面试题(建议收藏)-技术圈 (proginn.com)</a></p>
 ]]></content>
       <categories>
         <category>Learn Hadoop Spark</category>
@@ -5930,7 +6101,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
   <entry>
     <title>分布式架构</title>
     <url>/2022/02/27/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/</url>
-    <content><![CDATA[<h5 id="分布式架构">分布式架构</h5>
+    <content><![CDATA[<h3 id="分布式架构">分布式架构</h3>
 <ul>
 <li>基本内容:
 <ul>
@@ -5942,9 +6113,9 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 </ul></li>
 <li><strong>CAP理论</strong>: 一个系统不可能同时满足一致性、可用性、分区容错性这三个性质，最多同时满足两个。
 <ul>
-<li><strong>一致性</strong>指的是一个系统在更新之后，系统的数据仍然处于一致的状态，亦即所有的用户都可以读取到最新的值。</li>
-<li><strong>可用性</strong>指的是用户的每一个操作请求都可以在有限的时间内返回结果</li>
-<li><strong>分区容错性</strong>指的是分布式系统遇到任何网络分区故障的时候，仍然需要能够保证对外提供满足一致性的可用性的服务</li>
+<li><strong>一致性</strong>指的是一个系统在<strong>更新</strong>之后，系统的<strong>数据仍然处于一致</strong>的状态，亦即所有的用户都可以读取到最新的值。</li>
+<li><strong>可用性</strong>指的是用户的<strong>每一个操作请求都可以在有限的时间内</strong>返回结果</li>
+<li><strong>分区容错性</strong>指的是分布式系统<strong>遇到任何网络分区故障</strong>的时候，仍然需要能够<strong>保证对外提供满足一致性的可用性的服务</strong></li>
 </ul></li>
 <li><strong>BASE理论</strong>:BASE是指既然无法做到强一致性，那么我们可以让每个应用根据自身情况达成最终一致性。
 <ul>
@@ -5957,6 +6128,9 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 </ul></li>
 </ul>
 <span id="more"></span>
+<h5 id="复制模型">复制模型</h5>
+<h6 id="同步">同步</h6>
+<h6 id="异步">异步</h6>
 ]]></content>
       <categories>
         <category>Learn Distributed architecture</category>
@@ -5997,6 +6171,19 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 ]]></content>
       <categories>
         <category>Learn Recommand System</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>ForWork</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis</title>
+    <url>/2022/02/28/Redis/</url>
+    <content><![CDATA[<h4 id="redis">Redis</h4>
+]]></content>
+      <categories>
+        <category>Redis</category>
       </categories>
       <tags>
         <tag>Note</tag>

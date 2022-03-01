@@ -191,6 +191,74 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/28/Redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/28/Redis/" class="post-title-link" itemprop="url">Redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-28 22:48:07 / Modified: 22:48:35" itemprop="dateCreated datePublished" datetime="2022-02-28T22:48:07+08:00">2022-02-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="redis">Redis</h4>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/27/ICSOS%E8%A1%A5%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -395,10 +463,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-27 17:59:00 / Modified: 18:14:11" itemprop="dateCreated datePublished" datetime="2022-02-27T17:59:00+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:59:00" itemprop="dateCreated datePublished" datetime="2022-02-27T17:59:00+08:00">2022-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-28 23:54:58" itemprop="dateModified" datetime="2022-02-28T23:54:58+08:00">2022-02-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -420,7 +494,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="分布式架构">分布式架构</h5>
+          <h3 id="分布式架构">分布式架构</h3>
 <ul>
 <li>基本内容:
 <ul>
@@ -432,9 +506,9 @@
 </ul></li>
 <li><strong>CAP理论</strong>: 一个系统不可能同时满足一致性、可用性、分区容错性这三个性质，最多同时满足两个。
 <ul>
-<li><strong>一致性</strong>指的是一个系统在更新之后，系统的数据仍然处于一致的状态，亦即所有的用户都可以读取到最新的值。</li>
-<li><strong>可用性</strong>指的是用户的每一个操作请求都可以在有限的时间内返回结果</li>
-<li><strong>分区容错性</strong>指的是分布式系统遇到任何网络分区故障的时候，仍然需要能够保证对外提供满足一致性的可用性的服务</li>
+<li><strong>一致性</strong>指的是一个系统在<strong>更新</strong>之后，系统的<strong>数据仍然处于一致</strong>的状态，亦即所有的用户都可以读取到最新的值。</li>
+<li><strong>可用性</strong>指的是用户的<strong>每一个操作请求都可以在有限的时间内</strong>返回结果</li>
+<li><strong>分区容错性</strong>指的是分布式系统<strong>遇到任何网络分区故障</strong>的时候，仍然需要能够<strong>保证对外提供满足一致性的可用性的服务</strong></li>
 </ul></li>
 <li><strong>BASE理论</strong>:BASE是指既然无法做到强一致性，那么我们可以让每个应用根据自身情况达成最终一致性。
 <ul>
@@ -490,10 +564,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-27 17:58:23 / Modified: 18:14:40" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 17:58:23" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-28 22:47:50" itemprop="dateModified" datetime="2022-02-28T22:47:50+08:00">2022-02-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -515,10 +595,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="stormsparkhadoop区别对比">Storm、Spark、Hadoop区别对比</h5>
+          <h4 id="关于hadoop">关于Hadoop</h4>
 <ul>
-<li>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。
-<ul>
+<li><p>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。</p></li>
 <li><p>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.</p>
 <ul>
 <li>HDFS是由NameNode(主节点)、DataNode(副节点)以及Client(客户机)组成的。
@@ -529,7 +608,7 @@
 <li>HDFS的读写流程:
 <ul>
 <li>用户向Client客户机提出请求，然后由Client客户机将数据进行分块，然后将分块的方案传回给NameNode,NameNode查询各个块的地址传给DataNode并按照距离远近进行排序，然后DataNode对数据进行写入或者读取操作，完成后传信号给NameNode，由其进行善后保存。</li>
-<li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode</li>
+<li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode(Client从最近的几个DataNode中下载数据)</li>
 </ul></li>
 </ul>
 <p>
@@ -950,86 +1029,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/" class="post-title-link" itemprop="url">数字信号处理Review</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-24 15:01:55" itemprop="dateCreated datePublished" datetime="2021-12-24T15:01:55+08:00">2021-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-28 13:22:25" itemprop="dateModified" datetime="2021-12-28T13:22:25+08:00">2021-12-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DSP-Note/" itemprop="url" rel="index"><span itemprop="name">DSP Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="chap.0">Chap.0</h3>
-<h4 id="信号基本概念">信号基本概念</h4>
-<ul>
-<li><p>信号的分类</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241504910.png" alt="image-20211224150458847" style="zoom:67%;" /></p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1101,14 +1100,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
