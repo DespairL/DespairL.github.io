@@ -6050,8 +6050,39 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <ul>
 <li><p>是典型的矩阵搜索问题，考虑用<strong>深度搜索</strong>加<strong>剪枝处理</strong>。</p></li>
 <li><p><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（<em>例如：此矩阵元素和目标字符不同、此元素已被访问）</em>，则应立即返回，称之为 <code>可行性剪枝</code> 。</p></li>
-<li><p>``` class Solution { public: bool exist(vector&lt;vector<char>&gt;&amp; board, string word) { for (int i = 0 ; i &lt; board.size(); ++ i) { for (int j = 0 ; j &lt; board[0].size() ; ++ j) { if(dfs(board, word, i, j, 0)) return true; } } return false; }</p>
-<p>private: bool dfs(vector&lt;vector<char>&gt;&amp; board, string word, int i,int j, int word_index){ if (i &gt;= board.size() || j &gt;= board[0].size() ) return false; if (word[word_index] != board[i][j]) return false; if (word_index == word.size() - 1) return true; board[i][j] = '\0'; // 不让再返回到已经检查过的节点了 bool ret = dfs(board, word, i + 1, j, word_index + 1) || dfs(board, word, i - 1, j, word_index + 1) || dfs(board, word, i , j - 1, word_index + 1) || dfs(board, word, i , j + 1, word_index + 1); // 往四个方向搜索 board[i][j] = word[word_index]; return ret; } }; <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">##### 机器人可移动路径</span><br><span class="line"></span><br><span class="line">+ 是一个搜索加回溯的题目。</span><br><span class="line"></span><br><span class="line">    + 思路与上一题是一样的，利用矩阵dfs然后进行可达性分析并剪枝即可。</span><br><span class="line">    + 注意的一点就是循环有时候用递归会方便而且显然。</span><br><span class="line"></span><br><span class="line">+ 可达解分析：</span><br><span class="line">    根据数位和增量公式得知，数位和每逢 进位 突变一次。根据此特点，矩阵中 满足数位和的解 构成的几何形状形如多个 等腰直角三角形 ，每个三角形的直角顶点位于 0, 10, 20, ...0,10,20,... 等数位和突变的矩阵索引处 。</span><br><span class="line"></span><br><span class="line">    三角形内的解虽然都满足数位和要求，但由于机器人每步只能走一个单元格，而三角形间不一定是连通的，因此机器人不一定能到达，称之为 不可达解 ；同理，可到达的解称为 可达解 （本题求此解） </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">##### 剪绳子</span><br><span class="line"></span><br><span class="line">+ 将一根绳子剪成几段，使绳子长度乘积最大。</span><br><span class="line"></span><br><span class="line">+ 一个想法是通过算术几何均值不等式,使绳子剪成相等长度的若干段。</span><br><span class="line"></span><br><span class="line">    + 基于这种想法，我们可以通过数学证明最优的绳子长度为3。</span><br><span class="line">        + $L(m)=(\frac&#123;n&#125;&#123;m&#125;)^m$ </span><br><span class="line">        + 求导，$m (\frac&#123;n&#125;&#123;m&#125;)^&#123;m-1&#125; (-n) \frac&#123;1&#125;&#123;m^2&#125; = 0$ </span><br><span class="line">            + 取对数, $\ln m + (m-1) (\ln n - \ln m) + \ln(-n) -2 \ln m = 0$ </span><br><span class="line"></span><br><span class="line">+ 另一个想法是最优的绳子长度为3.</span><br><span class="line"></span><br><span class="line">    + 尽可能将绳子以长度 3 等分为多段时，乘积最大</span><br><span class="line">    + 即将x = 3a + b，并对b进行分类讨论。</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    int cuttingRope(int n) &#123;</span><br><span class="line">            int b = n % 3;</span><br><span class="line">            int a = n / 3;</span><br><span class="line">            if (n &lt;= 3) &#123;</span><br><span class="line">                return n - 1;</span><br><span class="line">            &#125;</span><br><span class="line">            if (b == 0) &#123;</span><br><span class="line">                return pow(3,a);</span><br><span class="line">            &#125; else if (b == 1) &#123;</span><br><span class="line">                return (pow(3,a-1)) * 4;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return 2 * pow(3,a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>class Solution { public: bool exist(vector&lt;vector<char>&gt;&amp; board, string word) { for (int i = 0 ; i &lt; board.size(); ++ i) { for (int j = 0 ; j &lt; board[0].size() ; ++ j) { if(dfs(board, word, i, j, 0)) return true; } } return false; }</p>
+<p>private: bool dfs(vector&lt;vector<char>&gt;&amp; board, string word, int i,int j, int word_index){ if (i &gt;= board.size() || j &gt;= board[0].size() ) return false; if (word[word_index] != board[i][j]) return false; if (word_index == word.size() - 1) return true; board[i][j] = '\0'; // 不让再返回到已经检查过的节点了 bool ret = dfs(board, word, i + 1, j, word_index + 1) || dfs(board, word, i - 1, j, word_index + 1) || dfs(board, word, i , j - 1, word_index + 1) || dfs(board, word, i , j + 1, word_index + 1); // 往四个方向搜索 board[i][j] = word[word_index]; return ret; } };</p></li>
+</ul>
+<h5 id="机器人可移动路径">机器人可移动路径</h5>
+<ul>
+<li><p>是一个搜索加回溯的题目。</p>
+<ul>
+<li>思路与上一题是一样的，利用矩阵dfs然后进行可达性分析并剪枝即可。</li>
+<li>注意的一点就是循环有时候用递归会方便而且显然。</li>
+</ul></li>
+<li><p>可达解分析： 根据数位和增量公式得知，数位和每逢 进位 突变一次。根据此特点，矩阵中 满足数位和的解 构成的几何形状形如多个 等腰直角三角形 ，每个三角形的直角顶点位于 0, 10, 20, ...0,10,20,... 等数位和突变的矩阵索引处 。</p>
+<p>三角形内的解虽然都满足数位和要求，但由于机器人每步只能走一个单元格，而三角形间不一定是连通的，因此机器人不一定能到达，称之为 不可达解 ；同理，可到达的解称为 可达解 （本题求此解）</p></li>
+</ul>
+<h5 id="剪绳子">剪绳子</h5>
+<ul>
+<li><p>将一根绳子剪成几段，使绳子长度乘积最大。</p></li>
+<li><p>一个想法是通过算术几何均值不等式,使绳子剪成相等长度的若干段。</p>
+<ul>
+<li>基于这种想法，我们可以通过数学证明最优的绳子长度为3。
+<ul>
+<li><span class="math inline">\(L(m)=(\frac{n}{m})^m\)</span></li>
+<li>求导，<span class="math inline">\(m (\frac{n}{m})^{m-1} (-n) \frac{1}{m^2} = 0\)</span>
+<ul>
+<li>取对数, <span class="math inline">\(\ln m + (m-1) (\ln n - \ln m) + \ln(-n) -2 \ln m = 0\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>另一个想法是最优的绳子长度为3.</p>
+<ul>
+<li>尽可能将绳子以长度 3 等分为多段时，乘积最大</li>
+<li>即将x = 3a + b，并对b进行分类讨论。</li>
+</ul></li>
+<li><p>int cuttingRope(int n) { int b = n % 3; int a = n / 3; if (n &lt;= 3) { return n - 1; } if (b == 0) { return pow(3,a); } else if (b == 1) { return (pow(3,a-1)) * 4; } else { return 2 * pow(3,a); } }</p></li>
 </ul>
 <h5 id="剪绳子2">剪绳子2</h5>
 <ul>
