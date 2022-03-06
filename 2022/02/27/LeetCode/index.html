@@ -47,8 +47,18 @@
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203032024166.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203032049682.png">
 <meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203032124893.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203042100522.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203042102872.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203042132848.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051043188.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051307943.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051406386.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051543044.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203061420614.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203061955310.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203062108558.png">
 <meta property="article:published_time" content="2022-02-27T09:58:08.451Z">
-<meta property="article:modified_time" content="2022-03-03T13:57:08.409Z">
+<meta property="article:modified_time" content="2022-03-06T13:32:40.485Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="ForWork">
 <meta property="article:tag" content="Note">
@@ -247,7 +257,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 21:57:08" itemprop="dateModified" datetime="2022-03-03T21:57:08+08:00">2022-03-03</time>
+                <time title="Modified: 2022-03-06 21:32:40" itemprop="dateModified" datetime="2022-03-06T21:32:40+08:00">2022-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -339,7 +349,7 @@
 <li><p>是典型的矩阵搜索问题，考虑用<strong>深度搜索</strong>加<strong>剪枝处理</strong>。</p></li>
 <li><p><strong>剪枝：</strong> 在搜索中，遇到 <code>这条路不可能和目标字符串匹配成功</code> 的情况（<em>例如：此矩阵元素和目标字符不同、此元素已被访问）</em>，则应立即返回，称之为 <code>可行性剪枝</code> 。</p></li>
 <li><p>class Solution { public: bool exist(vector&lt;vector<char>&gt;&amp; board, string word) { for (int i = 0 ; i &lt; board.size(); ++ i) { for (int j = 0 ; j &lt; board[0].size() ; ++ j) { if(dfs(board, word, i, j, 0)) return true; } } return false; }</p>
-<p>private: bool dfs(vector&lt;vector<char>&gt;&amp; board, string word, int i,int j, int word_index){ if (i &gt;= board.size() || j &gt;= board[0].size() ) return false; if (word[word_index] != board[i][j]) return false; if (word_index == word.size() - 1) return true; board[i][j] = '\0'; // 不让再返回到已经检查过的节点了 bool ret = dfs(board, word, i + 1, j, word_index + 1) || dfs(board, word, i - 1, j, word_index + 1) || dfs(board, word, i , j - 1, word_index + 1) || dfs(board, word, i , j + 1, word_index + 1); // 往四个方向搜索 board[i][j] = word[word_index]; return ret; } };</p></li>
+<p>private: bool dfs(vector&lt;vector<char>&gt;&amp; board, string word, int i,int j, int word_index){ if (i &gt;= board.size() || j &gt;= board[0].size() ) return false; if (word[word_index] != board[i][j]) return false; if (word_index == word.size() - 1) return true; board[i][j] = '\0'; // <strong>不让再返回到已经检查过的节点了</strong> bool ret = dfs(board, word, i + 1, j, word_index + 1) || dfs(board, word, i - 1, j, word_index + 1) || dfs(board, word, i , j - 1, word_index + 1) || dfs(board, word, i , j + 1, word_index + 1); // 往四个方向搜索 board[i][j] = word[word_index]; return ret; } };</p></li>
 </ul>
 <h5 id="机器人可移动路径">机器人可移动路径</h5>
 <ul>
@@ -577,6 +587,108 @@
 </ul></li>
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203032124893.png" alt="image-20220303212434824" style="zoom:80%;" /></li>
 </ul>
+<h5 id="密码截取"><strong>密码截取</strong></h5>
+<ul>
+<li>比较简单，唯一需要注意的就是尽量用c++写</li>
+<li>题目意思大概就是求最大对称子串</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203042100522.png" title="fig:" alt="image-20220304210001452" /></li>
+</ul>
+<h5 id="整数与ip地址的转换">整数与IP地址的转换</h5>
+<ul>
+<li>就是把ip地址按照高低位转为二进制再转为整数</li>
+<li>唯一需要注意的是python二进制数表示要<strong>加前缀 0B</strong></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203042102872.png" title="fig:" alt="image-20220304210213811" /></li>
+</ul>
+<h5 id="字符串加密">字符串加密</h5>
+<ul>
+<li><p>需要件重复字母去掉之后，将剩下的字母按照顺序成为新字母表的前面几个字母，再补充没有的26字母。</p></li>
+<li><p>这里尤其需要注意的就是，<span class="math inline">\(\color{red}{Mark}\)</span>,<strong>python set会打乱顺序，对于该题是不适用的</strong>。</p>
+<ul>
+<li><p>如果要连续读入，要用</p>
+<p>while true:</p>
+<p>​ try :</p>
+<p>​ except:</p>
+<p>​ break</p></li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203042132848.png" alt="image-20220304213245791" style="zoom:67%;" /></p></li>
+</ul>
+<h5 id="第五次反弹落地">第五次反弹、落地</h5>
+<ul>
+<li><p>题目会要求落地反弹后可反弹距离减半</p></li>
+<li><p>只需要注意第五次反弹、落地并不是真的第五次除以2即可</p></li>
+</ul>
+<h5 id="称砝码">称砝码</h5>
+<ul>
+<li>这题需要计算所有砝码所能组合出的可称重量</li>
+<li>idea的关键在于:
+<ul>
+<li>将不同数量、不同重量的砝码全部加入一个序列[x1,x2,x2,x4,...]当中</li>
+<li>init 一个set (0)</li>
+<li>遍历到序列的x1, set-&gt; (0,x1)</li>
+<li>遍历到序列的x2, set-&gt; (0,x2,x1+x2)</li>
+<li>...</li>
+</ul></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051043188.png" title="fig:" alt="image-20220305104351122" /></li>
+</ul>
+<h5 id="迷宫问题">迷宫问题</h5>
+<ul>
+<li>找一条从矩阵左上角到右下角的路径，0表示通路，1表示堵塞。</li>
+<li>关键点在于要<strong>保存已经经过的路径</strong>，然后向四个方向前进即可。</li>
+<li>是典型的矩阵深度搜索的问题。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051307943.png" alt="image-20220305130739880" style="zoom:80%;" /></li>
+</ul>
+<h5 id="名字的漂亮度">名字的漂亮度</h5>
+<ul>
+<li><p>给出一个名字，该名字有26个字符组成，定义这个字符串的“漂亮度”是其所有字母“漂亮度”的总和。每个字母都有一个“漂亮度”，范围在1到26之间。没有任何两个不同字母拥有相同的“漂亮度”。字母忽略大小写。给出多个名字，计算每个名字最大可能的“漂亮度”。</p></li>
+<li><p>比较简单，主要是对一个字符串统计字母出现次数，乘以权重，得到结果</p></li>
+<li><p>主要的几个点在于:</p>
+<ul>
+<li>zip-&gt;list / dict</li>
+<li>dict排序</li>
+</ul></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051406386.png" alt="image-20220305140647324" style="zoom:67%;" /></p></li>
+</ul>
+<h5 id="四则运算">四则运算</h5>
+<ul>
+<li>用Python的eval可以对string表达式轻松求解</li>
+</ul>
+<h5 id="链表删除">链表删除</h5>
+<ul>
+<li>人生苦短，我用python</li>
+</ul>
+<h5 id="levenshtein距离">Levenshtein距离</h5>
+<ul>
+<li>动态规划求编辑距离</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203051543044.png" alt="image-20220305154357977" style="zoom:67%;" /></li>
+</ul>
+<h5 id="点">24点</h5>
+<ul>
+<li>输入四个数，判断能否计算得到24</li>
+<li>一个合理的想法是利用递归的想法:
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203061420614.png" title="fig:" alt="image-20220306142057555" /></li>
+</ul></li>
+</ul>
+<h5 id="火车进站">火车进站</h5>
+<ul>
+<li>按照一定的所给的次序进站的火车，先进站的必须等待后进站的出站才能出，也可以在下一辆火车来之前出站。</li>
+<li>我们需要输出可能的出站序列。</li>
+<li>一个比较好的想法是用栈进行递归:
+<ul>
+<li>设置一个等待队列wait，和目前的火车队列stack。</li>
+<li>如果按照一个既定的序列，能使所有wait中的火车都进站了,即len(wait) == 0，并且进站的火车都出站了,即len(stack) == 0，那么就是一个可行的序列。</li>
+</ul></li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203061955310.png" alt="image-20220306195537250" style="zoom:80%;" /></li>
+</ul>
+<h5 id="梅花桩问题">梅花桩问题</h5>
+<ul>
+<li>在不规则递增的数字序列中，找出最长上升子序列 的长度</li>
+<li>合理的想法是利用动态规划:
+<ul>
+<li>其中 <code>nums[j] &lt; nums[i]</code>，即扫描 <code>i</code> 前面的桩，如果有比 <code>i</code> 小的话就使用状态转移方程 <code>dp[i] = max(dp[i], dp[j] + 1)</code>，方程的意思是————如果前面某个桩（桩<code>j</code>）比 桩<code>i</code> 小，那么从那个桩踩上 桩<code>i</code> 的话自然就多了一步，我们拿这个踩完之后的步数 <code>dp[j] + 1</code> 跟当前存储的最大步数 <code>dp[i]</code> 比较一下，选个大的放进去。</li>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203062108558.png" title="fig:" alt="image-20220306210848511" /></li>
+</ul></li>
+</ul>
 
     </div>
 
@@ -662,7 +774,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">最小栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8C%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">双栈实现队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数组中的重复数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E9%80%92%E5%A2%9E-%E6%97%8B%E8%BD%AC%E8%BD%AC%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">4.</span> <span class="nav-text">二维数组递增-&gt;旋转转为二叉搜索树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">方向打印链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E5%BB%BA%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">二叉树前序中序遍历构建树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">旋转数组的最小数问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">矩阵中的路径问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%8F%AF%E7%A7%BB%E5%8A%A8%E8%B7%AF%E5%BE%84"><span class="nav-number">9.</span> <span class="nav-text">机器人可移动路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%AA%E7%BB%B3%E5%AD%90"><span class="nav-number">10.</span> <span class="nav-text">剪绳子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%AA%E7%BB%B3%E5%AD%902"><span class="nav-number">11.</span> <span class="nav-text">剪绳子2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97"><span class="nav-number">12.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6"><span class="nav-number">13.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8F%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">14.</span> <span class="nav-text">汉明重量(二进制中1的个数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84"><span class="nav-number">15.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8"><span class="nav-number">16.</span> <span class="nav-text">合并两个排序的链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">17.</span> <span class="nav-text">翻转二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">18.</span> <span class="nav-text">对称的二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5"><span class="nav-number">19.</span> <span class="nav-text">顺时针打印矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97"><span class="nav-number">20.</span> <span class="nav-text">栈的压入、弹出序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91-ii"><span class="nav-number">21.</span> <span class="nav-text">从上到下打印二叉树 II</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E4%B8%8D%E6%98%AF%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E5%BA%8F%E5%88%97"><span class="nav-number">22.</span> <span class="nav-text">判断是不是二叉搜索序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%BE%E5%87%BA%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E4%B8%AA%E6%95%B0%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">23.</span> <span class="nav-text">找出二叉树中和为某一个数的路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">24.</span> <span class="nav-text">复杂链表的复制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="nav-number">25.</span> <span class="nav-text">二叉搜索树与双向链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">26.</span> <span class="nav-text">序列化二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%AD%E7%89%A9%E5%8D%95-hw"><span class="nav-number">27.</span> <span class="nav-text">购物单-hw</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E7%A7%BB%E5%8A%A8-hw"><span class="nav-number">28.</span> <span class="nav-text">坐标移动-hw</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E9%AA%8C%E8%AF%81"><span class="nav-number">29.</span> <span class="nav-text">密码验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%94%B1%E9%98%9F"><span class="nav-number">30.</span> <span class="nav-text">合唱队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F"><span class="nav-number">31.</span> <span class="nav-text">字符串排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%85%84%E5%BC%9F%E5%8D%95%E8%AF%8D"><span class="nav-number">32.</span> <span class="nav-text">寻找兄弟单词</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">最小栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8C%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">双栈实现队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数组中的重复数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E9%80%92%E5%A2%9E-%E6%97%8B%E8%BD%AC%E8%BD%AC%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">4.</span> <span class="nav-text">二维数组递增-&gt;旋转转为二叉搜索树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"><span class="nav-number">5.</span> <span class="nav-text">方向打印链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E5%BB%BA%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">二叉树前序中序遍历构建树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E9%97%AE%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">旋转数组的最小数问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">矩阵中的路径问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%8F%AF%E7%A7%BB%E5%8A%A8%E8%B7%AF%E5%BE%84"><span class="nav-number">9.</span> <span class="nav-text">机器人可移动路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%AA%E7%BB%B3%E5%AD%90"><span class="nav-number">10.</span> <span class="nav-text">剪绳子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%AA%E7%BB%B3%E5%AD%902"><span class="nav-number">11.</span> <span class="nav-text">剪绳子2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97"><span class="nav-number">12.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6"><span class="nav-number">13.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%89%E6%98%8E%E9%87%8D%E9%87%8F%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">14.</span> <span class="nav-text">汉明重量(二进制中1的个数)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84"><span class="nav-number">15.</span> <span class="nav-text">树的子结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8"><span class="nav-number">16.</span> <span class="nav-text">合并两个排序的链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">17.</span> <span class="nav-text">翻转二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">18.</span> <span class="nav-text">对称的二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5"><span class="nav-number">19.</span> <span class="nav-text">顺时针打印矩阵</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97"><span class="nav-number">20.</span> <span class="nav-text">栈的压入、弹出序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91-ii"><span class="nav-number">21.</span> <span class="nav-text">从上到下打印二叉树 II</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E4%B8%8D%E6%98%AF%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E5%BA%8F%E5%88%97"><span class="nav-number">22.</span> <span class="nav-text">判断是不是二叉搜索序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%BE%E5%87%BA%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E4%B8%AA%E6%95%B0%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">23.</span> <span class="nav-text">找出二叉树中和为某一个数的路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">24.</span> <span class="nav-text">复杂链表的复制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="nav-number">25.</span> <span class="nav-text">二叉搜索树与双向链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">26.</span> <span class="nav-text">序列化二叉树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%AD%E7%89%A9%E5%8D%95-hw"><span class="nav-number">27.</span> <span class="nav-text">购物单-hw</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E7%A7%BB%E5%8A%A8-hw"><span class="nav-number">28.</span> <span class="nav-text">坐标移动-hw</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E9%AA%8C%E8%AF%81"><span class="nav-number">29.</span> <span class="nav-text">密码验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%94%B1%E9%98%9F"><span class="nav-number">30.</span> <span class="nav-text">合唱队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F"><span class="nav-number">31.</span> <span class="nav-text">字符串排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%85%84%E5%BC%9F%E5%8D%95%E8%AF%8D"><span class="nav-number">32.</span> <span class="nav-text">寻找兄弟单词</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E6%88%AA%E5%8F%96"><span class="nav-number">33.</span> <span class="nav-text">密码截取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E4%B8%8Eip%E5%9C%B0%E5%9D%80%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">34.</span> <span class="nav-text">整数与IP地址的转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8A%A0%E5%AF%86"><span class="nav-number">35.</span> <span class="nav-text">字符串加密</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AC%A1%E5%8F%8D%E5%BC%B9%E8%90%BD%E5%9C%B0"><span class="nav-number">36.</span> <span class="nav-text">第五次反弹、落地</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A7%B0%E7%A0%9D%E7%A0%81"><span class="nav-number">37.</span> <span class="nav-text">称砝码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98"><span class="nav-number">38.</span> <span class="nav-text">迷宫问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8D%E5%AD%97%E7%9A%84%E6%BC%82%E4%BA%AE%E5%BA%A6"><span class="nav-number">39.</span> <span class="nav-text">名字的漂亮度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97"><span class="nav-number">40.</span> <span class="nav-text">四则运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4"><span class="nav-number">41.</span> <span class="nav-text">链表删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#levenshtein%E8%B7%9D%E7%A6%BB"><span class="nav-number">42.</span> <span class="nav-text">Levenshtein距离</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%82%B9"><span class="nav-number">43.</span> <span class="nav-text">24点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%81%AB%E8%BD%A6%E8%BF%9B%E7%AB%99"><span class="nav-number">44.</span> <span class="nav-text">火车进站</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A2%85%E8%8A%B1%E6%A1%A9%E9%97%AE%E9%A2%98"><span class="nav-number">45.</span> <span class="nav-text">梅花桩问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
