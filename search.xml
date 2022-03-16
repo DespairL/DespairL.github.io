@@ -798,6 +798,50 @@
 <li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203062108558.png" title="fig:" alt="image-20220306210848511" /></li>
 </ul></li>
 </ul>
+<h5 id="字符串的排列">字符串的排列</h5>
+<ul>
+<li><p>题目要求产生一个长度为3的字符串的排列，那么，我们的想法是借助递归:</p>
+<ul>
+<li><p>首先，我们固定住第一位x[0],并将其加入到一个set()当中。</p></li>
+<li><p>然后，固定第二位x[1],这里需要比对x[1]是否在set()当中，来避免产生有重复字母的排列。</p>
+<ul>
+<li>容易看出，这一步可以与第一步用同一个函数进行实现，那么，递归的大体流程就确定了。</li>
+</ul></li>
+<li><p>在固定二位之后，第三位显而易见。</p></li>
+<li><p>那么问题就是通过什么方式固定了。</p>
+<ul>
+<li><p>大佬的想法: 通过交换固定，在[x,len(c)]的区间内，每次交换要么c[x]与c[x]自身交换，要么c[x]与c[x+i]交换，这两种恰好产生了不同的排列。而在每次推进一次递归dfs(x+1)之后，我们都再一次交换c[x],c[i]，这也就使得在每一次将元素加入集合的时候，都是原来的输入s</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203072012566.png" alt="image-20220307201202476" style="zoom:67%;" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="数字序列中的某一位">数字序列中的某一位</h5>
+<ul>
+<li>题目:
+<ul>
+<li>以0123456789101112131415…的格式序列化到一个字符序列中。在这个序列中，第5位（从下标0开始计数）是5，第13位是1，第19位是4，等等。请写一个函数，求任意第n位对应的数字。</li>
+</ul></li>
+<li><a href="https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/">面试题44. 数字序列中某一位的数字（迭代 + 求整 / 求余，清晰图解） - 数字序列中某一位的数字 - 力扣（LeetCode） (leetcode-cn.com)</a></li>
+<li>K神yyds!</li>
+</ul>
+<h5 id="把数组排成最小的数">把数组排成最小的数</h5>
+<ul>
+<li>题目:
+<ul>
+<li>输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。</li>
+</ul></li>
+<li>这里需要注意到一个<strong>自定义排序</strong>的策略
+<ul>
+<li>我们可以自己确定一种序，如果两个数字x,y,x + y &gt; y + x,那么，我们可以判定一种序 y &lt; x。</li>
+</ul></li>
+<li>在这里再插入快排的想法:
+<ul>
+<li>对于一个待排序序列x[0]-&gt;x[n],随意找出一个partition点x[i]</li>
+<li>将i(0)-&gt;j(n)之间比x[i]大的都移到x[i]的右部，比x[i]小的都移到x[i]的左部</li>
+<li>在具体的实现过程中，我们往往定x[i]为partition的点，并在最后才将x[i]归位。</li>
+<li></li>
+</ul></li>
+</ul>
 ]]></content>
       <categories>
         <category>Problem Sets Of Algorithm</category>
@@ -1203,7 +1247,7 @@
 </ul></li>
 <li><p>但是Tanh函数以及Sigmoid函数<strong>都存在一个问题</strong>在于，当网络层数较多的时候，Tanh函数以及Sigmoid函数都会造成<strong>梯度消失</strong>，针对这一个问题，又设计了ReLu。<span class="math inline">\(\color{red}{(Key)}\)</span></p>
 <ul>
-<li>为什么会梯度消失呢？ 梯度绝对值都小于1，使得最后的梯度会越来越趋向于0.</li>
+<li>为什么会梯度消失呢？ <strong>梯度绝对值都小于1，使得最后的梯度会越来越趋向于0.</strong></li>
 </ul></li>
 <li><p>ReLu函数<strong>只保留正数，并将负数清零，来缓解梯度消失</strong>问题。并且ReLu函数的<strong>收敛速度很快</strong>。<span class="math inline">\(\color{red}{(Key)}\)</span> <span class="math display">\[
   f(x) = \max(0,x)
@@ -1245,15 +1289,20 @@
   + 利用𝑾 和𝑩 算出输出𝑶，考虑它与真实值𝒀 的误差|𝑶−𝒀|&lt;𝜖 是否成立
   + 在𝑾 和𝑩 上加上一个很小的(−𝜉, +𝜉) 范围内的随机数，再重新判断</code></pre>
 <ul>
-<li><p>特点<span class="math inline">\(\color{red}{(Key)}\)</span> : + <strong>效率低</strong>，<strong>思想简单，容易实现</strong>，<strong>能找到全局最优</strong>。</p></li>
-<li><p><strong>Hebb学习</strong>：</p>
-<ul>
-<li><p>其想法是当<strong>神经元i与神经元j同时处于兴奋状态</strong>时，两者之间的<strong>连接强度应增强</strong>。</p></li>
-<li><p>其更新权值的方式为 <span class="math display">\[
-  w_{new} = w_{old} + \eta o x
-  \]</span> <span class="math inline">\(\eta\)</span>为学习率，<span class="math inline">\(o\)</span>是输出,<span class="math inline">\(x\)</span>为输入</p>
-<p>该过程ppt有一个计算<span class="math inline">\(\color{red}{(Key)}\)</span></p></li>
+<li>特点<span class="math inline">\(\color{red}{(Key)}\)</span> :</li>
 </ul></li>
+<li><p><strong>效率低</strong>，<strong>思想简单，容易实现</strong>，<strong>能找到全局最优</strong>。</p></li>
+<li><p><strong>Hebb学习</strong>：</p>
+<pre><code>  + 其想法是当**神经元i与神经元j同时处于兴奋状态**时，两者之间的**连接强度应增强**。
+
+  + 其更新权值的方式为
+      $$
+      w_&#123;new&#125; = w_&#123;old&#125; + \eta o x
+  $$
+  $\eta$为学习率，$o$是输出,$x$为输入
+
+  该过程ppt有一个计算$\color&#123;red&#125;&#123;(Key)&#125;$</code></pre>
+<ul>
 <li><p><strong>基于误差的学习</strong>:</p>
 <ul>
 <li><p>其计算期望输出与实际输出之间的误差 <span class="math display">\[
@@ -1269,7 +1318,7 @@
 <ul>
 <li><p>可以将一个机器学习问题概括如下:</p>
 <p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201012046076.png" alt="image-20220101204615037" style="zoom:67%;" /></p></li>
-<li><p>其中，h为假设函数，如果输出值y为连续的，那么这个问题就是回归问题；如果y是有限离散的值，那么该问题是分类问题。</p></li>
+<li><p>其中，h为假设函数，如果<strong>输出值y为连续</strong>的，那么这个问题就是回归问题；如果<strong>y是有限离散</strong>的值，那么该问题是分类问题。</p></li>
 <li><p><strong>线性回归</strong>：目标是要<strong>得到一条尽可能表示数据分布的线性函数</strong>。对应了<strong>单输入单输出</strong>神经元。</p>
 <ul>
 <li><p>当我们采用MSE来思想这一点的时候,可以借助<strong>最小二乘法</strong>来最小化MSE:<span class="math inline">\(\color{red}{(Key)}\)</span></p>
@@ -1392,15 +1441,9 @@
   \]</span></p>
 <p>在这里<span class="math inline">\(d\)</span>是真实样本标签。 <span class="math display">\[
   \frac{\partial ℇ (𝒘)}{\partial w} = -\mathbf{x} e (𝒘)
-  \]</span></p>
-<p>将以上代入steepest descent rule,即代入 <span class="math display">\[
-  Δ𝒘 (𝑛) = 𝒘 (𝑛 + 1) − 𝒘 (𝑛) = −𝜂𝒈(𝑛)
-  \]</span></p></li>
-</ul>
-<p><span class="math display">\[
-      𝒘 (𝑛 + 1) =  𝒘 (𝑛)+𝜂\mathbf{x} e_n (𝒘)
-  \]</span> <span class="math inline">\(\color{red}{(Pay\ attention)}\)</span>：上述权重更新只针对一个样本<span class="math inline">\((x_i,d_i)\)</span></p>
-<ul>
+  \]</span> <span class="math display">\[
+  将以上代入steepest descent rule,即代入
+  \]</span> Δ𝒘 (𝑛) = 𝒘 (𝑛 + 1) − 𝒘 (𝑛) = −𝜂𝒈(𝑛) 𝒘 (𝑛 + 1) = 𝒘 (𝑛)+𝜂 e_n (𝒘) $$ <span class="math inline">\(\color{red}{(Pay\ attention)}\)</span>：上述权重更新只针对一个样本<span class="math inline">\((x_i,d_i)\)</span></p></li>
 <li><p>LMS优点：</p></li>
 <li><p>简单易部署，不依赖于模型</p></li>
 </ul></li>
@@ -1411,7 +1454,7 @@
 <li><p>对输入的相关矩阵（correlation matrix）的<strong>条件数</strong>（最大和最小的特征值之间的比值）<strong>敏感</strong></p></li>
 <li><p>LMS的可收敛范围定义如下，𝜼是学习率，𝝀&lt;=&gt;是最大的特征值: <span class="math display">\[
       0&lt;\eta&lt;\frac{2}{\lambda_{max}}
-      \]</span></p></li>
+  \]</span></p></li>
 </ul></li>
 <li><p><strong>将其加入感知机</strong>之后，感知机的学习过程为:</p>
 <p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201021341987.png" alt="image-20220102134119895" style="zoom:67%;" /></p></li>
@@ -2663,10 +2706,10 @@
 <ul>
 <li>通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。</li>
 </ul></li>
-<li>协同过滤:
+<li><strong>协同过滤:</strong>
 <ul>
 <li>基于整个用户群的过去交互,因此会比之前的算法都要精确得多。</li>
-<li>最常见的就是基于k阶近邻的接收到测试样本:
+<li>最常见的就是基于k阶近邻的接收到测试样本(<strong>一般都是用ANN找近似最近邻</strong>):
 <ul>
 <li>找出当前用户最近的k个邻居，利用这k+1个构成一个聚类，然后进行排序并推荐。</li>
 <li>也可以产生两种变体:基于商品或者是基于用户的推荐方案。</li>
@@ -2677,6 +2720,31 @@
 </ul></li>
 </ul>
 <span id="more"></span>
+<h6 id="推荐系统的流程">推荐系统的流程</h6>
+<ul>
+<li>传统的推荐系统大致分为两个阶段，<strong>召回与排序</strong>。
+<ul>
+<li><strong>召回层</strong>:
+<ul>
+<li>主要需求就是<strong>快</strong>，因为这一阶段模型处理的<strong>数据量非常大</strong>，要尽可能<strong>减少模型的复杂度</strong>。</li>
+<li>根据用户部分特征，<strong>从海量的物品库里，快速找回一小部分用户潜在感兴趣的物品</strong>，然后交给排序环节</li>
+</ul></li>
+<li><strong>排序层</strong>:
+<ul>
+<li>在排序层中的<strong>数据量没有那么大</strong>，但是要求模型要比较<strong>准</strong>，因此<strong>模型可以较为复杂</strong></li>
+<li>精准地做个性化推荐</li>
+</ul></li>
+</ul></li>
+<li>实用一点的推荐系统大概分为四个阶段,<strong>召回、粗排、精排和重排</strong>
+<ul>
+<li><strong>粗排</strong>:每个用户召回环节返回的物品数量还是太多，怕排序环节速度跟不上,对召回的结果进行一个粗略的排序</li>
+</ul></li>
+<li><strong>召回层</strong>:
+<ul>
+<li>偏向策略型导向,<strong>一个新的策略导向</strong>就可以增加一个召回层的维度。</li>
+<li></li>
+</ul></li>
+</ul>
 ]]></content>
       <categories>
         <category>Learn Recommand System</category>
@@ -6478,5 +6546,902 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <p>同志们、朋友们！</p>
 <p>回望70年前伟大的抗美援朝战争，进行具有许多新的历史特点的伟大斗争，瞻望中华民族伟大复兴的光明前景，我们无比坚定、无比自信。让我们更加紧密地团结在党中央周围，弘扬伟大抗美援朝精神，雄赳赳、气昂昂，向着全面建设社会主义现代化国家新征程，向着实现中华民族伟大复兴的中国梦，继续奋勇前进！</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>chap.1/2 ML基础概念 review</title>
+    <url>/2022/03/07/ML-review/</url>
+    <content><![CDATA[<h3 id="chap1">Chap1</h3>
+<ul>
+<li>机器学习主要研究的就是从计算机的<strong>数据</strong>当中<strong>产生模型的算法</strong>,亦即<strong>学习算法</strong>。这是一个<strong>归纳</strong>的过程，不同于<strong>基于基本事实推导出结论的演绎</strong>过程。也可以将该学习过程看成是一个<strong>在假设空间中进行搜索</strong>与<strong>训练集fit</strong>的假设的过程,换句话说，对于<strong>每一个特征</strong>，学习过程都是<strong>假设一个值</strong>，组合特征维度形成一个<strong>特征向量</strong>/<strong>评判标准</strong>，看<strong>是否与训练集fit</strong>。</li>
+<li>对于不同的学习任务，我们一般将预测对象按照值是否离散，区分<strong>分类(离散值)</strong>、<strong>回归(连续值)</strong>,它们同属于监督学习。</li>
+<li>无监督、半监督、监督学习、测试、聚类(无监督)概念不赘述。</li>
+<li>归纳偏好(Inductive Bias):指的是<strong>机器学习的算法或者模型</strong>在学习过程中<strong>对于某种类型假设的偏好</strong>。<strong>如果一个机器学习算法没有归纳偏好，那它就没法告诉我们什么是确定有效的</strong>。如果是随机产生，那么，每次训练预测得到的结果都不一样，这显然不是我们想看到的。</li>
+<li><strong>Occam剃刀</strong>:如果有多个假设的结果一致，就选最简单的那一个</li>
+<li><strong>天下没有免费的午餐(NFL)</strong>:所有学习算法的期望都是一样的。</li>
+</ul>
+<h3 id="chap2">Chap2</h3>
+<ul>
+<li><strong>过拟合</strong>:模型的复杂程度超过了数据的复杂程度
+<ul>
+<li>想要解决比解决欠拟合要复杂地多。</li>
+</ul></li>
+<li><strong>欠拟合</strong>:模型的复杂程度未超过了数据的复杂程度
+<ul>
+<li>克服? : 增加训练轮数即可。</li>
+</ul></li>
+<li>测试集的划分:
+<ul>
+<li><strong>hold-out 留出法</strong> : <strong>直接将数据集划分为训练集与测试集</strong>。比例把控不当会导致测试或者训练效果不佳。</li>
+<li><strong>k-fold Cross Validation 交叉验证法</strong> :将数据集对等地<strong>划分为n折</strong>。 取其中<strong>一折作为测试集</strong>，其余的作为训练集。</li>
+<li><strong>Bootstrap Sampling 自助法</strong>: 为了解决<strong>划分测试集导致的训练集复杂度降低</strong>的问题。该方法是<strong>在m个样本的数据集中随机有放回地采样m次</strong>构成新数据集<span class="math inline">\(D^\prime\)</span> 作为训练集，将<span class="math inline">\(D/D^\prime\)</span>作为测试集。在数学上可以证明，大概有36.8%的数据被划入了测试集。</li>
+<li>总结: 一般来说，Bootstrap Sampling用于<strong>集成学习或者数据量较小</strong>的情况，另外两种可用于<strong>数据量较大</strong>的情况。</li>
+</ul></li>
+<li>错误率、精度、查准、查全、PR曲线、平衡点(BER)、F1度量</li>
+<li>偏差-方差分解(<strong>bias-varience decompose</strong>):
+<ul>
+<li>定义泛化误差为<span class="math inline">\(E = bias^2(x) + var(x) + noise^2\)</span></li>
+<li><span class="math inline">\(bias(x)\)</span> 描述期望预测与实际结果之间的矛盾，即<strong>模型本身的学习能力</strong></li>
+<li><span class="math inline">\(var(x)\)</span> 描述<strong>数据扰动带来的影响</strong></li>
+<li><span class="math inline">\(noise^2\)</span> 描述了学习问题泛化误差的下界，表示<strong>问题自身的复杂度</strong></li>
+<li>偏差与方差存在冲突，训练前期，<strong>学习能力较差，不足以学习数据的扰动</strong>，就会<strong>由偏差主导泛化误差</strong>；训练后期，<strong>模型能够学习数据中的扰动</strong>，就会由<strong>方差主导泛化误差</strong>；当学习能力强到一定程度，<strong>极小的数据扰动带来的局部性质都被模型学习到了</strong>，就会出现<strong>过拟合</strong>。</li>
+</ul></li>
+</ul>
+<h3 id="chap3">Chap3</h3>
+<ul>
+<li>线性模型:
+<ul>
+<li>尝试学习一个线性组合函数作为预测函数。</li>
+<li>具有<strong>良好的可解释性</strong>，通过权重矩阵<span class="math inline">\(w\)</span>,可以直观地看出哪个属性更为重要。</li>
+<li>通过引入<strong>层级结构或者高维结构</strong>就可以完成非线性。</li>
+</ul></li>
+<li>线性回归 ： 尝试学习一个线性组合函数作为预测函数, 预测标签。
+<ul>
+<li>采用<strong>最小二乘法（MSE最小化）</strong>的优化方法。</li>
+</ul></li>
+<li><strong>对数线性</strong>回归：将线性回归预测的<span class="math inline">\(y-&gt;\ln y\)</span></li>
+<li><strong>对数几率</strong>回归：用Sigmoid进行预测，实际上是<strong>分类模型</strong>。
+<ul>
+<li><strong>Sigmoid任意阶可导</strong>，可以<strong>获得近似概率分布</strong>，<strong>有利于求最优解</strong>与<strong>辅助决策</strong>。</li>
+<li><strong>不需要直接对数据分布做出假设</strong>，线性回归就会假设数据分布满足线性，但是对数几率回归<strong>对于分类的可能建模</strong>，<strong>数据不敏感</strong>。</li>
+<li>用<strong>极大似然法</strong>进行优化处理,<strong>梯度下降</strong>求最优解。</li>
+</ul></li>
+<li>线性判别分析(LDA):
+<ul>
+<li><strong>同类</strong>尽可能接近（<strong>协方差小</strong>），<strong>异类</strong>尽可能远离（<strong>距离大</strong>）。</li>
+</ul></li>
+<li>多分类：
+<ul>
+<li><strong>将若干个类作为正例，若干个作为反例</strong>。</li>
+<li>常见分类策略: <span class="math inline">\(OvO,OvR,MvM\)</span></li>
+</ul></li>
+<li>类别不平衡:
+<ul>
+<li>欠采样（<strong>反例</strong>）、过采样（<strong>正例</strong>）、阈值移动（在决策阶段使用<strong>等式转换</strong>目标）
+<ul>
+<li>通过转换判断<span class="math inline">\(\frac{y}{1-y} &gt; \frac{m^+}{m^-}\)</span>,来判断时候预测为正例。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap4">Chap4</h3>
+<ul>
+<li>决策树：
+<ul>
+<li>缓解过拟合:
+<ul>
+<li>剪枝：预剪枝（<strong>展开子树</strong>是否会带来泛化性能的提升来决定）、后剪枝(先训练出一棵完整的树再考虑)。
+<ul>
+<li>预剪枝：<strong>时间开销少、容易欠拟合</strong></li>
+<li>后剪枝：<strong>时间开销大、不容易欠拟合</strong></li>
+</ul></li>
+</ul></li>
+<li>决策树要实现斜向划分是通过<strong>分段近似</strong>(对每一个区间段<strong>拟合一个线性函数</strong>)实现的。</li>
+</ul></li>
+</ul>
+<h3 id="chap5">Chap5</h3>
+<ul>
+<li>MP神经元</li>
+<li>感知机Perceptron : 由两层神经元组成,输出层为MP神经元，需要激活函数处理。</li>
+<li>非线性：多层前馈神经网络(multi-layer feedforwaed neural network)
+<ul>
+<li>通过BP算法训练</li>
+<li><strong>累计BP算法（用所有样本）与标准BP算法(只用一个样本)</strong>的区别类似于<strong>随机梯度下降(只用一个样本)与梯度下降（用所有样本）</strong>之间的区别。</li>
+<li>折中：小批量的随机梯度下降/...</li>
+</ul></li>
+<li>跳出局部最优:
+<ul>
+<li><strong>模拟退火</strong> : 每一步<strong>以一定概率接受更差</strong>的结果、<strong>随机梯度下降</strong>、<strong>遗传算法</strong></li>
+<li>这些算法基本都是启发式的，没有理论保证。</li>
+</ul></li>
+<li>DNN:
+<ul>
+<li>进行<strong>深度学习</strong>也可以理解为进行<strong>特征学习</strong>或者<strong>表示学习</strong>。</li>
+<li><strong>增加隐藏层数目比增加隐藏层神经元个数往往更有效</strong>。</li>
+<li>多隐藏层的神经网络<strong>难以用BP进行训练</strong>，<strong>梯度会发散不收敛</strong>。</li>
+<li><strong>无监督逐层训练</strong>是一个有效手段:
+<ul>
+<li>每次训练一层隐藏节点，将<strong>上一层输出作为输入，本层输出作为下一层输入</strong>。上述过程也被称为“<strong>预训练</strong>”。预训练结束之后，再对整个网络进行<strong>微调(fine-tuning)</strong>。这就相当于<strong>基于局部较优的结果组合寻找全局最优</strong>。</li>
+</ul></li>
+<li>在<strong>CNN</strong>中采用了<strong>权值共享</strong>的策略，让<strong>一组神经元有相同的连接权值</strong>。</li>
+</ul></li>
+</ul>
+<h3 id="chap6">Chap6</h3>
+<ul>
+<li>SVM:
+<ul>
+<li><p>基于训练集，找到一个超平面将不同的样本分开。</p></li>
+<li><p>通过将超平面方程中的<span class="math inline">\(x\)</span>替换为<span class="math inline">\(\phi(x)\)</span>就可以实现非线性。</p></li>
+<li><p><strong>软间隔</strong>: 为了解决 <strong>难以判断线性可分的结果是不是过拟合</strong>造成的， 提出<strong>软间隔</strong>来缓解这一问题。</p>
+<ul>
+<li>软间隔将<strong>允许SVM在一些样本上出错</strong></li>
+<li>优化目标就变成 在<strong>最大化间隔</strong>的基础上，<strong>最小化出错样本</strong>。</li>
+<li>引入的<strong>松弛变量</strong>是为了表述<strong>样本不满足约束</strong>的程度,其实就是每个样本的<strong>loss</strong></li>
+<li>引入软间隔之后，仍然超平面仍然<strong>仅与支持向量有关</strong>，<strong>保持了稀疏性</strong>。</li>
+</ul></li>
+<li><p>如果将软间隔的SVM的<strong>惩罚函数</strong>换为<span class="math inline">\(l_{log}\)</span> ,那么SVM（未经过拓展的情况下）就是一个<strong>二分类的对率回归分类器</strong>。 区别在于，<strong>对率回归可以输出概率</strong>，<strong>SVM不能</strong>；<strong>SVM的解具有稀疏性</strong>，<strong>对率回归依赖于样本</strong>，<strong>训练开销更大</strong>。</p></li>
+<li><p>从SVM可以引出正则化问题：</p>
+<ul>
+<li><p><span class="math display">\[
+  \min_f \Omega(f) + C \sum_{i=1}^m l(f(x_i),y_i)
+  \]</span></p></li>
+<li><p><span class="math inline">\(\Omega(f)\)</span>为<strong>正则化项</strong>，亦称<strong>结构风险</strong>，<span class="math inline">\(C\)</span>为<strong>正则化系数</strong>，<span class="math inline">\(\sum_{i=1}^m l(f(x_i),y_i)\)</span>也被称为<strong>经验风险</strong>。</p>
+<ul>
+<li>结构风险主要描述的是模型的特质</li>
+<li>经验风险描述模型的拟合程度</li>
+<li>正则化其实<strong>就是一种惩罚措施</strong>，对不希望出现的结果<strong>添加了一个惩罚项</strong>。从贝叶斯估计的角度来看，正则化给模型<strong>提供了先验概率</strong>。</li>
+</ul></li>
+<li><p>常用的正则化项为<span class="math inline">\(l_p\)</span>范数</p>
+<ul>
+<li><span class="math inline">\(l_2\)</span>范数倾向于<strong>权重的取值尽量均衡</strong>，<strong>非零分量尽量稠密</strong>，彼此的距离尽量小；<span class="math inline">\(l_1\)</span>范数倾向于<strong>非零分量尽可能少</strong></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>表示定理、核方法、KLDA</li>
+</ul>
+<h3 id="chap7">Chap7</h3>
+<ul>
+<li><p>贝叶斯判定准则:</p>
+<ul>
+<li>最小化总体风险，只需在每个样本上选择能<strong>最小化期望损失的标签</strong>即可</li>
+<li>由此得到<strong>贝叶斯最优分类器</strong></li>
+<li>其优化目标等价于最大化 后验概率<span class="math inline">\(P(c|x)\)</span>。
+<ul>
+<li>由贝叶斯定理，可以转换为最大化<span class="math inline">\(\frac{P(c)P(x|c)}{P(x)}\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>而<strong>概率模型训练的过程就是参数估计</strong>的过程，一般采用极大似然估计的方法。</p></li>
+<li><p>朴素贝叶斯分类器:</p>
+<ul>
+<li><p>假设所有属性独立产生影响。</p></li>
+<li><p>那么对于一个样本，优化目标为</p>
+<ul>
+<li><span class="math display">\[
+  \arg\max_x P(c) \prod_i P(x_i|c)
+  \]</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap8">Chap8</h3>
+<ul>
+<li>Bagging :
+<ul>
+<li>目标在于<strong>减少方差</strong></li>
+<li>Bagging使用<strong>Bootstrap随机有放回的抽样来获取数据子集</strong>训练基础学习器。通常<strong>分类</strong>任务使用<strong>投票</strong>的方式集成，而<strong>回归</strong>任务通过<strong>平均</strong>的方式集成。</li>
+<li>Bootstrap剩下的36.8%的数据可以用来<strong>包外估计</strong>，<strong>辅助决策树剪枝</strong>，<strong>提前结束神经网络训练</strong>等。</li>
+<li>适合用于<strong>决策树、神经网络等容易受到样本扰动</strong>的学习器上。</li>
+</ul></li>
+<li>Boosting
+<ul>
+<li>目标在于<strong>减少偏差</strong></li>
+<li><strong>通过算法集合将弱学习器转换为强学习器</strong></li>
+<li><strong>训练一系列的弱学习器</strong>，所谓弱学习器是指仅比随机猜测好一点点的模型，例如较小的决策树，训练的方式是<strong>利用加权的数据</strong>。在训练的早期<strong>对于错分数据给予较大的权重</strong>。</li>
+<li><strong>每一轮的训练集是不变的</strong>，<strong>改变的只是每一个样本的权重</strong>。</li>
+<li><strong>样本权重</strong>：<strong>Bagging</strong>使用的是<strong>均匀取样</strong>，每个样本权重相等；<strong>Boosting根据错误率调整样本权重，错误率越大的样本权重越大</strong>。</li>
+<li>因此，Boosting与Bagging的区分点在于 <strong>训练集以及样本权重</strong></li>
+</ul></li>
+<li><strong>串行集成方法</strong>: AdaBoost, 也就是说AdaBoost依次训练弱学习器，
+<ul>
+<li>学习器之间有强依赖。一般是Boosting。</li>
+</ul></li>
+<li><strong>并行集成方法</strong>: Random Forest
+<ul>
+<li>一般是Bagging、随机森林。</li>
+</ul></li>
+<li><strong>AdaBoost</strong>:
+<ul>
+<li>通过<strong>线性组合基学习器来最小化指数损失</strong>。</li>
+<li>AdaBoost在经过一个时间步<span class="math inline">\(H_t\)</span>之后，<strong>样本分布将进行调整</strong>(<strong>序列采样</strong>)，<strong>使得下一轮基学习器能够纠正上一轮基学习器的错误</strong>。</li>
+</ul></li>
+<li><strong>随机森林</strong>:
+<ul>
+<li><strong>决策树作为基学习器</strong>，利用<strong>Bagging集成</strong>,引入了<strong>随机属性选择(只选择一个属性子集，与SGD/GD的区别类似)</strong>。</li>
+<li><strong>训练效率、结果更好</strong>。</li>
+</ul></li>
+<li>集成的权重结合方法:
+<ul>
+<li>投票、平均、加权投票、加权平均、<strong>学习法（Stacking）</strong>。</li>
+</ul></li>
+<li><strong>Stacking:</strong>
+<ul>
+<li>它是一种<strong>“学习法”</strong>的代表，<strong>与Bagging,Boosting不在一条赛道</strong>上。</li>
+<li>目标在于<strong>提升预测性能</strong></li>
+<li><strong>异质集成,将多个不同类的学习器集合到一起</strong>。</li>
+<li>先从<strong>初始数据集中训练出一个初级学习器</strong>，然后将<strong>初级学习器的输出融入特征</strong>作为<strong>次级学习器</strong>的输入。</li>
+<li>其缺点在于<strong>次级</strong>学习器<strong>容易过拟合</strong>，因此常常使用<strong>交叉验证法</strong>或者<strong>留一法</strong>。</li>
+</ul></li>
+<li>多样性:
+<ul>
+<li>衡量<strong>不同学习器</strong>之间是否<strong>好而不同</strong>。</li>
+<li>要增强多样性，可以在<strong>数据、参数、特征等</strong>不同角度进行调整。</li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>AML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试学习笔记</title>
+    <url>/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/</url>
+    <content><![CDATA[<h5 id="算法题">算法题</h5>
+<ul>
+<li><p>简单的二分查找中需要考虑的<strong>细节问题</strong>:</p>
+<ul>
+<li><p>如果取mid = (left + right) / 2,当数据量很大的时候，left + right就可能超过int的上界，此时，需要改变公式为mid = left + (right - left) / 2,这样的话，(right - left) / 2 与 left + (right - left) / 2操作都不会超过int的上界(且不用使用longlong,对于c/c++来说)。</p></li>
+<li><p>mid不是所求的数，那么，就要去找[left,mid-1],[mid+1，right]中是否有，mid已经找过了。</p></li>
+<li><p>该算法的缺陷就在于，如果给的有序数组是[1,2,2,2,3],target是2，那么我们就只能得到index=3</p>
+<ul>
+<li>我们可以通过在判断num[mid] == target的时候，可以灵活调整left，right来求左侧索引或者右侧索引</li>
+</ul></li>
+<li><p>尽量用elif 展开不用else</p></li>
+<li><p>另外当数据量比较小的时候，<strong>其实O(n)的线性查找会更快</strong>一些。</p></li>
+<li><p>找右边界:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while i &lt;= j:</span><br><span class="line">            m = (i + j) // 2</span><br><span class="line">            if nums[m] &lt;= target: i = m + 1 #只要相等i就会右移直到第一个不是target</span><br><span class="line">            else: j = m - 1</span><br><span class="line">        right = i</span><br></pre></td></tr></table></figure></p>
+<p>找左边界:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">while i &lt;= j:</span><br><span class="line">            m = (i + j) // 2</span><br><span class="line">            if nums[m] &lt; target: i = m + 1</span><br><span class="line">            else: j = m - 1 #只要相等j就会左移直到第一个不是target</span><br><span class="line">        left = j</span><br></pre></td></tr></table></figure></p></li>
+<li><p>二分法专门用来解决排好序的数组中的搜索问题。打比方来说有一个缺失了一个元素的递增数组，我们要怎么搜索出来缺失元素? 二分,<strong>num[mid] == mid,说明在数组的左侧，i = mid + 1，反之，在右侧, j = mid + 1。</strong></p></li>
+</ul></li>
+</ul>
+<span id="more"></span>
+<ul>
+<li><p>给定一个有序数组，求在O(1)的空间复杂度以及O(n)的时间复杂度内判断有多少不同的平方数:</p>
+<ul>
+<li><p>正解是<strong>双指针</strong>,num-&gt;list,用left，right双向遍历。</p></li>
+<li><p>``` def calculate_diff_square(num_list): sum, left, right = 0, 0, len(num_list)-1 while left &lt;= right: if num_list[left] + num_list[right] == 0: sum += 1 temp = num_list[left] while left &lt;= right and temp == num_list[left]: left += 1 while left &lt;= right and temp == num_list[right]: right -= 1 elif num_list[left] + num_list[right] &gt; 0: sum += 1 temp = num_list[right] while left &lt;= right and temp == num_list[right]: right -= 1 elif num_list[left] + num_list[right] &lt; 0: sum += 1 temp = num_list[left] while left &lt;= right and temp == num_list[left]: left += 1 return sum <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">+ 快排划分数组，O(n)的时间复杂度解决数组的TopK的问题。变体:找最小的几个数、最大的几个数...</span><br><span class="line"></span><br><span class="line">    + 二叉搜索树的topk问题需要中序遍历，中序遍历必定是递增的序列</span><br><span class="line">    + 如果把中序遍历的顺序反一下就可以得到增减的序列。</span><br><span class="line"></span><br><span class="line">+ 寻找除了两个元素出现一次其余均出现两次的数组中出现一次的元素:</span><br><span class="line"></span><br><span class="line">    + 异或  找不同二进制位  拆分异或</span><br><span class="line">    </span><br><span class="line">+ 二叉搜索树的**最近公共祖先**:</span><br><span class="line"></span><br><span class="line">    + 两个节点**有公共祖先**表明它们位于二叉搜索树的**不同的分支**当中。</span><br><span class="line">        + 基于这一点我们可以**找到它们分叉的点**，就是**最近公共祖先**。</span><br><span class="line">        + 二叉搜索树可以通过迭代解决来减少空间复杂度</span><br><span class="line"></span><br><span class="line">+ 二叉树的最近公共祖先:</span><br><span class="line"></span><br><span class="line">    + 此时，叶子节点之间没有一定的序，但是，“**找到它们分叉的点**，就是**最近公共祖先**”的结论仍然是正确的，因此，可以使用递归的思想:</span><br><span class="line"></span><br><span class="line">        + ```python</span><br><span class="line">            def find(root, p, q):</span><br><span class="line">            	if root.val == p.val or root.val = q.val or not root:</span><br><span class="line">            		return root</span><br><span class="line">            	right = find(root.right,p,q)</span><br><span class="line">            	left = find(root.left,p,q)</span><br><span class="line">            	if not right : return left # 右边没有p、q对应的值,那么两个节点都在左子树当中，直接返回在右子树执行find()返回的结果</span><br><span class="line">            	if not left : return right # 左边没有p、q对应的值</span><br><span class="line">            	return root</span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+<li><p>K个一组的翻转链表:</p>
+<ul>
+<li><p>简单的反转链表:</p>
+<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">self, head</span>) :</span></span><br><span class="line">        pre, cur = <span class="literal">None</span>, head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            temp, cur = cur, cur.<span class="built_in">next</span></span><br><span class="line">            temp.<span class="built_in">next</span>, pre = pre, temp</span><br><span class="line">        <span class="keyword">return</span> pre</span><br></pre></td></tr></table></figure></p></li>
+<li><p>利用简单的反转链表+双指针</p>
+<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseKGroup</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode], k: <span class="built_in">int</span></span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        dummy = ListNode(<span class="number">0</span>,head)</span><br><span class="line">        pre = cur = dummy</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="comment"># cur 刚好是最后一个</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">                cur = cur.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> cur: <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br><span class="line">            next_one = cur.<span class="built_in">next</span></span><br><span class="line">            start_one = pre.<span class="built_in">next</span></span><br><span class="line">            <span class="comment"># 断开链表</span></span><br><span class="line">            cur.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 翻转</span></span><br><span class="line">            pre.<span class="built_in">next</span> = self.reverse(pre.<span class="built_in">next</span>)</span><br><span class="line">            <span class="comment"># 连接</span></span><br><span class="line">            start_one.<span class="built_in">next</span> = next_one</span><br><span class="line">            pre = start_one</span><br><span class="line">            cur = start_one</span><br><span class="line">        <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+</ul>
+<h5 id="小知识点">小知识点</h5>
+<ul>
+<li><p>线性回归和逻辑回归的区别:</p>
+<ul>
+<li>线性回归-&gt;回归，逻辑回归-&gt;分类</li>
+<li>线性回归-&gt;最小二乘法, 逻辑回归-&gt;极大似然估计</li>
+<li>线性回归-&gt;线性，逻辑回归-&gt;非线性</li>
+</ul></li>
+<li><p>指针与引用的区别:</p>
+<ul>
+<li><strong>指针真实地开辟了内存</strong>空间，<strong>引用没有</strong>，只做标识。</li>
+<li>python中均为引用</li>
+</ul></li>
+<li><p>MSE相较于交叉熵的不足之处:</p>
+<ul>
+<li><strong>MSE计算得到的梯度</strong>在计算时<strong>不仅取决于（a-y）的大小</strong>，也<strong>依赖于sigmoid的导数</strong>。这就是二次loss函数存在的问题。并<strong>不是loss越大，参数梯度下降越快</strong>。</li>
+</ul></li>
+<li><p>怎么得到交叉熵?:</p>
+<ul>
+<li><p><span class="math display">\[
+  \frac{\partial C}{\partial b} = \frac{\partial C}{\partial z} \frac{\partial z}{\partial y} \frac{\partial y}{\partial x} \\
+  = \frac{\partial C}{\partial z} z (1-z) \\
+  而MSE的loss的梯度为 \frac{\partial C}{\partial b} = (z - y) Sigmoid^{\prime}(z) \\
+  我们希望其与Sigmoid无关，即\frac{\partial C}{\partial b} = (z - y)  \\
+  因此得到(z - y)  = \frac{\partial C}{\partial z} z (1-z) \\
+  C = -[y\ln z + (1-y)\ln(1-z)] + Const
+  \]</span></p></li>
+<li><p>那么对于多个样本来说，二分类问题的交叉熵就是: <span class="math display">\[
+  - \frac{1}{n} \sum_x [-[y\ln z + (1-y)\ln(1-z)]] + Const
+  \]</span></p></li>
+<li><p>一般形式的交叉熵就是 <span class="math display">\[
+  - \frac{1}{n} \sum_i P(i) \log (Q(i))
+  \]</span></p></li>
+</ul></li>
+<li><p>Sigmoid : <span class="math display">\[
+  \frac{1}{1 + e^{-x}} = \frac{e^{x}}{1 + e^{x}}
+  \]</span></p></li>
+<li><p>Softmax : <span class="math display">\[
+  \frac{e^{x_i}}{\sum_{j} e^{x_j}}
+  \]</span></p>
+<ul>
+<li>Softmax计算概率，Hardmax只选择最大的那一个</li>
+<li>Softmax在实际使用中，容易造成数值溢出，指数超过上界，无法表示。改良方法是每个<span class="math inline">\(x_i - \max(x_i)\)</span></li>
+</ul></li>
+<li><p>ANN既可以是人工神经网络，也可以是Approximate Nearest Neighbor.</p>
+<ul>
+<li><strong>Approximate Nearest Neighbor</strong>与推荐系统相关,推荐系统常常需要在给定一个向量X=[x1,x2,x3...xn]的情况下，从海量的向量库中<strong>找到最相似的前K个向量</strong>,<strong>用传统的方法查找是非常耗时的，容易使得时延上成为瓶颈</strong>,因此我们常常通过<strong>牺牲精度来换取性能</strong>:
+<ul>
+<li><strong>衡量Ann算法好不好的一个依据是召回</strong>，每次<strong>Ann请求返回的K个结果</strong>与使用暴力查找的K个结果去比较，如果完全一致，说明是最好的。</li>
+<li>基于树的办法
+<ul>
+<li>Annoy是一个<strong>以树为数据结构</strong>的<strong>近似最近邻搜索库</strong>,不断<strong>用选取的两个质心的法平面对空间进行分割</strong>，最终将<strong>每一个区分的子空间里面的样本数据限制在K</strong>以内。</li>
+</ul></li>
+<li>哈希方法(<strong>局部敏感哈希</strong>)
+<ul>
+<li>在<strong>高维数据空间中的两个相邻的数据</strong>被映射到<strong>低维数据空间中</strong>后，将会有<strong>很大的概率仍然相邻</strong>；而<strong>原本不相邻的两个数据</strong>，在<strong>低维空间中也将有很大的概率不相邻</strong>。通过这样一映射，我们可以<strong>在低维数据空间来寻找相邻的数据点</strong>，<strong>避免在高维数据空间中寻找</strong>，因为在高维空间中会很耗时。<strong>有这样性质的哈希映射称为是局部敏感</strong>的。</li>
+</ul></li>
+<li>矢量量化的方法
+<ul>
+<li><strong>乘积量化（PQ）</strong>:它的主要思想是<strong>将特征向量进行正交分解</strong>，在<strong>分解后的低维正交子空间上进行量化</strong>，由于低维空间可以<strong>采用较小的码本</strong>进行编码，因此<strong>可以降低数据存储空间</strong> 。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>XGBoost与GBDT树的区别:</p>
+<ul>
+<li>xgboost加入了<strong>和叶子权重的L2正则化项</strong>，因而有利于模型获得更低的方差。</li>
+<li>xgboost增加了<strong>自动处理缺失值</strong>特征的策略</li>
+<li>XGBoost采用了Shrinkage 和Column Subsampling方法，这两种方法都能在一定程度上防止过拟合。</li>
+<li>同级的节点可以并行化训练</li>
+<li>xgBoost采用<strong>预排序</strong>，在迭代之前，对结点的特征做预排序，遍历选择最优分割点，数据量大时，贪心法耗时</li>
+<li>xgBoost<strong>采用level-wise</strong>生成决策树，同时分裂同一层的叶子，从而进行多线程优化，不容易过拟合，但很多叶子节点的分裂增益较低，没必要进行跟进一步的分裂，这就带来了不必要的开销</li>
+</ul></li>
+<li><p>LightGBM与XGBoost的区别:</p>
+<ul>
+<li>LightGBM相较于XGBoost的主要改进点在于采用了<strong>Histogram直方图算法</strong>，将<strong>连续的浮点特征值离散化成k个整数</strong>，比如说将[0,0.1)分为0，[0.1,0.3)分为1之类的。在遍历数据的时候，<strong>根据离散化后的值</strong>作为索引在直方图中<strong>累积统计量</strong>，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，<strong>遍历寻找最优的分割点</strong>。
+<ul>
+<li>不仅<strong>不需要额外存储预排序的结果</strong>，而且可以<strong>只保存特征离散化后的值</strong></li>
+<li>计算上的代价也大幅降低，预排序算法<strong>每遍历一个特征值就需要计算一次</strong>分裂的增益，而<strong>直方图算法只需要计算k次</strong></li>
+</ul></li>
+<li>另外，LightGBM采用了<strong>带深度限制的Leaf-wise的叶子生长策略</strong>,XGBoost中，树是<strong>按层生长的</strong>，称为<strong>Level-wise tree growth</strong>，<strong>同一层的所有节点都做分裂</strong>，最后<strong>剪枝</strong>。造成了很多不必要的分裂。Leaf-wise则是一种更为高效的策略，每次<strong>从当前所有叶子中</strong>，找到<strong>分裂增益最大</strong>的一个叶子，然后分裂，<strong>如此循环</strong>。
+<ul>
+<li>Leaf-wise可以<code>降低更多的误差，得到更好的精度</code>。Leaf-wise的缺点是<code>可能会长出比较深的决策树，产生过拟合</code>。因此LightGBM在Leaf-wise之上<code>增加了一个最大深度的限制，在保证高效率的同时防止过拟合</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="attention">Attention</h5>
+<ul>
+<li><p><a href="https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/">Visualizing A Neural Machine Translation Model (Mechanics of Seq2seq Models With Attention) – Jay Alammar – Visualizing machine learning one concept at a time. (jalammar.github.io)</a></p></li>
+<li><p>RNN相关算法<strong>只能从左向右依次计算或者从右向左依次计算</strong>:</p>
+<ul>
+<li><p><strong>时间片 t 的计算依赖 t-1 时刻的计算结果</strong>，这样<strong>限制了模型的并行能力</strong></p></li>
+<li><p>顺序计算的过程中信息会丢失，尽管LSTM等门机制的结构一定程度上缓解了长期依赖的问题，但是<strong>对于特别长期的依赖现象,LSTM依旧无能为力</strong>。</p></li>
+<li><p>RNN<strong>接受hidden state、input vector两个输入</strong>，并<strong>输出hidden state、output vector</strong>，在<strong>encoder到decoder之间只会传递一个hidden state</strong>。</p></li>
+</ul></li>
+<li><p>Attention就是为了处理对于长期信息的提取。</p>
+<ul>
+<li>首先与RNN不同的点在于，Attention在encoder 传递 hidden states给decoder的时候，<strong>将所有的 hidden states全部传给decoder</strong>。</li>
+<li>并且在<strong>每一个timestep处理</strong>过后，<strong>将hidden state与output进行concat</strong>，传给feedforward neural network得到输出向量。在<strong>Attention的训练过程</strong>中，<strong>feedforward neural network也跟着一起训练</strong>。</li>
+<li>在decoder当中对encoder传递过来的<strong>所有hidden state的信息进行打分</strong>得到Score,对Score进行<strong>softmax处理</strong>并<strong>乘回hidden state</strong>当中，最后<strong>求一个加权和</strong>。</li>
+</ul></li>
+<li><p>Attention机制的核心就是<strong>加权求和</strong>:</p>
+<ul>
+<li><p><a href="https://zhuanlan.zhihu.com/p/410776234">超详细图解Self-Attention - 知乎 (zhihu.com)</a></p></li>
+<li><p>本质在于公式: <span class="math display">\[
+  Attention(Q,K,V) = Softmax(\frac{\mathbf{Q}\cdot \mathbf{K}^T}{\sqrt{d_k}}) \mathbf{V}
+  \]</span></p></li>
+<li><p><strong>权重</strong>哪里来? 通过<strong>softmax归一化打分函数</strong>。</p></li>
+<li><p><strong>打分函数</strong>是啥? self-attention用的是两个矩阵<span class="math inline">\(Q,K\)</span>的乘积，<strong>蕴意为两个矩阵<span class="math inline">\(Q,K\)</span>之间的相关性</strong>。</p></li>
+<li><p>用权重乘以原有的表示矩阵得到的结果是什么意思? 得到<strong>经过Attention机制处理</strong>之后的<strong>新的表示矩阵</strong>。</p></li>
+<li><p><span class="math inline">\(\mathbf{Q}\)</span>等三个矩阵怎么得到? <strong>通过对与原表示矩阵进行线性变换</strong>, <span class="math inline">\(\mathbf{Q} = \mathbf{W_Q}\mathbf{X}\)</span> ,<span class="math inline">\(\mathbf{K},\mathbf{V}\)</span>同理。</p>
+<ul>
+<li>分别对应着<strong>Query matrix, Key matrix, and Value matrix</strong></li>
+<li>这三个矩阵共同构成了一个Self-Attention所需要的参数体系，一般称为<strong>Attention Head</strong>。</li>
+</ul></li>
+<li><p>为什么要进行线性变换? 因为<strong>权重矩阵<span class="math inline">\(\mathbf{W}\)</span>是可以训练</strong>的，从而得到一个更好的矩阵表示。</p></li>
+<li><p>为什么除以<span class="math inline">\(\sqrt{d_k}\)</span>? 为了<strong>让方差变为1</strong>,从而进一步<strong>使得Softmax</strong>在训练过程中求得的<strong>梯度</strong>能够更加<strong>稳定</strong>。</p></li>
+</ul></li>
+<li><p>将<strong>Self-Attention</strong>进行进阶，就是进行一个<strong>Multi-head Attention</strong>:</p>
+<ul>
+<li>将<strong>输入独立地</strong>传给<strong>n个Self-Attention模块</strong>得到<strong>n个不同的Attention表示</strong>。</li>
+<li>但是我们最后只需要一个Attention表示,怎么做呢?
+<ul>
+<li><strong>故技重施</strong>! 将n个不同的Attention表示concat在一起得到 <span class="math inline">\(\mathbf{Z}^\prime\)</span> , 对其进行线性变换，<strong>乘以一个可训练的权重矩阵<span class="math inline">\(\mathbf{W_Z}\)</span></strong>。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="transformer">Transformer</h4>
+<ul>
+<li><p><a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer – Jay Alammar – Visualizing machine learning one concept at a time. (jalammar.github.io)</a></p></li>
+<li><p>Transformer<strong>由且仅由self-Attenion和Feed Forward Neural Network组成</strong>。整体结构为一个<strong>Encoder集-&gt;Decoder集-&gt;Linear全连接神经网络-&gt;Softmax</strong>。</p>
+<ul>
+<li><p>对于<strong>Encoder,</strong> 由<strong>一层self-Attenion和Feed Forward Neural Network</strong>组成;对于<strong>Decoder</strong>, 在<strong>self-Attenion和Feed Forward Neural Network</strong>之间多加了一层<strong>Encoder-Decoder Attention</strong>.</p>
+<ul>
+<li><p>用一张图来说Encoder的工作就是：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091524902.png" alt="image-20220309152425811" style="zoom:50%;" /></p>
+<p><strong>每一个输入向量都可以并行地传入，并行地输出</strong>，这极大地加快了训练的速度。</p></li>
+</ul></li>
+<li><p>不论是Encoder还是Decoder都是可以进行<strong>堆叠</strong>的。</p></li>
+<li><p>对于Decoder,需要注意几个区别:</p>
+<ul>
+<li>首先，Decoder的Self-Attention<strong>接受了最顶层Encoder的</strong><span class="math inline">\(\mathbf{K},\mathbf{V}\)</span>,并且<span class="math inline">\(\mathbf{Q}\)</span>用的是上一个Decoder的(<strong>初始化后，顺序传递</strong>)</li>
+<li>Decoder的<strong>Self-Attention对输入向量未来的信息进行了一个mask</strong>,设置为-inf之类的。</li>
+<li>除此之外，<strong>每一轮timestep Decoder的输出</strong>都会在进行<strong>位置矩阵处理</strong>之后，<strong>加入下一轮timestep的计算当中</strong>。</li>
+</ul></li>
+<li><p>对于最后的Linear-Softmax:</p>
+<ul>
+<li>用<strong>Linear全连接神经网络</strong>对输出进行一个打分，然后<strong>用Softmax得到概率</strong>，<strong>选择概率最大的那个词</strong>作为输出。</li>
+</ul></li>
+</ul></li>
+<li><p>Transformer的大体流程:</p>
+<ul>
+<li>Transformer对于输入还进行了一个额外的处理，将<strong>输入矩阵<span class="math inline">\(\mathbf{X}\)</span> 加上一个 位置矩阵 <span class="math inline">\(\mathbf{T}\)</span>来</strong>记录每一个单词所在的<strong>位置信息</strong>。</li>
+<li>并且在前面所介绍的Self-Attention与Feed Forward网络之后，<strong>都会接上一个Normalize 步骤</strong>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091544065.png" alt="image-20220309154423977" style="zoom:50%;" /></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="word2vec">Word2vec</h5>
+<ul>
+<li>n-gram 假设: n-1阶的Markov假设，认为<strong>一个词出现的概率就只与它前面的n-1个词相关</strong>。
+<ul>
+<li>重要技术(平滑化):</li>
+</ul></li>
+<li>Word2vec 的 2 种训练模式：
+<ul>
+<li><strong>CBOW</strong>，通过上下文来预测当前值。</li>
+<li><strong>Skip-gram</strong>，用当前词来预测上下文。</li>
+</ul></li>
+<li>通过负采样、Hierarchical Softmax来提高速度。</li>
+</ul>
+<h5 id="bert">BERT</h5>
+<ul>
+<li>BERT本身是一个预训练的模型,网络结构就是堆叠Transformer。</li>
+<li>BERT模型的特点在于:
+<ul>
+<li>模型网络结构深，但是不宽。侧面印证了<strong>深而窄 比 浅而宽 的模型更好</strong>。</li>
+</ul></li>
+<li>Pre-Training的两大步骤:
+<ul>
+<li>Next Sentence Prediction（NSP）:
+<ul>
+<li>MLM任务倾向于抽取<strong>token层次</strong>的表征，因此不能直接获取<strong>句子层次</strong>的表征。</li>
+<li>NSP任务简单来说就是预测<strong>两个句子是否是连贯</strong>的。</li>
+<li>具体的做法是：对于每一个训练样例，我们在语料库中挑选出句子A和句子B来组成，<strong>50%的时候句子B就是句子A的下一句<em>（标注为IsNext）</em></strong>，<strong>剩下50%的时候句子B是语料库中的随机句子<em>（标注为NotNext）</em></strong>。接下来把训练样例输入到BERT模型中，用[CLS]对应的C信息去进行二分类的预测。</li>
+</ul></li>
+<li>Masked Language Model（MLM）:
+<ul>
+<li>MLM（<strong>Masked Language Model</strong>），同时利用左侧和右侧的词语。它用<strong>15%的概率随机对训练序列中的token进行替换</strong>，在此基础上，<strong>80%的概率选择[MASK],10%的概率随机选择一个其他token，10%的概率保持原有token不变</strong>。BERT不再只对[MASK]敏感，而是<strong>对所有的token都敏感</strong>，以致能抽取出任何token的表征信息。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="ensemble-learning">Ensemble learning</h5>
+<ul>
+<li>Stacking:
+<ul>
+<li>目标在于<strong>提升预测性能</strong></li>
+<li><strong>异质集成,将多个不同类的学习器集合到一起</strong>。</li>
+</ul></li>
+<li>Bagging :
+<ul>
+<li>目标在于<strong>减少方差</strong></li>
+<li>Bagging使用<strong>Bootstrap随机有放回的抽样来获取数据子集</strong>训练基础学习器。通常分类任务使用投票的方式集成，而回归任务通过平均的方式集成。</li>
+</ul></li>
+<li>Boosting
+<ul>
+<li>目标在于<strong>减少偏差</strong></li>
+<li><strong>通过算法集合将弱学习器转换为强学习器</strong></li>
+<li><strong>训练一系列的弱学习器</strong>，所谓弱学习器是指仅比随机猜测好一点点的模型，例如较小的决策树，训练的方式是<strong>利用加权的数据</strong>。在训练的早期<strong>对于错分数据给予较大的权重</strong>。</li>
+<li><strong>每一轮的训练集是不变的</strong>，<strong>改变的只是每一个样本的权重</strong>。</li>
+<li><strong>样本权重</strong>：<strong>Bagging</strong>使用的是<strong>均匀取样</strong>，每个样本权重相等；<strong>Boosting根据错误率调整样本权重，错误率越大的样本权重越大</strong>。</li>
+<li>因此，Boosting与Bagging的区分点在于 <strong>训练集以及样本权重</strong></li>
+</ul></li>
+<li>串行集成方法: AdaBoost, 也就是说AdaBoost依次训练弱学习器，</li>
+<li>并行集成方法: Random Forest</li>
+</ul>
+<h5 id="面试常见问题">面试常见问题</h5>
+<ul>
+<li><p>自我介绍:</p>
+<ul>
+<li>我是CYQ，是南京大学人工智能学院大三的本科生，在2021年获得过人民奖学金。在校期间，主要学习AI的基础课程，对AI的基础知识较为熟悉；也参与了2022年ICM/MCM的比赛并完成了神经网络、ICS等课程的小项目，在这过程中，我获得了一些在linux系统上进行Python/c等语言进行编程的经验。另外，我对于AI技术在推荐系统上的应用有比较大的兴趣，所以非常希望能在贵公司获得一个成长和探索的机会。</li>
+</ul></li>
+<li><p>完成项目的收获:</p>
+<ul>
+<li>提升最大的主要是独立思考的能力，借助互联网解决问题的能力以及知道了该如何提问。具体拿如何提问来举例的话，比如遇到某个bug，在询问别人的时候，除了报错的命令行代码之外，我还需要具体地提供代码的上下文、运行环境、能不能稳定触发、个人对于bug产生原因的独立思考等。但是在接触这些小项目之前，我可能就直接截图就问了。其次的话，在具体知识点上的理解也有所加深。</li>
+</ul></li>
+<li><p>平时常用的app:</p>
+<ul>
+<li>飞书、b站、知乎、抖音,飞书确实挺好用的，研究组也用，没有一些杂七杂八的功能，交流讨论需要的共享、批注功能也都有。</li>
+</ul></li>
+<li><p>对于字节跳动的了解:</p>
+<ul>
+<li>抖音、tiktok、头条的母公司</li>
+<li>最近有听说向游戏领域进军，朝夕光年</li>
+<li>公司精神是<strong>追求极致、务实敢为、开放谦逊</strong>、坦诚清晰、始终创业、多元兼容,这些精神还挺吸引我的。</li>
+<li><strong>字节跳动成立于2012年3月，旗下拥有今日头条、抖音、西瓜视频、飞书等产品</strong>。</li>
+</ul></li>
+<li><p>兴趣爱好:</p>
+<ul>
+<li>喜欢看一些DIY up主，有时候会尝试看看他们开源的code。另外的话，逛逛知乎，关注一些时事热点。</li>
+</ul></li>
+<li><p>缺点:</p>
+<ul>
+<li>需要锻炼一下交流沟通的能力以及学习的深度。</li>
+</ul></li>
+<li><p>反问:</p>
+<ul>
+<li>如果有机会入职，那入职以后具体会负责做什么</li>
+<li>如果想更深地了解推荐算法，您推荐现阶段我可以做什么</li>
+</ul></li>
+<li><p>ICS的项目:</p>
+<ul>
+<li>属于南大计算机系的一个项目Project-N的子项目。</li>
+<li>PA1:实现cpu的单步执行、打印寄存器的状态、扫描内存、算术表达式求值、监视点。
+<ul>
+<li>NEMU自带有简易调试器，其是老师提供的一个开源的OS，可以运行其他的应用程序。我们需要做的是实现NEMU中简易调试器的部分函数的代码。</li>
+<li>机器永远是对的，未测试代码永远是错的。</li>
+</ul></li>
+<li>PA2: 让NEMU可以运行c程序 dummy;实现更多的指令，可以运行所有提供的程序;运行FCEUX
+<ul>
+<li>CPU执行指令的过程 ： 取指 ， 译码， 执行， 更新PC。</li>
+<li>YEMU是一个简化版的NEMU，相当于一个老师提供的可以运行CPU指令的小样例。</li>
+<li>Copy-Paste是一种糟糕的编程习惯。先完成，后完美。</li>
+<li>AM(Abstract machine)是一个向程序提供运行时环境的库。是真正将Project-N项目连起来的核心。</li>
+<li>Debug- difftest</li>
+<li>完成串口、声卡的软件层模拟代码。</li>
+</ul></li>
+<li>PA3:实现自陷 yield()、实现用户程序的加载、系统调用、文件系统、运行PAL
+<ul>
+<li>yield() 跳转到其他程序的代码首地址，执行完后恢复上下文之后，运行原来的代码。</li>
+<li>系统调用也是通过yield来实现的，通知用户程序它需要什么请求</li>
+<li>文件系统需要实现 fsopen,fsread,fswrite</li>
+<li>有了文件系统、系统调用，我们就需要借助NDL库，实现时钟、按键等的模拟</li>
+<li>Navy是基础设施，提供difftest的native实现，提供libc,libos等基础库</li>
+</ul></li>
+</ul></li>
+<li><p>OS-lab:</p>
+<ul>
+<li><p>bootloader : 关中断、打开地址线、加载gdtr寄存器、长跳转进入保护、初始化DS/SS</p>
+<ul>
+<li>函数指针进行跳转</li>
+</ul></li>
+<li><p>加载kernal : 加载0x100000的地址空间进入kernal，初始化中断门、陷阱门 、实现printf/sprintf等函数</p></li>
+<li><p>实现fork（内存数据的复制）、exit、sleep</p></li>
+</ul></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Work Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>Work</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Pytorch Note One</title>
+    <url>/2022/03/16/torch_note1/</url>
+    <content><![CDATA[<h1 id="pytorch">Pytorch</h1>
+<h2 id="library">Library</h2>
+<p>pprint 可以让打印效果更加好看一点.</p>
+<p>pytorch 是更为灵活的一个Tensorflow的alternative之一</p>
+<h2 id="tensor">Tensor</h2>
+<p>我们可以从一个python list出发，构建一个tensor. data type 以及 dimensions 都会自动转换</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data = [ [0,1], [2,3] ]</span><br><span class="line">tensor_first = torch.tensor(data)</span><br><span class="line">pp.pprint(tensor_first) # result : tensor([ [0,1], [2,3] ])</span><br></pre></td></tr></table></figure>
+<p>同样也可以用dtype指定数据类型，常用的为torch.bool torch.float torch.long</p>
+<p>或者也可以使用 .float()等方法</p>
+<p>还可以利用tensor.FloatTensor, tensor.LongTensor直接创建相应类型的tensor，则在NLP领域中非常有用</p>
+<p>torch.tensor默认是float类型的</p>
+<p>另外，当然也可以从numpy的array进行转换,利用torch.from_numpy()</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">ndarray = np.array(data)</span><br><span class="line">x_numpy = torch.from_numpy(ndarray)</span><br></pre></td></tr></table></figure>
+<p>最后，也可以通过另一个tensor进行初始化tensor</p>
+<p>有四种方法， torch.ones_like(), torch.zeros_like(), torch.rand_like() (均匀分布 0-1), torch.randn_like() (正态分布)</p>
+<p>要达成相同的效果，可以指定一个shape，利用torch.zeros(), torch.ones(), torch.rand(), torch.randn()</p>
+<p>example :</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shape = (4, 2, 2)</span><br><span class="line">x_zeros = torch.zeros(shape)</span><br></pre></td></tr></table></figure>
+<p>torch.arange(end) : 创建一个 从 0 到 end-1 的tensor</p>
+<span id="more"></span>
+<h2 id="tensor-properties">Tensor Properties</h2>
+<p>一个tensor x的data type 仍然可以通过 x.dtype 查看 data type</p>
+<p>x.shape 查看 shape</p>
+<p>x.size 查看 tensor 的dimension,通过x.size(0)可以查看batchsize</p>
+<p>tensor 具有 view视图， 当我们改变其中一个状态的时候，会改变另外一个的状态. 常用来进行改变shape</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">x_view = x.view(2, 3) # x的shape就会变成(2, 3)</span><br><span class="line">x_view = x.view(3, -1) # 单单改变x的维度到三维,-1表示自适应</span><br></pre></td></tr></table></figure>
+<p>这里类似的方法还有reshape，但是使用reshape与view有一定的区别，view要求将数据存放在连续内存当中,但也只是模拟的一种可以按序读取的方式，物理内存中的存放顺序并不会被改变</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">x_reshape = torch.reshape(x,(2,3))</span><br></pre></td></tr></table></figure>
+<p>torch.unsqueeze (input, dim, out=None)方法会对torch对象添加一个维度，可以用torch.squeeze进行还原,更为常见的，如果参数为-1，那么就会作用到tensor的每一个维度。如果dim为负，则将会被转化dim+input.dim()+1</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">x = torch.arange(10).reshape(5, 2)</span><br><span class="line">x = x.unsqueeze(1)</span><br><span class="line">x.shape # (5,1,2)</span><br><span class="line">x = x.squeeze()</span><br><span class="line">x.shape # (5,2)</span><br></pre></td></tr></table></figure>
+<p>如果想要获取在一个tensor当中所有数据的总数，可以使用torch.numel方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 如果 tensor x : tensor([0,1],[2,3])</span><br><span class="line"># then:</span><br><span class="line">x.numel() </span><br><span class="line"># 4</span><br></pre></td></tr></table></figure>
+<p>tensor x 的 device属性可以告知其数据的存储位置是CPU还是GPU,也可以通过x.to(device)进行转移</p>
+<h2 id="index">Index</h2>
+<p>tensor 的 index 下标以及切片与numpy类似, 对于每一个维度<span class="math inline">\(d_{i}\)</span>,都可以在[]切片中进行表述</p>
+<p>但是tensor x还可以通过另一个tensor i进行取样</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">i = torch.tensor([0, 0, 1, 1])</span><br><span class="line">x[i] # x[i]会取出 x的0号维度两份 1号维度两份组成新的tensor</span><br><span class="line">i = torch.tensor([1, 2])</span><br><span class="line">j = torch.tensor([0])</span><br><span class="line">x[i, j] # x[i, j]会取出 x的1，2号维度上的0号元素</span><br></pre></td></tr></table></figure>
+<p>如果要取出tensor中的一个元素可以使用 item()方法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">x.item() # 就会取出标量 scalar</span><br></pre></td></tr></table></figure>
+<h2 id="operation">Operation</h2>
+<p>tensor的运算也可以像numpy一样进行传播，即对每一个元素都进行运算</p>
+<p>如果想使用矩阵乘法，可以使用tensor.matmul(other_tensor)(也可以直接使用@,如 A @ B)以及.T进行Transpose运算</p>
+<p>mean以及std运算要求tensor x的数据类型为float,运用x.mean(),x.std()进行运算</p>
+<p>concrete与numpy类似的使用torch.cat进行</p>
+<p>绝大多数pytorch运算并不是in place的，但是pytorch提供了一个_运算来进行in place的设置</p>
+<h2 id="autograd">Autograd</h2>
+<p>可以主动调用backward() 方法计算tensor x的gradient,gradient存储在x.grad属性当中</p>
+<p>在创建一个tensor y的时候可以通过指定 requires_grad=True 来存储y的gradient</p>
+<p>这里需要注意的是x.grad属性会累计所有iteration中计算出来的gradient，在训练过程中我们需要执行zero_grad()来进行一个清理,否则结果会出错</p>
+<h2 id="neural-network-module----torch.nn">Neural Network module -- torch.nn</h2>
+<p>''' import torch.nn as nn '''</p>
+<h3 id="linear-layer">Linear Layer</h3>
+<p>线性层 nn.Linear(in, out) 接受两个参数，旨在让维度为(N,*,in)的input转变为维度为(N,*,out)的output</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">input = torch.ones(2,3,4)</span><br><span class="line">linear = nn.Linear(4, 2)</span><br><span class="line">linear_output = linear(input) # 此时 linear_output的维度变成了(2,3,2)</span><br></pre></td></tr></table></figure>
+<p>如果不想让linear layer学习Bias, 可以设置bias为False</p>
+<p>linear layer模拟的函数是 Ax+b</p>
+<p>其他pytorch中含有的已经config过的网络模型有 nn.Conv2d, nn.ConvTranspose2d, nn.BatchNorm1d, nn.BatchNorm2d, nn.Upsample and nn.MaxPool2d</p>
+<h3 id="activation-funcrion-layer">Activation Funcrion Layer</h3>
+<p>常用的激活函数有 nn.sigmoid() nn.ReLU() nn.LeakyReLU()</p>
+<p>这些激活函数保持激活函数shape不变</p>
+<h3 id="put-layers-together">Put layers together</h3>
+<p>我们可以使用 nn.Sequential()来把几个layer整合到一起</p>
+<p>example:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">block = nn.Sequential(</span><br><span class="line">    nn.Linear(4, 2),</span><br><span class="line">    nn.Sigmoid()</span><br><span class="line">    # 这就是一个神经元传递并激活的过程了 先通过linear进行传递参数 再通过Sigmoid激活</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">input = torch.ones(2,3,4)</span><br><span class="line">output = block(input) #shape : (2,3,2)</span><br></pre></td></tr></table></figure>
+<h3 id="build-module-on-our-own">build module on our own</h3>
+<p>这需要使用到 nn.Module class</p>
+<p>定义一个新的module，需要def <strong>init</strong>, 并def forward(x), 其中x是一个tensor</p>
+<p>在__init__中可以先调用super class的__init__函数，即使用 super(ModuleName,self).__init__()</p>
+<p>如果想要查看各个layer的参数，可以通过 list(model.named_parameteras()) 或者 list(model.parameteras())进行查看</p>
+<h2 id="optimization">optimization</h2>
+<p>该板块主要涉及的是optimizers 在pytorch中处于torch.optim板块</p>
+<p>常用的optimizer为 optim.Adam,optim.SGD,通常以模型参数以及学习率作为hyperparameter</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 单轮训练的样例</span><br><span class="line"># Instantiate the model</span><br><span class="line">model = MultilayerPerceptron(5, 3)</span><br><span class="line"></span><br><span class="line"># Define the optimizer</span><br><span class="line">adam = optim.Adam(model.parameters(), lr=1e-1)</span><br><span class="line"></span><br><span class="line"># Define loss using a predefined loss function</span><br><span class="line">loss_function = nn.BCELoss()</span><br><span class="line"></span><br><span class="line"># Calculate how our model is doing now</span><br><span class="line">y_pred = model(x)</span><br><span class="line">loss_function(y_pred, y).item()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 进行多轮训练时</span><br><span class="line"># Set the number of epoch, which determines the number of training iterations</span><br><span class="line">n_epoch = 10 </span><br><span class="line"></span><br><span class="line">for epoch in range(n_epoch):</span><br><span class="line">  # Set the gradients to 0</span><br><span class="line">  # 这一步是为了反之.grad进行了累加</span><br><span class="line">  adam.zero_grad() </span><br><span class="line"></span><br><span class="line">  # Get the model predictions</span><br><span class="line">  y_pred = model(x)</span><br><span class="line"></span><br><span class="line">  # Get the loss</span><br><span class="line">  loss = loss_function(y_pred, y)</span><br><span class="line"></span><br><span class="line">  # Print stats</span><br><span class="line">  print(f&quot;Epoch &#123;epoch&#125;: traing loss: &#123;loss&#125;&quot;)</span><br><span class="line"></span><br><span class="line">  # Compute the gradients</span><br><span class="line">  loss.backward()</span><br><span class="line"></span><br><span class="line">  # Take a step to optimize the weights</span><br><span class="line">  adam.step()</span><br></pre></td></tr></table></figure>
+<h2 id="demo-word-window-classification">Demo : Word Window Classification</h2>
+<p>demo.py 中进行一个demo试验</p>
+<h4 id="data">Data</h4>
+<p>NLP 领域的data通常都是一些.csv或者.txt文件</p>
+<h4 id="preprocessing">preprocessing</h4>
+<p>通常对于文本我们需要进行一些预处理: + tokenization : 把sentence全部拆分成为word + Lowercasing : 转为小写 + Noise removal : 去掉特殊字符 + Stop words removal : 去掉十分常见的字符</p>
+<h4 id="convert-words-to-embeddings">convert words to embeddings</h4>
+<p>在这一步中我们遵循的主要步骤就是: + Find the corresponding index i of the word in the embedding table: word-&gt;index. + Index into the embedding table and get the embedding: index-&gt;embedding.</p>
+<p>我们建立一个table记录每一个word的index以及word所对应的embedding</p>
+<p>通常我们需要先取出所有的vocabulary，并将不再vocabulary中的所有单词分配一个标签 例如"&lt;unk&gt;",并将其加入vocabulary</p>
+<p>同时，由于window的定义需要围绕选定词的前后N个单词进行构建，而sentence中最开始的单词与最后面的单词无法形成符合定义的window</p>
+<p>因此，我们还需要加入padding，即在sentence开头加入 n个"&lt;pad&gt;"，在末尾加入 n个"&lt;pad&gt;"</p>
+<p>定义 in one pass : 一次对于forward()的call</p>
+<h4 id="label">label</h4>
+<p>我们需要给每一个在vocabulary中的word分配一个index</p>
+<p>在这里要建立对应关系，我们可以使用torch.nn.Embedding(length_of_vocabulary,dimension)</p>
+<p>想要取出其中某一个word的embedding,代码示例如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import torch.nn as nn</span><br><span class="line">import torch</span><br><span class="line"></span><br><span class="line">embedding_dim = 5</span><br><span class="line">embeds = nn.Embedding(len(vocabulary), embedding_dim)</span><br><span class="line">print(list(embeds.parameters()))</span><br><span class="line"></span><br><span class="line"># 经过上面这一步之后，每一个word所对应的 embedding就构建好了</span><br><span class="line"># Get the embedding for the word Paris</span><br><span class="line">index = word_to_ix[&quot;paris&quot;]</span><br><span class="line">index_tensor = torch.tensor(index, dtype=torch.long) # dtype 必须是torch.long 这是一个 单独的index组成的一维tensor</span><br><span class="line">paris_embed = embeds(index_tensor)</span><br><span class="line"></span><br><span class="line"># 也可以一次性取出多个</span><br><span class="line"># We can also get multiple embeddings at once</span><br><span class="line">index_paris = word_to_ix[&quot;paris&quot;]</span><br><span class="line">index_ankara = word_to_ix[&quot;ankara&quot;]</span><br><span class="line">indices = [index_paris, index_ankara]</span><br><span class="line">indices_tensor = torch.tensor(indices, dtype=torch.long)</span><br><span class="line">embeddings = embeds(indices_tensor)</span><br></pre></td></tr></table></figure>
+<h2 id="batching-sentences">Batching Sentences</h2>
+<p>learn how to <strong>structure our data into batches using the torch.util.data.DataLoader class</strong>.</p>
+<p>DataLoader(data, batch_size=batch_size, shuffle=True, collate_fn=collate_fn):</p>
+<p>shuffle : 控制是否打乱数据</p>
+<p>batch_size : the number of examples per batch 每一批次的数据量</p>
+<p>If provided, DataLoader passes the batches it prepares to the collate_fn. We can write a custom function(自定义函数) to pass to the collate_fn parameter in order to print stats(统计数据) about our batch or perform extra processing. In our case, we will use the collate_fn to: + Window pad our train sentences. 做window相关的padding预处理 + Convert the words in the training examples to indices. 转变words + Pad the training examples so that all the sentences and labels have the same length. Similarly, we also need to pad the labels. This creates an issue because when calculating the loss, we need to know <strong>the actual number of words</strong> in a given example. We will also keep track of this number in the function we pass to the collate_fn parameter.</p>
+<p>Because our version of the collate_fn function will need to access to our word_to_ix dictionary (so that it can turn words into indices), we will make use of the partial function in Python, which passes the parameters we give to the function we pass it.</p>
+<h2 id="window----unfold">window -- unfold</h2>
+<p>由于我们每一次给model的输入都是one batch, model需要自行给每一个input都创建window</p>
+<p>我们可以通过unfold(dimension, size, step)来提前完成这项工作</p>
+<h2 id="model">Model</h2>
+<p>用到 nn.Module ，在Stanford class中已经有所提及，这里贴出example</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class WordWindowClassifier(nn.Module):</span><br><span class="line"></span><br><span class="line">  def __init__(self, hyperparameters, vocab_size, pad_ix=0):</span><br><span class="line">    super(WordWindowClassifier, self).__init__()</span><br><span class="line">    </span><br><span class="line">    &quot;&quot;&quot; Instance variables &quot;&quot;&quot;</span><br><span class="line">    self.window_size = hyperparameters[&quot;window_size&quot;]</span><br><span class="line">    self.embed_dim = hyperparameters[&quot;embed_dim&quot;]</span><br><span class="line">    self.hidden_dim = hyperparameters[&quot;hidden_dim&quot;]</span><br><span class="line">    self.freeze_embeddings = hyperparameters[&quot;freeze_embeddings&quot;]</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot; Embedding Layer </span><br><span class="line">    Takes in a tensor containing embedding indices, and returns the </span><br><span class="line">    corresponding embeddings. The output is of dim </span><br><span class="line">    (number_of_indices * embedding_dim).</span><br><span class="line"></span><br><span class="line">    If freeze_embeddings is True, set the embedding layer parameters to be</span><br><span class="line">    non-trainable. This is useful if we only want the parameters other than the</span><br><span class="line">    embeddings parameters to change. </span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    self.embeds = nn.Embedding(vocab_size, self.embed_dim, padding_idx=pad_ix)</span><br><span class="line">    if self.freeze_embeddings:</span><br><span class="line">      self.embed_layer.weight.requires_grad = False</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot; Hidden Layer</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    full_window_size = 2 * window_size + 1</span><br><span class="line">    self.hidden_layer = nn.Sequential(</span><br><span class="line">      nn.Linear(full_window_size * self.embed_dim, self.hidden_dim), </span><br><span class="line">      nn.Tanh()</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot; Output Layer</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    self.output_layer = nn.Linear(self.hidden_dim, 1)</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot; Probabilities </span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    self.probabilities = nn.Sigmoid()</span><br><span class="line"></span><br><span class="line">  def forward(self, inputs):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Let B:= batch_size</span><br><span class="line">        L:= window-padded sentence length</span><br><span class="line">        D:= self.embed_dim</span><br><span class="line">        S:= self.window_size</span><br><span class="line">        H:= self.hidden_dim</span><br><span class="line">        </span><br><span class="line">    inputs: a (B, L) tensor of token indices</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    B, L = inputs.size()</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Reshaping.</span><br><span class="line">    Takes in a (B, L) LongTensor</span><br><span class="line">    Outputs a (B, L~, S) LongTensor</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # Fist, get our word windows for each word in our input.</span><br><span class="line">    token_windows = inputs.unfold(1, 2 * self.window_size + 1, 1)</span><br><span class="line">    _, adjusted_length, _ = token_windows.size()</span><br><span class="line"></span><br><span class="line">    # Good idea to do internal tensor-size sanity checks, at the least in comments!</span><br><span class="line">    assert token_windows.size() == (B, adjusted_length, 2 * self.window_size + 1)</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Embedding.</span><br><span class="line">    Takes in a torch.LongTensor of size (B, L~, S) </span><br><span class="line">    Outputs a (B, L~, S, D) FloatTensor.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    embedded_windows = self.embeds(token_windows)</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Reshaping.</span><br><span class="line">    Takes in a (B, L~, S, D) FloatTensor.</span><br><span class="line">    Resizes it into a (B, L~, S*D) FloatTensor.</span><br><span class="line">    -1 argument &quot;infers&quot; what the last dimension should be based on leftover axes.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    embedded_windows = embedded_windows.view(B, adjusted_length, -1)</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Layer 1.</span><br><span class="line">    Takes in a (B, L~, S*D) FloatTensor.</span><br><span class="line">    Resizes it into a (B, L~, H) FloatTensor</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    layer_1 = self.hidden_layer(embedded_windows)</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Layer 2</span><br><span class="line">    Takes in a (B, L~, H) FloatTensor.</span><br><span class="line">    Resizes it into a (B, L~, 1) FloatTensor.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    output = self.output_layer(layer_1)</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Softmax.</span><br><span class="line">    Takes in a (B, L~, 1) FloatTensor of unnormalized class scores.</span><br><span class="line">    Outputs a (B, L~, 1) FloatTensor of (log-)normalized class scores.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    output = self.probabilities(output)</span><br><span class="line">    output = output.view(B, -1)</span><br><span class="line"></span><br><span class="line">    return output</span><br></pre></td></tr></table></figure>
+<h2 id="training">training</h2>
+<h2 id="prediction">prediction</h2>
+]]></content>
+      <categories>
+        <category>torch Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>torch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Pytorch Note Two</title>
+    <url>/2022/03/16/torch_note2/</url>
+    <content><![CDATA[<h2 id="pytorch-官方文档">1. Pytorch 官方文档</h2>
+<p><a href="https://pytorch.org/docs/stable/index.html">PyTorch documentation — PyTorch 1.9.1 documentation</a></p>
+<h3 id="basic">1 .Basic</h3>
+<ul>
+<li><p>Optimizer 会根据计算好的梯度更新参数。</p>
+<p>因此，在调用torch.optim中的方法之前需要进行梯度的计算。</p>
+<p>基本的调用过程:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">loss.backward() # 计算梯度</span><br><span class="line">optimizer.step() # 更新参数 例如 学习率，权重</span><br></pre></td></tr></table></figure></p>
+<p>通常，需要在调用optimizer之前确定数据的存储位置。</p>
+<p>这一步由torch.device完成:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">device = torch.device(&#x27;cuda&#x27; if torch.cuda.is_available() else &#x27;cpu&#x27;)</span><br></pre></td></tr></table></figure></p>
+<p>而pytorch的梯度会进行累计，因此通常在每一次epoch中都要进行梯度的清零，这一份工作交给了zero_grad:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Backward and optimize</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure></p>
+<p>当我们需要对某一层的optimizer进行参数的特化:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">optim.SGD([</span><br><span class="line">      &#123;&#x27;params&#x27;: model.base.parameters()&#125;,</span><br><span class="line">      &#123;&#x27;params&#x27;: model.classifier.parameters(), &#x27;lr&#x27;: 1e-3&#125;</span><br><span class="line">            ], lr=1e-2, momentum=0.9)</span><br></pre></td></tr></table></figure></p>
+<p>这意味着对于model.base用参数lr=1e-2,对于model.classifier自己用参数'lr': 1e-3。</p>
+<p>但是，两个都采用参数momentum=0.9。</p>
+<p>Optimizer的几个固有方法</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Optimizer.load_state_dict # 读取参数</span><br><span class="line">Optimizer.state_dict # 返回optimizer的一个参数</span><br><span class="line">Optimizer.step # 进行一步参数的更新</span><br><span class="line">Optimizer.zero_grad # 设定所有tensor的梯度为0</span><br></pre></td></tr></table></figure></p>
+<p><span id="more"></span></p></li>
+<li><p>torchvision是一个含有datasets,model architecture,common image transformations，特别是computer vision的package</p></li>
+<li><p>torch.utils.data.Dataloader是一个加载数据的工具。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DataLoader(dataset, batch_size=1, shuffle=False, sampler=None,</span><br><span class="line">           batch_sampler=None, num_workers=0, collate_fn=None,</span><br><span class="line">           pin_memory=False, drop_last=False, timeout=0,</span><br><span class="line">           worker_init_fn=None, *, prefetch_factor=2,</span><br><span class="line">           persistent_workers=False)</span><br></pre></td></tr></table></figure></p>
+<p>batch_size ：每一批次数据的数量</p>
+<p>Dataloader是一个可迭代的对象，因此，当我们需要可以使用iter()进行访问，采用iter(dataloader)返回的是一个迭代器，然后可以使用next()访问；也可以使用enumerate(dataloader)的形式访问。</p></li>
+<li><p>自己构建Datasets的代码框架:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class CustomDataset(torch.utils.data.Dataset):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        # TODO</span><br><span class="line">        # 1. Initialize file paths or a list of file names. </span><br><span class="line">        pass</span><br><span class="line">    def __getitem__(self, index):</span><br><span class="line">        # TODO</span><br><span class="line">        # 1. Read one data from file (e.g. using numpy.fromfile, PIL.Image.open).</span><br><span class="line">        # 2. Preprocess the data (e.g. torchvision.Transform).</span><br><span class="line">        # 3. Return a data pair (e.g. image and label).</span><br><span class="line">        pass</span><br><span class="line">    def __len__(self):</span><br><span class="line">        # You should change 0 to the total size of your dataset.</span><br><span class="line">        return &quot;the total size of your dataset&quot; </span><br></pre></td></tr></table></figure></p>
+<p>然后就可以利用dataloader进行读取。</p></li>
+<li><p>当我们需要一个pretrained model的时候，可以在读取模型的时候设定参数</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">torchvision.models.resnet18(pretrained=True) # example</span><br></pre></td></tr></table></figure></p></li>
+<li><p>当我们需要finetuning model的时候，可以按照下列代码进行设定:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># If you want to finetune only the top layer of the model, set as below.</span><br><span class="line">for param in resnet.parameters():</span><br><span class="line">    param.requires_grad = False # 设定不保留梯度</span><br><span class="line"></span><br><span class="line"># Replace the top layer for finetuning. 这一步进行了finetuning</span><br><span class="line">resnet.fc = nn.Linear(resnet.fc.in_features, 100)  # 100 is an example.</span><br></pre></td></tr></table></figure></p>
+<p>这里用到了全连接的a linear transformation。</p>
+<p>其函数如下:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CLASS torch.nn.Linear(in_features, out_features, bias=True, device=None, dtype=None)</span><br><span class="line"># in_features -&gt; 输入数据的size</span><br><span class="line"># out_features -&gt; 输出数据的size</span><br><span class="line"># bias -&gt; 是否让模型自己学习额外的bias 默认为True</span><br></pre></td></tr></table></figure></p></li>
+<li><p>读取或者保存整个模型</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">torch.save(obj, f, pickle_module=pickle, pickle_protocol=DEFAULT_PROTOCOL, _use_new_zipfile_serialization=True)</span><br><span class="line"># obj -&gt; 需要保存的对象</span><br><span class="line"># f -&gt; a file-like object/string/os.PathLike object 需要包含着文件路径</span><br><span class="line">torch.load(f, map_location=None, pickle_module=pickle, **pickle_load_args)</span><br><span class="line"># f 同上</span><br><span class="line"># example:</span><br><span class="line">torch.save(resnet, &#x27;model.ckpt&#x27;)</span><br><span class="line">model = torch.load(&#x27;model.ckpt&#x27;)</span><br></pre></td></tr></table></figure></p>
+<p>如果我们只需要读取参数,即已经训练好的模型的权重以及bias (recommended):</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">torch.save(resnet.state_dict(), &#x27;params.ckpt&#x27;)</span><br><span class="line">resnet.load_state_dict(torch.load(&#x27;params.ckpt&#x27;))</span><br></pre></td></tr></table></figure></p>
+<p>这里，我们可以注意到torch将参数保存在state_dict中。</p></li>
+</ul>
+<h2 id="logitic-regression">2.Logitic regression</h2>
+<ul>
+<li><p>torchvision中数据集的读取:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># example:</span><br><span class="line"># 不过需要注意的是不同数据集</span><br><span class="line"></span><br><span class="line">train_dataset = torchvision.datasets.MNIST(root=&#x27;../../data&#x27;, </span><br><span class="line">                                          train=True, </span><br><span class="line">                                          transform=transforms.ToTensor(),</span><br><span class="line">                                          download=True)</span><br><span class="line"></span><br><span class="line">test_dataset = torchvision.datasets.MNIST(root=&#x27;../../data&#x27;, </span><br><span class="line">                                          train=False, </span><br><span class="line">                                          transform=transforms.ToTensor())</span><br><span class="line">                                          </span><br><span class="line"># train 参数控制选取数据集的训练集还是测试集</span><br></pre></td></tr></table></figure></p></li>
+<li><p>比较重要的一点是在模型的训练过程中，如果不需要记录参数，或者节省显存，可以使用如下代码:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">with torch.no_grad():</span><br><span class="line">	begin train</span><br></pre></td></tr></table></figure></p></li>
+<li><p>对于训练过程中，loss函数以及optimizer的设定代码参考:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Loss and optimizer</span><br><span class="line"># nn.CrossEntropyLoss() computes softmax internally</span><br><span class="line">criterion = nn.CrossEntropyLoss()  </span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate) </span><br></pre></td></tr></table></figure></p>
+<p>常用的loss函数还有<em>nn</em><strong>.</strong>MSELoss()等</p></li>
+<li><p>一个重要的函数:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tensor.detach()</span><br></pre></td></tr></table></figure></p>
+<p>该方法会生成一个新的tensor，但是仍然指向原变量的存放位置（这意味着修改一个另外一个也会跟着改变）， 并且require_grad为false</p>
+<p>这个tensor永远都不会有梯度，也不会进行计算，即使设定require_grad为True。</p>
+<p>这个函数的另一个作用是在torch对象转换为numpy时使用，从而排除梯度的影响。</p>
+<p>还有一个作用就是在RNN训练过程中截断梯度的传播：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Truncated backpropagation</span><br><span class="line"># 截断传播 -&gt; 使用detach()不再传播梯度</span><br><span class="line">def detach(states):</span><br><span class="line">    return [state.detach() for state in states] </span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<h2 id="feed-forward-neural-network-前馈神经网络">3. Feed forward Neural Network 前馈神经网络</h2>
+<ul>
+<li><p>前馈神经网络是一个最简单的神经网络模型。</p>
+<p>它意味着，对于每一个<span class="math inline">\(layer_i\)</span> ,都是下一层<span class="math inline">\(layer_{i+1}\)</span>的输入 。</p>
+<p>完全没有闭环以及回路，只有forward pass</p></li>
+<li><p>一个简单神经网络的构建代码</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Fully connected neural network with one hidden layer</span><br><span class="line">class NeuralNet(nn.Module):</span><br><span class="line">    def __init__(self, input_size, hidden_size, num_classes):</span><br><span class="line">        super(NeuralNet, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(input_size, hidden_size) </span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line">        self.fc2 = nn.Linear(hidden_size, num_classes)  </span><br><span class="line">    </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        out = self.fc1(x)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.fc2(out)</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p></li>
+<li><p>tensor的一个重要特性在于其可以在GPU上进行运算，因此我们可以通过代码让计算操作在GPU上进行。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># example</span><br><span class="line">device = torch.device(&quot;cuda:0&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</span><br><span class="line">model.to(device)</span><br></pre></td></tr></table></figure></p>
+<p>这一点在神经网络的构建过程中十分重要。</p>
+<p>通常我们需要对模型以及labels，inputs设定.to(device)来加快程序运行速度。</p></li>
+</ul>
+<h2 id="bidirectional-recurrent-neural-network-双向循环神经网络">4. Bidirectional Recurrent Neural Network 双向循环神经网络</h2>
+<ul>
+<li><p>Recurrent Neural Network:循环神经网络。</p>
+<p>它只有一个传输状态:</p>
+<figure>
+<img src="C:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194827663.png" alt="image-20211019194827663" /><figcaption aria-hidden="true">image-20211019194827663</figcaption>
+</figure></li>
+<li><p>其特点在于当前时刻的输出不仅与之前的状态相关还与未来的状态相关。</p>
+<p>因此，隐层还有两层，一层进行forward，另外一层进行backward。</p>
+<p>因此在隐藏状态的数量上，BiRNN是RNN的两倍。</p></li>
+<li><p>它使用的激活函数为LSTM。</p>
+<p>LSTM的全名为Long short-term memory,也是一种循环神经网络,常用来解决长序列训练过程中的梯度消失和梯度爆炸问题。</p>
+<p>与RNN不同的是，LSTM具有两个传输状态:for example,<span class="math inline">\(c^{(t)},h^{(t)}\)</span></p>
+<p><span class="math inline">\(c^{(t)}\)</span>常常是<span class="math inline">\(c^{(t-1)}\)</span>加上一点，且变化不大；但是<span class="math inline">\(h^{(t)}\)</span>变化得很快</p>
+<figure>
+<img src="C:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194900638.png" alt="image-20211019194900638" /><figcaption aria-hidden="true">image-20211019194900638</figcaption>
+</figure></li>
+<li><p>关于pytorch中的LSTM：</p>
+<ul>
+<li><p>其参数比较重要的有:</p>
+<p><strong>input_size</strong> –&gt; The number of expected features in the input x</p>
+<p><strong>hidden_size</strong> –&gt; The number of features in the hidden state h</p>
+<p><strong>num_layers</strong> –&gt; Number of recurrent layers. E.g., setting <code>num_layers=2</code> would mean stacking two LSTMs together to form a stacked LSTM, with the second LSTM taking in outputs of the first LSTM and computing the final results. Default: 1</p>
+<p>该参数控制有多少个LSTM进行串联，前一个LSTM的结果输入到第二个LSTM中。</p>
+<p><strong>batch_first</strong> -&gt; 如果为True，那么输入层以及输出层的tensor形状为(batch, seq, feature) 而不是(seq, batch, feature)，但是并不会对隐层起作用。默认 ：false</p>
+<p><strong>dropout</strong> -&gt; 默认0,不进行dropout。不然对输出层进行一层dropout层的处理，dropout的概率等于给定的数字</p>
+<p><strong>bidirectional</strong> –&gt; <code>True</code>, a bidirectional LSTM. Default: <code>False</code></p></li>
+</ul></li>
+<li><p>因此，RNN的模板代码如下:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Recurrent neural network (many-to-one)</span><br><span class="line">class RNN(nn.Module):</span><br><span class="line">    def __init__(self, input_size, hidden_size, num_layers, num_classes):</span><br><span class="line">        super(RNN, self).__init__()</span><br><span class="line">        self.hidden_size = hidden_size</span><br><span class="line">        self.num_layers = num_layers</span><br><span class="line">        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)</span><br><span class="line">        self.fc = nn.Linear(hidden_size, num_classes)</span><br><span class="line">    </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        # Set initial hidden and cell states </span><br><span class="line">        h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(device) </span><br><span class="line">        c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(device)</span><br><span class="line">        </span><br><span class="line">        # Forward propagate LSTM</span><br><span class="line">        out, _ = self.lstm(x, (h0, c0))  # out: tensor of shape (batch_size, seq_length, hidden_size)</span><br><span class="line">        </span><br><span class="line">        # Decode the hidden state of the last time step</span><br><span class="line">        out = self.fc(out[:, -1, :])</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p>
+<p>对于BiRNN，我们只需要更改 hidden_size为两倍，并设置bidirectional=true即可</p></li>
+<li><p>在RNN 的训练过程中，我们常常采用backpropagation through time 来对参数进行更新，但是这样对于单个参数的更新需要大量的计算开销，因此，有一种改进的方案就是Truncated Backpropagation Through Time，设定一个timestep，每次达到<span class="math inline">\(k\)</span>个timestep时，就backpropagation <span class="math inline">\(k^\prime\)</span> 个timestep。</p>
+<ul>
+<li>其中注意到，<span class="math inline">\(k\)</span>影响模型训练的快慢，即权重更新的频率。</li>
+<li><span class="math inline">\(k^\prime\)</span>在一般情况下较大，为了更好地学习到序列信息。但是,如果过大,就会使得梯度消失。</li>
+<li>另外，还有一种更为简单的改进方案就是将原序列分成若干个mini-batch，然后对这些mini-batch进行一个单独的训练。但是，这忽略了序列与序列之间的联系。这是Truncated Backpropagation Through Time在<span class="math inline">\(k\)</span>=<span class="math inline">\(k^\prime\)</span> 情况下的特例。</li>
+</ul></li>
+<li><p>解决梯度消失或者梯度爆炸的一个简单粗暴的方法就是对梯度进行clip，将其限制在一个固定区间内。</p>
+<p>使用nn.utils.clip_grad_norm_(parameters,max_norm)就可以将梯度的最大值限制在max_norm,并且只在训练的时候用这个方法。</p>
+<p>该方法应该使用在loss.backward() 之后，optimizer.step()之前。</p></li>
+</ul>
+<h2 id="lm">5. LM</h2>
+<ul>
+<li><p>torch.nn.Embedding 可以存储固定的word embedding</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CLASS torch.nn.Embedding(num_embeddings, embedding_dim, padding_idx=None, max_norm=None, norm_type=2.0, scale_grad_by_freq=False, sparse=False, _weight=None, device=None, dtype=None)</span><br></pre></td></tr></table></figure></p></li>
+<li><p><em>torch</em><strong>.</strong>multinomial 可以进行一个多维采样，并且进行的是多项式采样。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">torch.multinomial(input, num_samples,replacement=False, out=None) → LongTensor</span><br></pre></td></tr></table></figure></p>
+<p>replacement控制放不放回数据。</p>
+<p>num_samples控制每行取值的个数。</p>
+<p>在不放回的情况下，num_samples不能大于input中的非0正元素个数。</p></li>
+<li><p>torch.unsqueeze (input, dim, out=None)方法会对torch对象添加一个维度，可以用torch.squeeze进行还原。</p>
+<p>对于参数dim有范围:[-input.dim() - 1, input.dim() + 1)。</p>
+<p>因此，简单理解就是在input的不同维度之间再插入一个维度，同时改变input的shape</p>
+<p>如果dim为负，则将会被转化为dim+input.dim()+1。</p>
+<p>这个只需要特别记住，-1往往代表的是最后一个元素。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># example</span><br><span class="line">&gt;&gt;&gt; x = torch.tensor([1, 2, 3, 4]) #  shape:[4]</span><br><span class="line">&gt;&gt;&gt; torch.unsqueeze(x, 0)  # 在第一个位置插入一个维度 shape:[1,4]</span><br><span class="line">tensor([[ 1,  2,  3,  4]])</span><br><span class="line">&gt;&gt;&gt; torch.unsqueeze(x, 1)  # 在第二个位置插入一个维度 shape:[4,1]</span><br><span class="line">tensor([[ 1],</span><br><span class="line">        [ 2],</span><br><span class="line">        [ 3],</span><br><span class="line">        [ 4]])</span><br></pre></td></tr></table></figure></p></li>
+<li><p>tensor.fill_(input)会把tensor的每一个元素都变成input</p></li>
+</ul>
+<h2 id="transformer">6.Transformer</h2>
+<ul>
+<li><p>Transformer中抛弃了传统的CNN和RNN，整个网络结构完全是由Attention机制组成。更准确地讲，Transformer由且仅由self-Attenion和Feed Forward Neural Network组成。一个基于Transformer的可训练的神经网络可以通过堆叠Transformer的形式进行搭建，作者的实验是通过搭建编码器和解码器各6层，总共12层的Encoder-Decoder，并在机器翻译中取得了BLEU值得新高。</p></li>
+<li><p>作者采用Attention机制的原因是考虑到RNN（或者LSTM，GRU等）的计算限制为是顺序的，也就是说RNN相关算法只能从左向右依次计算或者从右向左依次计算，这种机制带来了两个问题：</p>
+<ul>
+<li>时间片 <img src="https://www.zhihu.com/equation?tex=t" alt="[公式]" /> 的计算依赖 <img src="https://www.zhihu.com/equation?tex=t-1" alt="[公式]" /> 时刻的计算结果，这样限制了模型的并行能力</li>
+<li>顺序计算的过程中信息会丢失，尽管LSTM等门机制的结构一定程度上缓解了长期依赖的问题，但是对于特别长期的依赖现象,LSTM依旧无能为力。</li>
+</ul></li>
+<li><p>Transformer的提出解决了上面两个问题，首先它使用了Attention机制，将序列中的任意两个位置之间的距离是缩小为一个常量；其次它不是类似RNN的顺序结构，因此具有更好的并行性，符合现有的GPU框架。论文中给出Transformer的定义是：Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence aligned RNNs or convolution。</p></li>
+<li><p>更详细的介绍可以看<a href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer – Jay Alammar – Visualizing machine learning one concept at a time. (jalammar.github.io)</a>以及<a href="https://zhuanlan.zhihu.com/p/48508221">详解Transformer （Attention Is All You Need） - 知乎 (zhihu.com)</a></p></li>
+<li><p>在pytorch当中，可以通过<em>torchvision</em><strong>.</strong>transforms.compose堆叠transformer。</p>
+<p>但是，compose并不能script the transformations，如果想要script the transformations，需要使用torch.nn.Sequential。</p></li>
+<li><p><em>transforms</em><strong>.</strong>ToTensor()可以将PIL / Image / numpy.ndarray转换为tensor</p></li>
+<li><p>``` torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode='constant') <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    可以对给定的image进行随机的crop(cut)。</span><br><span class="line"></span><br><span class="line">    size指定输出tensor的大小,如果size只是一个int，那么输出就是(size,size)</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    torchvision.transforms.RandomHorizontalFlip(p=0.5)</span><br></pre></td></tr></table></figure></p>
+<p>该方法会根据给定的概率对于给定的image进行随机的水平翻转。</p></li>
+<li><p>``` torchvision.transforms.Pad(padding, fill=0, padding_mode='constant') <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    该方法用给定的“pad”值在所有边上填充给定的图像</span><br><span class="line"></span><br><span class="line">## Convolutional Neural Network (CNN)</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True, padding_mode=&#x27;zeros&#x27;, device=None, dtype=None)</span><br></pre></td></tr></table></figure></p>
+<p>pytorch有三种卷积操作，1d,2d,3d分别在三种不同的维度上进行卷积。</p>
+<p>Parameters</p>
+<ul>
+<li><strong>in_channels</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>) – image的类型决定了in_channels,example:RGB 的channels为3；</li>
+<li><strong>out_channels</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>) – 卷积结果生成的feature map的深度，由卷积核数量控制</li>
+<li><strong>kernel_size</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a>) – 卷积核长度</li>
+<li><strong>stride</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a><em>,</em> <em>optional</em>) – 控制卷积操作之间的跨度,类似于for循环的步长. Default: 1</li>
+<li><strong>padding</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a><em>,</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#str"><em>str</em></a><em>,</em> <em>optional</em>) –padding 的操作就是在图像块的周围加上格子, 从而使得图像经过卷积过后大小不会变化,这种操作是使得图像的边缘数据也能被利用到,这样才能更好地扩张整张图像的边缘特征。Default: 0</li>
+<li><strong>padding_mode</strong> (*string**,* <em>optional</em>) – <code>'zeros'</code>, <code>'reflect'</code>, <code>'replicate'</code> or <code>'circular'</code>. Default: <code>'zeros'</code>
+<ul>
+<li>zeros -&gt; 零填充</li>
+<li>reflecct -&gt; 按照矩阵边缘进行对称填充</li>
+<li>replicate -&gt; 矩阵边缘复制填充</li>
+<li>circular -&gt; 循环填充已经生成的feature map</li>
+</ul></li>
+<li><strong>dilation</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a><em>,</em> <em>optional</em>) – 控制是否进行扩张卷积操作. Default: 1（不进行扩张卷积）
+<ul>
+<li>其含义是对于input每隔 (dilation-1) 个元素取一个值而不是连续取值(因此当dilation=1时相当于不使用dilation)</li>
+</ul></li>
+<li><strong>groups</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a><em>,</em> <em>optional</em>) – 控制是否进行分组卷积. Default: 1
+<ul>
+<li>分组卷积指的是将input map以及卷积核都分成m个组，分别进行卷积操作，因此，可以生成m个feature map（output map）</li>
+</ul></li>
+<li><strong>bias</strong> (<a href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – If <code>True</code>, adds a learnable bias to the output. Default: <code>True</code></li>
+</ul></li>
+<li><p>``` torch.nn.BatchNorm2d(num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True, device=None, dtype=None) <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    BatchNorm2d的作用主要是，在卷积神经网络的卷积层之后，添加BatchNorm2d进行数据的归一化处理，这使得数据在进行Relu之前不会因为数据过大而导致网络性能的不稳定。</span><br><span class="line"></span><br><span class="line">    其处理之后的结果是让feature map 的均值为0，方差为1。</span><br><span class="line"></span><br><span class="line">    不改变输入形状。</span><br><span class="line"></span><br><span class="line">    Parameters:</span><br><span class="line"></span><br><span class="line">    + **num_features** – *C* from an expected input of size (N, C, H, W)</span><br><span class="line"></span><br><span class="line">    + **eps** – a value added to the denominator for numerical stability. Default: 1e-5</span><br><span class="line">    + **momentum** – the value used for the running_mean and running_var computation. Can be set to `None` for cumulative moving average (i.e. simple average). Default: 0.1</span><br><span class="line">    + **affine** – a boolean value that when set to `True`, this module has learnable affine parameters. Default: `True`</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    torch.nn.ReLU(inplace=False)</span><br></pre></td></tr></table></figure></p>
+<p>ReLU(x) = max(0,x)</p></li>
+<li><p>关于ResNet的downsample的作用:</p>
+<ul>
+<li>当stride = 1时，此时feature map跟input的shape是相同的。那么就不需要进行real downsample以及identity downsample;反之，stride$=$1，就需要进行identity downsample。而让output.shape长宽变成1/2的暂且称之为real downsample。</li>
+</ul></li>
+<li><p>权重衰减 : L2正则化的目的就是为了让权重衰减到更小的值，在一定程度上减少模型过拟合的问题，所以权重衰减也叫L2正则化</p></li>
+<li><p>学习率衰减 : 在训练模型的时候，通常会遇到这种情况：我们平衡模型的训练速度和损失（loss）后选择了相对合适的学习率（learning rate），但是训练集的损失下降到一定的程度后就不在下降了，比如training loss一直在0.7和0.9之间来回震荡，不能进一步下降。遇到这种情况通常可以通过适当降低学习率（learning rate）来实现。但是，降低学习率又会延长训练所需的时间。</p>
+<ul>
+<li>学习率衰减基本有两种实现方法：
+<ul>
+<li>线性衰减。例如：每过5个epochs学习率减半。</li>
+<li>指数衰减。例如：随着迭代轮数的增加学习率自动发生衰减，每过5个epochs将学习率乘以0.9998。
+<ul>
+<li><span class="math inline">\(decayed\_learning\_rate=learning\_rate*decay\_rate^{(global\_step/decay\_steps)}\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>卷积层(Convolutional Layer):</p>
+<ul>
+<li>如下图，后一个卷积层中每个神经元仅与前一层神经元中一个小矩形区域内的神经元相连接。若第一层为图像，则只与一个小矩形区域内的像素相连接。该结构使CNN的前一个卷积层专注于的相对低级的特征，后一个卷积层整合前一个卷积层的特征，形成相对复杂的特征。</li>
+<li><img src="C:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211025163214839.png" title="fig:" alt="image-20211025163214839" /></li>
+</ul></li>
+</ul>
+<h3 id="generative-adversarial-network-生成式对抗网络">Generative Adversarial Network (生成式对抗网络)</h3>
+<ul>
+<li>以下简称其为GAN</li>
+<li></li>
+</ul>
+]]></content>
+      <categories>
+        <category>torch Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>torch</tag>
+      </tags>
   </entry>
 </search>

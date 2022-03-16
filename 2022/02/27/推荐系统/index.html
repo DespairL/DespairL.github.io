@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="推荐系统 常用算法  基于知识的推荐系统:  通过一定的工具，可能是NLP也可能是其他的，基于相似性生成推荐。  基于内容的推荐系统:  通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。  协同过滤:  基于整个用户群的过去交互,因此会比之前的算法都要精确得多。 最常见的就是基于k阶近邻的接收到测试样本:  找出当前用户最">
+  <meta name="description" content="推荐系统 常用算法  基于知识的推荐系统:  通过一定的工具，可能是NLP也可能是其他的，基于相似性生成推荐。  基于内容的推荐系统:  通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。  协同过滤:  基于整个用户群的过去交互,因此会比之前的算法都要精确得多。 最常见的就是基于k阶近邻的接收到测试样本(一般都是用ANN找近似">
 <meta property="og:type" content="article">
 <meta property="og:title" content="推荐系统">
 <meta property="og:url" content="https://despairl.github.io/2022/02/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="YQBlog | HaveFun!">
-<meta property="og:description" content="推荐系统 常用算法  基于知识的推荐系统:  通过一定的工具，可能是NLP也可能是其他的，基于相似性生成推荐。  基于内容的推荐系统:  通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。  协同过滤:  基于整个用户群的过去交互,因此会比之前的算法都要精确得多。 最常见的就是基于k阶近邻的接收到测试样本:  找出当前用户最">
+<meta property="og:description" content="推荐系统 常用算法  基于知识的推荐系统:  通过一定的工具，可能是NLP也可能是其他的，基于相似性生成推荐。  基于内容的推荐系统:  通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。  协同过滤:  基于整个用户群的过去交互,因此会比之前的算法都要精确得多。 最常见的就是基于k阶近邻的接收到测试样本(一般都是用ANN找近似">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-27T10:02:29.852Z">
-<meta property="article:modified_time" content="2022-02-27T10:14:18.829Z">
+<meta property="article:modified_time" content="2022-03-11T12:59:18.798Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="ForWork">
 <meta property="article:tag" content="Note">
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-27 18:02:29 / Modified: 18:14:18" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 18:02:29" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-11 20:59:18" itemprop="dateModified" datetime="2022-03-11T20:59:18+08:00">2022-03-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -256,10 +262,10 @@
 <ul>
 <li>通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。</li>
 </ul></li>
-<li>协同过滤:
+<li><strong>协同过滤:</strong>
 <ul>
 <li>基于整个用户群的过去交互,因此会比之前的算法都要精确得多。</li>
-<li>最常见的就是基于k阶近邻的接收到测试样本:
+<li>最常见的就是基于k阶近邻的接收到测试样本(<strong>一般都是用ANN找近似最近邻</strong>):
 <ul>
 <li>找出当前用户最近的k个邻居，利用这k+1个构成一个聚类，然后进行排序并推荐。</li>
 <li>也可以产生两种变体:基于商品或者是基于用户的推荐方案。</li>
@@ -270,6 +276,31 @@
 </ul></li>
 </ul>
 <span id="more"></span>
+<h6 id="推荐系统的流程">推荐系统的流程</h6>
+<ul>
+<li>传统的推荐系统大致分为两个阶段，<strong>召回与排序</strong>。
+<ul>
+<li><strong>召回层</strong>:
+<ul>
+<li>主要需求就是<strong>快</strong>，因为这一阶段模型处理的<strong>数据量非常大</strong>，要尽可能<strong>减少模型的复杂度</strong>。</li>
+<li>根据用户部分特征，<strong>从海量的物品库里，快速找回一小部分用户潜在感兴趣的物品</strong>，然后交给排序环节</li>
+</ul></li>
+<li><strong>排序层</strong>:
+<ul>
+<li>在排序层中的<strong>数据量没有那么大</strong>，但是要求模型要比较<strong>准</strong>，因此<strong>模型可以较为复杂</strong></li>
+<li>精准地做个性化推荐</li>
+</ul></li>
+</ul></li>
+<li>实用一点的推荐系统大概分为四个阶段,<strong>召回、粗排、精排和重排</strong>
+<ul>
+<li><strong>粗排</strong>:每个用户召回环节返回的物品数量还是太多，怕排序环节速度跟不上,对召回的结果进行一个粗略的排序</li>
+</ul></li>
+<li><strong>召回层</strong>:
+<ul>
+<li>偏向策略型导向,<strong>一个新的策略导向</strong>就可以增加一个召回层的维度。</li>
+<li></li>
+</ul></li>
+</ul>
 
     </div>
 
@@ -355,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">常用算法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">常用算法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">推荐系统的流程</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,20 +402,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. Pytorch 官方文档 PyTorch documentation — PyTorch 1.9.1 documentation 1 .Basic  Optimizer 会根据计算好的梯度更新参数。 因此，在调用torch.optim中的方法之前需要进行梯度的计算。 基本的调用过程: 12loss.backward() # 计算梯度optimizer.step() # 更新参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch Note Two">
+<meta property="og:url" content="https://despairl.github.io/2022/03/16/torch_note2/index.html">
+<meta property="og:site_name" content="YQBlog | HaveFun!">
+<meta property="og:description" content="1. Pytorch 官方文档 PyTorch documentation — PyTorch 1.9.1 documentation 1 .Basic  Optimizer 会根据计算好的梯度更新参数。 因此，在调用torch.optim中的方法之前需要进行梯度的计算。 基本的调用过程: 12loss.backward() # 计算梯度optimizer.step() # 更新参数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194827663.png">
+<meta property="og:image" content="c:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194900638.png">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=t">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=t-1">
+<meta property="og:image" content="c:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211025163214839.png">
+<meta property="article:published_time" content="2022-03-16T11:23:11.500Z">
+<meta property="article:modified_time" content="2022-03-16T11:24:58.261Z">
+<meta property="article:author" content="Yanquan Chen">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="torch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194827663.png">
+
+<link rel="canonical" href="https://despairl.github.io/2022/03/16/torch_note2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Pytorch Note Two | YQBlog | HaveFun!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YQBlog | HaveFun!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/16/torch_note2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pytorch Note Two
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-16 19:23:11 / Modified: 19:24:58" itemprop="dateCreated datePublished" datetime="2022-03-16T19:23:11+08:00">2022-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/torch-Note/" itemprop="url" rel="index"><span itemprop="name">torch Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="pytorch-官方文档">1. Pytorch 官方文档</h2>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">PyTorch documentation — PyTorch 1.9.1 documentation</a></p>
+<h3 id="basic">1 .Basic</h3>
+<ul>
+<li><p>Optimizer 会根据计算好的梯度更新参数。</p>
+<p>因此，在调用torch.optim中的方法之前需要进行梯度的计算。</p>
+<p>基本的调用过程:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss.backward() # 计算梯度</span><br><span class="line">optimizer.step() # 更新参数 例如 学习率，权重</span><br></pre></td></tr></table></figure></p>
+<p>通常，需要在调用optimizer之前确定数据的存储位置。</p>
+<p>这一步由torch.device完成:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">device = torch.device(&#x27;cuda&#x27; if torch.cuda.is_available() else &#x27;cpu&#x27;)</span><br></pre></td></tr></table></figure></p>
+<p>而pytorch的梯度会进行累计，因此通常在每一次epoch中都要进行梯度的清零，这一份工作交给了zero_grad:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Backward and optimize</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure></p>
+<p>当我们需要对某一层的optimizer进行参数的特化:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">optim.SGD([</span><br><span class="line">      &#123;&#x27;params&#x27;: model.base.parameters()&#125;,</span><br><span class="line">      &#123;&#x27;params&#x27;: model.classifier.parameters(), &#x27;lr&#x27;: 1e-3&#125;</span><br><span class="line">            ], lr=1e-2, momentum=0.9)</span><br></pre></td></tr></table></figure></p>
+<p>这意味着对于model.base用参数lr=1e-2,对于model.classifier自己用参数'lr': 1e-3。</p>
+<p>但是，两个都采用参数momentum=0.9。</p>
+<p>Optimizer的几个固有方法</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Optimizer.load_state_dict # 读取参数</span><br><span class="line">Optimizer.state_dict # 返回optimizer的一个参数</span><br><span class="line">Optimizer.step # 进行一步参数的更新</span><br><span class="line">Optimizer.zero_grad # 设定所有tensor的梯度为0</span><br></pre></td></tr></table></figure></p>
+<p><span id="more"></span></p></li>
+<li><p>torchvision是一个含有datasets,model architecture,common image transformations，特别是computer vision的package</p></li>
+<li><p>torch.utils.data.Dataloader是一个加载数据的工具。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DataLoader(dataset, batch_size=1, shuffle=False, sampler=None,</span><br><span class="line">           batch_sampler=None, num_workers=0, collate_fn=None,</span><br><span class="line">           pin_memory=False, drop_last=False, timeout=0,</span><br><span class="line">           worker_init_fn=None, *, prefetch_factor=2,</span><br><span class="line">           persistent_workers=False)</span><br></pre></td></tr></table></figure></p>
+<p>batch_size ：每一批次数据的数量</p>
+<p>Dataloader是一个可迭代的对象，因此，当我们需要可以使用iter()进行访问，采用iter(dataloader)返回的是一个迭代器，然后可以使用next()访问；也可以使用enumerate(dataloader)的形式访问。</p></li>
+<li><p>自己构建Datasets的代码框架:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class CustomDataset(torch.utils.data.Dataset):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        # TODO</span><br><span class="line">        # 1. Initialize file paths or a list of file names. </span><br><span class="line">        pass</span><br><span class="line">    def __getitem__(self, index):</span><br><span class="line">        # TODO</span><br><span class="line">        # 1. Read one data from file (e.g. using numpy.fromfile, PIL.Image.open).</span><br><span class="line">        # 2. Preprocess the data (e.g. torchvision.Transform).</span><br><span class="line">        # 3. Return a data pair (e.g. image and label).</span><br><span class="line">        pass</span><br><span class="line">    def __len__(self):</span><br><span class="line">        # You should change 0 to the total size of your dataset.</span><br><span class="line">        return &quot;the total size of your dataset&quot; </span><br></pre></td></tr></table></figure></p>
+<p>然后就可以利用dataloader进行读取。</p></li>
+<li><p>当我们需要一个pretrained model的时候，可以在读取模型的时候设定参数</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torchvision.models.resnet18(pretrained=True) # example</span><br></pre></td></tr></table></figure></p></li>
+<li><p>当我们需要finetuning model的时候，可以按照下列代码进行设定:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># If you want to finetune only the top layer of the model, set as below.</span><br><span class="line">for param in resnet.parameters():</span><br><span class="line">    param.requires_grad = False # 设定不保留梯度</span><br><span class="line"></span><br><span class="line"># Replace the top layer for finetuning. 这一步进行了finetuning</span><br><span class="line">resnet.fc = nn.Linear(resnet.fc.in_features, 100)  # 100 is an example.</span><br></pre></td></tr></table></figure></p>
+<p>这里用到了全连接的a linear transformation。</p>
+<p>其函数如下:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CLASS torch.nn.Linear(in_features, out_features, bias=True, device=None, dtype=None)</span><br><span class="line"># in_features -&gt; 输入数据的size</span><br><span class="line"># out_features -&gt; 输出数据的size</span><br><span class="line"># bias -&gt; 是否让模型自己学习额外的bias 默认为True</span><br></pre></td></tr></table></figure></p></li>
+<li><p>读取或者保存整个模型</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">torch.save(obj, f, pickle_module=pickle, pickle_protocol=DEFAULT_PROTOCOL, _use_new_zipfile_serialization=True)</span><br><span class="line"># obj -&gt; 需要保存的对象</span><br><span class="line"># f -&gt; a file-like object/string/os.PathLike object 需要包含着文件路径</span><br><span class="line">torch.load(f, map_location=None, pickle_module=pickle, **pickle_load_args)</span><br><span class="line"># f 同上</span><br><span class="line"># example:</span><br><span class="line">torch.save(resnet, &#x27;model.ckpt&#x27;)</span><br><span class="line">model = torch.load(&#x27;model.ckpt&#x27;)</span><br></pre></td></tr></table></figure></p>
+<p>如果我们只需要读取参数,即已经训练好的模型的权重以及bias (recommended):</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torch.save(resnet.state_dict(), &#x27;params.ckpt&#x27;)</span><br><span class="line">resnet.load_state_dict(torch.load(&#x27;params.ckpt&#x27;))</span><br></pre></td></tr></table></figure></p>
+<p>这里，我们可以注意到torch将参数保存在state_dict中。</p></li>
+</ul>
+<h2 id="logitic-regression">2.Logitic regression</h2>
+<ul>
+<li><p>torchvision中数据集的读取:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># example:</span><br><span class="line"># 不过需要注意的是不同数据集</span><br><span class="line"></span><br><span class="line">train_dataset = torchvision.datasets.MNIST(root=&#x27;../../data&#x27;, </span><br><span class="line">                                          train=True, </span><br><span class="line">                                          transform=transforms.ToTensor(),</span><br><span class="line">                                          download=True)</span><br><span class="line"></span><br><span class="line">test_dataset = torchvision.datasets.MNIST(root=&#x27;../../data&#x27;, </span><br><span class="line">                                          train=False, </span><br><span class="line">                                          transform=transforms.ToTensor())</span><br><span class="line">                                          </span><br><span class="line"># train 参数控制选取数据集的训练集还是测试集</span><br></pre></td></tr></table></figure></p></li>
+<li><p>比较重要的一点是在模型的训练过程中，如果不需要记录参数，或者节省显存，可以使用如下代码:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">with torch.no_grad():</span><br><span class="line">	begin train</span><br></pre></td></tr></table></figure></p></li>
+<li><p>对于训练过程中，loss函数以及optimizer的设定代码参考:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Loss and optimizer</span><br><span class="line"># nn.CrossEntropyLoss() computes softmax internally</span><br><span class="line">criterion = nn.CrossEntropyLoss()  </span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate) </span><br></pre></td></tr></table></figure></p>
+<p>常用的loss函数还有<em>nn</em><strong>.</strong>MSELoss()等</p></li>
+<li><p>一个重要的函数:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor.detach()</span><br></pre></td></tr></table></figure></p>
+<p>该方法会生成一个新的tensor，但是仍然指向原变量的存放位置（这意味着修改一个另外一个也会跟着改变）， 并且require_grad为false</p>
+<p>这个tensor永远都不会有梯度，也不会进行计算，即使设定require_grad为True。</p>
+<p>这个函数的另一个作用是在torch对象转换为numpy时使用，从而排除梯度的影响。</p>
+<p>还有一个作用就是在RNN训练过程中截断梯度的传播：</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Truncated backpropagation</span><br><span class="line"># 截断传播 -&gt; 使用detach()不再传播梯度</span><br><span class="line">def detach(states):</span><br><span class="line">    return [state.detach() for state in states] </span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<h2 id="feed-forward-neural-network-前馈神经网络">3. Feed forward Neural Network 前馈神经网络</h2>
+<ul>
+<li><p>前馈神经网络是一个最简单的神经网络模型。</p>
+<p>它意味着，对于每一个<span class="math inline">\(layer_i\)</span> ,都是下一层<span class="math inline">\(layer_{i+1}\)</span>的输入 。</p>
+<p>完全没有闭环以及回路，只有forward pass</p></li>
+<li><p>一个简单神经网络的构建代码</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Fully connected neural network with one hidden layer</span><br><span class="line">class NeuralNet(nn.Module):</span><br><span class="line">    def __init__(self, input_size, hidden_size, num_classes):</span><br><span class="line">        super(NeuralNet, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(input_size, hidden_size) </span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line">        self.fc2 = nn.Linear(hidden_size, num_classes)  </span><br><span class="line">    </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        out = self.fc1(x)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.fc2(out)</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p></li>
+<li><p>tensor的一个重要特性在于其可以在GPU上进行运算，因此我们可以通过代码让计算操作在GPU上进行。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># example</span><br><span class="line">device = torch.device(&quot;cuda:0&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</span><br><span class="line">model.to(device)</span><br></pre></td></tr></table></figure></p>
+<p>这一点在神经网络的构建过程中十分重要。</p>
+<p>通常我们需要对模型以及labels，inputs设定.to(device)来加快程序运行速度。</p></li>
+</ul>
+<h2 id="bidirectional-recurrent-neural-network-双向循环神经网络">4. Bidirectional Recurrent Neural Network 双向循环神经网络</h2>
+<ul>
+<li><p>Recurrent Neural Network:循环神经网络。</p>
+<p>它只有一个传输状态:</p>
+<figure>
+<img src="C:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194827663.png" alt="image-20211019194827663" /><figcaption aria-hidden="true">image-20211019194827663</figcaption>
+</figure></li>
+<li><p>其特点在于当前时刻的输出不仅与之前的状态相关还与未来的状态相关。</p>
+<p>因此，隐层还有两层，一层进行forward，另外一层进行backward。</p>
+<p>因此在隐藏状态的数量上，BiRNN是RNN的两倍。</p></li>
+<li><p>它使用的激活函数为LSTM。</p>
+<p>LSTM的全名为Long short-term memory,也是一种循环神经网络,常用来解决长序列训练过程中的梯度消失和梯度爆炸问题。</p>
+<p>与RNN不同的是，LSTM具有两个传输状态:for example,<span class="math inline">\(c^{(t)},h^{(t)}\)</span></p>
+<p><span class="math inline">\(c^{(t)}\)</span>常常是<span class="math inline">\(c^{(t-1)}\)</span>加上一点，且变化不大；但是<span class="math inline">\(h^{(t)}\)</span>变化得很快</p>
+<figure>
+<img src="C:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211019194900638.png" alt="image-20211019194900638" /><figcaption aria-hidden="true">image-20211019194900638</figcaption>
+</figure></li>
+<li><p>关于pytorch中的LSTM：</p>
+<ul>
+<li><p>其参数比较重要的有:</p>
+<p><strong>input_size</strong> –&gt; The number of expected features in the input x</p>
+<p><strong>hidden_size</strong> –&gt; The number of features in the hidden state h</p>
+<p><strong>num_layers</strong> –&gt; Number of recurrent layers. E.g., setting <code>num_layers=2</code> would mean stacking two LSTMs together to form a stacked LSTM, with the second LSTM taking in outputs of the first LSTM and computing the final results. Default: 1</p>
+<p>该参数控制有多少个LSTM进行串联，前一个LSTM的结果输入到第二个LSTM中。</p>
+<p><strong>batch_first</strong> -&gt; 如果为True，那么输入层以及输出层的tensor形状为(batch, seq, feature) 而不是(seq, batch, feature)，但是并不会对隐层起作用。默认 ：false</p>
+<p><strong>dropout</strong> -&gt; 默认0,不进行dropout。不然对输出层进行一层dropout层的处理，dropout的概率等于给定的数字</p>
+<p><strong>bidirectional</strong> –&gt; <code>True</code>, a bidirectional LSTM. Default: <code>False</code></p></li>
+</ul></li>
+<li><p>因此，RNN的模板代码如下:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Recurrent neural network (many-to-one)</span><br><span class="line">class RNN(nn.Module):</span><br><span class="line">    def __init__(self, input_size, hidden_size, num_layers, num_classes):</span><br><span class="line">        super(RNN, self).__init__()</span><br><span class="line">        self.hidden_size = hidden_size</span><br><span class="line">        self.num_layers = num_layers</span><br><span class="line">        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)</span><br><span class="line">        self.fc = nn.Linear(hidden_size, num_classes)</span><br><span class="line">    </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        # Set initial hidden and cell states </span><br><span class="line">        h0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(device) </span><br><span class="line">        c0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).to(device)</span><br><span class="line">        </span><br><span class="line">        # Forward propagate LSTM</span><br><span class="line">        out, _ = self.lstm(x, (h0, c0))  # out: tensor of shape (batch_size, seq_length, hidden_size)</span><br><span class="line">        </span><br><span class="line">        # Decode the hidden state of the last time step</span><br><span class="line">        out = self.fc(out[:, -1, :])</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p>
+<p>对于BiRNN，我们只需要更改 hidden_size为两倍，并设置bidirectional=true即可</p></li>
+<li><p>在RNN 的训练过程中，我们常常采用backpropagation through time 来对参数进行更新，但是这样对于单个参数的更新需要大量的计算开销，因此，有一种改进的方案就是Truncated Backpropagation Through Time，设定一个timestep，每次达到<span class="math inline">\(k\)</span>个timestep时，就backpropagation <span class="math inline">\(k^\prime\)</span> 个timestep。</p>
+<ul>
+<li>其中注意到，<span class="math inline">\(k\)</span>影响模型训练的快慢，即权重更新的频率。</li>
+<li><span class="math inline">\(k^\prime\)</span>在一般情况下较大，为了更好地学习到序列信息。但是,如果过大,就会使得梯度消失。</li>
+<li>另外，还有一种更为简单的改进方案就是将原序列分成若干个mini-batch，然后对这些mini-batch进行一个单独的训练。但是，这忽略了序列与序列之间的联系。这是Truncated Backpropagation Through Time在<span class="math inline">\(k\)</span>=<span class="math inline">\(k^\prime\)</span> 情况下的特例。</li>
+</ul></li>
+<li><p>解决梯度消失或者梯度爆炸的一个简单粗暴的方法就是对梯度进行clip，将其限制在一个固定区间内。</p>
+<p>使用nn.utils.clip_grad_norm_(parameters,max_norm)就可以将梯度的最大值限制在max_norm,并且只在训练的时候用这个方法。</p>
+<p>该方法应该使用在loss.backward() 之后，optimizer.step()之前。</p></li>
+</ul>
+<h2 id="lm">5. LM</h2>
+<ul>
+<li><p>torch.nn.Embedding 可以存储固定的word embedding</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLASS torch.nn.Embedding(num_embeddings, embedding_dim, padding_idx=None, max_norm=None, norm_type=2.0, scale_grad_by_freq=False, sparse=False, _weight=None, device=None, dtype=None)</span><br></pre></td></tr></table></figure></p></li>
+<li><p><em>torch</em><strong>.</strong>multinomial 可以进行一个多维采样，并且进行的是多项式采样。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.multinomial(input, num_samples,replacement=False, out=None) → LongTensor</span><br></pre></td></tr></table></figure></p>
+<p>replacement控制放不放回数据。</p>
+<p>num_samples控制每行取值的个数。</p>
+<p>在不放回的情况下，num_samples不能大于input中的非0正元素个数。</p></li>
+<li><p>torch.unsqueeze (input, dim, out=None)方法会对torch对象添加一个维度，可以用torch.squeeze进行还原。</p>
+<p>对于参数dim有范围:[-input.dim() - 1, input.dim() + 1)。</p>
+<p>因此，简单理解就是在input的不同维度之间再插入一个维度，同时改变input的shape</p>
+<p>如果dim为负，则将会被转化为dim+input.dim()+1。</p>
+<p>这个只需要特别记住，-1往往代表的是最后一个元素。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># example</span><br><span class="line">&gt;&gt;&gt; x = torch.tensor([1, 2, 3, 4]) #  shape:[4]</span><br><span class="line">&gt;&gt;&gt; torch.unsqueeze(x, 0)  # 在第一个位置插入一个维度 shape:[1,4]</span><br><span class="line">tensor([[ 1,  2,  3,  4]])</span><br><span class="line">&gt;&gt;&gt; torch.unsqueeze(x, 1)  # 在第二个位置插入一个维度 shape:[4,1]</span><br><span class="line">tensor([[ 1],</span><br><span class="line">        [ 2],</span><br><span class="line">        [ 3],</span><br><span class="line">        [ 4]])</span><br></pre></td></tr></table></figure></p></li>
+<li><p>tensor.fill_(input)会把tensor的每一个元素都变成input</p></li>
+</ul>
+<h2 id="transformer">6.Transformer</h2>
+<ul>
+<li><p>Transformer中抛弃了传统的CNN和RNN，整个网络结构完全是由Attention机制组成。更准确地讲，Transformer由且仅由self-Attenion和Feed Forward Neural Network组成。一个基于Transformer的可训练的神经网络可以通过堆叠Transformer的形式进行搭建，作者的实验是通过搭建编码器和解码器各6层，总共12层的Encoder-Decoder，并在机器翻译中取得了BLEU值得新高。</p></li>
+<li><p>作者采用Attention机制的原因是考虑到RNN（或者LSTM，GRU等）的计算限制为是顺序的，也就是说RNN相关算法只能从左向右依次计算或者从右向左依次计算，这种机制带来了两个问题：</p>
+<ul>
+<li>时间片 <img src="https://www.zhihu.com/equation?tex=t" alt="[公式]" /> 的计算依赖 <img src="https://www.zhihu.com/equation?tex=t-1" alt="[公式]" /> 时刻的计算结果，这样限制了模型的并行能力</li>
+<li>顺序计算的过程中信息会丢失，尽管LSTM等门机制的结构一定程度上缓解了长期依赖的问题，但是对于特别长期的依赖现象,LSTM依旧无能为力。</li>
+</ul></li>
+<li><p>Transformer的提出解决了上面两个问题，首先它使用了Attention机制，将序列中的任意两个位置之间的距离是缩小为一个常量；其次它不是类似RNN的顺序结构，因此具有更好的并行性，符合现有的GPU框架。论文中给出Transformer的定义是：Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence aligned RNNs or convolution。</p></li>
+<li><p>更详细的介绍可以看<a target="_blank" rel="noopener" href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer – Jay Alammar – Visualizing machine learning one concept at a time. (jalammar.github.io)</a>以及<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48508221">详解Transformer （Attention Is All You Need） - 知乎 (zhihu.com)</a></p></li>
+<li><p>在pytorch当中，可以通过<em>torchvision</em><strong>.</strong>transforms.compose堆叠transformer。</p>
+<p>但是，compose并不能script the transformations，如果想要script the transformations，需要使用torch.nn.Sequential。</p></li>
+<li><p><em>transforms</em><strong>.</strong>ToTensor()可以将PIL / Image / numpy.ndarray转换为tensor</p></li>
+<li><p>``` torchvision.transforms.RandomCrop(size, padding=None, pad_if_needed=False, fill=0, padding_mode='constant') <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    可以对给定的image进行随机的crop(cut)。</span><br><span class="line"></span><br><span class="line">    size指定输出tensor的大小,如果size只是一个int，那么输出就是(size,size)</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    torchvision.transforms.RandomHorizontalFlip(p=0.5)</span><br></pre></td></tr></table></figure></p>
+<p>该方法会根据给定的概率对于给定的image进行随机的水平翻转。</p></li>
+<li><p>``` torchvision.transforms.Pad(padding, fill=0, padding_mode='constant') <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    该方法用给定的“pad”值在所有边上填充给定的图像</span><br><span class="line"></span><br><span class="line">## Convolutional Neural Network (CNN)</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True, padding_mode=&#x27;zeros&#x27;, device=None, dtype=None)</span><br></pre></td></tr></table></figure></p>
+<p>pytorch有三种卷积操作，1d,2d,3d分别在三种不同的维度上进行卷积。</p>
+<p>Parameters</p>
+<ul>
+<li><strong>in_channels</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>) – image的类型决定了in_channels,example:RGB 的channels为3；</li>
+<li><strong>out_channels</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>) – 卷积结果生成的feature map的深度，由卷积核数量控制</li>
+<li><strong>kernel_size</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a>) – 卷积核长度</li>
+<li><strong>stride</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a><em>,</em> <em>optional</em>) – 控制卷积操作之间的跨度,类似于for循环的步长. Default: 1</li>
+<li><strong>padding</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a><em>,</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a> <em>or</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/stdtypes.html#str"><em>str</em></a><em>,</em> <em>optional</em>) –padding 的操作就是在图像块的周围加上格子, 从而使得图像经过卷积过后大小不会变化,这种操作是使得图像的边缘数据也能被利用到,这样才能更好地扩张整张图像的边缘特征。Default: 0</li>
+<li><strong>padding_mode</strong> (*string**,* <em>optional</em>) – <code>'zeros'</code>, <code>'reflect'</code>, <code>'replicate'</code> or <code>'circular'</code>. Default: <code>'zeros'</code>
+<ul>
+<li>zeros -&gt; 零填充</li>
+<li>reflecct -&gt; 按照矩阵边缘进行对称填充</li>
+<li>replicate -&gt; 矩阵边缘复制填充</li>
+<li>circular -&gt; 循环填充已经生成的feature map</li>
+</ul></li>
+<li><strong>dilation</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a><em>,</em> <em>optional</em>) – 控制是否进行扩张卷积操作. Default: 1（不进行扩张卷积）
+<ul>
+<li>其含义是对于input每隔 (dilation-1) 个元素取一个值而不是连续取值(因此当dilation=1时相当于不使用dilation)</li>
+</ul></li>
+<li><strong>groups</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a><em>,</em> <em>optional</em>) – 控制是否进行分组卷积. Default: 1
+<ul>
+<li>分组卷积指的是将input map以及卷积核都分成m个组，分别进行卷积操作，因此，可以生成m个feature map（output map）</li>
+</ul></li>
+<li><strong>bias</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – If <code>True</code>, adds a learnable bias to the output. Default: <code>True</code></li>
+</ul></li>
+<li><p>``` torch.nn.BatchNorm2d(num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True, device=None, dtype=None) <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    BatchNorm2d的作用主要是，在卷积神经网络的卷积层之后，添加BatchNorm2d进行数据的归一化处理，这使得数据在进行Relu之前不会因为数据过大而导致网络性能的不稳定。</span><br><span class="line"></span><br><span class="line">    其处理之后的结果是让feature map 的均值为0，方差为1。</span><br><span class="line"></span><br><span class="line">    不改变输入形状。</span><br><span class="line"></span><br><span class="line">    Parameters:</span><br><span class="line"></span><br><span class="line">    + **num_features** – *C* from an expected input of size (N, C, H, W)</span><br><span class="line"></span><br><span class="line">    + **eps** – a value added to the denominator for numerical stability. Default: 1e-5</span><br><span class="line">    + **momentum** – the value used for the running_mean and running_var computation. Can be set to `None` for cumulative moving average (i.e. simple average). Default: 0.1</span><br><span class="line">    + **affine** – a boolean value that when set to `True`, this module has learnable affine parameters. Default: `True`</span><br><span class="line"></span><br><span class="line">+ ```</span><br><span class="line">    torch.nn.ReLU(inplace=False)</span><br></pre></td></tr></table></figure></p>
+<p>ReLU(x) = max(0,x)</p></li>
+<li><p>关于ResNet的downsample的作用:</p>
+<ul>
+<li>当stride = 1时，此时feature map跟input的shape是相同的。那么就不需要进行real downsample以及identity downsample;反之，stride$=$1，就需要进行identity downsample。而让output.shape长宽变成1/2的暂且称之为real downsample。</li>
+</ul></li>
+<li><p>权重衰减 : L2正则化的目的就是为了让权重衰减到更小的值，在一定程度上减少模型过拟合的问题，所以权重衰减也叫L2正则化</p></li>
+<li><p>学习率衰减 : 在训练模型的时候，通常会遇到这种情况：我们平衡模型的训练速度和损失（loss）后选择了相对合适的学习率（learning rate），但是训练集的损失下降到一定的程度后就不在下降了，比如training loss一直在0.7和0.9之间来回震荡，不能进一步下降。遇到这种情况通常可以通过适当降低学习率（learning rate）来实现。但是，降低学习率又会延长训练所需的时间。</p>
+<ul>
+<li>学习率衰减基本有两种实现方法：
+<ul>
+<li>线性衰减。例如：每过5个epochs学习率减半。</li>
+<li>指数衰减。例如：随着迭代轮数的增加学习率自动发生衰减，每过5个epochs将学习率乘以0.9998。
+<ul>
+<li><span class="math inline">\(decayed\_learning\_rate=learning\_rate*decay\_rate^{(global\_step/decay\_steps)}\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>卷积层(Convolutional Layer):</p>
+<ul>
+<li>如下图，后一个卷积层中每个神经元仅与前一层神经元中一个小矩形区域内的神经元相连接。若第一层为图像，则只与一个小矩形区域内的像素相连接。该结构使CNN的前一个卷积层专注于的相对低级的特征，后一个卷积层整合前一个卷积层的特征，形成相对复杂的特征。</li>
+<li><img src="C:/Users/cyq/AppData/Roaming/Typora/typora-user-images/image-20211025163214839.png" title="fig:" alt="image-20211025163214839" /></li>
+</ul></li>
+</ul>
+<h3 id="generative-adversarial-network-生成式对抗网络">Generative Adversarial Network (生成式对抗网络)</h3>
+<ul>
+<li>以下简称其为GAN</li>
+<li></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Note/" rel="tag"><i class="fa fa-tag"></i> Note</a>
+              <a href="/tags/torch/" rel="tag"><i class="fa fa-tag"></i> torch</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/" rel="prev" title="面试学习笔记">
+      <i class="fa fa-chevron-left"></i> 面试学习笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/16/torch_note1/" rel="next" title="Pytorch Note One">
+      Pytorch Note One <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">1. Pytorch 官方文档</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basic"><span class="nav-number">1.1.</span> <span class="nav-text">1 .Basic</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#logitic-regression"><span class="nav-number">2.</span> <span class="nav-text">2.Logitic regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#feed-forward-neural-network-%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">3.</span> <span class="nav-text">3. Feed forward Neural Network 前馈神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bidirectional-recurrent-neural-network-%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">4.</span> <span class="nav-text">4. Bidirectional Recurrent Neural Network 双向循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lm"><span class="nav-number">5.</span> <span class="nav-text">5. LM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transformer"><span class="nav-number">6.</span> <span class="nav-text">6.Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#generative-adversarial-network-%E7%94%9F%E6%88%90%E5%BC%8F%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C"><span class="nav-number">6.1.</span> <span class="nav-text">Generative Adversarial Network (生成式对抗网络)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yanquan Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yanquan Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

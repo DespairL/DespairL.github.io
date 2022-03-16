@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"despairl.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="算法题  简单的二分查找中需要考虑的细节问题:  如果取mid &#x3D; (left + right) &#x2F; 2,当数据量很大的时候，left + right就可能超过int的上界，此时，需要改变公式为mid &#x3D; left + (right - left) &#x2F; 2,这样的话，(right - left) &#x2F; 2 与 left + (right - left) &#x2F; 2操作都不会超过int的上界(且不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试学习笔记">
+<meta property="og:url" content="https://despairl.github.io/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/index.html">
+<meta property="og:site_name" content="YQBlog | HaveFun!">
+<meta property="og:description" content="算法题  简单的二分查找中需要考虑的细节问题:  如果取mid &#x3D; (left + right) &#x2F; 2,当数据量很大的时候，left + right就可能超过int的上界，此时，需要改变公式为mid &#x3D; left + (right - left) &#x2F; 2,这样的话，(right - left) &#x2F; 2 与 left + (right - left) &#x2F; 2操作都不会超过int的上界(且不">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091524902.png">
+<meta property="og:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091544065.png">
+<meta property="article:published_time" content="2022-03-07T11:03:21.216Z">
+<meta property="article:modified_time" content="2022-03-16T08:59:50.647Z">
+<meta property="article:author" content="Yanquan Chen">
+<meta property="article:tag" content="Note">
+<meta property="article:tag" content="Work">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091524902.png">
+
+<link rel="canonical" href="https://despairl.github.io/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>面试学习笔记 | YQBlog | HaveFun!</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YQBlog | HaveFun!</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>Schedule</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-07 19:03:21" itemprop="dateCreated datePublished" datetime="2022-03-07T19:03:21+08:00">2022-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-16 16:59:50" itemprop="dateModified" datetime="2022-03-16T16:59:50+08:00">2022-03-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Work-Note/" itemprop="url" rel="index"><span itemprop="name">Work Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h5 id="算法题">算法题</h5>
+<ul>
+<li><p>简单的二分查找中需要考虑的<strong>细节问题</strong>:</p>
+<ul>
+<li><p>如果取mid = (left + right) / 2,当数据量很大的时候，left + right就可能超过int的上界，此时，需要改变公式为mid = left + (right - left) / 2,这样的话，(right - left) / 2 与 left + (right - left) / 2操作都不会超过int的上界(且不用使用longlong,对于c/c++来说)。</p></li>
+<li><p>mid不是所求的数，那么，就要去找[left,mid-1],[mid+1，right]中是否有，mid已经找过了。</p></li>
+<li><p>该算法的缺陷就在于，如果给的有序数组是[1,2,2,2,3],target是2，那么我们就只能得到index=3</p>
+<ul>
+<li>我们可以通过在判断num[mid] == target的时候，可以灵活调整left，right来求左侧索引或者右侧索引</li>
+</ul></li>
+<li><p>尽量用elif 展开不用else</p></li>
+<li><p>另外当数据量比较小的时候，<strong>其实O(n)的线性查找会更快</strong>一些。</p></li>
+<li><p>找右边界:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while i &lt;= j:</span><br><span class="line">            m = (i + j) // 2</span><br><span class="line">            if nums[m] &lt;= target: i = m + 1 #只要相等i就会右移直到第一个不是target</span><br><span class="line">            else: j = m - 1</span><br><span class="line">        right = i</span><br></pre></td></tr></table></figure></p>
+<p>找左边界:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while i &lt;= j:</span><br><span class="line">            m = (i + j) // 2</span><br><span class="line">            if nums[m] &lt; target: i = m + 1</span><br><span class="line">            else: j = m - 1 #只要相等j就会左移直到第一个不是target</span><br><span class="line">        left = j</span><br></pre></td></tr></table></figure></p></li>
+<li><p>二分法专门用来解决排好序的数组中的搜索问题。打比方来说有一个缺失了一个元素的递增数组，我们要怎么搜索出来缺失元素? 二分,<strong>num[mid] == mid,说明在数组的左侧，i = mid + 1，反之，在右侧, j = mid + 1。</strong></p></li>
+</ul></li>
+</ul>
+<span id="more"></span>
+<ul>
+<li><p>给定一个有序数组，求在O(1)的空间复杂度以及O(n)的时间复杂度内判断有多少不同的平方数:</p>
+<ul>
+<li><p>正解是<strong>双指针</strong>,num-&gt;list,用left，right双向遍历。</p></li>
+<li><p>``` def calculate_diff_square(num_list): sum, left, right = 0, 0, len(num_list)-1 while left &lt;= right: if num_list[left] + num_list[right] == 0: sum += 1 temp = num_list[left] while left &lt;= right and temp == num_list[left]: left += 1 while left &lt;= right and temp == num_list[right]: right -= 1 elif num_list[left] + num_list[right] &gt; 0: sum += 1 temp = num_list[right] while left &lt;= right and temp == num_list[right]: right -= 1 elif num_list[left] + num_list[right] &lt; 0: sum += 1 temp = num_list[left] while left &lt;= right and temp == num_list[left]: left += 1 return sum <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ 快排划分数组，O(n)的时间复杂度解决数组的TopK的问题。变体:找最小的几个数、最大的几个数...</span><br><span class="line"></span><br><span class="line">    + 二叉搜索树的topk问题需要中序遍历，中序遍历必定是递增的序列</span><br><span class="line">    + 如果把中序遍历的顺序反一下就可以得到增减的序列。</span><br><span class="line"></span><br><span class="line">+ 寻找除了两个元素出现一次其余均出现两次的数组中出现一次的元素:</span><br><span class="line"></span><br><span class="line">    + 异或  找不同二进制位  拆分异或</span><br><span class="line">    </span><br><span class="line">+ 二叉搜索树的**最近公共祖先**:</span><br><span class="line"></span><br><span class="line">    + 两个节点**有公共祖先**表明它们位于二叉搜索树的**不同的分支**当中。</span><br><span class="line">        + 基于这一点我们可以**找到它们分叉的点**，就是**最近公共祖先**。</span><br><span class="line">        + 二叉搜索树可以通过迭代解决来减少空间复杂度</span><br><span class="line"></span><br><span class="line">+ 二叉树的最近公共祖先:</span><br><span class="line"></span><br><span class="line">    + 此时，叶子节点之间没有一定的序，但是，“**找到它们分叉的点**，就是**最近公共祖先**”的结论仍然是正确的，因此，可以使用递归的思想:</span><br><span class="line"></span><br><span class="line">        + ```python</span><br><span class="line">            def find(root, p, q):</span><br><span class="line">            	if root.val == p.val or root.val = q.val or not root:</span><br><span class="line">            		return root</span><br><span class="line">            	right = find(root.right,p,q)</span><br><span class="line">            	left = find(root.left,p,q)</span><br><span class="line">            	if not right : return left # 右边没有p、q对应的值,那么两个节点都在左子树当中，直接返回在右子树执行find()返回的结果</span><br><span class="line">            	if not left : return right # 左边没有p、q对应的值</span><br><span class="line">            	return root</span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+<li><p>K个一组的翻转链表:</p>
+<ul>
+<li><p>简单的反转链表:</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span>(<span class="params">self, head</span>) :</span></span><br><span class="line">        pre, cur = <span class="literal">None</span>, head</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            temp, cur = cur, cur.<span class="built_in">next</span></span><br><span class="line">            temp.<span class="built_in">next</span>, pre = pre, temp</span><br><span class="line">        <span class="keyword">return</span> pre</span><br></pre></td></tr></table></figure></p></li>
+<li><p>利用简单的反转链表+双指针</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverseKGroup</span>(<span class="params">self, head: <span class="type">Optional</span>[ListNode], k: <span class="built_in">int</span></span>) -&gt; <span class="type">Optional</span>[ListNode]:</span></span><br><span class="line">        dummy = ListNode(<span class="number">0</span>,head)</span><br><span class="line">        pre = cur = dummy</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            <span class="comment"># cur 刚好是最后一个</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">                cur = cur.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> cur: <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br><span class="line">            next_one = cur.<span class="built_in">next</span></span><br><span class="line">            start_one = pre.<span class="built_in">next</span></span><br><span class="line">            <span class="comment"># 断开链表</span></span><br><span class="line">            cur.<span class="built_in">next</span> = <span class="literal">None</span></span><br><span class="line">            <span class="comment"># 翻转</span></span><br><span class="line">            pre.<span class="built_in">next</span> = self.reverse(pre.<span class="built_in">next</span>)</span><br><span class="line">            <span class="comment"># 连接</span></span><br><span class="line">            start_one.<span class="built_in">next</span> = next_one</span><br><span class="line">            pre = start_one</span><br><span class="line">            cur = start_one</span><br><span class="line">        <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br></pre></td></tr></table></figure></p></li>
+</ul></li>
+</ul>
+<h5 id="小知识点">小知识点</h5>
+<ul>
+<li><p>线性回归和逻辑回归的区别:</p>
+<ul>
+<li>线性回归-&gt;回归，逻辑回归-&gt;分类</li>
+<li>线性回归-&gt;最小二乘法, 逻辑回归-&gt;极大似然估计</li>
+<li>线性回归-&gt;线性，逻辑回归-&gt;非线性</li>
+</ul></li>
+<li><p>指针与引用的区别:</p>
+<ul>
+<li><strong>指针真实地开辟了内存</strong>空间，<strong>引用没有</strong>，只做标识。</li>
+<li>python中均为引用</li>
+</ul></li>
+<li><p>MSE相较于交叉熵的不足之处:</p>
+<ul>
+<li><strong>MSE计算得到的梯度</strong>在计算时<strong>不仅取决于（a-y）的大小</strong>，也<strong>依赖于sigmoid的导数</strong>。这就是二次loss函数存在的问题。并<strong>不是loss越大，参数梯度下降越快</strong>。</li>
+</ul></li>
+<li><p>怎么得到交叉熵?:</p>
+<ul>
+<li><p><span class="math display">\[
+  \frac{\partial C}{\partial b} = \frac{\partial C}{\partial z} \frac{\partial z}{\partial y} \frac{\partial y}{\partial x} \\
+  = \frac{\partial C}{\partial z} z (1-z) \\
+  而MSE的loss的梯度为 \frac{\partial C}{\partial b} = (z - y) Sigmoid^{\prime}(z) \\
+  我们希望其与Sigmoid无关，即\frac{\partial C}{\partial b} = (z - y)  \\
+  因此得到(z - y)  = \frac{\partial C}{\partial z} z (1-z) \\
+  C = -[y\ln z + (1-y)\ln(1-z)] + Const
+  \]</span></p></li>
+<li><p>那么对于多个样本来说，二分类问题的交叉熵就是: <span class="math display">\[
+  - \frac{1}{n} \sum_x [-[y\ln z + (1-y)\ln(1-z)]] + Const
+  \]</span></p></li>
+<li><p>一般形式的交叉熵就是 <span class="math display">\[
+  - \frac{1}{n} \sum_i P(i) \log (Q(i))
+  \]</span></p></li>
+</ul></li>
+<li><p>Sigmoid : <span class="math display">\[
+  \frac{1}{1 + e^{-x}} = \frac{e^{x}}{1 + e^{x}}
+  \]</span></p></li>
+<li><p>Softmax : <span class="math display">\[
+  \frac{e^{x_i}}{\sum_{j} e^{x_j}}
+  \]</span></p>
+<ul>
+<li>Softmax计算概率，Hardmax只选择最大的那一个</li>
+<li>Softmax在实际使用中，容易造成数值溢出，指数超过上界，无法表示。改良方法是每个<span class="math inline">\(x_i - \max(x_i)\)</span></li>
+</ul></li>
+<li><p>ANN既可以是人工神经网络，也可以是Approximate Nearest Neighbor.</p>
+<ul>
+<li><strong>Approximate Nearest Neighbor</strong>与推荐系统相关,推荐系统常常需要在给定一个向量X=[x1,x2,x3...xn]的情况下，从海量的向量库中<strong>找到最相似的前K个向量</strong>,<strong>用传统的方法查找是非常耗时的，容易使得时延上成为瓶颈</strong>,因此我们常常通过<strong>牺牲精度来换取性能</strong>:
+<ul>
+<li><strong>衡量Ann算法好不好的一个依据是召回</strong>，每次<strong>Ann请求返回的K个结果</strong>与使用暴力查找的K个结果去比较，如果完全一致，说明是最好的。</li>
+<li>基于树的办法
+<ul>
+<li>Annoy是一个<strong>以树为数据结构</strong>的<strong>近似最近邻搜索库</strong>,不断<strong>用选取的两个质心的法平面对空间进行分割</strong>，最终将<strong>每一个区分的子空间里面的样本数据限制在K</strong>以内。</li>
+</ul></li>
+<li>哈希方法(<strong>局部敏感哈希</strong>)
+<ul>
+<li>在<strong>高维数据空间中的两个相邻的数据</strong>被映射到<strong>低维数据空间中</strong>后，将会有<strong>很大的概率仍然相邻</strong>；而<strong>原本不相邻的两个数据</strong>，在<strong>低维空间中也将有很大的概率不相邻</strong>。通过这样一映射，我们可以<strong>在低维数据空间来寻找相邻的数据点</strong>，<strong>避免在高维数据空间中寻找</strong>，因为在高维空间中会很耗时。<strong>有这样性质的哈希映射称为是局部敏感</strong>的。</li>
+</ul></li>
+<li>矢量量化的方法
+<ul>
+<li><strong>乘积量化（PQ）</strong>:它的主要思想是<strong>将特征向量进行正交分解</strong>，在<strong>分解后的低维正交子空间上进行量化</strong>，由于低维空间可以<strong>采用较小的码本</strong>进行编码，因此<strong>可以降低数据存储空间</strong> 。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>XGBoost与GBDT树的区别:</p>
+<ul>
+<li>xgboost加入了<strong>和叶子权重的L2正则化项</strong>，因而有利于模型获得更低的方差。</li>
+<li>xgboost增加了<strong>自动处理缺失值</strong>特征的策略</li>
+<li>XGBoost采用了Shrinkage 和Column Subsampling方法，这两种方法都能在一定程度上防止过拟合。</li>
+<li>同级的节点可以并行化训练</li>
+<li>xgBoost采用<strong>预排序</strong>，在迭代之前，对结点的特征做预排序，遍历选择最优分割点，数据量大时，贪心法耗时</li>
+<li>xgBoost<strong>采用level-wise</strong>生成决策树，同时分裂同一层的叶子，从而进行多线程优化，不容易过拟合，但很多叶子节点的分裂增益较低，没必要进行跟进一步的分裂，这就带来了不必要的开销</li>
+</ul></li>
+<li><p>LightGBM与XGBoost的区别:</p>
+<ul>
+<li>LightGBM相较于XGBoost的主要改进点在于采用了<strong>Histogram直方图算法</strong>，将<strong>连续的浮点特征值离散化成k个整数</strong>，比如说将[0,0.1)分为0，[0.1,0.3)分为1之类的。在遍历数据的时候，<strong>根据离散化后的值</strong>作为索引在直方图中<strong>累积统计量</strong>，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，<strong>遍历寻找最优的分割点</strong>。
+<ul>
+<li>不仅<strong>不需要额外存储预排序的结果</strong>，而且可以<strong>只保存特征离散化后的值</strong></li>
+<li>计算上的代价也大幅降低，预排序算法<strong>每遍历一个特征值就需要计算一次</strong>分裂的增益，而<strong>直方图算法只需要计算k次</strong></li>
+</ul></li>
+<li>另外，LightGBM采用了<strong>带深度限制的Leaf-wise的叶子生长策略</strong>,XGBoost中，树是<strong>按层生长的</strong>，称为<strong>Level-wise tree growth</strong>，<strong>同一层的所有节点都做分裂</strong>，最后<strong>剪枝</strong>。造成了很多不必要的分裂。Leaf-wise则是一种更为高效的策略，每次<strong>从当前所有叶子中</strong>，找到<strong>分裂增益最大</strong>的一个叶子，然后分裂，<strong>如此循环</strong>。
+<ul>
+<li>Leaf-wise可以<code>降低更多的误差，得到更好的精度</code>。Leaf-wise的缺点是<code>可能会长出比较深的决策树，产生过拟合</code>。因此LightGBM在Leaf-wise之上<code>增加了一个最大深度的限制，在保证高效率的同时防止过拟合</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="attention">Attention</h5>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/">Visualizing A Neural Machine Translation Model (Mechanics of Seq2seq Models With Attention) – Jay Alammar – Visualizing machine learning one concept at a time. (jalammar.github.io)</a></p></li>
+<li><p>RNN相关算法<strong>只能从左向右依次计算或者从右向左依次计算</strong>:</p>
+<ul>
+<li><p><strong>时间片 t 的计算依赖 t-1 时刻的计算结果</strong>，这样<strong>限制了模型的并行能力</strong></p></li>
+<li><p>顺序计算的过程中信息会丢失，尽管LSTM等门机制的结构一定程度上缓解了长期依赖的问题，但是<strong>对于特别长期的依赖现象,LSTM依旧无能为力</strong>。</p></li>
+<li><p>RNN<strong>接受hidden state、input vector两个输入</strong>，并<strong>输出hidden state、output vector</strong>，在<strong>encoder到decoder之间只会传递一个hidden state</strong>。</p></li>
+</ul></li>
+<li><p>Attention就是为了处理对于长期信息的提取。</p>
+<ul>
+<li>首先与RNN不同的点在于，Attention在encoder 传递 hidden states给decoder的时候，<strong>将所有的 hidden states全部传给decoder</strong>。</li>
+<li>并且在<strong>每一个timestep处理</strong>过后，<strong>将hidden state与output进行concat</strong>，传给feedforward neural network得到输出向量。在<strong>Attention的训练过程</strong>中，<strong>feedforward neural network也跟着一起训练</strong>。</li>
+<li>在decoder当中对encoder传递过来的<strong>所有hidden state的信息进行打分</strong>得到Score,对Score进行<strong>softmax处理</strong>并<strong>乘回hidden state</strong>当中，最后<strong>求一个加权和</strong>。</li>
+</ul></li>
+<li><p>Attention机制的核心就是<strong>加权求和</strong>:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410776234">超详细图解Self-Attention - 知乎 (zhihu.com)</a></p></li>
+<li><p>本质在于公式: <span class="math display">\[
+  Attention(Q,K,V) = Softmax(\frac{\mathbf{Q}\cdot \mathbf{K}^T}{\sqrt{d_k}}) \mathbf{V}
+  \]</span></p></li>
+<li><p><strong>权重</strong>哪里来? 通过<strong>softmax归一化打分函数</strong>。</p></li>
+<li><p><strong>打分函数</strong>是啥? self-attention用的是两个矩阵<span class="math inline">\(Q,K\)</span>的乘积，<strong>蕴意为两个矩阵<span class="math inline">\(Q,K\)</span>之间的相关性</strong>。</p></li>
+<li><p>用权重乘以原有的表示矩阵得到的结果是什么意思? 得到<strong>经过Attention机制处理</strong>之后的<strong>新的表示矩阵</strong>。</p></li>
+<li><p><span class="math inline">\(\mathbf{Q}\)</span>等三个矩阵怎么得到? <strong>通过对与原表示矩阵进行线性变换</strong>, <span class="math inline">\(\mathbf{Q} = \mathbf{W_Q}\mathbf{X}\)</span> ,<span class="math inline">\(\mathbf{K},\mathbf{V}\)</span>同理。</p>
+<ul>
+<li>分别对应着<strong>Query matrix, Key matrix, and Value matrix</strong></li>
+<li>这三个矩阵共同构成了一个Self-Attention所需要的参数体系，一般称为<strong>Attention Head</strong>。</li>
+</ul></li>
+<li><p>为什么要进行线性变换? 因为<strong>权重矩阵<span class="math inline">\(\mathbf{W}\)</span>是可以训练</strong>的，从而得到一个更好的矩阵表示。</p></li>
+<li><p>为什么除以<span class="math inline">\(\sqrt{d_k}\)</span>? 为了<strong>让方差变为1</strong>,从而进一步<strong>使得Softmax</strong>在训练过程中求得的<strong>梯度</strong>能够更加<strong>稳定</strong>。</p></li>
+</ul></li>
+<li><p>将<strong>Self-Attention</strong>进行进阶，就是进行一个<strong>Multi-head Attention</strong>:</p>
+<ul>
+<li>将<strong>输入独立地</strong>传给<strong>n个Self-Attention模块</strong>得到<strong>n个不同的Attention表示</strong>。</li>
+<li>但是我们最后只需要一个Attention表示,怎么做呢?
+<ul>
+<li><strong>故技重施</strong>! 将n个不同的Attention表示concat在一起得到 <span class="math inline">\(\mathbf{Z}^\prime\)</span> , 对其进行线性变换，<strong>乘以一个可训练的权重矩阵<span class="math inline">\(\mathbf{W_Z}\)</span></strong>。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="transformer">Transformer</h4>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer – Jay Alammar – Visualizing machine learning one concept at a time. (jalammar.github.io)</a></p></li>
+<li><p>Transformer<strong>由且仅由self-Attenion和Feed Forward Neural Network组成</strong>。整体结构为一个<strong>Encoder集-&gt;Decoder集-&gt;Linear全连接神经网络-&gt;Softmax</strong>。</p>
+<ul>
+<li><p>对于<strong>Encoder,</strong> 由<strong>一层self-Attenion和Feed Forward Neural Network</strong>组成;对于<strong>Decoder</strong>, 在<strong>self-Attenion和Feed Forward Neural Network</strong>之间多加了一层<strong>Encoder-Decoder Attention</strong>.</p>
+<ul>
+<li><p>用一张图来说Encoder的工作就是：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091524902.png" alt="image-20220309152425811" style="zoom:50%;" /></p>
+<p><strong>每一个输入向量都可以并行地传入，并行地输出</strong>，这极大地加快了训练的速度。</p></li>
+</ul></li>
+<li><p>不论是Encoder还是Decoder都是可以进行<strong>堆叠</strong>的。</p></li>
+<li><p>对于Decoder,需要注意几个区别:</p>
+<ul>
+<li>首先，Decoder的Self-Attention<strong>接受了最顶层Encoder的</strong><span class="math inline">\(\mathbf{K},\mathbf{V}\)</span>,并且<span class="math inline">\(\mathbf{Q}\)</span>用的是上一个Decoder的(<strong>初始化后，顺序传递</strong>)</li>
+<li>Decoder的<strong>Self-Attention对输入向量未来的信息进行了一个mask</strong>,设置为-inf之类的。</li>
+<li>除此之外，<strong>每一轮timestep Decoder的输出</strong>都会在进行<strong>位置矩阵处理</strong>之后，<strong>加入下一轮timestep的计算当中</strong>。</li>
+</ul></li>
+<li><p>对于最后的Linear-Softmax:</p>
+<ul>
+<li>用<strong>Linear全连接神经网络</strong>对输出进行一个打分，然后<strong>用Softmax得到概率</strong>，<strong>选择概率最大的那个词</strong>作为输出。</li>
+</ul></li>
+</ul></li>
+<li><p>Transformer的大体流程:</p>
+<ul>
+<li>Transformer对于输入还进行了一个额外的处理，将<strong>输入矩阵<span class="math inline">\(\mathbf{X}\)</span> 加上一个 位置矩阵 <span class="math inline">\(\mathbf{T}\)</span>来</strong>记录每一个单词所在的<strong>位置信息</strong>。</li>
+<li>并且在前面所介绍的Self-Attention与Feed Forward网络之后，<strong>都会接上一个Normalize 步骤</strong>
+<ul>
+<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202203091544065.png" alt="image-20220309154423977" style="zoom:50%;" /></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="word2vec">Word2vec</h5>
+<ul>
+<li>n-gram 假设: n-1阶的Markov假设，认为<strong>一个词出现的概率就只与它前面的n-1个词相关</strong>。
+<ul>
+<li>重要技术(平滑化):</li>
+</ul></li>
+<li>Word2vec 的 2 种训练模式：
+<ul>
+<li><strong>CBOW</strong>，通过上下文来预测当前值。</li>
+<li><strong>Skip-gram</strong>，用当前词来预测上下文。</li>
+</ul></li>
+<li>通过负采样、Hierarchical Softmax来提高速度。</li>
+</ul>
+<h5 id="bert">BERT</h5>
+<ul>
+<li>BERT本身是一个预训练的模型,网络结构就是堆叠Transformer。</li>
+<li>BERT模型的特点在于:
+<ul>
+<li>模型网络结构深，但是不宽。侧面印证了<strong>深而窄 比 浅而宽 的模型更好</strong>。</li>
+</ul></li>
+<li>Pre-Training的两大步骤:
+<ul>
+<li>Next Sentence Prediction（NSP）:
+<ul>
+<li>MLM任务倾向于抽取<strong>token层次</strong>的表征，因此不能直接获取<strong>句子层次</strong>的表征。</li>
+<li>NSP任务简单来说就是预测<strong>两个句子是否是连贯</strong>的。</li>
+<li>具体的做法是：对于每一个训练样例，我们在语料库中挑选出句子A和句子B来组成，<strong>50%的时候句子B就是句子A的下一句<em>（标注为IsNext）</em></strong>，<strong>剩下50%的时候句子B是语料库中的随机句子<em>（标注为NotNext）</em></strong>。接下来把训练样例输入到BERT模型中，用[CLS]对应的C信息去进行二分类的预测。</li>
+</ul></li>
+<li>Masked Language Model（MLM）:
+<ul>
+<li>MLM（<strong>Masked Language Model</strong>），同时利用左侧和右侧的词语。它用<strong>15%的概率随机对训练序列中的token进行替换</strong>，在此基础上，<strong>80%的概率选择[MASK],10%的概率随机选择一个其他token，10%的概率保持原有token不变</strong>。BERT不再只对[MASK]敏感，而是<strong>对所有的token都敏感</strong>，以致能抽取出任何token的表征信息。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="ensemble-learning">Ensemble learning</h5>
+<ul>
+<li>Stacking:
+<ul>
+<li>目标在于<strong>提升预测性能</strong></li>
+<li><strong>异质集成,将多个不同类的学习器集合到一起</strong>。</li>
+</ul></li>
+<li>Bagging :
+<ul>
+<li>目标在于<strong>减少方差</strong></li>
+<li>Bagging使用<strong>Bootstrap随机有放回的抽样来获取数据子集</strong>训练基础学习器。通常分类任务使用投票的方式集成，而回归任务通过平均的方式集成。</li>
+</ul></li>
+<li>Boosting
+<ul>
+<li>目标在于<strong>减少偏差</strong></li>
+<li><strong>通过算法集合将弱学习器转换为强学习器</strong></li>
+<li><strong>训练一系列的弱学习器</strong>，所谓弱学习器是指仅比随机猜测好一点点的模型，例如较小的决策树，训练的方式是<strong>利用加权的数据</strong>。在训练的早期<strong>对于错分数据给予较大的权重</strong>。</li>
+<li><strong>每一轮的训练集是不变的</strong>，<strong>改变的只是每一个样本的权重</strong>。</li>
+<li><strong>样本权重</strong>：<strong>Bagging</strong>使用的是<strong>均匀取样</strong>，每个样本权重相等；<strong>Boosting根据错误率调整样本权重，错误率越大的样本权重越大</strong>。</li>
+<li>因此，Boosting与Bagging的区分点在于 <strong>训练集以及样本权重</strong></li>
+</ul></li>
+<li>串行集成方法: AdaBoost, 也就是说AdaBoost依次训练弱学习器，</li>
+<li>并行集成方法: Random Forest</li>
+</ul>
+<h5 id="面试常见问题">面试常见问题</h5>
+<ul>
+<li><p>自我介绍:</p>
+<ul>
+<li>我是CYQ，是南京大学人工智能学院大三的本科生，在2021年获得过人民奖学金。在校期间，主要学习AI的基础课程，对AI的基础知识较为熟悉；也参与了2022年ICM/MCM的比赛并完成了神经网络、ICS等课程的小项目，在这过程中，我获得了一些在linux系统上进行Python/c等语言进行编程的经验。另外，我对于AI技术在推荐系统上的应用有比较大的兴趣，所以非常希望能在贵公司获得一个成长和探索的机会。</li>
+</ul></li>
+<li><p>完成项目的收获:</p>
+<ul>
+<li>提升最大的主要是独立思考的能力，借助互联网解决问题的能力以及知道了该如何提问。具体拿如何提问来举例的话，比如遇到某个bug，在询问别人的时候，除了报错的命令行代码之外，我还需要具体地提供代码的上下文、运行环境、能不能稳定触发、个人对于bug产生原因的独立思考等。但是在接触这些小项目之前，我可能就直接截图就问了。其次的话，在具体知识点上的理解也有所加深。</li>
+</ul></li>
+<li><p>平时常用的app:</p>
+<ul>
+<li>飞书、b站、知乎、抖音,飞书确实挺好用的，研究组也用，没有一些杂七杂八的功能，交流讨论需要的共享、批注功能也都有。</li>
+</ul></li>
+<li><p>对于字节跳动的了解:</p>
+<ul>
+<li>抖音、tiktok、头条的母公司</li>
+<li>最近有听说向游戏领域进军，朝夕光年</li>
+<li>公司精神是<strong>追求极致、务实敢为、开放谦逊</strong>、坦诚清晰、始终创业、多元兼容,这些精神还挺吸引我的。</li>
+<li><strong>字节跳动成立于2012年3月，旗下拥有今日头条、抖音、西瓜视频、飞书等产品</strong>。</li>
+</ul></li>
+<li><p>兴趣爱好:</p>
+<ul>
+<li>喜欢看一些DIY up主，有时候会尝试看看他们开源的code。另外的话，逛逛知乎，关注一些时事热点。</li>
+</ul></li>
+<li><p>缺点:</p>
+<ul>
+<li>需要锻炼一下交流沟通的能力以及学习的深度。</li>
+</ul></li>
+<li><p>反问:</p>
+<ul>
+<li>如果有机会入职，那入职以后具体会负责做什么</li>
+<li>如果想更深地了解推荐算法，您推荐现阶段我可以做什么</li>
+</ul></li>
+<li><p>ICS的项目:</p>
+<ul>
+<li>属于南大计算机系的一个项目Project-N的子项目。</li>
+<li>PA1:实现cpu的单步执行、打印寄存器的状态、扫描内存、算术表达式求值、监视点。
+<ul>
+<li>NEMU自带有简易调试器，其是老师提供的一个开源的OS，可以运行其他的应用程序。我们需要做的是实现NEMU中简易调试器的部分函数的代码。</li>
+<li>机器永远是对的，未测试代码永远是错的。</li>
+</ul></li>
+<li>PA2: 让NEMU可以运行c程序 dummy;实现更多的指令，可以运行所有提供的程序;运行FCEUX
+<ul>
+<li>CPU执行指令的过程 ： 取指 ， 译码， 执行， 更新PC。</li>
+<li>YEMU是一个简化版的NEMU，相当于一个老师提供的可以运行CPU指令的小样例。</li>
+<li>Copy-Paste是一种糟糕的编程习惯。先完成，后完美。</li>
+<li>AM(Abstract machine)是一个向程序提供运行时环境的库。是真正将Project-N项目连起来的核心。</li>
+<li>Debug- difftest</li>
+<li>完成串口、声卡的软件层模拟代码。</li>
+</ul></li>
+<li>PA3:实现自陷 yield()、实现用户程序的加载、系统调用、文件系统、运行PAL
+<ul>
+<li>yield() 跳转到其他程序的代码首地址，执行完后恢复上下文之后，运行原来的代码。</li>
+<li>系统调用也是通过yield来实现的，通知用户程序它需要什么请求</li>
+<li>文件系统需要实现 fsopen,fsread,fswrite</li>
+<li>有了文件系统、系统调用，我们就需要借助NDL库，实现时钟、按键等的模拟</li>
+<li>Navy是基础设施，提供difftest的native实现，提供libc,libos等基础库</li>
+</ul></li>
+</ul></li>
+<li><p>OS-lab:</p>
+<ul>
+<li><p>bootloader : 关中断、打开地址线、加载gdtr寄存器、长跳转进入保护、初始化DS/SS</p>
+<ul>
+<li>函数指针进行跳转</li>
+</ul></li>
+<li><p>加载kernal : 加载0x100000的地址空间进入kernal，初始化中断门、陷阱门 、实现printf/sprintf等函数</p></li>
+<li><p>实现fork（内存数据的复制）、exit、sleep</p></li>
+</ul></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Note/" rel="tag"><i class="fa fa-tag"></i> Note</a>
+              <a href="/tags/Work/" rel="tag"><i class="fa fa-tag"></i> Work</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/07/ML-review/" rel="prev" title="chap.1/2 ML基础概念 review">
+      <i class="fa fa-chevron-left"></i> chap.1/2 ML基础概念 review
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/16/torch_note2/" rel="next" title="Pytorch Note Two">
+      Pytorch Note Two <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">算法题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">小知识点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#attention"><span class="nav-number">3.</span> <span class="nav-text">Attention</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transformer"><span class="nav-number"></span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#word2vec"><span class="nav-number">1.</span> <span class="nav-text">Word2vec</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bert"><span class="nav-number">2.</span> <span class="nav-text">BERT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ensemble-learning"><span class="nav-number">3.</span> <span class="nav-text">Ensemble learning</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">面试常见问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yanquan Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yanquan Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/DespairL" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;DespairL" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Chen61723827" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Chen61723827" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yanquan Chen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

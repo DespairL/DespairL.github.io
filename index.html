@@ -191,6 +191,574 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/16/torch_note1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/16/torch_note1/" class="post-title-link" itemprop="url">Pytorch Note One</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-16 19:23:11 / Modified: 19:24:33" itemprop="dateCreated datePublished" datetime="2022-03-16T19:23:11+08:00">2022-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/torch-Note/" itemprop="url" rel="index"><span itemprop="name">torch Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pytorch">Pytorch</h1>
+<h2 id="library">Library</h2>
+<p>pprint 可以让打印效果更加好看一点.</p>
+<p>pytorch 是更为灵活的一个Tensorflow的alternative之一</p>
+<h2 id="tensor">Tensor</h2>
+<p>我们可以从一个python list出发，构建一个tensor. data type 以及 dimensions 都会自动转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = [ [0,1], [2,3] ]</span><br><span class="line">tensor_first = torch.tensor(data)</span><br><span class="line">pp.pprint(tensor_first) # result : tensor([ [0,1], [2,3] ])</span><br></pre></td></tr></table></figure>
+<p>同样也可以用dtype指定数据类型，常用的为torch.bool torch.float torch.long</p>
+<p>或者也可以使用 .float()等方法</p>
+<p>还可以利用tensor.FloatTensor, tensor.LongTensor直接创建相应类型的tensor，则在NLP领域中非常有用</p>
+<p>torch.tensor默认是float类型的</p>
+<p>另外，当然也可以从numpy的array进行转换,利用torch.from_numpy()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">ndarray = np.array(data)</span><br><span class="line">x_numpy = torch.from_numpy(ndarray)</span><br></pre></td></tr></table></figure>
+<p>最后，也可以通过另一个tensor进行初始化tensor</p>
+<p>有四种方法， torch.ones_like(), torch.zeros_like(), torch.rand_like() (均匀分布 0-1), torch.randn_like() (正态分布)</p>
+<p>要达成相同的效果，可以指定一个shape，利用torch.zeros(), torch.ones(), torch.rand(), torch.randn()</p>
+<p>example :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shape = (4, 2, 2)</span><br><span class="line">x_zeros = torch.zeros(shape)</span><br></pre></td></tr></table></figure>
+<p>torch.arange(end) : 创建一个 从 0 到 end-1 的tensor</p>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/16/torch_note2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/16/torch_note2/" class="post-title-link" itemprop="url">Pytorch Note Two</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-16 19:23:11 / Modified: 19:24:58" itemprop="dateCreated datePublished" datetime="2022-03-16T19:23:11+08:00">2022-03-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/torch-Note/" itemprop="url" rel="index"><span itemprop="name">torch Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="pytorch-官方文档">1. Pytorch 官方文档</h2>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">PyTorch documentation — PyTorch 1.9.1 documentation</a></p>
+<h3 id="basic">1 .Basic</h3>
+<ul>
+<li><p>Optimizer 会根据计算好的梯度更新参数。</p>
+<p>因此，在调用torch.optim中的方法之前需要进行梯度的计算。</p>
+<p>基本的调用过程:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">loss.backward() # 计算梯度</span><br><span class="line">optimizer.step() # 更新参数 例如 学习率，权重</span><br></pre></td></tr></table></figure></p>
+<p>通常，需要在调用optimizer之前确定数据的存储位置。</p>
+<p>这一步由torch.device完成:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">device = torch.device(&#x27;cuda&#x27; if torch.cuda.is_available() else &#x27;cpu&#x27;)</span><br></pre></td></tr></table></figure></p>
+<p>而pytorch的梯度会进行累计，因此通常在每一次epoch中都要进行梯度的清零，这一份工作交给了zero_grad:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Backward and optimize</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure></p>
+<p>当我们需要对某一层的optimizer进行参数的特化:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">optim.SGD([</span><br><span class="line">      &#123;&#x27;params&#x27;: model.base.parameters()&#125;,</span><br><span class="line">      &#123;&#x27;params&#x27;: model.classifier.parameters(), &#x27;lr&#x27;: 1e-3&#125;</span><br><span class="line">            ], lr=1e-2, momentum=0.9)</span><br></pre></td></tr></table></figure></p>
+<p>这意味着对于model.base用参数lr=1e-2,对于model.classifier自己用参数'lr': 1e-3。</p>
+<p>但是，两个都采用参数momentum=0.9。</p>
+<p>Optimizer的几个固有方法</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Optimizer.load_state_dict # 读取参数</span><br><span class="line">Optimizer.state_dict # 返回optimizer的一个参数</span><br><span class="line">Optimizer.step # 进行一步参数的更新</span><br><span class="line">Optimizer.zero_grad # 设定所有tensor的梯度为0</span><br></pre></td></tr></table></figure></p>
+<p>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/07/%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/" class="post-title-link" itemprop="url">面试学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-07 19:03:21" itemprop="dateCreated datePublished" datetime="2022-03-07T19:03:21+08:00">2022-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-16 16:59:50" itemprop="dateModified" datetime="2022-03-16T16:59:50+08:00">2022-03-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Work-Note/" itemprop="url" rel="index"><span itemprop="name">Work Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="算法题">算法题</h5>
+<ul>
+<li><p>简单的二分查找中需要考虑的<strong>细节问题</strong>:</p>
+<ul>
+<li><p>如果取mid = (left + right) / 2,当数据量很大的时候，left + right就可能超过int的上界，此时，需要改变公式为mid = left + (right - left) / 2,这样的话，(right - left) / 2 与 left + (right - left) / 2操作都不会超过int的上界(且不用使用longlong,对于c/c++来说)。</p></li>
+<li><p>mid不是所求的数，那么，就要去找[left,mid-1],[mid+1，right]中是否有，mid已经找过了。</p></li>
+<li><p>该算法的缺陷就在于，如果给的有序数组是[1,2,2,2,3],target是2，那么我们就只能得到index=3</p>
+<ul>
+<li>我们可以通过在判断num[mid] == target的时候，可以灵活调整left，right来求左侧索引或者右侧索引</li>
+</ul></li>
+<li><p>尽量用elif 展开不用else</p></li>
+<li><p>另外当数据量比较小的时候，<strong>其实O(n)的线性查找会更快</strong>一些。</p></li>
+<li><p>找右边界:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while i &lt;= j:</span><br><span class="line">            m = (i + j) // 2</span><br><span class="line">            if nums[m] &lt;= target: i = m + 1 #只要相等i就会右移直到第一个不是target</span><br><span class="line">            else: j = m - 1</span><br><span class="line">        right = i</span><br></pre></td></tr></table></figure></p>
+<p>找左边界:</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while i &lt;= j:</span><br><span class="line">            m = (i + j) // 2</span><br><span class="line">            if nums[m] &lt; target: i = m + 1</span><br><span class="line">            else: j = m - 1 #只要相等j就会左移直到第一个不是target</span><br><span class="line">        left = j</span><br></pre></td></tr></table></figure></p></li>
+<li><p>二分法专门用来解决排好序的数组中的搜索问题。打比方来说有一个缺失了一个元素的递增数组，我们要怎么搜索出来缺失元素? 二分,<strong>num[mid] == mid,说明在数组的左侧，i = mid + 1，反之，在右侧, j = mid + 1。</strong></p></li>
+</ul></li>
+</ul>
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/07/ML-review/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/07/ML-review/" class="post-title-link" itemprop="url">chap.1/2 ML基础概念 review</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-07 10:57:05" itemprop="dateCreated datePublished" datetime="2022-03-07T10:57:05+08:00">2022-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-14 22:10:14" itemprop="dateModified" datetime="2022-03-14T22:10:14+08:00">2022-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="chap1">Chap1</h3>
+<ul>
+<li>机器学习主要研究的就是从计算机的<strong>数据</strong>当中<strong>产生模型的算法</strong>,亦即<strong>学习算法</strong>。这是一个<strong>归纳</strong>的过程，不同于<strong>基于基本事实推导出结论的演绎</strong>过程。也可以将该学习过程看成是一个<strong>在假设空间中进行搜索</strong>与<strong>训练集fit</strong>的假设的过程,换句话说，对于<strong>每一个特征</strong>，学习过程都是<strong>假设一个值</strong>，组合特征维度形成一个<strong>特征向量</strong>/<strong>评判标准</strong>，看<strong>是否与训练集fit</strong>。</li>
+<li>对于不同的学习任务，我们一般将预测对象按照值是否离散，区分<strong>分类(离散值)</strong>、<strong>回归(连续值)</strong>,它们同属于监督学习。</li>
+<li>无监督、半监督、监督学习、测试、聚类(无监督)概念不赘述。</li>
+<li>归纳偏好(Inductive Bias):指的是<strong>机器学习的算法或者模型</strong>在学习过程中<strong>对于某种类型假设的偏好</strong>。<strong>如果一个机器学习算法没有归纳偏好，那它就没法告诉我们什么是确定有效的</strong>。如果是随机产生，那么，每次训练预测得到的结果都不一样，这显然不是我们想看到的。</li>
+<li><strong>Occam剃刀</strong>:如果有多个假设的结果一致，就选最简单的那一个</li>
+<li><strong>天下没有免费的午餐(NFL)</strong>:所有学习算法的期望都是一样的。</li>
+</ul>
+<h3 id="chap2">Chap2</h3>
+<ul>
+<li><strong>过拟合</strong>:模型的复杂程度超过了数据的复杂程度
+<ul>
+<li>想要解决比解决欠拟合要复杂地多。</li>
+</ul></li>
+<li><strong>欠拟合</strong>:模型的复杂程度未超过了数据的复杂程度
+<ul>
+<li>克服? : 增加训练轮数即可。</li>
+</ul></li>
+<li>测试集的划分:
+<ul>
+<li><strong>hold-out 留出法</strong> : <strong>直接将数据集划分为训练集与测试集</strong>。比例把控不当会导致测试或者训练效果不佳。</li>
+<li><strong>k-fold Cross Validation 交叉验证法</strong> :将数据集对等地<strong>划分为n折</strong>。 取其中<strong>一折作为测试集</strong>，其余的作为训练集。</li>
+<li><strong>Bootstrap Sampling 自助法</strong>: 为了解决<strong>划分测试集导致的训练集复杂度降低</strong>的问题。该方法是<strong>在m个样本的数据集中随机有放回地采样m次</strong>构成新数据集<span class="math inline">\(D^\prime\)</span> 作为训练集，将<span class="math inline">\(D/D^\prime\)</span>作为测试集。在数学上可以证明，大概有36.8%的数据被划入了测试集。</li>
+<li>总结: 一般来说，Bootstrap Sampling用于<strong>集成学习或者数据量较小</strong>的情况，另外两种可用于<strong>数据量较大</strong>的情况。</li>
+</ul></li>
+<li>错误率、精度、查准、查全、PR曲线、平衡点(BER)、F1度量</li>
+<li>偏差-方差分解(<strong>bias-varience decompose</strong>):
+<ul>
+<li>定义泛化误差为<span class="math inline">\(E = bias^2(x) + var(x) + noise^2\)</span></li>
+<li><span class="math inline">\(bias(x)\)</span> 描述期望预测与实际结果之间的矛盾，即<strong>模型本身的学习能力</strong></li>
+<li><span class="math inline">\(var(x)\)</span> 描述<strong>数据扰动带来的影响</strong></li>
+<li><span class="math inline">\(noise^2\)</span> 描述了学习问题泛化误差的下界，表示<strong>问题自身的复杂度</strong></li>
+<li>偏差与方差存在冲突，训练前期，<strong>学习能力较差，不足以学习数据的扰动</strong>，就会<strong>由偏差主导泛化误差</strong>；训练后期，<strong>模型能够学习数据中的扰动</strong>，就会由<strong>方差主导泛化误差</strong>；当学习能力强到一定程度，<strong>极小的数据扰动带来的局部性质都被模型学习到了</strong>，就会出现<strong>过拟合</strong>。</li>
+</ul></li>
+</ul>
+<h3 id="chap3">Chap3</h3>
+<ul>
+<li>线性模型:
+<ul>
+<li>尝试学习一个线性组合函数作为预测函数。</li>
+<li>具有<strong>良好的可解释性</strong>，通过权重矩阵<span class="math inline">\(w\)</span>,可以直观地看出哪个属性更为重要。</li>
+<li>通过引入<strong>层级结构或者高维结构</strong>就可以完成非线性。</li>
+</ul></li>
+<li>线性回归 ： 尝试学习一个线性组合函数作为预测函数, 预测标签。
+<ul>
+<li>采用<strong>最小二乘法（MSE最小化）</strong>的优化方法。</li>
+</ul></li>
+<li><strong>对数线性</strong>回归：将线性回归预测的<span class="math inline">\(y-&gt;\ln y\)</span></li>
+<li><strong>对数几率</strong>回归：用Sigmoid进行预测，实际上是<strong>分类模型</strong>。
+<ul>
+<li><strong>Sigmoid任意阶可导</strong>，可以<strong>获得近似概率分布</strong>，<strong>有利于求最优解</strong>与<strong>辅助决策</strong>。</li>
+<li><strong>不需要直接对数据分布做出假设</strong>，线性回归就会假设数据分布满足线性，但是对数几率回归<strong>对于分类的可能建模</strong>，<strong>数据不敏感</strong>。</li>
+<li>用<strong>极大似然法</strong>进行优化处理,<strong>梯度下降</strong>求最优解。</li>
+</ul></li>
+<li>线性判别分析(LDA):
+<ul>
+<li><strong>同类</strong>尽可能接近（<strong>协方差小</strong>），<strong>异类</strong>尽可能远离（<strong>距离大</strong>）。</li>
+</ul></li>
+<li>多分类：
+<ul>
+<li><strong>将若干个类作为正例，若干个作为反例</strong>。</li>
+<li>常见分类策略: <span class="math inline">\(OvO,OvR,MvM\)</span></li>
+</ul></li>
+<li>类别不平衡:
+<ul>
+<li>欠采样（<strong>反例</strong>）、过采样（<strong>正例</strong>）、阈值移动（在决策阶段使用<strong>等式转换</strong>目标）
+<ul>
+<li>通过转换判断<span class="math inline">\(\frac{y}{1-y} &gt; \frac{m^+}{m^-}\)</span>,来判断时候预测为正例。</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap4">Chap4</h3>
+<ul>
+<li>决策树：
+<ul>
+<li>缓解过拟合:
+<ul>
+<li>剪枝：预剪枝（<strong>展开子树</strong>是否会带来泛化性能的提升来决定）、后剪枝(先训练出一棵完整的树再考虑)。
+<ul>
+<li>预剪枝：<strong>时间开销少、容易欠拟合</strong></li>
+<li>后剪枝：<strong>时间开销大、不容易欠拟合</strong></li>
+</ul></li>
+</ul></li>
+<li>决策树要实现斜向划分是通过<strong>分段近似</strong>(对每一个区间段<strong>拟合一个线性函数</strong>)实现的。</li>
+</ul></li>
+</ul>
+<h3 id="chap5">Chap5</h3>
+<ul>
+<li>MP神经元</li>
+<li>感知机Perceptron : 由两层神经元组成,输出层为MP神经元，需要激活函数处理。</li>
+<li>非线性：多层前馈神经网络(multi-layer feedforwaed neural network)
+<ul>
+<li>通过BP算法训练</li>
+<li><strong>累计BP算法（用所有样本）与标准BP算法(只用一个样本)</strong>的区别类似于<strong>随机梯度下降(只用一个样本)与梯度下降（用所有样本）</strong>之间的区别。</li>
+<li>折中：小批量的随机梯度下降/...</li>
+</ul></li>
+<li>跳出局部最优:
+<ul>
+<li><strong>模拟退火</strong> : 每一步<strong>以一定概率接受更差</strong>的结果、<strong>随机梯度下降</strong>、<strong>遗传算法</strong></li>
+<li>这些算法基本都是启发式的，没有理论保证。</li>
+</ul></li>
+<li>DNN:
+<ul>
+<li>进行<strong>深度学习</strong>也可以理解为进行<strong>特征学习</strong>或者<strong>表示学习</strong>。</li>
+<li><strong>增加隐藏层数目比增加隐藏层神经元个数往往更有效</strong>。</li>
+<li>多隐藏层的神经网络<strong>难以用BP进行训练</strong>，<strong>梯度会发散不收敛</strong>。</li>
+<li><strong>无监督逐层训练</strong>是一个有效手段:
+<ul>
+<li>每次训练一层隐藏节点，将<strong>上一层输出作为输入，本层输出作为下一层输入</strong>。上述过程也被称为“<strong>预训练</strong>”。预训练结束之后，再对整个网络进行<strong>微调(fine-tuning)</strong>。这就相当于<strong>基于局部较优的结果组合寻找全局最优</strong>。</li>
+</ul></li>
+<li>在<strong>CNN</strong>中采用了<strong>权值共享</strong>的策略，让<strong>一组神经元有相同的连接权值</strong>。</li>
+</ul></li>
+</ul>
+<h3 id="chap6">Chap6</h3>
+<ul>
+<li>SVM:
+<ul>
+<li><p>基于训练集，找到一个超平面将不同的样本分开。</p></li>
+<li><p>通过将超平面方程中的<span class="math inline">\(x\)</span>替换为<span class="math inline">\(\phi(x)\)</span>就可以实现非线性。</p></li>
+<li><p><strong>软间隔</strong>: 为了解决 <strong>难以判断线性可分的结果是不是过拟合</strong>造成的， 提出<strong>软间隔</strong>来缓解这一问题。</p>
+<ul>
+<li>软间隔将<strong>允许SVM在一些样本上出错</strong></li>
+<li>优化目标就变成 在<strong>最大化间隔</strong>的基础上，<strong>最小化出错样本</strong>。</li>
+<li>引入的<strong>松弛变量</strong>是为了表述<strong>样本不满足约束</strong>的程度,其实就是每个样本的<strong>loss</strong></li>
+<li>引入软间隔之后，仍然超平面仍然<strong>仅与支持向量有关</strong>，<strong>保持了稀疏性</strong>。</li>
+</ul></li>
+<li><p>如果将软间隔的SVM的<strong>惩罚函数</strong>换为<span class="math inline">\(l_{log}\)</span> ,那么SVM（未经过拓展的情况下）就是一个<strong>二分类的对率回归分类器</strong>。 区别在于，<strong>对率回归可以输出概率</strong>，<strong>SVM不能</strong>；<strong>SVM的解具有稀疏性</strong>，<strong>对率回归依赖于样本</strong>，<strong>训练开销更大</strong>。</p></li>
+<li><p>从SVM可以引出正则化问题：</p>
+<ul>
+<li><p><span class="math display">\[
+  \min_f \Omega(f) + C \sum_{i=1}^m l(f(x_i),y_i)
+  \]</span></p></li>
+<li><p><span class="math inline">\(\Omega(f)\)</span>为<strong>正则化项</strong>，亦称<strong>结构风险</strong>，<span class="math inline">\(C\)</span>为<strong>正则化系数</strong>，<span class="math inline">\(\sum_{i=1}^m l(f(x_i),y_i)\)</span>也被称为<strong>经验风险</strong>。</p>
+<ul>
+<li>结构风险主要描述的是模型的特质</li>
+<li>经验风险描述模型的拟合程度</li>
+<li>正则化其实<strong>就是一种惩罚措施</strong>，对不希望出现的结果<strong>添加了一个惩罚项</strong>。从贝叶斯估计的角度来看，正则化给模型<strong>提供了先验概率</strong>。</li>
+</ul></li>
+<li><p>常用的正则化项为<span class="math inline">\(l_p\)</span>范数</p>
+<ul>
+<li><span class="math inline">\(l_2\)</span>范数倾向于<strong>权重的取值尽量均衡</strong>，<strong>非零分量尽量稠密</strong>，彼此的距离尽量小；<span class="math inline">\(l_1\)</span>范数倾向于<strong>非零分量尽可能少</strong></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>表示定理、核方法、KLDA</li>
+</ul>
+<h3 id="chap7">Chap7</h3>
+<ul>
+<li><p>贝叶斯判定准则:</p>
+<ul>
+<li>最小化总体风险，只需在每个样本上选择能<strong>最小化期望损失的标签</strong>即可</li>
+<li>由此得到<strong>贝叶斯最优分类器</strong></li>
+<li>其优化目标等价于最大化 后验概率<span class="math inline">\(P(c|x)\)</span>。
+<ul>
+<li>由贝叶斯定理，可以转换为最大化<span class="math inline">\(\frac{P(c)P(x|c)}{P(x)}\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>而<strong>概率模型训练的过程就是参数估计</strong>的过程，一般采用极大似然估计的方法。</p></li>
+<li><p>朴素贝叶斯分类器:</p>
+<ul>
+<li><p>假设所有属性独立产生影响。</p></li>
+<li><p>那么对于一个样本，优化目标为</p>
+<ul>
+<li><span class="math display">\[
+  \arg\max_x P(c) \prod_i P(x_i|c)
+  \]</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="chap8">Chap8</h3>
+<ul>
+<li>Bagging :
+<ul>
+<li>目标在于<strong>减少方差</strong></li>
+<li>Bagging使用<strong>Bootstrap随机有放回的抽样来获取数据子集</strong>训练基础学习器。通常<strong>分类</strong>任务使用<strong>投票</strong>的方式集成，而<strong>回归</strong>任务通过<strong>平均</strong>的方式集成。</li>
+<li>Bootstrap剩下的36.8%的数据可以用来<strong>包外估计</strong>，<strong>辅助决策树剪枝</strong>，<strong>提前结束神经网络训练</strong>等。</li>
+<li>适合用于<strong>决策树、神经网络等容易受到样本扰动</strong>的学习器上。</li>
+</ul></li>
+<li>Boosting
+<ul>
+<li>目标在于<strong>减少偏差</strong></li>
+<li><strong>通过算法集合将弱学习器转换为强学习器</strong></li>
+<li><strong>训练一系列的弱学习器</strong>，所谓弱学习器是指仅比随机猜测好一点点的模型，例如较小的决策树，训练的方式是<strong>利用加权的数据</strong>。在训练的早期<strong>对于错分数据给予较大的权重</strong>。</li>
+<li><strong>每一轮的训练集是不变的</strong>，<strong>改变的只是每一个样本的权重</strong>。</li>
+<li><strong>样本权重</strong>：<strong>Bagging</strong>使用的是<strong>均匀取样</strong>，每个样本权重相等；<strong>Boosting根据错误率调整样本权重，错误率越大的样本权重越大</strong>。</li>
+<li>因此，Boosting与Bagging的区分点在于 <strong>训练集以及样本权重</strong></li>
+</ul></li>
+<li><strong>串行集成方法</strong>: AdaBoost, 也就是说AdaBoost依次训练弱学习器，
+<ul>
+<li>学习器之间有强依赖。一般是Boosting。</li>
+</ul></li>
+<li><strong>并行集成方法</strong>: Random Forest
+<ul>
+<li>一般是Bagging、随机森林。</li>
+</ul></li>
+<li><strong>AdaBoost</strong>:
+<ul>
+<li>通过<strong>线性组合基学习器来最小化指数损失</strong>。</li>
+<li>AdaBoost在经过一个时间步<span class="math inline">\(H_t\)</span>之后，<strong>样本分布将进行调整</strong>(<strong>序列采样</strong>)，<strong>使得下一轮基学习器能够纠正上一轮基学习器的错误</strong>。</li>
+</ul></li>
+<li><strong>随机森林</strong>:
+<ul>
+<li><strong>决策树作为基学习器</strong>，利用<strong>Bagging集成</strong>,引入了<strong>随机属性选择(只选择一个属性子集，与SGD/GD的区别类似)</strong>。</li>
+<li><strong>训练效率、结果更好</strong>。</li>
+</ul></li>
+<li>集成的权重结合方法:
+<ul>
+<li>投票、平均、加权投票、加权平均、<strong>学习法（Stacking）</strong>。</li>
+</ul></li>
+<li><strong>Stacking:</strong>
+<ul>
+<li>它是一种<strong>“学习法”</strong>的代表，<strong>与Bagging,Boosting不在一条赛道</strong>上。</li>
+<li>目标在于<strong>提升预测性能</strong></li>
+<li><strong>异质集成,将多个不同类的学习器集合到一起</strong>。</li>
+<li>先从<strong>初始数据集中训练出一个初级学习器</strong>，然后将<strong>初级学习器的输出融入特征</strong>作为<strong>次级学习器</strong>的输入。</li>
+<li>其缺点在于<strong>次级</strong>学习器<strong>容易过拟合</strong>，因此常常使用<strong>交叉验证法</strong>或者<strong>留一法</strong>。</li>
+</ul></li>
+<li>多样性:
+<ul>
+<li>衡量<strong>不同学习器</strong>之间是否<strong>好而不同</strong>。</li>
+<li>要增强多样性，可以在<strong>数据、参数、特征等</strong>不同角度进行调整。</li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/27/ICSOS%E8%A1%A5%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -302,10 +870,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-27 18:02:29 / Modified: 18:14:18" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 18:02:29" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-11 20:59:18" itemprop="dateModified" datetime="2022-03-11T20:59:18+08:00">2022-03-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -338,10 +912,10 @@
 <ul>
 <li>通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。</li>
 </ul></li>
-<li>协同过滤:
+<li><strong>协同过滤:</strong>
 <ul>
 <li>基于整个用户群的过去交互,因此会比之前的算法都要精确得多。</li>
-<li>最常见的就是基于k阶近邻的接收到测试样本:
+<li>最常见的就是基于k阶近邻的接收到测试样本(<strong>一般都是用ANN找近似最近邻</strong>):
 <ul>
 <li>找出当前用户最近的k个邻居，利用这k+1个构成一个聚类，然后进行排序并推荐。</li>
 <li>也可以产生两种变体:基于商品或者是基于用户的推荐方案。</li>
@@ -596,7 +1170,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-06 21:32:40" itemprop="dateModified" datetime="2022-03-06T21:32:40+08:00">2022-03-06</time>
+                <time title="Modified: 2022-03-09 09:36:23" itemprop="dateModified" datetime="2022-03-09T09:36:23+08:00">2022-03-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -744,309 +1318,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/01/02/NoteforNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/02/NoteforNN/" class="post-title-link" itemprop="url">神经网络笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-02 22:51:31" itemprop="dateCreated datePublished" datetime="2022-01-02T22:51:31+08:00">2022-01-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-09 09:34:22" itemprop="dateModified" datetime="2022-01-09T09:34:22+08:00">2022-01-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="section">1</h4>
-<p>What</p>
-<p>​ 神经网络是一种<strong>模仿生物神经网络的结构、功能的数学模型</strong>，是一种自适应系统，具有学习功能，通过数据进行学习。<span class="math inline">\(\color{red}{(Key)}\)</span></p>
-<p>Why</p>
-<p>​ 可以通过“学习”解决传统算法解决不了的问题<span class="math inline">\(\color{red}{(Key)}\)</span>。神经网络特别适合执行模式识别，用以识别语音、视觉和控制系统中的对象或信号并对其分类。它们还可以用于执行时序预测和建模。</p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A02/" class="post-title-link" itemprop="url">近代史猜测的重点</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-26 22:27:48" itemprop="dateCreated datePublished" datetime="2021-12-26T22:27:48+08:00">2021-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-27 15:43:39" itemprop="dateModified" datetime="2021-12-27T15:43:39+08:00">2021-12-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="关于毛主席">关于毛主席</h4>
-<p>1840年鸦片战争以后，在西方列强坚船利炮轰击下，中国危机四起、人民苦难深重，陷入半殖民地半封建社会的黑暗深渊。</p>
-<p>实现中华民族伟大复兴始终是近代以来中国人民最伟大的梦想。</p>
-<p>毛泽东同志在青年时期就立下拯救民族于危难的远大志向。</p>
-<p>1919年，毛泽东同志在《〈湘江评论〉创刊宣言》中写道：“时机到了！世界的大潮卷得更急了！洞庭湖的闸门动了，且开了！浩浩荡荡的新思潮业已奔腾澎湃于湘江两岸了！顺他的生，逆他的死。”年轻的毛泽东同志，“书生意气，挥斥方遒。指点江山，激扬文字”，既有“问苍茫大地，谁主沉浮”的仰天长问，又有“到中流击水，浪遏飞舟”的浩然壮气。</p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/26/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%B4%A7%E6%80%A5%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">近代史讲话文献</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-26 22:12:08" itemprop="dateCreated datePublished" datetime="2021-12-26T22:12:08+08:00">2021-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-28 20:27:08" itemprop="dateModified" datetime="2021-12-28T20:27:08+08:00">2021-12-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="文献内容">文献内容</h4>
-<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112262213393.png" alt="image-20211226221327238" style="zoom: 25%;" /></p>
-<h4 id="习近平在纪念毛泽东同志诞辰120周年座谈会上的讲话">习近平在纪念毛泽东同志诞辰120周年座谈会上的讲话</h4>
-<p>同志们，朋友们：</p>
-<p>　　今天，我们怀着十分崇敬的心情，在这里隆重集会，纪念中国共产党、中国人民解放军、中华人民共和国的主要缔造者，中国各族人民的伟大领袖毛泽东同志诞辰120周年。</p>
-<p>　　毛泽东同志是伟大的马克思主义者，伟大的无产阶级革命家、战略家、理论家，是马克思主义中国化的伟大开拓者，是近代以来中国伟大的爱国者和民族英雄，是党的第一代中央领导集体的核心，是领导中国人民彻底改变自己命运和国家面貌的一代伟人。</p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/24/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86review/" class="post-title-link" itemprop="url">数字信号处理Review</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-24 15:01:55" itemprop="dateCreated datePublished" datetime="2021-12-24T15:01:55+08:00">2021-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-28 13:22:25" itemprop="dateModified" datetime="2021-12-28T13:22:25+08:00">2021-12-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DSP-Note/" itemprop="url" rel="index"><span itemprop="name">DSP Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="chap.0">Chap.0</h3>
-<h4 id="信号基本概念">信号基本概念</h4>
-<ul>
-<li><p>信号的分类</p></li>
-<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241504910.png" alt="image-20211224150458847" style="zoom:67%;" /></p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1118,20 +1389,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
