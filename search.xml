@@ -1135,7 +1135,7 @@
 <ul>
 <li>线性模型:
 <ul>
-<li>尝试学习一个线性组合函数作为预测函数。</li>
+<li>尝试学习一个<strong>线性组合函数</strong>作为预测函数。</li>
 <li>具有<strong>良好的可解释性</strong>，通过权重矩阵<span class="math inline">\(w\)</span>,可以直观地看出哪个属性更为重要。</li>
 <li>通过引入<strong>层级结构或者高维结构</strong>就可以完成非线性。</li>
 </ul></li>
@@ -1165,6 +1165,7 @@
 <ul>
 <li>通过转换判断<span class="math inline">\(\frac{y}{1-y} &gt; \frac{m^+}{m^-}\)</span>,来判断时候预测为正例。</li>
 </ul></li>
+<li>改变loss函数</li>
 </ul></li>
 </ul>
 <h3 id="chap4">Chap4</h3>
@@ -7369,7 +7370,7 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <ul>
 <li><p>自我介绍:</p>
 <ul>
-<li>我是CYQ，是南京大学人工智能学院大三的本科生，在2021年获得过人民奖学金。在校期间，主要学习AI的基础课程，对AI的基础知识较为熟悉；也参与了2022年ICM/MCM的比赛并完成了神经网络、ICS等课程的小项目，在这过程中，我获得了一些在linux系统上进行Python/c等语言进行编程的经验。另外，我对于AI技术在推荐系统上的应用有比较大的兴趣，所以非常希望能在贵公司获得一个成长和探索的机会。</li>
+<li>我是CYQ，是南京大学人工智能学院大三的本科生，在2021年获得过人民奖学金。在校期间，主要学习AI的基础课程，对AI的基础知识较为熟悉，在南大NLP研究组里学习了一些基础知识，对attention,transformer也有所了解，参与了2022年ICM/MCM比赛,参加过kaggle比赛,主要的项目经历是一些课程项目，从中获得了一些在linux系统上进行Python/c进行编程的经验。最后，我认为我的实践能力还需要提高，因此非常希望能在贵公司获得一个成长的机会。</li>
 </ul></li>
 <li><p>完成项目的收获:</p>
 <ul>
@@ -7435,6 +7436,151 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
 <li><p>实现fork（内存数据的复制）、exit、sleep</p></li>
 </ul></li>
 </ul>
+<h4 id="字节一面没答上的内容">字节一面没答上的内容</h4>
+<ul>
+<li>ROC的横纵坐标为True positive rate/ False positive rate
+<ul>
+<li>AUC是ROC曲线下方的面积</li>
+<li>不要跟PR曲线混淆，PR曲线的横纵坐标是查准率、查全率。</li>
+<li>F1-score 是查准率、查全率的调和平均。</li>
+</ul></li>
+<li>回归任务的常用评价指标:
+<ul>
+<li><strong>MSE( sum (x_i - y_i)^2 / N)，RMSE(sqrt( sum (x_i - y_i)^2 / N))，MAE(sum x_i - y_i / N)、R-Squared(拟合优度,越接近1就拟合地越好)</strong></li>
+</ul></li>
+<li>BP算法改进:
+<ul>
+<li>批量BP更新</li>
+<li>启发式算法：如<strong>附加动量法，自适应算法</strong>
+<ul>
+<li>动量法:在梯度下降搜索时，若当前梯度下降与前一个梯度下降的方向相同，则加速搜索，反之则降速搜索。</li>
+<li>自适应算法: <span class="math inline">\(\eta_t = \sigma(t) \eta_{t-1}\)</span> Adam,RMSprop之类的，不过细节不了解</li>
+</ul></li>
+<li>数值优化算法：如<strong>共轭梯度法和牛顿法。</strong>细节不了解</li>
+</ul></li>
+<li>分类任务的常用评价指标:
+<ul>
+<li><strong>混淆矩阵（Confuse Matrix）、准确率（Accuracy）、精确率（Precision）、召回率（Recall）、F1 Score、P-R曲线（Precision-Recall Curve）、ROC、AUC</strong>。.</li>
+<li>准确率（Accuracy）: 在<strong>样本不均衡</strong>的情况下，<strong>不能使用</strong></li>
+<li>Precision : <strong>在模型预测为正样本的结果中，真正是正样本所占的百分比</strong></li>
+<li>Recall : <strong>在实际为正样本中，被预测为正样本所占的百分比</strong>
+<ul>
+<li>如果阈值较高，那么精准率会高，但是会漏掉很多数据；如果阈值较低，召回率高，但是预测的会很不准确。</li>
+</ul></li>
+<li>F1-score 是 <strong>precision以及Recall的调和平均</strong></li>
+<li>P-R曲线是<strong>描述精确率和召回率变化的曲线</strong>,通过设置不同的阈值，来绘制
+<ul>
+<li>面积越大，则模型的性能越好</li>
+<li>平衡点越高，模型性能越好</li>
+</ul></li>
+<li>ROC曲线:
+<ul>
+<li>ROC曲线的横纵坐标为真正类率（TPR,刻画的是<strong>被分类器正确分类的正实例占所有正实例的比例</strong>。）以及真负类率（FPR,<strong>被分类器错认为正类的负实例占所有负实例的比例</strong>）</li>
+<li><strong>理想目标： TPR=1, FPR=0</strong></li>
+</ul></li>
+<li>AUC(Area Under Curve)是处于<strong>ROC曲线下方的那部分面积的大小</strong>。<strong>AUC越大，代表模型的性能越好</strong>。
+<ul>
+<li>理想是求积分来求AUC，实际上是,假设正样本为M,负样本为N,在所有的M*N对样本里，<strong>正样本的预测概率大于负样本的预测概率的个数占总体的比率</strong>。</li>
+</ul></li>
+<li>当<strong>正负样本差距不大</strong>的情况下，<strong>ROC和PR的趋势是差不多的</strong>，但是<strong>当负样本很多的时候</strong>，<strong>两者就截然不同了，ROC效果依然看似很好，但是PR上反映效果一般。</strong></li>
+</ul></li>
+</ul>
+<h4 id="阿里面经">阿里面经</h4>
+<ul>
+<li><p>最熟悉的机器学习算法:</p>
+<ul>
+<li><p>SVM:</p>
+<ul>
+<li><p>对于一个分类问题（简化为二分类问题，其标签分别为1,-1）来说，我们最基本的想法就是<strong>基于训练集D在样本空间中找到一个超平面将不同类别的样本分开</strong>。</p></li>
+<li><p>而超平面的方程可以表示为 $ w^T x+b=0 $</p></li>
+<li><p>如果超平面能将样本正确分类，那么对于y=1,<span class="math inline">\(w^T x+b&gt;0\)</span>,那我们就一定可以找到一个缩放系数<span class="math inline">\(\theta\)</span>, 使得<span class="math inline">\(\theta (w^T x+b) \ge 1, w^Tx + b \ge 1\)</span>;相应地，对于y=-1的情况，类似也可以得到<span class="math inline">\(w^Tx + b \le -1\)</span></p></li>
+<li><p>定义距离超平面最近的并且使得上述不等式成立的几个样本点为<strong>支持向量</strong>,两个异类支持向量之间的距离定义为间隔,用数学表达式来说就是 <span class="math display">\[
+  \gamma = \frac{2}{||w||}
+  \]</span></p></li>
+<li><p>最基础的SVM就是希望“间隔最大化”:</p>
+<ul>
+<li><p><span class="math display">\[
+  \max \frac{2}{||w||}
+  \]</span></p></li>
+<li><p>将其转换为最小化问题: <span class="math display">\[
+  \min \frac{1}{2} ||w||^2
+  \]</span></p></li>
+</ul></li>
+</ul></li>
+<li><p>求解基本型，就是利用拉格朗日乘子法去求解其对偶问题,有不等式约束，则其需要满足KKT条件。</p>
+<ul>
+<li>想快速求解，可以用SMO算法</li>
+</ul></li>
+<li><p>完成训练之后，模型只与支持向量有关</p></li>
+<li><p>对于非线性的问题,可以通过将<span class="math inline">\(w^Tx+b\rightarrow w^T \phi(x) + b\)</span> 来映射到一个更高维的空间，使其在这个更高维的空间上线性可分。</p>
+<ul>
+<li>而为了求解这个问题，我们需要求解<span class="math inline">\(\phi(x_i)^T \phi(x_j)\)</span> 的内积，由于映射之后维度可能很高，我们很难直接计算<span class="math inline">\(\phi(x_i)^T \phi(x_j)\)</span>,因此，我们可以设想一个函数<span class="math inline">\(k(x_i,x_j) = \phi(x_i)^T \phi(x_j)\)</span></li>
+<li>而这个<span class="math inline">\(k(x_i,x_j)\)</span>就是我们假定的核函数。</li>
+<li>对于文本数据，我们通常采用线性核函数、情况不明时优先采用高斯核。</li>
+</ul></li>
+<li><p>在此之前，我们一直假定训练样本是线性可分的，即有一个超平面可以将不同类的样本完全分开。在现实任务中，这很难做到，因此，为了缓解该问题，我们可以<strong>允许部分样本进入间隔</strong>（在支持向量之间），这就是<strong>软间隔</strong>的概念。</p>
+<ul>
+<li><p>对于<strong>不满足约束的样本</strong>，我们需要给它们一个<strong>惩罚</strong>：</p>
+<ul>
+<li>即用一些损失函数（回归任务的常用评价指标）,比如hinge损失、对率损失、指数损失之类的。</li>
+</ul></li>
+<li><p>可以<strong>将每个样本的损失写成松弛变量</strong>,表示样本不满足约束的程度。</p></li>
+<li><p>优化问题就是 <span class="math display">\[
+  \min \frac{1}{2} ||w||^2 + C \sum_i \xi_i\\
+\]</span></p></li>
+</ul></li>
+</ul></li>
+<li><p>类别不平衡问题的解法:</p>
+<ul>
+<li>欠采样、过采样,对损失函数进行一个优化，令正类的损失远小于负类的损失。</li>
+</ul></li>
+<li><p>l1正则与l2正则的区别:</p>
+<ul>
+<li><strong>l2正则计算梯度更为方便，导数连续</strong>，绝对值函数的导数一般不连续</li>
+<li>l2正则<strong>最优解只有一个</strong>，但是l1正则的最优解可能有很多个</li>
+<li>l1正则鲁棒性更强，<strong>不敏感</strong>，可以得到稀疏解，有利于节省计算开销、存储开销</li>
+<li>l1正则<strong>可以得到稀疏解</strong>的特质就是一个<strong>天然的特征选择器</strong></li>
+<li>为什么会得到稀疏解?
+<ul>
+<li>l1正则的<strong>梯度只有+-1</strong>，使每一步梯度下降稳定向0进发，而l2的<strong>梯度越靠近0越小</strong>。</li>
+</ul></li>
+</ul></li>
+<li><p>CNN 在文本分类上<strong>与n-gram很像</strong>。</p></li>
+<li><p>深度学习比传统机器学习好在哪里</p>
+<ul>
+<li><strong>深度学习可以自动提取特征</strong>，而<strong>传统机器学习很多需要手动提取特征</strong></li>
+<li>特征复杂度</li>
+<li>随着<strong>数据量的增加，其性能也随之提高</strong>。当数据很小的时候，深度学习算法并不能很好地执行，这是因为深度学习算法<strong>需要大量的数据才能完全理解它</strong>。但是，传统的机器学习方法对于数据量往往有一个上界，超过上界之后，再去增加数据量，对于模型几乎不会再有提升了;深度学习的学习能力更强。</li>
+<li>深度学习<strong>可解释性比较差</strong>，不过是<strong>end-to-end</strong>的，传统学习的可解释性强，虽然往往是进行目标任务拆分为子任务。</li>
+<li>计算开销</li>
+</ul></li>
+<li><p>给你n个实数x 1,x 2,...x n ，有一个<a href="https://www.nowcoder.com/jump/super-jump/word?word=算法">算法</a>需要计算(x 1x 2...x n) 1/n,有哪些需要注意的问题？</p>
+<ul>
+<li>实际计算的时候取log， 定义域的考量</li>
+</ul></li>
+<li><p>那你认为我们这些没有什么实习经验的学生应该怎么样去积累实际工作的经验？ 他说这个问题很好，他的建议是参加一些比赛，比如<strong>kaggle比赛</strong></p></li>
+<li><p>项目做了什么:</p>
+<ul>
+<li>按照MNIST官方的给出的格式，利用切片读取数据</li>
+<li>之后，用Python的yield实现一个Dataloader，依次输出batch</li>
+<li>然后，设计网络结构作为一个class，写前向传播、逆向传播、update、保存公共表达式的class method。</li>
+<li>在基础的layer基础上继承写一个Linear layer，同样写linear layer的前向传播、逆向传播、update的过程</li>
+<li>写各种loss function及其梯度，方便BP</li>
+<li><strong>堆叠网络结构</strong>，写成一个基础的<strong>有一层隐藏层的多层感知机模型</strong>。</li>
+<li>从固定学习率为0.1开始，对参数进行随机初始化，以softmax作为损失函数，没有正则作为一个baseline</li>
+<li>之后调整初始化方案，HE初始化、xavier初始化、正交初始化等方式，xavier初始化结果稍微好一些</li>
+<li>调整loss function，softmax最好，MSE次之，MAE最垃圾</li>
+<li>调整学习率，固定衰减、预热、周期性的学习率调整，效果很明显，尤其是周期性的学习率调整方案，基本与最优结果非常接近了</li>
+<li>调整正则化方案，l1正则,l2正则,earlystop(dropout 因为当时不知道该怎么实现,以1-p的概率进行二项分布采样)</li>
+</ul></li>
+<li><p>可优化的点:</p>
+<ul>
+<li>让网络结构 深而窄</li>
+<li>dropout 以1-p的概率进行二项分布采样</li>
+<li>随机梯度下降</li>
+</ul></li>
+<li><p>使用Adam,RMSprop之类的自适应学习率方案</p></li>
+</ul>
 ]]></content>
       <categories>
         <category>Work Note</category>
@@ -7442,6 +7588,282 @@ X(s) = \mathcal{L}[x(t)] = \int_{-\infty}^{+\infty}x(t)e^{-st}dt\\
       <tags>
         <tag>Note</tag>
         <tag>Work</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2022.3.24 Pattern Recognition Note</title>
+    <url>/2022/04/05/Pattern_Recognition3.24/</url>
+    <content><![CDATA[<h3 id="特征归一化">特征归一化</h3>
+<h4 id="每维度归一化">每维度归一化</h4>
+<ul>
+<li>数值不在一个取值范围，很容易让数值小的一维完全没用</li>
+<li>稀疏数据需要特别处理，<strong>0往往还要输成0</strong>。</li>
+</ul>
+<h4 id="l2l1归一化">l2,l1归一化</h4>
+<ul>
+<li>希望每一行的样本的范数保持一致</li>
+<li>l1归一化适用于非负特征，如果<span class="math inline">\(x_i\)</span>是直方图，经常是最佳的</li>
+</ul>
+<h4 id="z-scaler">Z-scaler</h4>
+<ul>
+<li>相信数据是高斯分布的</li>
+</ul>
+<h4 id="测试集归一化">测试集归一化</h4>
+<ul>
+<li>测试集<strong>寻找最大值、最小值、均值</strong>，是<strong>绝对绝对错误</strong>的。</li>
+<li><strong>除了测试的时候，永远不要使用测试数据</strong></li>
+<li>测试集要与训练集用一样的归一化， 要用<strong>训练集的最大值、最小值、均值来归一化</strong>!
+<ul>
+<li><strong>保存训练集的参数</strong></li>
+</ul></li>
+<li><strong>交叉验证</strong>的时候也需要注意!</li>
+</ul>
+<h3 id="fisher-线性判别分析-fld">Fisher 线性判别分析 FLD</h3>
+<ul>
+<li><p>是LDA中较为著名的</p></li>
+<li><p>idea : 在某一维度上做投影， 找到一个threshold来更好地分开不同的类别</p></li>
+<li><p>对于二分类问题，求两个类别的均值，然后求投影以后的均值<span class="math inline">\(W^T \mu_1, W^T \mu_2\)</span></p>
+<ul>
+<li><p>我们需要一个标准来求分开的程度，max<span class="math inline">\((m_2-m_1)^2\)</span> ,这个值会无限大，所以我们要加限制条件<span class="math inline">\(W^TW = 1\)</span></p></li>
+<li><p>一味地追求max<span class="math inline">\((m_2-m_1)^2\)</span>是不对的。</p></li>
+<li><p><strong>Fisher准则</strong>是在要求<span class="math inline">\(|m_2-m_1|\)</span>尽量大的同时，让两类在投影过后尽量集中，不分散</p>
+<ul>
+<li><p><span class="math display">\[
+  J(W) = \frac{(m_2-m_1)^2}{s_1^2 + s_2^2}
+  \]</span></p></li>
+<li><p>分散程度的度量是<strong>方差或者散度</strong>.这里用的是<strong>scatter 散度</strong></p></li>
+<li><p><span class="math inline">\(s_1^2 + s_2^2\)</span>是<strong>总的类内散度</strong> <span class="math inline">\(s_1 = \sum_{y_i = k} (x_i - \mu_k)(x_i - \mu_k)^T\)</span></p>
+<ul>
+<li>类间散度<span class="math inline">\(S_B = (\mu_2 - \mu_1)(\mu_2 - \mu_1)^T\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>将Fisher准则矩阵化:</p>
+<ul>
+<li><p><span class="math display">\[
+  \max J(w) = \frac{W^T S_B W}{W^T S_W W}
+  \]</span></p>
+<ul>
+<li>广义瑞利商,最优的时候，必须满足 <span class="math inline">\(S_B W = \lambda S_W W\)</span></li>
+<li>对于二分类问题，我们知道<span class="math inline">\(S_B W = (\mu_2 - \mu_1)(\mu_2 - \mu_1)^T W \propto (\mu_2 - \mu_1)\)</span>
+<ul>
+<li>可以将比例系数归入<span class="math inline">\(\lambda\)</span>,就可以得到<span class="math inline">\((\mu_2 - \mu_1) = = \lambda S_W W\)</span></li>
+<li>而我们要确定的<span class="math inline">\(W\)</span>只是一个方向，要求其<span class="math inline">\(||W||=1\)</span>,因此<strong>乘数都是无关紧要的</strong>。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>因此，FLD步骤:</p>
+<ul>
+<li>求解<span class="math inline">\(\mu_2,\mu_1,S_w\)</span>, 计算<span class="math inline">\(W = S_W^{-1} (\mu_2 - \mu_1)\)</span> ,然后<strong>对<span class="math inline">\(W\)</span>进行归一化</strong></li>
+</ul></li>
+</ul></li>
+<li><p><span class="math inline">\(S_W\)</span>不可逆怎么办?</p>
+<ul>
+<li>数据很少或者维度很高的时候，<span class="math inline">\(S_W\)</span>很可能不可逆,用<strong>广义逆矩阵</strong>代替
+<ul>
+<li>如果<span class="math inline">\(S_W\)</span>是实对称的，至少是半正定的
+<ul>
+<li>则有$S_W = EE^T $</li>
+</ul></li>
+<li>Moore-Penrose 伪逆 pseudoiunverse
+<ul>
+<li>如果<span class="math inline">\(\lambda_{ii} &gt; 0,def\ \lambda_{ii}^+ = \frac{1}{\lambda_{ii}}\)</span>,否则<span class="math inline">\(\lambda_{ii}^+ = 0\)</span></li>
+<li><span class="math inline">\(\Lambda^+ = diag(\lambda_{11}^+,\lambda_{22}^+,...,\lambda_{dd}^+)\)</span></li>
+<li>则<span class="math inline">\(S_W\)</span>的伪逆位$S_W^+ = E<sup>+E</sup>T $</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>对于多类的问题</p>
+<ul>
+<li><p>总散布矩阵<span class="math inline">\(S_T = \sum_x (x-\mu)(x - \mu)^T,S_B = \sum_{i=1}^C N_i (\mu_i - \mu)(\mu_i - \mu)^T, S_T = S_W + S_B\)</span></p></li>
+<li><p>需要更多的投影方向，最多能得到C-1的有效投影方向（求C-1个广义特征值）</p></li>
+</ul></li>
+</ul>
+<h5 id="与pca等的区别">与PCA等的区别</h5>
+<ul>
+<li>PCA在数据为<strong>单个高斯分布</strong>的情况下是<strong>最佳</strong>的，<strong>无监督</strong>，<strong>没有用到样本的label</strong></li>
+<li>分类问题中不同类别的分布<strong>不能相同</strong>，<strong>越不同越好</strong>
+<ul>
+<li>这导致 事实上，<strong>数据不可能是单个高斯分布</strong>，<strong>特征的分布一定要是不一样才好</strong></li>
+</ul></li>
+<li>对于分类问题需要一个最有利于分类的特征提取方法:
+<ul>
+<li>FLD是<strong>某些限制条件</strong>下的<strong>最优的线性特征提取</strong>方法</li>
+</ul></li>
+</ul>
+<h4 id="张量">张量</h4>
+<ul>
+<li>高维数组</li>
+<li></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>Pattern Recognition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2022.3.17 Pattern Recognition Note</title>
+    <url>/2022/03/17/Pattern_Recognition3.17/</url>
+    <content><![CDATA[<h4 id="pca">PCA</h4>
+<ul>
+<li><p>PCA的<strong>数据要求</strong>：数据的<strong>内在维度是低于表面维度</strong>的，<strong>不是互相独立</strong>的。</p></li>
+<li><p>PCA是用线性关系来降低维度的。</p></li>
+<li><p><strong>零阶表示</strong>(Zero-dimensional representation, 一个PCA的引子) :</p>
+<ul>
+<li><p>寻找一个固定的constant m，使得 <span class="math display">\[
+  J_1(m) = \min_m \sum_{i=1}^n ||x_i - m ||^2 \\
+  m = \arg\min_m J_1(m) = \frac{1}{n} \sum_{i=1}^n  x_i
+  \]</span></p></li>
+<li><p>这样就不用任何维度，最佳表示了<span class="math inline">\(x\)</span></p></li>
+</ul></li>
+<li><p><strong>中心化</strong>: <span class="math inline">\(x^\prime = x - \overline{x}\)</span></p>
+<ul>
+<li><p>目的主要在于<strong>去除数据本身的bias</strong></p></li>
+<li><p>之后需要选择一个方向，并在该方向上方差最大化。 <span class="math display">\[
+  J_2(w) = \max_m \frac{1}{n}\sum_{i=1}^n ||w^T (x_i - \overline{x}) ||^2
+  \]</span></p></li>
+<li><p>而由于随着w的变化，<span class="math inline">\(J_2(w)\)</span>可能是无穷大或者无穷小</p></li>
+<li><p>因此，我们需要加上限制条件 <span class="math inline">\(w^Tw=1\)</span> <span class="math display">\[
+  \arg\max_m \frac{1}{n}\sum_{i=1}^n ||w^T (x_i - \overline{x}) ||^2 \\
+  s.t. w^Tw = 1
+  \]</span></p></li>
+<li><p>简化: <span class="math display">\[
+  ||w^T (x_i - \overline{x}) ||^2  = w^T \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x}) (x_i - \overline{x})^T w \\
+  = w^T Cov(x) w
+  \]</span></p></li>
+<li><p>用Lagrange乘子法转为无约束的优化问题。 <span class="math display">\[
+  Cov(x) w = \lambda w\\
+  w^Tw = 1
+  \]</span> 也就是说，最优解的<span class="math inline">\(\lambda\)</span>都是<span class="math inline">\(Cov\)</span>矩阵的特征值,<span class="math inline">\(w\)</span>是其所对应的特征向量。</p></li>
+<li><p>近似的<span class="math inline">\(x\)</span>表示为<span class="math inline">\(\overline{x} + w_1^T (x- \overline{x}) w_1\)</span> ,<span class="math inline">\(y = w_1^T (x - \overline{x})\)</span>,<span class="math inline">\(b = w_1^T \overline{x}\)</span></p>
+<ul>
+<li><span class="math inline">\(y\)</span>表示的是降维之后的向量</li>
+<li>重建的关系为<span class="math inline">\(\hat{x_i} = \overline{x} + y_i \mathbf{w}_1\)</span></li>
+<li>$J_2 <span class="math inline">\(与\)</span>J_1$等价</li>
+</ul></li>
+<li><p>有了一个投影方向获得其他的投影方向<span class="math inline">\(\mathbf{w_2}\)</span>，我们只需要加一个限制 <span class="math display">\[
+  \mathbf{w_2} 垂直于 \mathbf{w_1}
+  \]</span></p></li>
+<li><p>如果<strong>用上所有的特征向量</strong>，我们重构是<strong>完全精确</strong>的，<span class="math inline">\(W = [w_1,w_2,...,w_n]\)</span>why?</p>
+<ul>
+<li><p><span class="math display">\[
+  x = \overline{x} + WW^T (x - \overline{x}) \\
+  WW^T = W^TW = I\\
+  x = \overline{x} + (x - \overline{x})
+  \]</span></p></li>
+<li><p>而很多时候，有些投影方向是噪声，需要扔掉一些最小的那些特征值。</p></li>
+<li><p>而我们要求去除之后的能量保持在90%以上,寻找第一个T,使得下式子成立: <span class="math display">\[
+  \frac{\lambda_1 + \lambda_2 + ... + \lambda_T}{\lambda_1 + \lambda_2 + ... + \lambda_d} &gt; 0.9
+  \]</span></p></li>
+</ul></li>
+<li></li>
+<li><p>扔掉的维度的特征值就是每一维度上的误差。</p>
+<ul>
+<li><p><span class="math display">\[
+  x - \hat{x} = \sum_{j={T+1}}^d w_j^T (x- \overline{x}) w_j = \sum_{j={T+1}}^d e_j \\
+  e_j^T e_k = 0\\
+  E(||x - \hat{x}||^2) = \sum_{j={T+1}}^d E(||e_j||^2) = \sum_{j={T+1}}^d \lambda_j
+  \]</span></p></li>
+<li></li>
+</ul></li>
+<li><p>如果数据比维数多，<span class="math inline">\(Cov(x)\)</span>可逆;反之，只有最大的几个维度是大于0的。</p></li>
+</ul></li>
+<li><p>PCA可以对任何数据<span class="math inline">\(x\)</span>进行降维。</p></li>
+<li><p>以高斯分布为例:</p>
+<ul>
+<li>先<strong>平移</strong><span class="math inline">\(x- \mu\)</span>、后<strong>旋转</strong><span class="math inline">\(W^T(x- \mu)\)</span>
+<ul>
+<li>使其期望变为0，方差为<span class="math inline">\(\lambda\)</span>矩阵</li>
+</ul></li>
+<li>使得新特征的各个维度<strong>各不相关</strong>，对于高斯分布而言，各个维度就是<strong>独立</strong>的了。</li>
+<li>进一步，我们可以用白化变换使变化后的高斯分布<span class="math inline">\(y - N(0,I)\)</span>
+<ul>
+<li>$y = (W <sup>{-})</sup>T (x - ) $</li>
+<li>如果为0，直接0(伪逆矩阵)</li>
+</ul></li>
+</ul></li>
+<li><p>优点:</p>
+<ul>
+<li>减少计算量、存储空间、可能去掉噪声、可能提高精度</li>
+<li>对于高斯分布(单峰分布unifodal distribution)、带白噪声(各维度独立、均值为0、噪声幅度有限)非常有用,<strong>对于不是高斯分布</strong>的，PCA之后的结果仍然不是高斯分布，且<strong>各维度不独立</strong>.</li>
+<li>实际上，只要<strong>特征值</strong>是<strong>指数递减</strong>的就可以。</li>
+</ul></li>
+<li><p>减均值</p></li>
+<li><p>特征值分解</p></li>
+</ul>
+<h3 id="评估">评估</h3>
+<ul>
+<li>真实的函数<span class="math inline">\(F(x),y=F(x)\)</span>是没有误差的,唯一的随机变量是数据集<span class="math inline">\(D\)</span> ,用不同的数据集可以准确训练出不同的<span class="math inline">\(F(x)\)</span>。</li>
+<li><span class="math inline">\(E[(f-F)^2](错误,error) = (F-Ef)^2 +E[(f-Ef)^2]\)</span> ,也就是西瓜书的泛化误差的定义，不过还没有考虑噪声。</li>
+<li>要降低错误，就是两个方面-&gt;降低方差 or 降低偏差</li>
+</ul>
+]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>Pattern Recognition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2022.3.31 Pattern Recognition Note</title>
+    <url>/2022/04/05/Pattern_Recognition3.31/</url>
+    <content><![CDATA[<h3 id="generative-models">Generative models</h3>
+<p>估计联合概率 P(x,y) = P(x|y = i) P (y)</p>
+<h3 id="discriminative判别-models">Discriminative(判别) models</h3>
+<p>直接估计后验概率</p>
+<h3 id="discriminant-function">Discriminant function</h3>
+<p>直接求一个能够将各类都分开的边界</p>
+<h3 id="svm形式化-简化的思路-关键">SVM形式化 简化的思路 关键</h3>
+<p>简化 ： 线性、可分、二类 margin 计算 : <span class="math display">\[
+设投影到超平面上的投影点为x_{\perp},那么对于任意的一个样本点x，其距离向量为x - x_{\perp}。\\
+margin的方向为\frac{w}{||w||},可以设margin大小为r.\\
+那么有 x = x_{\perp} + r \frac{w}{||w||}\\
+w^Tx + b= w^Tx_{\perp} + b + r \frac{w^Tw}{||w||}\\
+f(x) = f(x_{\perp}) + r||w||\\
+因为x_{\perp}在超平面上，所以f(x_{\perp})=0\\
+所以r = \frac{|w^Tx + b|}{||w||}
+\]</span> SVM问题就是最大化margin的最小值 <span class="math display">\[
+\arg\max_{w,b} (\min_i (\frac{|w^Tx + b|}{||w||}))
+\]</span> 这个式子有四个难点</p>
+<ul>
+<li><div class="line-block">| 绝对值 -&gt; 简化为 <span class="math inline">\(y_i (w^Tx + b)\)</span></div></li>
+<li><p>||||范数</p></li>
+<li><p>x / 0 的问题 -&gt; 简化为 <span class="math inline">\(\arg\max_{w,b} \frac{1}{||w||} \min y_i (w^Tx + b)\)</span> why？ <span class="math inline">\(\frac{|w^Tx + b|}{||w||}\)</span>上下同阶,因此对于最优解<span class="math inline">\((w^*,b^*)\)</span>，<span class="math inline">\(a(w^*,b^*)\)</span> 仍为最优解</p></li>
+<li><p>的问题 -&gt; 简化为 如果<span class="math inline">\(y_i (w^Tx + b) &gt; 0\)</span>就判定为正类，同时限制<span class="math inline">\(\min y_i (w^Tx + b)\)</span>为1</p></li>
+<li><p>那么问题就转换为了<span class="math inline">\(\arg\min_{w,b} \frac{1}{2} w^Tw\ s.t.y_i (w^Tx + b) \ge 1,\forall i\)</span></p></li>
+<li><p>利用拉格朗日乘子法、KKT条件求解。</p>
+<ul>
+<li>对偶形式 : <span class="math display">\[
+  \arg\max_{a} \sum_{i=1}^n a_i - \frac{1}{2}  \sum_{i=1}^n \sum_{j=1}^n a_i  a_j y_i  y_j x_i^T x_j \\
+  s.t.\ a_i \ge 0 \\
+  \sum_{i=1}^n a_iy_i = 0
+  \]</span></li>
+</ul></li>
+</ul>
+<h3 id="奇异值分解">奇异值分解</h3>
+<p><span class="math display">\[
+A = U\Sigma V^T\\
+其中， UU^T = VV^T = I,\Sigma除对角线上的元素为奇异值外，其余均0\\
+\Sigma = diag(\sigma_1,\sigma_2,...,\sigma_{\min(m,n)}), as A\in m\times n
+\]</span></p>
+<p>也就是说，我们可以通过奇异值分解来解决矩阵某一维极大，而另外一维较小的情况下的降维且保留矩阵信息的问题。</p>
+<h3 id="特征值分解">特征值分解</h3>
+<p><span class="math display">\[
+A = W \Sigma W^{-1} \\
+W由n个特征向量组成，\Sigma除对角线上的元素为特征值外，其余均0
+\]</span></p>
+]]></content>
+      <categories>
+        <category>ML Note</category>
+      </categories>
+      <tags>
+        <tag>Note</tag>
+        <tag>Pattern Recognition</tag>
       </tags>
   </entry>
 </search>

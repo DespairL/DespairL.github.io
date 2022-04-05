@@ -191,6 +191,447 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/04/05/Pattern_Recognition3.31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/05/Pattern_Recognition3.31/" class="post-title-link" itemprop="url">2022.3.31 Pattern Recognition Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-05 23:37:42 / Modified: 23:38:52" itemprop="dateCreated datePublished" datetime="2022-04-05T23:37:42+08:00">2022-04-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="generative-models">Generative models</h3>
+<p>估计联合概率 P(x,y) = P(x|y = i) P (y)</p>
+<h3 id="discriminative判别-models">Discriminative(判别) models</h3>
+<p>直接估计后验概率</p>
+<h3 id="discriminant-function">Discriminant function</h3>
+<p>直接求一个能够将各类都分开的边界</p>
+<h3 id="svm形式化-简化的思路-关键">SVM形式化 简化的思路 关键</h3>
+<p>简化 ： 线性、可分、二类 margin 计算 : <span class="math display">\[
+设投影到超平面上的投影点为x_{\perp},那么对于任意的一个样本点x，其距离向量为x - x_{\perp}。\\
+margin的方向为\frac{w}{||w||},可以设margin大小为r.\\
+那么有 x = x_{\perp} + r \frac{w}{||w||}\\
+w^Tx + b= w^Tx_{\perp} + b + r \frac{w^Tw}{||w||}\\
+f(x) = f(x_{\perp}) + r||w||\\
+因为x_{\perp}在超平面上，所以f(x_{\perp})=0\\
+所以r = \frac{|w^Tx + b|}{||w||}
+\]</span> SVM问题就是最大化margin的最小值 <span class="math display">\[
+\arg\max_{w,b} (\min_i (\frac{|w^Tx + b|}{||w||}))
+\]</span> 这个式子有四个难点</p>
+<ul>
+<li><div class="line-block">| 绝对值 -&gt; 简化为 <span class="math inline">\(y_i (w^Tx + b)\)</span></div></li>
+<li><p>||||范数</p></li>
+<li><p>x / 0 的问题 -&gt; 简化为 <span class="math inline">\(\arg\max_{w,b} \frac{1}{||w||} \min y_i (w^Tx + b)\)</span> why？ <span class="math inline">\(\frac{|w^Tx + b|}{||w||}\)</span>上下同阶,因此对于最优解<span class="math inline">\((w^*,b^*)\)</span>，<span class="math inline">\(a(w^*,b^*)\)</span> 仍为最优解</p></li>
+<li><p>的问题 -&gt; 简化为 如果<span class="math inline">\(y_i (w^Tx + b) &gt; 0\)</span>就判定为正类，同时限制<span class="math inline">\(\min y_i (w^Tx + b)\)</span>为1</p></li>
+<li><p>那么问题就转换为了<span class="math inline">\(\arg\min_{w,b} \frac{1}{2} w^Tw\ s.t.y_i (w^Tx + b) \ge 1,\forall i\)</span></p></li>
+<li><p>利用拉格朗日乘子法、KKT条件求解。</p>
+<ul>
+<li>对偶形式 : <span class="math display">\[
+  \arg\max_{a} \sum_{i=1}^n a_i - \frac{1}{2}  \sum_{i=1}^n \sum_{j=1}^n a_i  a_j y_i  y_j x_i^T x_j \\
+  s.t.\ a_i \ge 0 \\
+  \sum_{i=1}^n a_iy_i = 0
+  \]</span></li>
+</ul></li>
+</ul>
+<h3 id="奇异值分解">奇异值分解</h3>
+<p><span class="math display">\[
+A = U\Sigma V^T\\
+其中， UU^T = VV^T = I,\Sigma除对角线上的元素为奇异值外，其余均0\\
+\Sigma = diag(\sigma_1,\sigma_2,...,\sigma_{\min(m,n)}), as A\in m\times n
+\]</span></p>
+<p>也就是说，我们可以通过奇异值分解来解决矩阵某一维极大，而另外一维较小的情况下的降维且保留矩阵信息的问题。</p>
+<h3 id="特征值分解">特征值分解</h3>
+<p><span class="math display">\[
+A = W \Sigma W^{-1} \\
+W由n个特征向量组成，\Sigma除对角线上的元素为特征值外，其余均0
+\]</span></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/04/05/Pattern_Recognition3.24/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/05/Pattern_Recognition3.24/" class="post-title-link" itemprop="url">2022.3.24 Pattern Recognition Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-05 23:37:42 / Modified: 23:38:38" itemprop="dateCreated datePublished" datetime="2022-04-05T23:37:42+08:00">2022-04-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="特征归一化">特征归一化</h3>
+<h4 id="每维度归一化">每维度归一化</h4>
+<ul>
+<li>数值不在一个取值范围，很容易让数值小的一维完全没用</li>
+<li>稀疏数据需要特别处理，<strong>0往往还要输成0</strong>。</li>
+</ul>
+<h4 id="l2l1归一化">l2,l1归一化</h4>
+<ul>
+<li>希望每一行的样本的范数保持一致</li>
+<li>l1归一化适用于非负特征，如果<span class="math inline">\(x_i\)</span>是直方图，经常是最佳的</li>
+</ul>
+<h4 id="z-scaler">Z-scaler</h4>
+<ul>
+<li>相信数据是高斯分布的</li>
+</ul>
+<h4 id="测试集归一化">测试集归一化</h4>
+<ul>
+<li>测试集<strong>寻找最大值、最小值、均值</strong>，是<strong>绝对绝对错误</strong>的。</li>
+<li><strong>除了测试的时候，永远不要使用测试数据</strong></li>
+<li>测试集要与训练集用一样的归一化， 要用<strong>训练集的最大值、最小值、均值来归一化</strong>!
+<ul>
+<li><strong>保存训练集的参数</strong></li>
+</ul></li>
+<li><strong>交叉验证</strong>的时候也需要注意!</li>
+</ul>
+<h3 id="fisher-线性判别分析-fld">Fisher 线性判别分析 FLD</h3>
+<ul>
+<li><p>是LDA中较为著名的</p></li>
+<li><p>idea : 在某一维度上做投影， 找到一个threshold来更好地分开不同的类别</p></li>
+<li><p>对于二分类问题，求两个类别的均值，然后求投影以后的均值<span class="math inline">\(W^T \mu_1, W^T \mu_2\)</span></p>
+<ul>
+<li><p>我们需要一个标准来求分开的程度，max<span class="math inline">\((m_2-m_1)^2\)</span> ,这个值会无限大，所以我们要加限制条件<span class="math inline">\(W^TW = 1\)</span></p></li>
+<li><p>一味地追求max<span class="math inline">\((m_2-m_1)^2\)</span>是不对的。</p></li>
+<li><p><strong>Fisher准则</strong>是在要求<span class="math inline">\(|m_2-m_1|\)</span>尽量大的同时，让两类在投影过后尽量集中，不分散</p>
+<ul>
+<li><p><span class="math display">\[
+  J(W) = \frac{(m_2-m_1)^2}{s_1^2 + s_2^2}
+  \]</span></p></li>
+<li><p>分散程度的度量是<strong>方差或者散度</strong>.这里用的是<strong>scatter 散度</strong></p></li>
+<li><p><span class="math inline">\(s_1^2 + s_2^2\)</span>是<strong>总的类内散度</strong> <span class="math inline">\(s_1 = \sum_{y_i = k} (x_i - \mu_k)(x_i - \mu_k)^T\)</span></p>
+<ul>
+<li>类间散度<span class="math inline">\(S_B = (\mu_2 - \mu_1)(\mu_2 - \mu_1)^T\)</span></li>
+</ul></li>
+</ul></li>
+<li><p>将Fisher准则矩阵化:</p>
+<ul>
+<li><p><span class="math display">\[
+  \max J(w) = \frac{W^T S_B W}{W^T S_W W}
+  \]</span></p>
+<ul>
+<li>广义瑞利商,最优的时候，必须满足 <span class="math inline">\(S_B W = \lambda S_W W\)</span></li>
+<li>对于二分类问题，我们知道<span class="math inline">\(S_B W = (\mu_2 - \mu_1)(\mu_2 - \mu_1)^T W \propto (\mu_2 - \mu_1)\)</span>
+<ul>
+<li>可以将比例系数归入<span class="math inline">\(\lambda\)</span>,就可以得到<span class="math inline">\((\mu_2 - \mu_1) = = \lambda S_W W\)</span></li>
+<li>而我们要确定的<span class="math inline">\(W\)</span>只是一个方向，要求其<span class="math inline">\(||W||=1\)</span>,因此<strong>乘数都是无关紧要的</strong>。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>因此，FLD步骤:</p>
+<ul>
+<li>求解<span class="math inline">\(\mu_2,\mu_1,S_w\)</span>, 计算<span class="math inline">\(W = S_W^{-1} (\mu_2 - \mu_1)\)</span> ,然后<strong>对<span class="math inline">\(W\)</span>进行归一化</strong></li>
+</ul></li>
+</ul></li>
+<li><p><span class="math inline">\(S_W\)</span>不可逆怎么办?</p>
+<ul>
+<li>数据很少或者维度很高的时候，<span class="math inline">\(S_W\)</span>很可能不可逆,用<strong>广义逆矩阵</strong>代替
+<ul>
+<li>如果<span class="math inline">\(S_W\)</span>是实对称的，至少是半正定的
+<ul>
+<li>则有$S_W = EE^T $</li>
+</ul></li>
+<li>Moore-Penrose 伪逆 pseudoiunverse
+<ul>
+<li>如果<span class="math inline">\(\lambda_{ii} &gt; 0,def\ \lambda_{ii}^+ = \frac{1}{\lambda_{ii}}\)</span>,否则<span class="math inline">\(\lambda_{ii}^+ = 0\)</span></li>
+<li><span class="math inline">\(\Lambda^+ = diag(\lambda_{11}^+,\lambda_{22}^+,...,\lambda_{dd}^+)\)</span></li>
+<li>则<span class="math inline">\(S_W\)</span>的伪逆位$S_W^+ = E<sup>+E</sup>T $</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>对于多类的问题</p>
+<ul>
+<li><p>总散布矩阵<span class="math inline">\(S_T = \sum_x (x-\mu)(x - \mu)^T,S_B = \sum_{i=1}^C N_i (\mu_i - \mu)(\mu_i - \mu)^T, S_T = S_W + S_B\)</span></p></li>
+<li><p>需要更多的投影方向，最多能得到C-1的有效投影方向（求C-1个广义特征值）</p></li>
+</ul></li>
+</ul>
+<h5 id="与pca等的区别">与PCA等的区别</h5>
+<ul>
+<li>PCA在数据为<strong>单个高斯分布</strong>的情况下是<strong>最佳</strong>的，<strong>无监督</strong>，<strong>没有用到样本的label</strong></li>
+<li>分类问题中不同类别的分布<strong>不能相同</strong>，<strong>越不同越好</strong>
+<ul>
+<li>这导致 事实上，<strong>数据不可能是单个高斯分布</strong>，<strong>特征的分布一定要是不一样才好</strong></li>
+</ul></li>
+<li>对于分类问题需要一个最有利于分类的特征提取方法:
+<ul>
+<li>FLD是<strong>某些限制条件</strong>下的<strong>最优的线性特征提取</strong>方法</li>
+</ul></li>
+</ul>
+<h4 id="张量">张量</h4>
+<ul>
+<li>高维数组</li>
+<li></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/17/Pattern_Recognition3.17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/17/Pattern_Recognition3.17/" class="post-title-link" itemprop="url">2022.3.17 Pattern Recognition Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-17 14:24:24 / Modified: 14:25:04" itemprop="dateCreated datePublished" datetime="2022-03-17T14:24:24+08:00">2022-03-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="pca">PCA</h4>
+<ul>
+<li><p>PCA的<strong>数据要求</strong>：数据的<strong>内在维度是低于表面维度</strong>的，<strong>不是互相独立</strong>的。</p></li>
+<li><p>PCA是用线性关系来降低维度的。</p></li>
+<li><p><strong>零阶表示</strong>(Zero-dimensional representation, 一个PCA的引子) :</p>
+<ul>
+<li><p>寻找一个固定的constant m，使得 <span class="math display">\[
+  J_1(m) = \min_m \sum_{i=1}^n ||x_i - m ||^2 \\
+  m = \arg\min_m J_1(m) = \frac{1}{n} \sum_{i=1}^n  x_i
+  \]</span></p></li>
+<li><p>这样就不用任何维度，最佳表示了<span class="math inline">\(x\)</span></p></li>
+</ul></li>
+<li><p><strong>中心化</strong>: <span class="math inline">\(x^\prime = x - \overline{x}\)</span></p>
+<ul>
+<li><p>目的主要在于<strong>去除数据本身的bias</strong></p></li>
+<li><p>之后需要选择一个方向，并在该方向上方差最大化。 <span class="math display">\[
+  J_2(w) = \max_m \frac{1}{n}\sum_{i=1}^n ||w^T (x_i - \overline{x}) ||^2
+  \]</span></p></li>
+<li><p>而由于随着w的变化，<span class="math inline">\(J_2(w)\)</span>可能是无穷大或者无穷小</p></li>
+<li><p>因此，我们需要加上限制条件 <span class="math inline">\(w^Tw=1\)</span> <span class="math display">\[
+  \arg\max_m \frac{1}{n}\sum_{i=1}^n ||w^T (x_i - \overline{x}) ||^2 \\
+  s.t. w^Tw = 1
+  \]</span></p></li>
+<li><p>简化: <span class="math display">\[
+  ||w^T (x_i - \overline{x}) ||^2  = w^T \frac{1}{n}\sum_{i=1}^n (x_i - \overline{x}) (x_i - \overline{x})^T w \\
+  = w^T Cov(x) w
+  \]</span></p></li>
+<li><p>用Lagrange乘子法转为无约束的优化问题。 <span class="math display">\[
+  Cov(x) w = \lambda w\\
+  w^Tw = 1
+  \]</span> 也就是说，最优解的<span class="math inline">\(\lambda\)</span>都是<span class="math inline">\(Cov\)</span>矩阵的特征值,<span class="math inline">\(w\)</span>是其所对应的特征向量。</p></li>
+<li><p>近似的<span class="math inline">\(x\)</span>表示为<span class="math inline">\(\overline{x} + w_1^T (x- \overline{x}) w_1\)</span> ,<span class="math inline">\(y = w_1^T (x - \overline{x})\)</span>,<span class="math inline">\(b = w_1^T \overline{x}\)</span></p>
+<ul>
+<li><span class="math inline">\(y\)</span>表示的是降维之后的向量</li>
+<li>重建的关系为<span class="math inline">\(\hat{x_i} = \overline{x} + y_i \mathbf{w}_1\)</span></li>
+<li>$J_2 <span class="math inline">\(与\)</span>J_1$等价</li>
+</ul></li>
+<li><p>有了一个投影方向获得其他的投影方向<span class="math inline">\(\mathbf{w_2}\)</span>，我们只需要加一个限制 <span class="math display">\[
+  \mathbf{w_2} 垂直于 \mathbf{w_1}
+  \]</span></p></li>
+<li><p>如果<strong>用上所有的特征向量</strong>，我们重构是<strong>完全精确</strong>的，<span class="math inline">\(W = [w_1,w_2,...,w_n]\)</span>why?</p>
+<ul>
+<li><p><span class="math display">\[
+  x = \overline{x} + WW^T (x - \overline{x}) \\
+  WW^T = W^TW = I\\
+  x = \overline{x} + (x - \overline{x})
+  \]</span></p></li>
+<li><p>而很多时候，有些投影方向是噪声，需要扔掉一些最小的那些特征值。</p></li>
+<li><p>而我们要求去除之后的能量保持在90%以上,寻找第一个T,使得下式子成立: <span class="math display">\[
+  \frac{\lambda_1 + \lambda_2 + ... + \lambda_T}{\lambda_1 + \lambda_2 + ... + \lambda_d} &gt; 0.9
+  \]</span></p></li>
+</ul></li>
+<li></li>
+<li><p>扔掉的维度的特征值就是每一维度上的误差。</p>
+<ul>
+<li><p><span class="math display">\[
+  x - \hat{x} = \sum_{j={T+1}}^d w_j^T (x- \overline{x}) w_j = \sum_{j={T+1}}^d e_j \\
+  e_j^T e_k = 0\\
+  E(||x - \hat{x}||^2) = \sum_{j={T+1}}^d E(||e_j||^2) = \sum_{j={T+1}}^d \lambda_j
+  \]</span></p></li>
+<li></li>
+</ul></li>
+<li><p>如果数据比维数多，<span class="math inline">\(Cov(x)\)</span>可逆;反之，只有最大的几个维度是大于0的。</p></li>
+</ul></li>
+<li><p>PCA可以对任何数据<span class="math inline">\(x\)</span>进行降维。</p></li>
+<li><p>以高斯分布为例:</p>
+<ul>
+<li>先<strong>平移</strong><span class="math inline">\(x- \mu\)</span>、后<strong>旋转</strong><span class="math inline">\(W^T(x- \mu)\)</span>
+<ul>
+<li>使其期望变为0，方差为<span class="math inline">\(\lambda\)</span>矩阵</li>
+</ul></li>
+<li>使得新特征的各个维度<strong>各不相关</strong>，对于高斯分布而言，各个维度就是<strong>独立</strong>的了。</li>
+<li>进一步，我们可以用白化变换使变化后的高斯分布<span class="math inline">\(y - N(0,I)\)</span>
+<ul>
+<li>$y = (W <sup>{-})</sup>T (x - ) $</li>
+<li>如果为0，直接0(伪逆矩阵)</li>
+</ul></li>
+</ul></li>
+<li><p>优点:</p>
+<ul>
+<li>减少计算量、存储空间、可能去掉噪声、可能提高精度</li>
+<li>对于高斯分布(单峰分布unifodal distribution)、带白噪声(各维度独立、均值为0、噪声幅度有限)非常有用,<strong>对于不是高斯分布</strong>的，PCA之后的结果仍然不是高斯分布，且<strong>各维度不独立</strong>.</li>
+<li>实际上，只要<strong>特征值</strong>是<strong>指数递减</strong>的就可以。</li>
+</ul></li>
+<li><p>减均值</p></li>
+<li><p>特征值分解</p></li>
+</ul>
+<h3 id="评估">评估</h3>
+<ul>
+<li>真实的函数<span class="math inline">\(F(x),y=F(x)\)</span>是没有误差的,唯一的随机变量是数据集<span class="math inline">\(D\)</span> ,用不同的数据集可以准确训练出不同的<span class="math inline">\(F(x)\)</span>。</li>
+<li><span class="math inline">\(E[(f-F)^2](错误,error) = (F-Ef)^2 +E[(f-Ef)^2]\)</span> ,也就是西瓜书的泛化误差的定义，不过还没有考虑噪声。</li>
+<li>要降低错误，就是两个方面-&gt;降低方差 or 降低偏差</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/03/16/torch_note1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,7 +840,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-16 16:59:50" itemprop="dateModified" datetime="2022-03-16T16:59:50+08:00">2022-03-16</time>
+                <time title="Modified: 2022-03-22 16:14:10" itemprop="dateModified" datetime="2022-03-22T16:14:10+08:00">2022-03-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -493,7 +934,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-14 22:10:14" itemprop="dateModified" datetime="2022-03-14T22:10:14+08:00">2022-03-14</time>
+                <time title="Modified: 2022-03-22 16:08:48" itemprop="dateModified" datetime="2022-03-22T16:08:48+08:00">2022-03-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -556,7 +997,7 @@
 <ul>
 <li>线性模型:
 <ul>
-<li>尝试学习一个线性组合函数作为预测函数。</li>
+<li>尝试学习一个<strong>线性组合函数</strong>作为预测函数。</li>
 <li>具有<strong>良好的可解释性</strong>，通过权重矩阵<span class="math inline">\(w\)</span>,可以直观地看出哪个属性更为重要。</li>
 <li>通过引入<strong>层级结构或者高维结构</strong>就可以完成非线性。</li>
 </ul></li>
@@ -586,6 +1027,7 @@
 <ul>
 <li>通过转换判断<span class="math inline">\(\frac{y}{1-y} &gt; \frac{m^+}{m^-}\)</span>,来判断时候预测为正例。</li>
 </ul></li>
+<li>改变loss函数</li>
 </ul></li>
 </ul>
 <h3 id="chap4">Chap4</h3>
@@ -1043,285 +1485,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/27/HadoopSharpStorm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/27/HadoopSharpStorm/" class="post-title-link" itemprop="url">Hadoop Spark and Storm</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-27 17:58:23" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:23+08:00">2022-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-28 22:47:50" itemprop="dateModified" datetime="2022-02-28T22:47:50+08:00">2022-02-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-Hadoop-Spark/" itemprop="url" rel="index"><span itemprop="name">Learn Hadoop Spark</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="关于hadoop">关于Hadoop</h4>
-<ul>
-<li><p>Hadoop现阶段主要用于数据存储，因为它是批处理的，因此，Hadoop的MapReduce一次只能处理一个作业。用HDFS磁盘进行存储。对于设备的要求较低。</p></li>
-<li><p>Hadoop分为一个分布式的文件系统HDFS、一个分布式的计算框架MapReduce以及一个实时分布式数据库HBase.</p>
-<ul>
-<li>HDFS是由NameNode(主节点)、DataNode(副节点)以及Client(客户机)组成的。
-<ul>
-<li>NameNode是用于存储文件信息、文件块信息以及文件块在DataNode的信息</li>
-<li>DataNode保存了Block的元数据Meta-data,并周期性地把所有Block信息发给NameNode</li>
-</ul></li>
-<li>HDFS的读写流程:
-<ul>
-<li>用户向Client客户机提出请求，然后由Client客户机将数据进行分块，然后将分块的方案传回给NameNode,NameNode查询各个块的地址传给DataNode并按照距离远近进行排序，然后DataNode对数据进行写入或者读取操作，完成后传信号给NameNode，由其进行善后保存。</li>
-<li>读取操作也是类似的命令传递流程:Client-(order)-&gt;NameNode-(address)-&gt;DataNode(Client从最近的几个DataNode中下载数据)</li>
-</ul></li>
-</ul>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/27/LeetCode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/27/LeetCode/" class="post-title-link" itemprop="url">LeetCode</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-27 17:58:08" itemprop="dateCreated datePublished" datetime="2022-02-27T17:58:08+08:00">2022-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-09 09:36:23" itemprop="dateModified" datetime="2022-03-09T09:36:23+08:00">2022-03-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Problem-Sets-Of-Algorithm/" itemprop="url" rel="index"><span itemprop="name">Problem Sets Of Algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="最小栈">最小栈</h5>
-<ul>
-<li>要求pop(),push(),top(),min()操作均为O(1)。</li>
-<li>思路：
-<ul>
-<li>利用一个辅助栈，专门记录最小值的变化。
-<ul>
-<li>在push进行的时候，比较栈顶与输入的大小关系，如果小于栈顶元素，则最小值发生变化，不然不会发生变化。</li>
-<li>在pop的时候，如果pop的元素正好与辅助栈的栈顶相同，那么，就在辅助栈也进行pop。</li>
-</ul></li>
-<li>主栈按照正常栈的函数进行push()、pop()、top()。</li>
-</ul></li>
-<li>为什么是对的?
-<ul>
-<li>辅助栈记录了到目前为止的栈中元素的最小值，因此栈顶元素一定是min()的正确返回值。</li>
-</ul></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/01/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/04/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">编译原理笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-01-04 19:57:31" itemprop="dateCreated datePublished" datetime="2022-01-04T19:57:31+08:00">2022-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-01-06 20:15:52" itemprop="dateModified" datetime="2022-01-06T20:15:52+08:00">2022-01-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS-Note/" itemprop="url" rel="index"><span itemprop="name">CS Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="chap.1">Chap.1</h3>
-<h4 id="编译器">编译器</h4>
-<ul>
-<li><p>编译器是一段程序，以<strong>某种源语言</strong>为输入，输出<strong>该语言翻译为目标语言</strong>的结果,一般会生成<strong>可执行的目标程序</strong>。</p>
-<ul>
-<li>可以是程序语言-&gt;机器代码的过程，也可以是c++-&gt;python的过程</li>
-<li><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202201031330468.png" alt="image-20220103133017426" style="zoom:80%;" /></li>
-</ul></li>
-<li><p>与编译器相比，解释器不生成中间程序，<strong>直接解释程序输入</strong>，<strong>边解释边执行</strong>。</p></li>
-<li><p>编译器的结构可以分为两个部分：分析源程序信息<strong>加入符号表</strong> <strong>与机器无关</strong>的<strong>前端</strong>以及根据符号表以及中间表示<strong>构造目标程序</strong>的<strong>与机器有关</strong>的<strong>后端</strong>。</p>
-<ul>
-<li>更具体来说，到<strong>中间代码生成为止</strong>，可以划分为<strong>前端</strong>。</li>
-<li>从<strong>代码生成</strong>开始划分为<strong>后端</strong>。</li>
-<li><strong>前端后端分开</strong>的好处：<strong>不同的源语言、不同的机器</strong>可以得到<strong>不同的编译器组合</strong> ,可以进行<strong>相同的中间代码优化</strong>。</li>
-</ul>
-<p>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1389,7 +1556,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1402,7 +1569,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
