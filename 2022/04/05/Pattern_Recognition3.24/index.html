@@ -30,7 +30,7 @@
 <meta property="og:description" content="特征归一化 每维度归一化  数值不在一个取值范围，很容易让数值小的一维完全没用 稀疏数据需要特别处理，0往往还要输成0。  l2,l1归一化  希望每一行的样本的范数保持一致 l1归一化适用于非负特征，如果\(x_i\)是直方图，经常是最佳的  Z-scaler  相信数据是高斯分布的  测试集归一化  测试集寻找最大值、最小值、均值，是绝对绝对错误的。 除了测">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-05T15:37:42.522Z">
-<meta property="article:modified_time" content="2022-04-05T15:38:38.809Z">
+<meta property="article:modified_time" content="2022-04-06T05:18:39.908Z">
 <meta property="article:author" content="Yanquan Chen">
 <meta property="article:tag" content="Note">
 <meta property="article:tag" content="Pattern Recognition">
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-05 23:37:42 / Modified: 23:38:38" itemprop="dateCreated datePublished" datetime="2022-04-05T23:37:42+08:00">2022-04-05</time>
+              <time title="Created: 2022-04-05 23:37:42" itemprop="dateCreated datePublished" datetime="2022-04-05T23:37:42+08:00">2022-04-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-06 13:18:39" itemprop="dateModified" datetime="2022-04-06T13:18:39+08:00">2022-04-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,13 +268,14 @@
 </ul>
 <h4 id="测试集归一化">测试集归一化</h4>
 <ul>
-<li>测试集<strong>寻找最大值、最小值、均值</strong>，是<strong>绝对绝对错误</strong>的。</li>
-<li><strong>除了测试的时候，永远不要使用测试数据</strong></li>
-<li>测试集要与训练集用一样的归一化， 要用<strong>训练集的最大值、最小值、均值来归一化</strong>!
+<li><p>测试集<strong>寻找最大值、最小值、均值</strong>，是<strong>绝对绝对错误</strong>的。</p></li>
+<li><p><strong>除了测试的时候，永远不要使用测试数据</strong></p></li>
+<li><p>测试集要与训练集用一样的归一化， 要用<strong>训练集的最大值、最小值、均值来归一化</strong>!</p>
 <ul>
 <li><strong>保存训练集的参数</strong></li>
 </ul></li>
-<li><strong>交叉验证</strong>的时候也需要注意!</li>
+<li><p><strong>交叉验证</strong>的时候也需要注意!</p>
+<p><span id="more"></span></p></li>
 </ul>
 <h3 id="fisher-线性判别分析-fld">Fisher 线性判别分析 FLD</h3>
 <ul>
