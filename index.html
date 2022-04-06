@@ -191,6 +191,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/04/06/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E9%9D%A2%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E9%9D%A2%E8%AF%95/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-06 19:37:36 / Modified: 20:11:23" itemprop="dateCreated datePublished" datetime="2022-04-06T19:37:36+08:00">2022-04-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="osi七层模型和tcp五层模型">OSI七层模型和TCP五层模型</h4>
+<p>OSI七层模型从上到下依次为：</p>
+<p>​ 应用层：为应用程序提供网络服务；</p>
+<p>​ 表示层：数据格式转换、数据压缩和数据加密；</p>
+<p>​ 会话层：建立、断开和维护通信链接；</p>
+<p>​ 传输层：为上层协议提供端到端的可靠传输；</p>
+<p>​ 网络层：寻址和路由；</p>
+<p>​ 数据链路层：定义通过通信媒介互连的设备之间传输的规范；</p>
+<p>​ 物理层：利用物理传输介质为数据链路层提供物理连接。</p>
+<p>TCP五层模型相比OSI七层模型，将OSI的<strong>应用层、表示层和会话层合为一层：应用层，其他不变</strong>。</p>
+<h4 id="端到端">端到端</h4>
+<p>AI : 尽量让模型直接从输入到输出一条都自己搞定，减少人工成分。</p>
+<p>网络： 节点相连即可。</p>
+<h4 id="面向有连接型和面向无连接型">面向有连接型和面向无连接型</h4>
+<ul>
+<li><strong>面向有连接型传输</strong>包括<strong>会话建立、传输数据和会话断开</strong>，此外还包括保证传输可靠性的各种措施，比如超时重传、流量控制等，常见的<strong>面向有连接传输有TCP</strong>；</li>
+<li><strong>面向无连接型传输</strong>仅提供<strong>基本的传输数据</strong>的功能，即使<strong>接收端不存在，发送端也能发送数据</strong>包，常见的<strong>面向无连接传输有UDP、IP</strong>。</li>
+</ul>
+<h4 id="tcp-udp">TCP UDP</h4>
+<p>UDP和TCP都是<strong>传输层的协议</strong>，用来建立可靠的通信传输链接的。</p>
+<p><strong>UDP</strong>仅提供了<strong>最基本的数据传输</strong>功能，至于<strong>传输时连接的建立和断开、传输可靠性的保证</strong>这些UDP<strong>统统不关心</strong>，而是<strong>把这些问题抛给了UDP上层的应用层</strong>程序去处理，自己<strong>仅提供传输层协议的最基本功能</strong>。<strong>面向无连接</strong>。</p>
+<p><strong>TCP</strong>作为一种<strong>面向有连接</strong>的协议，<strong>只有在确认通信对端存在时才会发送数据</strong>，会在传输开始前建立连接，传输结束后断开连接，此外，<strong>TCP还采取了多种措施保障传输的可靠性</strong>。</p>
+<p>TCP和UDP的区别如下：</p>
+<ul>
+<li>TCP是面向有连接型，UDP是面向无连接型；</li>
+<li>TCP是<strong>一对一传输</strong>，UDP支持<strong>一对一、一对多、多对一和多对多</strong>的交互通信；</li>
+<li>TCP是<strong>面向字节流</strong>的，即<strong>把应用层传来的报文看成字节流</strong>，<strong>将字节流拆分成大小不等的数据块</strong>，并<strong>添加TCP首部</strong>；UDP是<strong>面向报文</strong>的，对应用层传下来的<strong>报文不拆分也不合并</strong>，<strong>仅添加UDP首部</strong>；</li>
+<li>TCP支持传输可靠性的多种措施，包括保证包的传输顺序、重发机制、流量控制和拥塞控制；UDP仅提供最基本的数据传输能力。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/04/06/%E6%B8%B8%E6%88%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/%E6%B8%B8%E6%88%8F/" class="post-title-link" itemprop="url">Game!!!</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-06 00:00:00 / Modified: 21:49:40" itemprop="dateCreated datePublished" datetime="2022-04-06T00:00:00+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Game/" itemprop="url" rel="index"><span itemprop="name">Game</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="年玩过的游戏">2022年玩过的游戏</h4>
+<h5 id="艾尔登法环">艾尔登法环</h5>
+<p>​ <img src="https://admirelotusimagebed.oss-cn-hangzhou.aliyuncs.com/images/image-20220406205852887.png" alt="image-20220406205852887" style="zoom:50%;" /></p>
+<ul>
+<li>应该是第一个刷新了我对于开放世界认知的游戏：
+<ul>
+<li>地牢的设计是最为拉胯的，但是几乎对于每个地牢仍然有不同的设计，先不说泥头车可躲可打可骑乘，影响较深的是几个利用重复一样的地形诱导玩家的地牢，正解的设计让人拍案叫绝——电梯隐藏、传送宝箱通向场景布置相同但实际不同的地牢、雪山左半初始道路的透明桥。</li>
+<li>其次是开放世界的场景布置，有设计的堆料已经是前无古人后无来者的程度了。每个区域都是风格截然不同的设计，没有问号指引但是玩家所经过的每一个点几乎都有可探索的内容。这与刺客信条的设计理念是完全不同的，育碧想通过公式化喂饱玩家，而实际上英灵殿我玩完主线实在是不想再碰这类游戏了；宫崎英高呢，他说我不要，我要让玩家自己去探索，我更喜欢这种开放世界的模式，如果一个开放世界不能让玩家自己决定什么时候去哪里干什么，那它就根本不开放。</li>
+<li>最让人难以忘怀的是几个主城的箱庭设计，单就初始城宁姆格福而言，不管是正常走的路线，还是通过别样的跳楼顶路线走的楼顶从而发现新大陆，甚至是跳脱出常规思路需要勇敢跳下悬崖才能抵达的地底一层，都让人游玩过程中情不自禁地感叹于设计之精妙。之后的学院、火山府邸也是隐藏道路、楼顶道路、正常路线完全契合在一起，这一点也许需要玩家自己去体验一遍才能感受到什么tm的叫做设计。最让我喜欢的场景是王城以及圣树，整个就是一把子震撼住。</li>
+<li>唯一要提及影响了一点游玩体验的就是boss战，难以体验到过招的感觉，如果想要爽快就只能将强力战技、骨灰全部一股脑儿用上才行。虽然我尚未玩过过往的魂游、只狼，但我觉得空洞骑士过招拆招的boss体验更好一些。</li>
+<li>优化导致的卡顿问题在禁用EAC之后基本得到解决。</li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/04/05/Pattern_Recognition3.31/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1150,206 +1317,6 @@ W由n个特征向量组成，\Sigma除对角线上的元素为特征值外，其
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/27/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">推荐系统</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-27 18:02:29" itemprop="dateCreated datePublished" datetime="2022-02-27T18:02:29+08:00">2022-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-11 20:59:18" itemprop="dateModified" datetime="2022-03-11T20:59:18+08:00">2022-03-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-Recommand-System/" itemprop="url" rel="index"><span itemprop="name">Learn Recommand System</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="推荐系统">推荐系统</h5>
-<h6 id="常用算法">常用算法</h6>
-<ul>
-<li>基于知识的推荐系统:
-<ul>
-<li>通过一定的工具，可能是NLP也可能是其他的，基于相似性生成推荐。</li>
-</ul></li>
-<li>基于内容的推荐系统:
-<ul>
-<li>通过用户过去的交互行为，比如最近购买的几个商品的属性相似度来进行推荐。但是有一定的范围限制。</li>
-</ul></li>
-<li><strong>协同过滤:</strong>
-<ul>
-<li>基于整个用户群的过去交互,因此会比之前的算法都要精确得多。</li>
-<li>最常见的就是基于k阶近邻的接收到测试样本(<strong>一般都是用ANN找近似最近邻</strong>):
-<ul>
-<li>找出当前用户最近的k个邻居，利用这k+1个构成一个聚类，然后进行排序并推荐。</li>
-<li>也可以产生两种变体:基于商品或者是基于用户的推荐方案。</li>
-<li>k阶近邻的协同过滤算法是懒惰学习的一种，在接收到测试样本的时候，才能进行训练。</li>
-</ul></li>
-<li>还有一种方案是基于规则的学习，但是它每次接收到测试样本都要进行重新训练。</li>
-<li>另一种是基于分解的的学习方法。</li>
-</ul></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2022/02/27/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/27/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">分布式架构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-27 17:59:00" itemprop="dateCreated datePublished" datetime="2022-02-27T17:59:00+08:00">2022-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-28 23:54:58" itemprop="dateModified" datetime="2022-02-28T23:54:58+08:00">2022-02-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learn-Distributed-architecture/" itemprop="url" rel="index"><span itemprop="name">Learn Distributed architecture</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="分布式架构">分布式架构</h3>
-<ul>
-<li>基本内容:
-<ul>
-<li>分布式系统中的计算机不存在主从之分，可以任意分布。</li>
-<li>并发访问导致对于并发性的处理至关重要</li>
-<li>缺乏全局时钟</li>
-<li>常常发生故障</li>
-<li>分布式系统的请求会产生三态:成功、失败或者是延时。</li>
-</ul></li>
-<li><strong>CAP理论</strong>: 一个系统不可能同时满足一致性、可用性、分区容错性这三个性质，最多同时满足两个。
-<ul>
-<li><strong>一致性</strong>指的是一个系统在<strong>更新</strong>之后，系统的<strong>数据仍然处于一致</strong>的状态，亦即所有的用户都可以读取到最新的值。</li>
-<li><strong>可用性</strong>指的是用户的<strong>每一个操作请求都可以在有限的时间内</strong>返回结果</li>
-<li><strong>分区容错性</strong>指的是分布式系统<strong>遇到任何网络分区故障</strong>的时候，仍然需要能够<strong>保证对外提供满足一致性的可用性的服务</strong></li>
-</ul></li>
-<li><strong>BASE理论</strong>:BASE是指既然无法做到强一致性，那么我们可以让每个应用根据自身情况达成最终一致性。
-<ul>
-<li>这就涉及了基本可用以及弱状态这两个性质:
-<ul>
-<li><strong>基本可用</strong>指的是分布式系统在出现不可预知故障的时候，允许损失部分可用性,比如响应时间或者功能降级之类的。</li>
-<li><strong>弱状态</strong>指的是允许存在达成一致性之前的中间状态。</li>
-<li><strong>最终一致性</strong>指的是系统在一定时间的同步之后可以达成一致性。</li>
-</ul></li>
-</ul></li>
-</ul>
-          <!--noindex-->
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1421,20 +1388,20 @@ W由n个特征向量组成，\Sigma除对角线上的元素为特征值外，其
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
