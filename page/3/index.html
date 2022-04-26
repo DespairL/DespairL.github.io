@@ -191,6 +191,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yanquan Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YQBlog | HaveFun!">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/24/%E8%A7%84%E5%88%99%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">chap.15 规则学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-24 11:34:59" itemprop="dateCreated datePublished" datetime="2021-12-24T11:34:59+08:00">2021-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-26 20:07:10" itemprop="dateModified" datetime="2021-12-26T20:07:10+08:00">2021-12-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-Note/" itemprop="url" rel="index"><span itemprop="name">ML Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="规则学习">规则学习</h4>
+<h5 id="基本概念">基本概念</h5>
+<ul>
+<li><p>规则通常是指语义明确、能描述数据分布隐含的客观规律或领域概念。规则学习就是从训练数据中学习出一组能够对未见实例进行判别的规则。</p></li>
+<li><p>规则都形如: <span class="math display">\[
+  rule\ head \leftarrow f_1 \land f_2\land ... \land f_L (rule \ body)
+  \]</span></p>
+<ul>
+<li>并且可以细分为命题规则以及一阶规则。
+<ul>
+<li>命题规则：原子命题+逻辑与、或、非、蕴含构成</li>
+<li>一阶规则：原子公式，有量词<span class="math inline">\(\forall,\exist\)</span>,能表达复杂的关系，因此亦称关系型规则。</li>
+</ul></li>
+</ul></li>
+<li><p>如果一个示例被判别结果不同的多条规则覆盖了，那么我们认为发生了冲突，解决冲突的办法是冲突消解——采用投票、排序（优先级）、元规则（关于规则的规则——ex:冲突时，用长度最小的规则）。</p></li>
+</ul>
+<h5 id="序贯覆盖">序贯覆盖</h5>
+<ul>
+<li><p>规则学习的目标是产生一个能覆盖尽可能多的样例的规则集，最直接的就是“序贯覆盖”(sequential covering)——逐条归纳，也被称为分治(separate-and-conquer)策略。</p></li>
+<li><p>最简单的做法是从空规则<span class="math inline">\(\oplus\leftarrow\)</span>开始，遍历训练集中的每个属性以及取值，如果其只包含正例就加入到规则体当中。</p></li>
+<li><p>但是，上述穷举的做法并不能很好地完成组合爆炸的任务。一般有top-down，bottom-up两种策略进行优化:</p>
+<ul>
+<li><p>top-down产生的规则泛化性能更好，对于噪声的鲁棒性更好，常用于命题逻辑；而bottom-up更适合训练样本少的情况，常用于一阶规则学习。</p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241401834.png" alt="image-20211224140128750" style="zoom:50%;" /></p>
+<p>先考虑规则准确率，准确率相同的时候考虑覆盖样例的数目，再相同的时候考虑属性优先顺序。</p></li>
+<li><p>如果想要避免局部最优，可以利用集束搜索，每轮保留最优的<span class="math inline">\(b\)</span>个属性，并将它们全部加入下一轮的候选集当中</p></li>
+</ul></li>
+<li><p>另外，规则生成总归还是一个贪心搜索的过程，因此需要一定措施来缓解过拟合风险：</p>
+<ul>
+<li><p>预剪枝，规则生成过程中剪枝</p>
+<ul>
+<li><p>CN2算法用LRS似然率统计量作为指标：</p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241410428.png" alt="image-20211224141026351" style="zoom:50%;" /></p></li>
+</ul></li>
+<li><p>后剪枝，规则生成后剪枝:</p>
+<ul>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241411376.png" alt="image-20211224141149301" style="zoom:50%;" /></p></li>
+<li><p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241415427.png" alt="image-20211224141552359" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/DespairL/typora-drawing-bed/raw/master/202112241416409.png" alt="image-20211224141657335" style="zoom:50%;" /></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h5 id="一阶规则学习">一阶规则学习</h5>
+<h5 id="归纳逻辑程序设计">归纳逻辑程序设计</h5>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/23/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -945,77 +1062,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://despairl.github.io/2021/12/21/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yanquan Chen">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YQBlog | HaveFun!">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/21/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-12-21 23:42:43" itemprop="dateCreated datePublished" datetime="2021-12-21T23:42:43+08:00">2021-12-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1087,7 +1133,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1100,7 +1146,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
